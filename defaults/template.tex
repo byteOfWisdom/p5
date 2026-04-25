@@ -1,0 +1,102 @@
+\documentclass{scrreprt}
+
+\KOMAoptions{fontsize=11pt, paper=a4} % Schriftgröße und Papierformat setzen.
+\KOMAoptions{DIV=12} % Parameter mit dem man den Seitenrand ändern kann.
+
+
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage[all]{hypcap}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage[german]{babel}
+\usepackage{siunitx}
+
+\sisetup{
+ separate-uncertainty = true,
+ multi-part-units=brackets, 
+ number-unit-product = \text{ }, 
+ mode=math, 
+ exponent-product = \cdot, 
+ output-product = \cdot,
+ output-decimal-marker = {,}
+}
+
+\usepackage{ circuitikz }
+\usepackage{biblatex}
+
+\bibliography{references}
+
+
+
+% common macros so i don't have to import packages or type too much
+\def\diff#1#2{\frac{\text{d}#1}{\text{d}#2}}
+\def\diffp#1#2{\frac{\partial#1}{\partial#2}}
+\def\imply{\Longrightarrow}
+\def\d#1{\text{d}#1\text{ }}
+\def\equiv{\Longleftrightarrow} % synonym for \iff
+
+
+
+
+\def\jafp#1#2{
+	\begin{center}
+		\includegraphics[width=0.8\textwidth]{#1}
+		%\includegraphics[height=0.4\textheight]{#1}
+		\captionof{figure}{#2}
+		\label{fig:#1}
+	\end{center}
+}
+
+\def\jafps#1#2#3{
+	\begin{figure}[H]
+    \centering
+		\includegraphics[width=#3\textwidth]{#1}
+		%\includegraphics[height=0.4\textheight]{#1}
+		\captionof{figure}{#2}
+		\label{fig:#1}
+	\end{figure}
+}
+
+
+\def\jafpp#1#2#3#4{
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}{0.45\textwidth}
+			\centering
+			\includegraphics[width = \textwidth]{#1}
+			\caption{}
+			\label{fig:#1}
+		\end{subfigure}
+		\begin{subfigure}{0.45\textwidth}
+			\centering
+			\includegraphics[width = \textwidth]{#3}
+			\caption{}
+			\label{fig:#3}
+		\end{subfigure}
+		\caption{a) #2 und b) #4}
+	\end{figure}
+}
+
+
+\def\ergo{\Rightarrow} %silly stuff for me
+
+\addtokomafont{chapterprefix}{\raggedleft}
+\addtokomafont{chapter}{\Large}
+\addtokomafont{section}{\large}
+\addtokomafont{subsection}{\large}
+\addtokomafont{subsubsection}{\large}
+
+
+\makeatletter
+\renewcommand\chapter{\thispagestyle{plain}%
+  \global\@topnum\z@
+  \@afterindentfalse
+  \secdef\@chapter\@schapter}
+\makeatother
+
+\usepackage{graphicx}
+\graphicspath{{./figs/}}
+\setlength\parindent{0pt}
+
