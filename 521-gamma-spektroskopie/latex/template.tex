@@ -1,0 +1,149 @@
+\documentclass{scrreprt}
+
+\KOMAoptions{fontsize=11pt, paper=a4} % Schriftgröße und Papierformat setzen.
+\KOMAoptions{DIV=16} % Parameter mit dem man den Seitenrand ändern kann.
+
+
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage[all]{hypcap}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage[german]{babel}
+\usepackage{siunitx}
+\usepackage{physics}
+\usepackage[version=4]{mhchem}
+\usepackage{pdfpages}
+\usepackage{longtable}
+
+\sisetup{
+	separate-uncertainty = true,
+	multi-part-units=brackets,
+	number-unit-product = \text{ },
+	mode=math,
+	exponent-product = \cdot,
+	output-product = \cdot,
+	output-decimal-marker = {,}
+}
+
+\usepackage{ circuitikz }
+
+\usepackage[backend=biber, style=numeric]{biblatex} % do not change this, the whole thing will break
+% \usepackage{bibtex}
+% \usepackage[backend=bibtex]{biblatex}
+
+% \usepackage[headsepline=true,markcase=upper]{scrlayer-scrpage}
+% \automark[chapter]{chapter}
+% \ohead*{521: $\gamma$-Spektroskopie} % outer head on even & odd pages
+% \setkomafont{pagehead}{\tiny\bfseries}
+
+
+
+
+% common macros so i don't have to import packages or type too much
+\def\diff#1#2{\frac{\text{d}#1}{\text{d}#2}}
+\def\diffp#1#2{\frac{\partial#1}{\partial#2}}
+\def\imply{\Longrightarrow}
+\def\d#1{\text{d}#1\text{ }}
+%\def\equiv{\Longleftrightarrow} % synonym for \iff
+
+
+\def\todo#1{
+	\textbf{\textcolor{blue}{[#1]}}
+}
+\def\moszwei{$\text{MoS}_2$}
+
+
+
+
+
+\def\jafp#1#2{
+	\begin{center}
+		\includegraphics[width=0.8\textwidth]{#1}
+		%\includegraphics[height=0.4\textheight]{#1}
+		\captionof{figure}{#2}
+		\label{fig:#1}
+	\end{center}
+}
+
+\def\jafps#1#2#3{
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=#3\textwidth]{#1}
+		%\includegraphics[height=0.4\textheight]{#1}
+		\captionof{figure}{#2}
+		\label{fig:#1}
+	\end{figure}
+}
+
+\def\jafpsw#1#2#3{
+	\begin{figure*}[h]
+		\centering
+		\includegraphics[width=#3\textwidth]{#1}
+		%\includegraphics[height=0.4\textheight]{#1}
+		\captionof{figure}{#2}
+		\label{fig:#1}
+	\end{figure*}
+}
+
+
+\def\jafpp#1#2#3#4{
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}{0.45\textwidth}
+			\centering
+			\includegraphics[width = \textwidth]{#1}
+			\caption{}
+			\label{fig:#1}
+		\end{subfigure}
+		\begin{subfigure}{0.45\textwidth}
+			\centering
+			\includegraphics[width = \textwidth]{#3}
+			\caption{}
+			\label{fig:#3}
+		\end{subfigure}
+		\caption{a) #2 und b) #4}
+	\end{figure}
+}
+
+\def\jafpsh#1#2#3{
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=#3\textwidth]{#1}
+		%\includegraphics[height=0.4\textheight]{#1}
+		\captionof{figure}{#2}
+		\label{fig:#1}
+	\end{figure}
+}
+
+
+
+
+\def\ergo{\Rightarrow} %silly stuff for me
+
+\addtokomafont{chapterprefix}{\raggedleft}
+\addtokomafont{chapter}{\Large}
+\addtokomafont{section}{\large}
+\addtokomafont{subsection}{\large}
+\addtokomafont{subsubsection}{\large}
+
+
+\makeatletter
+\renewcommand\chapter{\thispagestyle{plain}%
+  \global\@topnum\z@
+  \@afterindentfalse
+  \secdef\@chapter\@schapter}
+\makeatother
+
+\DeclareSIUnit\angstrom{\protect \text  {Å}}
+
+
+\usepackage{graphicx}
+
+
+%\titlehead{\centering\includegraphics[width=0.6\textwidth]{mos2_usb.jpg}} %for a title picture
+\graphicspath{{../figs/}}
+\author{\todo{Names}}
+
+\setlength\parindent{0pt}
