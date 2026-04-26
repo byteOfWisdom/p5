@@ -18,9 +18,9 @@ def get_area(amplitudes):
         prev_avg_amp = np.average([amplitudes[max_id + (area_size - 1)], amplitudes[max_id - (area_size - 1)]])
         if avg_amp >= prev_avg_amp:
             violation_counter += 1
-        if avg_amp < 0.9 * amplitudes[max_id]:
+        if avg_amp < 0.5 * amplitudes[max_id]:
             violation_counter += 1
-        if violation_counter > 50:
+        if violation_counter > 10:
             break
         area_size += 1
     return area_size
@@ -29,13 +29,22 @@ def get_area(amplitudes):
 def fit_biggest_peak(channel, amplitude):
     max_id = np.where(amplitude == max(amplitude))[0][0]
     print(max_id)
-    area_size = get_area(amplitude)
-    p0 = [amplitude[max_id], channel[max_id], channel[max_id + area_size] - channel[max_id]]
-    channel_cut = channel[max_id - area_size:max_id + area_size]
-    amplitude_cut = amplitude[max_id - area_size:max_id + area_size]
-    fit_res, (_, goodness) = std.fit_func(std.gaussian, channel_cut, amplitude_cut, p0=p0, force_cf=True)
-    plt.plot(channel_cut, amplitude_cut)
-    return fit_res, goodness
+    best_fit_res = np.array([])
+    best_r2 = 0
+    for i in range(3, 10):
+        # area_size = get_area(amplitude)
+        area_size = 2 ** i
+        if max_id - area_size < 0 or max_id + area_size >= len(channel):
+            break
+        p0 = [amplitude[max_id], channel[max_id], channel[max_id + area_size] - channel[max_id]]
+        channel_cut = channel[max_id - area_size:max_id + area_size]
+        amplitude_cut = amplitude[max_id - area_size:max_id + area_size]
+        fit_res, (_, goodness) = std.fit_func(std.gaussian, channel_cut, amplitude_cut, p0=p0, force_cf=True)
+        if goodness > best_r2:
+            best_r2 = goodness
+            best_fit_res = fit_res
+        plt.plot(channel_cut, amplitude_cut)
+    return best_fit_res, best_r2
 
 
 def decomp_spectrum(channel, amplitude):
