@@ -4,20 +4,20 @@ from matplotlib import pyplot as plt
 import copy
 
 
-plot_subfits = True
+plot_subfits = False
 
 
 def get_area(amplitudes):
     max_id = np.where(amplitudes == max(amplitudes))[0][0]
     is_big = amplitudes > 0.5 * amplitudes[max_id + 1]
     upper = max_id
-    noise_rejection = 3
+    noise_rejection = 2
     while np.any(is_big[upper:upper + noise_rejection]):
         upper += 1
     lower = max_id
     while np.any(is_big[lower - noise_rejection:lower]):
         lower -= 1
-    return lower, upper 
+    return lower, upper
 
 
 def fit_biggest_peak(channel, amplitude):
@@ -29,12 +29,13 @@ def fit_biggest_peak(channel, amplitude):
     fit_res, (_, goodness) = std.fit_func(lambda x, sigma: std.gaussian(x, amplitude[max_id], channel[max_id], sigma), channel_cut, amplitude_cut, p0=p0, force_cf=True)
     if plot_subfits:
         plt.plot(channel_cut, amplitude_cut, color="red")
-    return np.array([amplitude[max_id], channel[max_id], fit_res[0]]), goodness
+    snr = np.log(amplitude[max_id]) * (upper - lower)
+    return np.array([amplitude[max_id], channel[max_id], fit_res[0]]), snr
 
 
 def decomp_spectrum(channel, amplitude, underground_fn):
     fits = []
-    goodness = []
+    snr = []
 
     ug_fit, _ = std.fit_func(underground_fn, channel[amplitude < 0.05 * max(amplitude)], amplitude[amplitude < 0.05 * max(amplitude)], force_cf=True)
     
@@ -52,7 +53,7 @@ def decomp_spectrum(channel, amplitude, underground_fn):
         reduced_amps -= std.gaussian(channel, *res)
         reduced_amps[reduced_amps < 0] = 0
         fits.append(np.abs(res))
-        goodness.append(r_sq)
+        snr.append(r_sq)
 
 
     print(max(amplitude))
@@ -61,9 +62,11 @@ def decomp_spectrum(channel, amplitude, underground_fn):
     valid_lines = []
     lc = 0
 
-    for params, goodness in zip(fits, goodness):
-        # if goodness < 0.2:
-        #     continue
+    print("a    \t   mu  \t     sigma")
+    for params, snr in zip(fits, snr):
+        print(f"{params[0]}\t{params[1]}\t{params[2]}\t")
+        if snr < 0.1:
+            continue
         if params[0] > 1.2 * max(amplitude):
             continue
         if params[1] > max(channel) or params[1] < min(channel):
@@ -75,7 +78,7 @@ def decomp_spectrum(channel, amplitude, underground_fn):
 
     print(lc)
     all_lines = std.make_n_gaussian(lc)
-    res, _ = std.fit_func(all_lines, channel, amplitude, p0=valid_lines, force_cf=True)
+    res, _ = std.fit_func(all_lines, channel, amplitude, y_errors=np.sqrt(amplitude), p0=valid_lines, force_cf=True)
 
     plt.plot(channel, amplitude)
     plt.plot(channel, all_lines(channel, *res))
