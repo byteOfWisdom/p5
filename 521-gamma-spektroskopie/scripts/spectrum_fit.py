@@ -1,19 +1,21 @@
-# from scipy import curve_fit
 import numpy as np
 import std
 from matplotlib import pyplot as plt
 import copy
 
 
+plot_subfits = True
+
+
 def get_area(amplitudes):
-    amplitudes = np.convolve(amplitudes, np.ones(10), mode="same")
     max_id = np.where(amplitudes == max(amplitudes))[0][0]
-    is_big = amplitudes > 0.5 * np.average(amplitudes[max_id - 10: max_id + 10])
+    is_big = amplitudes > 0.5 * amplitudes[max_id + 1]
     upper = max_id
-    while is_big[upper] or is_big[upper + 1]:
+    noise_rejection = 3
+    while np.any(is_big[upper:upper + noise_rejection]):
         upper += 1
     lower = max_id
-    while is_big[lower] or is_big[lower - 1]:
+    while np.any(is_big[lower - noise_rejection:lower]):
         lower -= 1
     return lower, upper 
 
@@ -21,12 +23,13 @@ def get_area(amplitudes):
 def fit_biggest_peak(channel, amplitude):
     max_id = np.where(amplitude == max(amplitude))[0][0]
     lower, upper = get_area(amplitude)
-    p0 = [amplitude[max_id], channel[max_id], channel[max_id + upper] - channel[max_id]]
+    p0 = [(channel[upper] - channel[lower]) / 2.5]
     channel_cut = channel[lower:upper]
     amplitude_cut = amplitude[lower:upper]
-    fit_res, (_, goodness) = std.fit_func(std.gaussian, channel_cut, amplitude_cut, p0=p0, force_cf=True)
-    # plt.plot(channel_cut, amplitude_cut)
-    return fit_res, goodness
+    fit_res, (_, goodness) = std.fit_func(lambda x, sigma: std.gaussian(x, amplitude[max_id], channel[max_id], sigma), channel_cut, amplitude_cut, p0=p0, force_cf=True)
+    if plot_subfits:
+        plt.plot(channel_cut, amplitude_cut, color="red")
+    return np.array([amplitude[max_id], channel[max_id], fit_res[0]]), goodness
 
 
 def decomp_spectrum(channel, amplitude, underground_fn):
@@ -37,13 +40,14 @@ def decomp_spectrum(channel, amplitude, underground_fn):
     
     reduced_amps = copy.copy(amplitude)
     reduced_amps = reduced_amps - underground_fn(channel, *ug_fit)
-    # plt.plot(channel, underground_fn(channel, *ug_fit))
     while max(reduced_amps) > 0.1 * max(amplitude):
-        # plt.plot(channel, reduced_amps)
+        if plot_subfits:
+            plt.plot(channel, reduced_amps)
         res, r_sq = fit_biggest_peak(channel, reduced_amps)
-        print(r_sq)
-        # plt.plot(channel, std.gaussian(channel, *res), linestyle="dashed")
-        # plt.show()
+        if plot_subfits:
+            print(r_sq)
+            plt.plot(channel, std.gaussian(channel, *res), linestyle="dashed")
+            plt.show()
 
         reduced_amps -= std.gaussian(channel, *res)
         reduced_amps[reduced_amps < 0] = 0
@@ -70,7 +74,6 @@ def decomp_spectrum(channel, amplitude, underground_fn):
         lc += 1
 
     print(lc)
-    print(valid_lines)
     all_lines = std.make_n_gaussian(lc)
     res, _ = std.fit_func(all_lines, channel, amplitude, p0=valid_lines, force_cf=True)
 
