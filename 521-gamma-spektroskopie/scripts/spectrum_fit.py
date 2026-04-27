@@ -5,46 +5,64 @@ from matplotlib import pyplot as plt
 import copy
 
 
+# def get_area(amplitudes):
+#     amplitudes = np.convolve(amplitudes, np.ones(10), mode="same")
+#     # plt.cla()
+#     # plt.plot(amplitudes)
+#     # plt.show()
+#     max_id = np.where(amplitudes == max(amplitudes))[0][0]
+#     area_size = 1
+#     violation_counter = 0
+#     while 1:
+#         avg_amp = np.average([amplitudes[max_id + area_size], amplitudes[max_id - area_size]])
+#         prev_avg_amp = np.average([amplitudes[max_id + (area_size - 1)], amplitudes[max_id - (area_size - 1)]])
+#         if avg_amp >= prev_avg_amp:
+#             violation_counter += 1
+#         if avg_amp < 0.5 * amplitudes[max_id]:
+#             violation_counter += 1
+#         if violation_counter > 10:
+#             break
+#         area_size += 1
+#     return area_size
+
+
+# def get_area(amplitudes, chunk = 30):
+#     # amplitudes = np.convolve(amplitudes, np.ones(30), mode="same")
+    # max_id = np.where(amplitudes == max(amplitudes))[0][0]
+#     x = max_id + chunk
+#     while np.average(amplitudes[x - chunk:x]) > np.average(amplitudes[x:x + chunk]):
+#         x += 1
+
+#     y = max_id - chunk
+#     while np.average(amplitudes[y:y + chunk]) > np.average(amplitudes[y - chunk:y]):
+#         y -= 1
+
+#     return y, x
+
+
 def get_area(amplitudes):
     amplitudes = np.convolve(amplitudes, np.ones(10), mode="same")
-    # plt.cla()
-    # plt.plot(amplitudes)
-    # plt.show()
     max_id = np.where(amplitudes == max(amplitudes))[0][0]
-    area_size = 1
-    violation_counter = 0
-    while 1:
-        avg_amp = np.average([amplitudes[max_id + area_size], amplitudes[max_id - area_size]])
-        prev_avg_amp = np.average([amplitudes[max_id + (area_size - 1)], amplitudes[max_id - (area_size - 1)]])
-        if avg_amp >= prev_avg_amp:
-            violation_counter += 1
-        if avg_amp < 0.5 * amplitudes[max_id]:
-            violation_counter += 1
-        if violation_counter > 10:
-            break
-        area_size += 1
-    return area_size
+    is_big = amplitudes > 0.5 * np.average(amplitudes[max_id - 10: max_id + 10])
+    upper = max_id
+    while is_big[upper]:
+        upper += 1
+    lower = max_id
+    while is_big[lower]:
+        lower -= 1
+    return lower, upper 
 
 
 def fit_biggest_peak(channel, amplitude):
     max_id = np.where(amplitude == max(amplitude))[0][0]
     print(max_id)
-    best_fit_res = np.array([])
-    best_r2 = 0
-    for i in range(3, 10):
-        # area_size = get_area(amplitude)
-        area_size = 2 ** i
-        if max_id - area_size < 0 or max_id + area_size >= len(channel):
-            break
-        p0 = [amplitude[max_id], channel[max_id], channel[max_id + area_size] - channel[max_id]]
-        channel_cut = channel[max_id - area_size:max_id + area_size]
-        amplitude_cut = amplitude[max_id - area_size:max_id + area_size]
-        fit_res, (_, goodness) = std.fit_func(std.gaussian, channel_cut, amplitude_cut, p0=p0, force_cf=True)
-        if goodness > best_r2:
-            best_r2 = goodness
-            best_fit_res = fit_res
-        plt.plot(channel_cut, amplitude_cut)
-    return best_fit_res, best_r2
+    lower, upper = get_area(amplitude)
+    p0 = [amplitude[max_id], channel[max_id], channel[max_id + upper] - channel[max_id]]
+    channel_cut = channel[lower:upper]
+    amplitude_cut = amplitude[lower:upper]
+    fit_res, (_, goodness) = std.fit_func(std.gaussian, channel_cut, amplitude_cut, p0=p0, force_cf=True)
+    plt.plot(channel_cut, amplitude_cut)
+    return fit_res, goodness
 
 
 def decomp_spectrum(channel, amplitude):
@@ -60,7 +78,7 @@ def decomp_spectrum(channel, amplitude):
 
         reduced_amps -= std.gaussian(channel, *res)
         reduced_amps[reduced_amps < 0] = 0
-        fits.append(res)
+        fits.append(np.abs(res))
         goodness.append(r_sq)
 
 
