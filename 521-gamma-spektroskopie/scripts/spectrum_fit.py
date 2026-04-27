@@ -84,7 +84,7 @@ def decomp_spectrum(channel, amplitude, underground_fn, ug_arg_count, save_fig=F
     ug_fit, _ = std.fit_func(
         underground_fn, channel[amplitude < 0.05 * max(amplitude)],
         amplitude[amplitude < 0.05 * max(amplitude)], force_cf=True)
-    
+
     reduced_amps = copy.copy(amplitude)
     reduced_amps = reduced_amps - underground_fn(channel, *ug_fit)
     fits, snr = strip_spectrum(channel, reduced_amps, 0.1 * max(amplitude))
