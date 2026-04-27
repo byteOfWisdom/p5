@@ -76,9 +76,11 @@ def decomp_spectrum(channel, amplitude, underground_fn):
         valid_lines = np.append(valid_lines, params)
         lc += 1
 
-    print(lc)
+    if plot_subfits:
+        print(lc)
     all_lines = std.make_n_gaussian(lc)
-    res, _ = std.fit_func(all_lines, channel, amplitude, y_errors=np.sqrt(amplitude), p0=valid_lines, force_cf=True)
+    with_ug = lambda x, *args: all_lines(x, *args[:3 * lc]) + underground_fn(x, args[3 * lc:])
+    res, _ = std.fit_func(with_ug, channel, amplitude, y_errors=np.sqrt(amplitude), p0=valid_lines, force_cf=True)
 
     plt.plot(channel, amplitude)
     plt.plot(channel, all_lines(channel, *res))
