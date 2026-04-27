@@ -5,45 +5,10 @@ from matplotlib import pyplot as plt
 import copy
 
 
-# def get_area(amplitudes):
-#     amplitudes = np.convolve(amplitudes, np.ones(10), mode="same")
-#     # plt.cla()
-#     # plt.plot(amplitudes)
-#     # plt.show()
-#     max_id = np.where(amplitudes == max(amplitudes))[0][0]
-#     area_size = 1
-#     violation_counter = 0
-#     while 1:
-#         avg_amp = np.average([amplitudes[max_id + area_size], amplitudes[max_id - area_size]])
-#         prev_avg_amp = np.average([amplitudes[max_id + (area_size - 1)], amplitudes[max_id - (area_size - 1)]])
-#         if avg_amp >= prev_avg_amp:
-#             violation_counter += 1
-#         if avg_amp < 0.5 * amplitudes[max_id]:
-#             violation_counter += 1
-#         if violation_counter > 10:
-#             break
-#         area_size += 1
-#     return area_size
-
-
-# def get_area(amplitudes, chunk = 30):
-#     # amplitudes = np.convolve(amplitudes, np.ones(30), mode="same")
-    # max_id = np.where(amplitudes == max(amplitudes))[0][0]
-#     x = max_id + chunk
-#     while np.average(amplitudes[x - chunk:x]) > np.average(amplitudes[x:x + chunk]):
-#         x += 1
-
-#     y = max_id - chunk
-#     while np.average(amplitudes[y:y + chunk]) > np.average(amplitudes[y - chunk:y]):
-#         y -= 1
-
-#     return y, x
-
-
 def get_area(amplitudes):
-    amplitudes = np.convolve(amplitudes, np.ones(10), mode="same")
+    amplitudes = np.convolve(amplitudes, np.ones(20), mode="same")
     max_id = np.where(amplitudes == max(amplitudes))[0][0]
-    is_big = amplitudes > 0.5 * np.average(amplitudes[max_id - 10: max_id + 10])
+    is_big = amplitudes > 0.75 * np.average(amplitudes[max_id - 10: max_id + 10])
     upper = max_id
     while is_big[upper]:
         upper += 1
