@@ -37,7 +37,7 @@ def decomp_spectrum(channel, amplitude, underground_fn):
     
     reduced_amps = copy.copy(amplitude)
     reduced_amps = reduced_amps - underground_fn(channel, *ug_fit)
-    plt.plot(channel, underground_fn(channel, *ug_fit))
+    # plt.plot(channel, underground_fn(channel, *ug_fit))
     while max(reduced_amps) > 0.1 * max(amplitude):
         # plt.plot(channel, reduced_amps)
         res, r_sq = fit_biggest_peak(channel, reduced_amps)
