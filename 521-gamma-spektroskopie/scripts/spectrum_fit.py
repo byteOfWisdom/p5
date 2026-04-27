@@ -2,7 +2,7 @@ import numpy as np
 import std
 from matplotlib import pyplot as plt
 import copy
-
+import propeller as p
 
 plot_subfits = False
 
@@ -33,7 +33,7 @@ def fit_biggest_peak(channel, amplitude):
     return np.array([amplitude[max_id], channel[max_id], fit_res[0]]), snr
 
 
-def decomp_spectrum(channel, amplitude, underground_fn):
+def decomp_spectrum(channel, amplitude, underground_fn, ug_arg_count, save_fig=False):
     fits = []
     snr = []
 
@@ -56,16 +56,15 @@ def decomp_spectrum(channel, amplitude, underground_fn):
         snr.append(r_sq)
 
 
-    print(max(amplitude))
-    print(fits)
     # filter sensible peaks
     valid_lines = []
     lc = 0
 
-    print("a    \t   mu  \t     sigma")
+    # print("a    \t   mu  \t     sigma")
     for params, snr in zip(fits, snr):
-        print(f"{params[0]}\t{params[1]}\t{params[2]}\t")
+        # print(f"{params[0]}\t{params[1]}\t{params[2]}\t")
         if snr < 0.1:
+            print("this should not be printed!!")
             continue
         if params[0] > 1.2 * max(amplitude):
             continue
@@ -79,11 +78,28 @@ def decomp_spectrum(channel, amplitude, underground_fn):
     if plot_subfits:
         print(lc)
     all_lines = std.make_n_gaussian(lc)
-    with_ug = lambda x, *args: all_lines(x, *args[:3 * lc]) + underground_fn(x, args[3 * lc:])
-    res, _ = std.fit_func(with_ug, channel, amplitude, y_errors=np.sqrt(amplitude), p0=valid_lines, force_cf=True)
+    with_ug = lambda x, *args: all_lines(x, *args[:3 * lc]) + underground_fn(x, *args[3 * lc:])
+    res, (std_devs, goodness) = std.fit_func(with_ug, channel, amplitude, y_errors=np.sqrt(amplitude), p0=np.append(valid_lines, np.zeros(ug_arg_count)), force_cf=True)
 
+    std.default.plt_pretty("Kanal", "Anzahl")
     plt.plot(channel, amplitude)
-    plt.plot(channel, all_lines(channel, *res))
-    plt.vlines(res[1::3], 0, 500, colors="yellow", linestyles="dashed")
-    plt.show()
-    return res
+    plt.plot(channel, with_ug(channel, *res), label=f"$R^2={round(goodness, 3)}$")
+    plt.legend()
+    for i in range(lc):
+        plt.plot(channel, std.gaussian(channel, res[3 * i], res[3 * i + 1], res[3 * i + 2]) + underground_fn(channel, *res[-ug_arg_count:]), linestyle="dashed")
+    plt.vlines(res[1:-ug_arg_count:3], 0, 500, colors="green", linestyles="dotted", linewidth=1)
+    if save_fig:
+        plt.savefig(save_fig)
+        plt.cla()
+    else:
+        plt.show()
+
+    res = p.ev(res, std_devs)
+    res_dict = {
+        "amp": res[0:-ug_arg_count:3],
+        "mu": res[1:-ug_arg_count:3],
+        "sigma": res[2:-ug_arg_count:3],
+        "ug_params": res[-ug_arg_count:],
+    }
+    
+    return res_dict, goodness
