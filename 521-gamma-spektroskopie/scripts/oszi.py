@@ -43,8 +43,9 @@ def plot_as_subfigs(files,corrected=False):
             volts=rel_volts(volts)
 
         axs[first_ind,second_ind].plot(times*1e6,volts, color="tab:green",linewidth=0.8)
-       # print("plotting "+files[i])
-        axs[first_ind,second_ind].set_title("Aufnahme "+str(i))
+        print("plotting "+files[i])
+        rec = str(i) if i != 0 else "4"
+        axs[first_ind,second_ind].set_title("Aufnahme "+rec)
         axs[first_ind,second_ind].grid(which="major")
         axs[first_ind,second_ind].grid(which="minor", linestyle=":", linewidth=0.5)
         axs[first_ind,second_ind].minorticks_on()
