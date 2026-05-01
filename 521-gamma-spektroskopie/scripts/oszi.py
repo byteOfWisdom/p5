@@ -16,13 +16,13 @@ def rel_volts(volts):
     #print(corr_volts[50])
     return corr_volts
 
-def plot_as_seperate(times, voltages,file,corrected=False):
+def plot_as_seperate(times, voltages,file,index,corrected=False):
     #plt.style.use("dark_background")
     # optionally correct voltages for zero position
-    if corrected == True:
+    if corrected:
         voltages = rel_volts(voltages)
 
-    plt.plot(times*1e6,voltages,color="tab:green",label="Aufnahme "+file,linewidth=0.8)
+    plt.plot(times*1e6,voltages,color="tab:green",label="Aufnahme "+index,linewidth=0.8)
     std.default.plt_pretty(r"Zeit / $\mu$s","Spannung / V")
     plt.legend()
     plt.savefig("../figs/oszi_uncorr_"+file+".pdf")
@@ -39,7 +39,7 @@ def plot_as_subfigs(files,corrected=False):
 
         times, volts, index = get_data(files[i])
         #optionally correct voltages for zero position
-        if corrected == True:
+        if corrected:
             volts=rel_volts(volts)
 
         axs[first_ind,second_ind].plot(times*1e6,volts, color="tab:green",linewidth=0.8)
@@ -55,11 +55,15 @@ def plot_as_subfigs(files,corrected=False):
 def plotting_figs(files,seperate=True):
     if seperate == False:
         plot_as_subfigs(files)
-        plt.savefig("../figs/oszi_uncorr_files_"+files[1]+"-"+files[-1]+".pdf")
+        plt.savefig("../figs/oszi_uncorr_files_"+files[0]+"-"+files[-1]+".pdf")
         return
     else:
+        runn_ind = 1
         for i in files:
-            index = plot_as_seperate(*get_data(i),corrected=False)
+            #print(runn_ind)
+            index = plot_as_seperate(*get_data(i),corrected=False,index=str(runn_ind))
+            runn_ind += 1
+
     return
 
 def main():
