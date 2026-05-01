@@ -38,8 +38,10 @@ def fit_biggest_peak(channel, amplitude):
 def strip_spectrum(channel, amplitude, ref_level):
     fits = []
     snr = []
+    count = 0
 
-    while max(amplitude) > ref_level:
+    while max(amplitude) > ref_level and count < 20:
+        count += 1
         if plot_subfits:
             plt.plot(channel, amplitude)
         res, r_sq = fit_biggest_peak(channel, amplitude)
@@ -87,7 +89,7 @@ def decomp_spectrum(channel, amplitude, underground_fn, ug_arg_count, save_fig=F
 
     reduced_amps = copy.copy(amplitude)
     reduced_amps = reduced_amps - underground_fn(channel, *ug_fit)
-    fits, snr = strip_spectrum(channel, reduced_amps, 0.1 * max(amplitude))
+    fits, snr = strip_spectrum(channel, reduced_amps, 0.05 * max(amplitude))
 
     # filter sensible peaks
     valid_lines = []
