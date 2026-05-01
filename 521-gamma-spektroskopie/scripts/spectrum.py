@@ -11,6 +11,7 @@ def main():
     print(lines)
     if len(argv) > 3:
         std.print_tex_table(lines, argv[3])
+    return
 
 if __name__ == "__main__":
     main()
