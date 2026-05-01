@@ -51,6 +51,7 @@ def strip_spectrum(channel, amplitude, ref_level):
     count = 0
 
     const = len(amplitude) // 1000
+    ref_level = np.convolve(amplitude, np.ones(const), "same")
 
     definite_peaks = std.diff_find_maxima(amplitude, const)
     for i in range(len(definite_peaks)):
