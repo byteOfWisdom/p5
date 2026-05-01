@@ -32,7 +32,7 @@ def plot_as_seperate(times, voltages,file,index,corrected=False):
 
 def plot_as_subfigs(files,corrected=False):
     fig, axs = plt.subplots(nrows=2, ncols=2)
-    for i in range(1,len(files)):
+    for i in range(0,len(files)):
         #assign position on 2x2 grid
         first_ind = 0 if i in [1,2] else 1
         second_ind = 0 if i in [1,3] else 1
@@ -43,6 +43,7 @@ def plot_as_subfigs(files,corrected=False):
             volts=rel_volts(volts)
 
         axs[first_ind,second_ind].plot(times*1e6,volts, color="tab:green",linewidth=0.8)
+       # print("plotting "+files[i])
         axs[first_ind,second_ind].set_title("Aufnahme "+str(i))
         axs[first_ind,second_ind].grid(which="major")
         axs[first_ind,second_ind].grid(which="minor", linestyle=":", linewidth=0.5)
@@ -53,21 +54,22 @@ def plot_as_subfigs(files,corrected=False):
     return
 
 def plotting_figs(files,seperate=True):
-    if seperate == False:
-        plot_as_subfigs(files)
-        plt.savefig("../figs/oszi_uncorr_files_"+files[0]+"-"+files[-1]+".pdf")
-        return
-    else:
+    if seperate:
         runn_ind = 1
         for i in files:
             #print(runn_ind)
             index = plot_as_seperate(*get_data(i),corrected=False,index=str(runn_ind))
             runn_ind += 1
+        return
+    else:
+        plot_as_subfigs(files)
+        plt.savefig("../figs/oszi_uncorr_files_"+files[0]+"-"+files[-1]+".pdf")
+        return
 
-    return
 
 def main():
-    plotting_figs(argv[1:],seperate=False)
+
+    plotting_figs(argv[1:5],seperate=False)
     #correct files:
         # 6 7 8 9
         # 1 3 4 5
