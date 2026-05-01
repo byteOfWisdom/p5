@@ -67,9 +67,12 @@ def plotting_figs(files,seperate=True):
         plt.savefig("../figs/oszi_uncorr_files_"+files[0]+"-"+files[-1]+".pdf")
         return
 
+def analyse_shape():
+    # TO DO
+    return
+
 
 def main():
-
     plotting_figs(argv[1:5],seperate=False)
     #correct files:
         # 6 7 8 9
