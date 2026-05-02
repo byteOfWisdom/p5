@@ -45,22 +45,59 @@ def fit_biggest_peak(channel, amplitude):
     return np.array([amplitude[max_id], channel[max_id], fit_res[0]]), snr
 
 
+def make_peak_view(amplitude):
+    const = len(amplitude) // 100
+    baseline_level = amplitude
+    # kernel = std.gaussian(np.linspace(0, 2, const), 1, 1, 1.75)
+    kernel = std.gaussian(np.linspace(0, 2, len(amplitude)), 1, 1, 1.75 / const)
+    for _ in range(1):
+        baseline_level = np.convolve(baseline_level, kernel, "same") / sum(kernel)
+    kernel = std.gaussian(np.linspace(0, 2, const), 1, 1, 0.75)
+    for _ in range(1):
+        baseline_level = np.convolve(baseline_level, kernel, "same") / const
+    # for sigma in np.linspace(1.75, 0.75, 5):
+    #     kernel = std.gaussian(np.linspace(0, 2, const), 1, 1, sigma)
+    #     baseline_level = np.convolve(baseline_level, kernel, "same") / const
+        
+    return baseline_level
+    
+
+
+def find_gaussian_peaks(channel, amplitude):
+    peak_view = make_peak_view(amplitude)
+    const = len(amplitude) // 1000
+    
+    definite_peaks = std.diff_find_maxima(peak_view, const)
+
+    for peak in definite_peaks:
+        p0 = 1
+        res, _ = std.fit_func(std.gaussian, peak_view, channel, p0=p0, force_cf=True)
+        
+
+
 def strip_spectrum(channel, amplitude, ref_level):
     fits = []
     snr = []
     count = 0
 
     const = len(amplitude) // 1000
-    ref_level = np.convolve(amplitude, np.ones(const), "same")
+    peak_view = make_peak_view(amplitude)
 
-    definite_peaks = std.diff_find_maxima(amplitude, const)
+    plt.plot(peak_view)
+    # plt.show()
+    
+    definite_peaks = std.diff_find_maxima(peak_view, const)
+    # definite_peaks, _ = scipy.signal.find_peaks(peak_view, width=130, prominence=5)
+    print(definite_peaks)
     for i in range(len(definite_peaks)):
         rough_peak = definite_peaks[i]
         around = amplitude[rough_peak - const:rough_peak + const]
         peak = np.where(around == max(around))[0][0] + rough_peak - const
         definite_peaks[i] = peak
 
+    plt.plot(channel, amplitude)
     plt.scatter(definite_peaks, amplitude[definite_peaks], color="purple")
+    plt.show()
 
     print(definite_peaks)
     for peak in definite_peaks:
@@ -88,7 +125,11 @@ def strip_spectrum(channel, amplitude, ref_level):
         fits.append(np.abs(res))
         snr.append(r_sq)
 
-    while max(amplitude) > ref_level and count < 10:
+    peak_view = make_peak_view(amplitude)
+    # ref_level = max(amplitude) * ref_level
+    ref_level = max(peak_view) * ref_level
+
+    while max(amplitude) > ref_level and count < 20:
         count += 1
         if plot_subfits:
             plt.plot(channel, amplitude)
@@ -98,8 +139,14 @@ def strip_spectrum(channel, amplitude, ref_level):
             plt.plot(channel, std.gaussian(channel, *res), linestyle="dashed")
             plt.show()
 
-        amplitude -= std.gaussian(channel, *res)
+        amplitude -= std.gaussian(channel, res[0], res[1], res[2] * 1.2)
         amplitude[amplitude < 0] = 0
+        peak_view = make_peak_view(amplitude)
+        # plt.cla()
+        # plt.plot(amplitude, label="raw")
+        # plt.plot(peak_view, label="peak view")
+        # plt.legend()
+        # plt.show()
         fits.append(np.abs(res))
         snr.append(r_sq)
     return fits, snr
@@ -142,7 +189,7 @@ def decomp_spectrum(channel, amplitude, underground_fn, ug_arg_count, save_fig=F
 
     reduced_amps = copy.copy(amplitude)
     reduced_amps = reduced_amps - underground_fn(channel, *ug_fit)
-    fits, snr = strip_spectrum(channel, reduced_amps, reduced_snr * max(amplitude))
+    fits, snr = strip_spectrum(channel, reduced_amps, reduced_snr)
 
     # filter sensible peaks
     valid_lines = []
