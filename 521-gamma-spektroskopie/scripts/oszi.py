@@ -1,7 +1,9 @@
 from matplotlib import pyplot as plt
 import numpy as np
+from numpy._core import half
 import std
 from sys import argv
+import propeller as p
 
 def get_data(file):
     data = np.transpose(np.loadtxt("../data/scope_"+file+".csv",skiprows=2,delimiter=","))
@@ -21,11 +23,11 @@ def plot_as_seperate(times, voltages,file,index,corrected=False):
     # optionally correct voltages for zero position
     if corrected:
         voltages = rel_volts(voltages)
-
     plt.plot(times*1e6,voltages,color="tab:green",label="Aufnahme "+index,linewidth=0.8)
     std.default.plt_pretty(r"Zeit / $\mu$s","Spannung / V")
     plt.legend()
-    plt.savefig("../figs/oszi_uncorr_"+file+".pdf")
+    #plt.savefig("../figs/oszi_uncorr_"+file+".pdf")
+    plt.show()
     plt.close()
     return
 
@@ -69,16 +71,56 @@ def plotting_figs(files,seperate=True):
         plt.savefig("../figs/oszi_uncorr_files_"+files[0]+"-"+files[-1]+".pdf")
         return
 
-def analyse_shape():
-    # TO DO
+def analyse_shape(file):
+    times, volts, _ = get_data(file)
+    print("file ",file,":")
+    #plot_as_seperate(times, volts, argv[1], argv[1])
+
+    times_div = 1e-6
+    times_w_err = p.ev(times, times_div)
+    volts_w_err = p.ev(volts, volts*0.05) # voltage err: 5% of value
+    volts_corr = volts_w_err-min(volts_w_err)
+    max_volt = max(volts_corr)
+    max_time_index = np.where(volts_corr == max_volt)
+    max_time = times_w_err[max_time_index]
+    print("maximum at:", max_time[0].format(), " index: ", max_time_index[0][0],"\n with: ", max_volt.format(),"V")
+
+    sliced_volts = volts_corr[max_time_index[0][0]:]
+    #print(sliced_volts)
+    half_volt = max_volt/np.exp(1)
+    #print(~half_volt)
+    half_rel_index = np.where(~sliced_volts < ~half_volt)[0][0]
+    half_index = max_time_index+half_rel_index
+    half_volt = volts_corr[half_index]
+    half_time = times_w_err[half_index]
+    print("half height of ", half_volt[0][0].format(), "V at ", half_time[0][0].format(), "s" )
+
+    duration = half_time - max_time
+    print("duration: ", duration[0][0].format(), "s")
+    return max_volt, duration[0][0]
+
+def av_shape(files):
+    max_volts = []
+    durations = []
+    for i in files:
+        max_volt, duration = analyse_shape(i)
+        max_volts.append(max_volt)
+        durations.append(duration)
+    av_max = sum(max_volts)/len(max_volts)
+    av_duration = sum(durations)/len(durations)
+    print("average height: ",av_max.format(), "V\naverage duration: ",av_duration.format(),"s")
     return
 
 
 def main():
-    plotting_figs(argv[1:5],seperate=False)
+    #plotting_figs(argv[1:5],seperate=False)
     #correct files:
         # 6 7 8 9
         # 1 3 4 5
+    # for i in range(1,len(argv)):
+    #     analyse_shape(argv[i])
+    av_shape(argv[1:])
+
     return
 
 if __name__ == "__main__":

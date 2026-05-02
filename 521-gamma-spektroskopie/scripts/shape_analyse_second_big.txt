@@ -1,0 +1,12 @@
+file  6 :
+maximum at: 0.4(1.0)e-06  index:  25020 
+ with:  0.0306(12) V
+half height of  0.01095(42) V at  5.92(10)e-05 s
+duration:  5.88(14)e-05 s
+file  8 :
+maximum at: 0.0002610(10)  index:  38048 
+ with:  0.0486(21) V
+half height of  0.01779(63) V at  0.0003184(10) s
+duration:  5.75(14)e-05 s
+average height:  0.0396(12) V
+average duration:  5.81(10)e-05 s

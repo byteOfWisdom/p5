@@ -1,0 +1,22 @@
+file  1 :
+maximum at: 2.60(10)e-05  index:  1052 
+ with:  0.0818(77) V
+half height of  0.0297(54) V at  8.65(10)e-05 s
+duration:  6.05(14)e-05 s
+file  3 :
+maximum at: 2.0(1.0)e-06  index:  1004 
+ with:  0.0882(80) V
+half height of  0.0320(55) V at  6.20(10)e-05 s
+duration:  6.00(14)e-05 s
+file  4 :
+maximum at: 1.3(1.0)e-06  index:  25065 
+ with:  0.0820(77) V
+half height of  0.0297(54) V at  6.13(10)e-05 s
+duration:  6.00(14)e-05 s
+file  5 :
+maximum at: 0.0002073(10)  index:  35365 
+ with:  0.0840(79) V
+half height of  0.0306(55) V at  0.0002669(10) s
+duration:  5.96(14)e-05 s
+average height:  0.0840(39) V
+average duration:  6.003(71)e-05 s
