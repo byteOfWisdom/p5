@@ -34,6 +34,8 @@ def plot_as_subfigs(files,corrected=False):
     fig, axs = plt.subplots(nrows=2, ncols=2)
     for i in range(0,len(files)):
         #assign position on 2x2 grid
+        if i == 2:
+            show = [5]
         first_ind = 0 if i in [1,2] else 1
         second_ind = 0 if i in [1,3] else 1
 
