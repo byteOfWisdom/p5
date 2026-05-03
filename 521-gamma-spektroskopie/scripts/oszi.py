@@ -129,7 +129,7 @@ def fit_shape(file):
     for i in range(len(params)):
         print(params[i].format())
     print("R^2:",round(rsq,3))
-    plt.plot(times[lower_lim:upper_lim+1300], volts[lower_lim:upper_lim+1300], label="gekürzte Messdaten (NaI-Detektor)",color="orange")
+    plt.plot(times[lower_lim:upper_lim+1300], volts[lower_lim:upper_lim+1300], label="gekürzte Messdaten (HPGe-Detektor)",color="orange")
     plt.plot(times[max_time_index:upper_lim], exponential(times[max_time_index:upper_lim], *fit),label=f"Anpassungsfunktion, $R^2$={round(rsq,3)}",color="darkblue")
     plt.legend(loc="best",fontsize="small")
     std.default.plt_pretty(r"Zeit / s","Spannung / V")
