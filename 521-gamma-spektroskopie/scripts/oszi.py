@@ -76,7 +76,7 @@ def analyse_shape(file):
     print("file ",file,":")
     #plot_as_seperate(times, volts, argv[1], argv[1])
 
-    times_div = 1e-6
+    times_div = 0.02e-6
     times_w_err = p.ev(times, times_div)
     volts_w_err = p.ev(volts, volts*0.05) # voltage err: 5% of value
     volts_corr = volts_w_err-min(volts_w_err)
