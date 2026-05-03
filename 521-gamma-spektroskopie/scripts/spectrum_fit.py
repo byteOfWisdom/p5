@@ -47,18 +47,23 @@ def fit_biggest_peak(channel, amplitude):
 
 def make_peak_view(amplitude):
     const = len(amplitude) // 100
-    baseline_level = amplitude
-    # kernel = std.gaussian(np.linspace(0, 2, const), 1, 1, 1.75)
-    kernel = std.gaussian(np.linspace(0, 2, len(amplitude)), 1, 1, 1.75 / const)
-    for _ in range(1):
-        baseline_level = np.convolve(baseline_level, kernel, "same") / sum(kernel)
-    kernel = std.gaussian(np.linspace(0, 2, const), 1, 1, 0.75)
-    for _ in range(1):
-        baseline_level = np.convolve(baseline_level, kernel, "same") / const
-    # for sigma in np.linspace(1.75, 0.75, 5):
-    #     kernel = std.gaussian(np.linspace(0, 2, const), 1, 1, sigma)
+    underground = np.convolve(amplitude, np.ones(15 * const) / (15 * const), "same")
+    baseline_level = amplitude - underground
+    res = amplitude - amplitude
+    # kernel = std.gaussian(np.linspace(0, 2, len(amplitude)), 1, 1, 0.1 / const)
+    # for _ in range(10):
     #     baseline_level = np.convolve(baseline_level, kernel, "same") / const
-        
+    #     res +=baseline_level
+    for sigma in np.linspace(0.1, 0.75, 20):
+        kernel = std.gaussian(np.linspace(0, 2, len(amplitude)), 1, 1, sigma / const)
+        baseline_level = np.convolve(baseline_level, kernel, "same") / const
+        res +=baseline_level
+    kernel = std.gaussian(np.linspace(0, 2, len(amplitude)), 1, 1, 0.05 / const)
+    # for _ in range(1):
+    #     baseline_level = np.convolve(baseline_level, kernel, "same") / sum(kernel)
+    for _ in range(3):
+        res = np.convolve(res, kernel, "same") / sum(kernel)
+    return res * (max(amplitude) / max(res))
     return baseline_level
     
 
@@ -66,16 +71,36 @@ def make_peak_view(amplitude):
 def find_gaussian_peaks(channel, amplitude):
     peak_view = make_peak_view(amplitude)
     const = len(amplitude) // 1000
-    
-    definite_peaks = std.diff_find_maxima(peak_view, const)
+    plt.cla()
+    plt.plot(channel, amplitude, linewidth=0.1)
+    plt.plot(channel, peak_view * (max(amplitude) / max(peak_view)))
+    definite_peaks, props = scipy.signal.find_peaks(peak_view, width=const // 2, prominence=15)
+
+    print(props)
+
+    plt.scatter(channel[definite_peaks], props["prominences"], color="green")
+    plt.title("after first round gaussian fitting")
+    plt.show()
+
+    fits = []
 
     for peak in definite_peaks:
-        p0 = 1
-        res, _ = std.fit_func(std.gaussian, peak_view, channel, p0=p0, force_cf=True)
+        lower, upper = get_area_around(peak_view, peak)
+        if upper - lower < 5:
+            continue
+        print(peak, lower, upper)
+        channel_cut = channel[lower:upper]
+        amplitude_cut = peak_view[lower:upper]
+        p0 = [peak_view[peak], channel[peak], (channel[upper] - channel[lower]) / 2.5]
+        res, _ = std.fit_func(std.gaussian, channel_cut, amplitude_cut, p0=p0, force_cf=True)
+        fits.append(res)
+        peak_view -= std.gaussian(channel, *res)
+
         
 
 
 def strip_spectrum(channel, amplitude, ref_level):
+    find_gaussian_peaks(channel, amplitude)
     fits = []
     snr = []
     count = 0
