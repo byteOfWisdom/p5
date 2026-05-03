@@ -50,51 +50,54 @@ def make_peak_view(amplitude):
     underground = np.convolve(amplitude, np.ones(15 * const) / (15 * const), "same")
     baseline_level = amplitude - underground
     res = amplitude - amplitude
-    # kernel = std.gaussian(np.linspace(0, 2, len(amplitude)), 1, 1, 0.1 / const)
-    # for _ in range(10):
-    #     baseline_level = np.convolve(baseline_level, kernel, "same") / const
-    #     res +=baseline_level
     for sigma in np.linspace(0.1, 0.75, 20):
         kernel = std.gaussian(np.linspace(0, 2, len(amplitude)), 1, 1, sigma / const)
         baseline_level = np.convolve(baseline_level, kernel, "same") / const
         res +=baseline_level
     kernel = std.gaussian(np.linspace(0, 2, len(amplitude)), 1, 1, 0.05 / const)
-    # for _ in range(1):
-    #     baseline_level = np.convolve(baseline_level, kernel, "same") / sum(kernel)
     for _ in range(3):
         res = np.convolve(res, kernel, "same") / sum(kernel)
-    return res * (max(amplitude) / max(res))
+    return res * (1 / max(res))
     return baseline_level
     
+
+
+def is_gaussian_peak(values):
+    if len(values) < 3:
+        return False
+    p0 = [max(values), len(values) / 2, len(values) / 2.5]
+    gauss_res, (_, gaussian_rsq) = std.fit_func(std.gaussian, np.arange(len(values)), values, force_cf=True, p0=p0)
+    lin_res, (_, linear_rsq) = std.fit_func(std.linear, np.arange(len(values)), values, force_cf=True, p0=[values[0], (values[-1] - values[0]) / len(values)])
+    # plt.plot(values)
+    # plt.plot(std.gaussian(np.arange(len(values)), *gauss_res))
+    # plt.plot(std.linear(np.arange(len(values)), *lin_res))
+    # # plt.title(gaussian_rsq - linear_rsq)
+    # plt.title(f"{gaussian_rsq}  {len(values) / gauss_res[2]}")
+    # plt.show()
+    return len(values) / gauss_res[2] > 1.2 and gaussian_rsq > 0.3
 
 
 def find_gaussian_peaks(channel, amplitude):
     peak_view = make_peak_view(amplitude)
     const = len(amplitude) // 1000
-    plt.cla()
-    plt.plot(channel, amplitude, linewidth=0.1)
-    plt.plot(channel, peak_view * (max(amplitude) / max(peak_view)))
-    definite_peaks, props = scipy.signal.find_peaks(peak_view, width=const // 2, prominence=15)
+    definite_peaks, props = scipy.signal.find_peaks(peak_view, width=const // 2, prominence=1e-3)
 
     print(props)
+    gaussian_shaped = []
 
-    plt.scatter(channel[definite_peaks], props["prominences"], color="green")
+    for peak, width in zip(definite_peaks, props["widths"]):
+        print(peak, width)
+        if is_gaussian_peak(amplitude[peak - int(width * 1.5) // 2: peak + int(width * 1.5) // 2]):
+            gaussian_shaped.append(peak)
+
+    plt.cla()
+    # plt.scatter(channel[definite_peaks], props["prominences"], color="red")
+    plt.plot(channel, amplitude, linewidth=0.2)
+    # plt.plot(channel, peak_view * max(amplitude))# / max(peak_view)))
+    plt.scatter(channel[gaussian_shaped], amplitude[gaussian_shaped], color="green")
     plt.title("after first round gaussian fitting")
     plt.show()
 
-    fits = []
-
-    for peak in definite_peaks:
-        lower, upper = get_area_around(peak_view, peak)
-        if upper - lower < 5:
-            continue
-        print(peak, lower, upper)
-        channel_cut = channel[lower:upper]
-        amplitude_cut = peak_view[lower:upper]
-        p0 = [peak_view[peak], channel[peak], (channel[upper] - channel[lower]) / 2.5]
-        res, _ = std.fit_func(std.gaussian, channel_cut, amplitude_cut, p0=p0, force_cf=True)
-        fits.append(res)
-        peak_view -= std.gaussian(channel, *res)
 
         
 
@@ -213,7 +216,7 @@ def decomp_spectrum(channel, amplitude, underground_fn, ug_arg_count, save_fig=F
 
 
     reduced_amps = copy.copy(amplitude)
-    reduced_amps = reduced_amps - underground_fn(channel, *ug_fit)
+    # reduced_amps = reduced_amps - underground_fn(channel, *ug_fit)
     fits, snr = strip_spectrum(channel, reduced_amps, reduced_snr)
 
     # filter sensible peaks
