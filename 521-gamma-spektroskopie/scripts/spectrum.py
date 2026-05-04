@@ -8,7 +8,7 @@ import std
 def main():
     data = np.transpose(np.loadtxt(argv[1]))
     # lines, goodness = spectrum_fit.decomp_spectrum(data[0][:-1], data[1][:-1], lambda x, a, b: a * x + b, 2, argv[2] if len(argv) > 2 else False)
-    lines, goodness = spectrum_fit.analyze_spectrum(data[0][:-1], data[1][:-1])
+    lines = spectrum_fit.analyze_spectrum(data[0][:-1], data[1][:-1])
     print(lines)
     if len(argv) > 3:
         std.print_tex_table(lines, argv[3])
