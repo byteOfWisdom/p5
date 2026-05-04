@@ -9,6 +9,12 @@ import scipy
 plot_subfits = False
 
 
+def make_spectrum_function(linecount, underground_fn):
+    # all_lines = std.make_n_area_gaussian(linecount)
+    all_lines = std.make_n_gaussian(linecount)
+    return lambda x, *args: all_lines(x, *args[:3 * linecount]) + underground_fn(x, *args[3 * linecount:])
+
+
 def get_area(amplitudes):
     max_id = np.where(amplitudes == max(amplitudes))[0][0]
     return get_area_around(amplitudes, max_id)
@@ -64,17 +70,28 @@ def make_peak_view(amplitude):
 
 def is_gaussian_peak(values):
     if len(values) < 3:
-        return False
+        return False, [0, 0, 0]
     p0 = [max(values), len(values) / 2, len(values) / 2.5]
-    gauss_res, (_, gaussian_rsq) = std.fit_func(std.gaussian, np.arange(len(values)), values, force_cf=True, p0=p0)
-    lin_res, (_, linear_rsq) = std.fit_func(std.linear, np.arange(len(values)), values, force_cf=True, p0=[values[0], (values[-1] - values[0]) / len(values)])
+    gauss_res, (_, gaussian_rsq) = std.fit_func(
+                                                std.gaussian,
+                                                np.arange(len(values)), values,
+                                                y_errors=np.sqrt(values),
+                                                force_cf=True, p0=p0)
+    lin_res, (_, linear_rsq) = std.fit_func(
+                                            std.linear,
+                                            np.arange(len(values)), values,
+                                            y_errors=np.sqrt(values),
+                                            force_cf=True,
+                                            p0=[values[0], (values[-1] - values[0]) / len(values)])
+    # quad_res, (_, quad_rsq) = std.fit_func(std.quadratic, np.arange(len(values)), values, force_cf=True, p0=p0)
     # plt.plot(values)
     # plt.plot(std.gaussian(np.arange(len(values)), *gauss_res))
     # plt.plot(std.linear(np.arange(len(values)), *lin_res))
     # # plt.title(gaussian_rsq - linear_rsq)
     # plt.title(f"{gaussian_rsq}  {len(values) / gauss_res[2]}")
     # plt.show()
-    return len(values) / gauss_res[2] > 1.2 and gaussian_rsq > 0.3
+    is_gauss = len(values) / gauss_res[2] > 1. and gaussian_rsq > 0.3 and gaussian_rsq > linear_rsq
+    return is_gauss, gauss_res
 
 
 def find_gaussian_peaks(channel, amplitude):
@@ -83,12 +100,15 @@ def find_gaussian_peaks(channel, amplitude):
     definite_peaks, props = scipy.signal.find_peaks(peak_view, width=const // 2, prominence=1e-3)
 
     print(props)
-    gaussian_shaped = []
+    gaussian_shaped, guesses = [], []
 
     for peak, width in zip(definite_peaks, props["widths"]):
         print(peak, width)
-        if is_gaussian_peak(amplitude[peak - int(width * 1.5) // 2: peak + int(width * 1.5) // 2]):
+        is_gauss, res = is_gaussian_peak(amplitude[peak - int(width * 1.5) // 2: peak + int(width * 1.5) // 2])
+        if is_gauss:
             gaussian_shaped.append(peak)
+            p0 = [res[0] * np.sqrt(np.pi * 2), channel[peak], res[2]]
+            guesses.append(p0)
 
     plt.cla()
     # plt.scatter(channel[definite_peaks], props["prominences"], color="red")
@@ -98,12 +118,26 @@ def find_gaussian_peaks(channel, amplitude):
     plt.title("after first round gaussian fitting")
     plt.show()
 
+    return gaussian_shaped, guesses
 
-        
 
+def fit_spectrum(channel, amplitude, guesses):
+    fn = make_spectrum_function(len(guesses), std.quadratic)
+    p0 = sum(list(guesses), []) + [0, 0, 0]
+    res, (std_dev, rsq) = std.fit_func(fn, channel, amplitude, y_errors=np.sqrt(amplitude), p0=p0, force_cf=True)
+    plt.plot(channel, amplitude)
+    plt.plot(channel, fn(channel, *res))
+    plt.show()
+
+
+def analyze_spectrum(channel, amplitude):
+    _, guesses = find_gaussian_peaks(channel, amplitude)
+    fit_spectrum(channel, amplitude, guesses)
+    
 
 def strip_spectrum(channel, amplitude, ref_level):
-    find_gaussian_peaks(channel, amplitude)
+    _, guesses = find_gaussian_peaks(channel, amplitude)
+    fit_spectrum(channel, amplitude, guesses)
     fits = []
     snr = []
     count = 0
@@ -179,11 +213,6 @@ def strip_spectrum(channel, amplitude, ref_level):
         snr.append(r_sq)
     return fits, snr
 
-
-def make_spectrum_function(linecount, underground_fn):
-    # all_lines = std.make_n_area_gaussian(linecount)
-    all_lines = std.make_n_gaussian(linecount)
-    return lambda x, *args: all_lines(x, *args[:3 * linecount]) + underground_fn(x, *args[3 * linecount:])
 
 
 def plot_results(channel, amplitude, total_spectrum, underground_fn, res, ug_arg_count,  save_fig, goodness, lc):
