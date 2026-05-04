@@ -9,7 +9,7 @@ plot_subfits = False
 
 def make_spectrum_function(linecount, underground_fn):
     # all_lines = std.make_n_area_gaussian(linecount)
-    all_lines = std.make_n_gaussian(linecount)
+    all_lines = std.make_n_area_gaussian(linecount)
     return lambda x, *args: all_lines(x, *args[:3 * linecount]) + underground_fn(x, *args[3 * linecount:])
 
 
@@ -69,7 +69,7 @@ def find_gaussian_peaks(amplitude):
         is_gauss, res = is_gaussian_peak(amplitude[peak - int(width * 1.5) // 2: peak + int(width * 1.5) // 2])
         if is_gauss:
             gaussian_shaped.append(peak)
-            p0 = (res[0] * np.sqrt(np.pi * 2), peak, res[2])
+            p0 = (res[0] * np.sqrt(np.pi * 2) * res[2], peak, res[2])
             params.append(p0)
 
     # plt.cla()
@@ -84,21 +84,25 @@ def find_gaussian_peaks(amplitude):
 
 
 def analyze_spectrum(x_values, y_values):
-    _, rough_params = find_gaussian_peaks(y_values)
-    params, rsqs = [], []
-    plt.plot(x_values, y_values, linewidth=0.5)
+    lines, rough_params = find_gaussian_peaks(y_values)
+    total_p0 = []
     for a, mu, sigma in rough_params:
-        lb = int(max(mu - 2 * sigma, 0))
-        ub = int(min(mu + 2 * sigma, len(x_values) - 1))
-        res, (err, rsq) = std.fit_func(
-            std.area_gaussian_ug,
-            x_values[lb:ub], y_values[lb:ub],
-            y_errors=np.sqrt(y_values[lb:ub]),
-            p0=[a, x_values[mu], x_values[mu + int(sigma)] - x_values[mu], 0], force_cf=True)
-        plt.plot(x_values[lb:ub], std.area_gaussian_ug(x_values[lb:ub], *res))
-        params.append(p.ev(res, err))
-        rsqs.append(rsq)
+        p0 = [a, x_values[mu], x_values[mu + int(sigma)] - x_values[mu]]
+        total_p0 += p0
 
+    lower_bound = 0.5 * np.array(total_p0 + [-np.inf] * 3)
+    upper_bound = 2 * np.array(total_p0 + [np.inf] * 3)
+    plt.plot(x_values, std.make_n_area_gaussian(len(lines))(x_values, *total_p0), label="guesses")
+    res, _ = scipy.optimize.curve_fit(
+        std.make_n_area_gaussian(len(lines)),
+        x_values, y_values,
+        p0=total_p0,
+        # bounds=(lower_bound, upper_bound),
+        xtol=1e-3,
+        ftol=1e-3
+    )
 
+    plt.plot(x_values, y_values, linewidth=0.5)
+    plt.plot(x_values, std.make_n_area_gaussian(len(lines))(x_values, *res), label="final")
     std.default.plt_finish("channel", "count")
-    return params, rsqs
+    # return p.ev(res, err), rsq
