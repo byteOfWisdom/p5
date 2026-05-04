@@ -92,14 +92,13 @@ def analyze_spectrum(x_values, y_values):
 
     lower_bound = 0.5 * np.array(total_p0 + [-np.inf] * 3)
     upper_bound = 2 * np.array(total_p0 + [np.inf] * 3)
-    plt.plot(x_values, std.make_n_area_gaussian(len(lines))(x_values, *total_p0), label="guesses")
     res, _ = scipy.optimize.curve_fit(
         std.make_n_area_gaussian(len(lines)),
         x_values, y_values,
         p0=total_p0,
-        # bounds=(lower_bound, upper_bound),
-        xtol=1e-3,
-        ftol=1e-3
+        bounds=(lower_bound, upper_bound),
+        xtol=1e-5,
+        ftol=1e-5
     )
 
     plt.plot(x_values, y_values, linewidth=0.5)
