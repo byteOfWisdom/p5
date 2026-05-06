@@ -3,6 +3,7 @@ from matplotlib import pyplot as plt
 from sys import argv
 import scipy
 import std
+import spectrum_fit
 
 
 class handle_keeper:
@@ -32,8 +33,10 @@ class click_handler:
         self.interval = (min(y), max(y))
         self.lop = []
         self.handles = []
+        self.total_handle = handle_keeper()
         self.p0s = []
         self.in_area = False
+        self.total_params = None
 
 
     def start(self):
@@ -60,6 +63,33 @@ class click_handler:
         except Exception as e:
             print(e)
             self.delete_last()
+
+
+    def fit_spectrum(self):
+        func = spectrum_fit.make_spectrum_function(len(self.lop), spectrum_fit.poly_4)
+        total_p0 = []
+        for p in self.p0s:
+            total_p0 += [p[0], p[1], p[2]]
+        lower_bound = np.array(total_p0) - 0.2 * np.array(total_p0)
+        upper_bound = np.array(total_p0) + 0.2 * np.array(total_p0)
+        total_p0 += [0] * 4
+        lower_bound = np.append(lower_bound, np.array([-1e3] * 4))
+        upper_bound = np.append(lower_bound, np.array([1e3] * 4))
+
+        res, cov = scipy.optimize.curve_fit(
+            # std.make_n_area_gaussian(len(lines)),
+            func,
+            self.x, self.y,
+            p0=total_p0,
+            bounds=(lower_bound, upper_bound),
+            xtol=1e-2,
+            ftol=1e-2
+        )
+        # p0 += [0, 0, 0, 0]
+        # res, (err, goodness) = std.fit_func(spectrum_fit.make_spectrum_function(len(self.lop), spectrum_fit.poly_4), self.x, self.y, y_errors=np.sqrt(self.y), p0=p0, force_cf=True)
+        self.total_handle.curve = plt.plot(self.x, std.gaussian(self.x, *res), color="lightgreen")[0]
+        plt.draw()
+        print("updated total")
 
 
     def onclick(self, event):
@@ -93,9 +123,9 @@ class click_handler:
             self.fit_single_peak(*self.lop[-1])
             plt.draw()
 
-
         if event.key == "e":
             print("rerunning fit?")
+            self.fit_spectrum()
 
 
 def let_user_click_peaks(x_values, y_values):
