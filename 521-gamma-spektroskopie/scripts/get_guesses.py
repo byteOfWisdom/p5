@@ -10,6 +10,7 @@ class handle_keeper:
         self.first_line = None
         self.second_line = None
         self.area = None
+        self.curve = None
 
     def unrender(self):
         if self.first_line:
@@ -18,6 +19,8 @@ class handle_keeper:
             self.second_line.remove()
         if self.area:
             self.area.remove()
+        if self.curve:
+            self.curve.remove()
         plt.draw()
     
 
@@ -29,6 +32,7 @@ class click_handler:
         self.interval = (min(y), max(y))
         self.lop = []
         self.handles = []
+        self.p0s = []
         self.in_area = False
 
 
@@ -45,25 +49,36 @@ class click_handler:
 
 
     def fit_single_peak(self, a, b):
-        curve = np.where(b >= self.x >= a)
+        a, b = min(a, b), max(a, b)
+        curve = np.where((b >= self.x) & (self.x >= a))
         x_part, y_part = self.x[curve], self.y[curve]
         p0 = [max(y_part), np.average(x_part), (x_part[-1] - x_part[0]) / 2.5]
-        # res, _ = scipy.
+        try:
+            res, _ = scipy.optimize.curve_fit(std.gaussian, x_part, y_part, p0)
+            self.p0s[-1] = res
+            self.handles[-1].curve = plt.plot(x_part, std.gaussian(x_part, *res))[0]
+        except Exception as _:
+            self.delete_last()
 
 
     def onclick(self, event):
         pass
-       
+
+    def delete_last(self):
+        _ = self.lop.pop(-1)
+        _ = self.p0s.pop(-1)
+        handles = self.handles.pop(-1)
+        handles.unrender()
+        self.in_area = False
+
 
     def onkey(self, event):
         if event.key == "d":
-            print("removing last marker")
-            self.lop = self.lop[:-1]
-            handles = self.handles.pop(-1)
-            handles.unrender()
+            self.delete_last()
 
-        if event.inaxes and event.key == "w" and not self.in_area:
+        elif event.inaxes and event.key == "w" and not self.in_area:
             self.lop += [(event.xdata, 0)]
+            self.p0s += [[0, 0, 0]]
             self.handles.append(handle_keeper())
             self.handles[-1].first_line = plt.vlines(event.xdata, self.interval[0], self.interval[1], color="red")
             self.in_area = True
@@ -74,6 +89,7 @@ class click_handler:
             self.in_area = False
             self.handles[-1].second_line = plt.vlines(event.xdata, self.interval[0], self.interval[1], color="red")
             self.handles[-1].area = plt.fill_between(np.linspace(*self.lop[-1]), max(self.y), alpha=0.5, color="red")
+            self.fit_single_peak(*self.lop[-1])
             plt.draw()
 
 
