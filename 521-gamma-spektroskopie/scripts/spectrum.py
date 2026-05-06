@@ -9,7 +9,7 @@ def main():
     data = np.transpose(np.loadtxt(argv[1]))
     ug_data = np.transpose(np.loadtxt(argv[2]))
 
-    plt.plot(data[0], data[1], linewidth=0.5)
+    plt.plot(data[0][1:-1], data[1][1:-1], linewidth=0.5)
     out_name = argv[1][:-3].split("/")[-1] + "pdf"
     plt.title(out_name[:-4])
     std.default.plt_finish("Kanal", "Count", "figs/" + out_name)
