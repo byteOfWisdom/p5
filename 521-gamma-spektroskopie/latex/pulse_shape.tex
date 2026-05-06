@@ -1,0 +1,19 @@
+\chapter{Signalform} \label{sec:signalform}
+
+\subsection{Analyse der Signale des NaI-Detektors}
+
+Zunächst wurde der NaI-Detektor mit der \todo{welche Quelle war das?} -Quelle im Abstand von \todo{Abstand} in Betrieb genommen. Dazu wurde die Versorgungshochspannung auf \todo{Wert} eingestellt und ca. 30 Minuten abgewartet, damit sich der Detektorbetrieb stabilisierte. Es wurde ein Oszilloskop direkt an den Ausgang des Vorverstärkers nach der PMT angeschlossen und das Signal auf dem Bildschirm des Oszilloskops betrachtet. Der Wert der Hochspannung wurde so gewählt, dass die gemessenen Spannungspulse nach dem Vorverstärker bei der \todo{Quellenart}-Quelle eine Amplitude von etwa \todo{Amplitudenwert} hatten. In Abbildung \ref{fig:oszi_uncorr_files_1-5} im Anhang sind die Oszilloskopbilder von vier der pulsförmigen Signale des Detektors dargestellt. Es sind auch Pulse nicht maximaler Amplitude zu erkennen, dies ist dadurch zu erklären, dass aufgrund der statistisch zufälligen Emissionsrichtung nicht jedes erzeugte Szintillationsphoton einer $\gamma$-Wechselwirkung die PMT erreicht hat und so zur Signalamplitude beitragen konnte. Zur Signalanalyse interessieren vorwiegend nur die Pulse maximaler Amplitude.
+
+Der zeitliche Verlauf des Szintillationslichts eines Szintillationsdetektors bei Einfall eines $\gamma$-Photons wird näherungsweise als einfacher Zerfallsprozess beschrieben, weswegen die Pulsform des Signals auf der Oszilloskopaufnahme als schneller Anstieg und exponentieller Abfall zu erwarten ist \cite[158]{leotechniques}.
+Dies wird an den gemessenen Signalen über eine Anpassung an eine Anpassungsfunktion der Form $U(t)=U_0/cdot \exp{(b(t-t_0))}+c$ überprüft. Hierbei ist $c$ der y-Achsenabschnitt, da das Spannungssignal, welches am Oszilloskop aufgenommen wird, auch bei keinem anliegenden Signal eine Spannung von $c$ anzeigt. Der Zeitversatz $t_0$ ist notwendig aufgrund der Aufnahme des Oszilloskops, welche relativ zu einem beliebigen Zeitpunkt $t=\SI{0}{\second}$ aufgetragen ist. %$t_0$ und $c$ haben in diesem Fall keine physikalische Bedeutung.
+$U_0$ stellt die maximale Amplitude des Signals dar (nach Abzug des y-Achsenabschnitts) und $b$ der Kehrwert der Zerfallskonstante $\tau$, bei der das Signal auf $1/e$ seiner maximalen Stärke gefallen ist. $b$ ist negativ zu erwarten, da es sich um einen exponentiellen Abfall handelt. Für die vier Signale wurden jeweils an die Pulse der maximal beobachteten Amplitude diese Exponentialfunktion angepasst, als Anpassungsbereich wurde die Kurve ab der maximalen Amplitude $U_{max} = U_0 + c$  bis zum Ort des Amplitudenabfalls auf $1/e$ der Maximalamplitude (die Pulsbreite) betrachtet. Die so erhaltenen Anpassungsfunktionen sind in Abbildung \ref{fig:peak_curve_nai_1}-\ref{fig:peak_curve_nai_5} dargestellt. Aus den Werten des Bestimmtheitsmaßes als Maß der Güte der Anpassung $R^2\lesssim 1$ wird deutlich, dass die Signale die Erwartung des expoentiellen Zerfalls sehr gut erfüllen \footnote{$R^2$ ist ein passendes Maß für die Anpassungsgüte für nicht-distributive Anpassungsfunktionen \cite{rsquared}.}.
+
+
+\jafpp{peak_curve_nai_1}{Aufnahme eines Oszilloskopsignals des NaI-Detektors für \todo{Element genutzt} mit angepasster Exponentialfunktion mit Parametern \todo{Parameterergebnisse}}{peak_curve_nai_3}{Weiteres Signal mit angepasster Exponentialfunktion mit Parametern \todo{Parameterergebnisse}.}
+\jafpp{peak_curve_nai_4}{Aufnahme eines Oszilloskopsignals des NaI-Detektors für \todo{Element genutzt} mit angepasster Exponentialfunktion mit Parametern \todo{Parameterergebnisse}}{peak_curve_nai_5}{Weiteres Signal mit angepasster Exponentialfunktion mit Parametern \todo{Parameterergebnisse}.}
+
+Die wie oben beschrieben bestimmten Pulsbreiten sind in Tabelle \todo{Tabelle Werte} aufgeführt.
+
+
+
+\subsection{Analyse der Signale des HPGe-Detektors}
