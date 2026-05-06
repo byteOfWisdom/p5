@@ -56,8 +56,9 @@ class click_handler:
         try:
             res, _ = scipy.optimize.curve_fit(std.gaussian, x_part, y_part, p0)
             self.p0s[-1] = res
-            self.handles[-1].curve = plt.plot(x_part, std.gaussian(x_part, *res))[0]
-        except Exception as _:
+            self.handles[-1].curve = plt.plot(x_part, std.gaussian(x_part, *res), color="darkgreen")[0]
+        except Exception as e:
+            print(e)
             self.delete_last()
 
 
@@ -87,8 +88,8 @@ class click_handler:
         elif event.inaxes and event.key == "w" and self.in_area:
             self.lop[-1] = (self.lop[-1][0], event.xdata)
             self.in_area = False
-            self.handles[-1].second_line = plt.vlines(event.xdata, self.interval[0], self.interval[1], color="red")
-            self.handles[-1].area = plt.fill_between(np.linspace(*self.lop[-1]), max(self.y), alpha=0.5, color="red")
+            self.handles[-1].second_line = plt.vlines(event.xdata, self.interval[0], self.interval[1], color="green")
+            self.handles[-1].area = plt.fill_between(np.linspace(*self.lop[-1]), max(self.y), alpha=0.25, color="green")
             self.fit_single_peak(*self.lop[-1])
             plt.draw()
 
