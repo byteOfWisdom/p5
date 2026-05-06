@@ -2,11 +2,18 @@ from sys import argv
 import numpy as np
 import spectrum_fit
 import std
+from matplotlib import pyplot as plt
 
 
 def main():
     data = np.transpose(np.loadtxt(argv[1]))
     ug_data = np.transpose(np.loadtxt(argv[2]))
+
+    plt.plot(data[0], data[1], linewidth=0.5)
+    out_name = argv[1][:-3].split("/")[-1] + "pdf"
+    plt.title(out_name[:-4])
+    std.default.plt_finish("Kanal", "Count", "figs/" + out_name)
+    return None
 
     channels = data[0]
     hits = data[1] - ug_data[1]

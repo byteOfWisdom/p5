@@ -86,6 +86,7 @@ def find_gaussian_peaks(amplitude):
 def poly_4(x, a, b, c, d):
     return a * (x**4) + b * (x**3), + c * (x**2) + d * x
 
+
 def analyze_spectrum(x_values, y_values, save):
     lines, rough_params = find_gaussian_peaks(y_values)
     total_p0 = []
