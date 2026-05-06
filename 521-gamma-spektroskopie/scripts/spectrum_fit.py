@@ -83,25 +83,40 @@ def find_gaussian_peaks(amplitude):
     return gaussian_shaped, params
 
 
-def analyze_spectrum(x_values, y_values):
+def analyze_spectrum(x_values, y_values, save):
     lines, rough_params = find_gaussian_peaks(y_values)
     total_p0 = []
     for a, mu, sigma in rough_params:
         p0 = [a, x_values[mu], x_values[mu + int(sigma)] - x_values[mu]]
         total_p0 += p0
 
-    lower_bound = 0.5 * np.array(total_p0 + [-np.inf] * 3)
-    upper_bound = 2 * np.array(total_p0 + [np.inf] * 3)
-    res, _ = scipy.optimize.curve_fit(
+    lower_bound = np.array(total_p0) - 0.2 * np.array(total_p0)
+    upper_bound = np.array(total_p0) + 0.2 * np.array(total_p0)
+    res, cov = scipy.optimize.curve_fit(
         std.make_n_area_gaussian(len(lines)),
         x_values, y_values,
         p0=total_p0,
         bounds=(lower_bound, upper_bound),
-        xtol=1e-5,
-        ftol=1e-5
+        xtol=1e-2,
+        ftol=1e-2
     )
 
-    plt.plot(x_values, y_values, linewidth=0.5)
+    err = np.sqrt(np.diag(cov))
+
+    eb_config = std.default.error_bar_def
+    eb_config["marker"] = "x"
+    eb_config["elinewidth"] = 0.5
+    eb_config["capthick"] = eb_config["elinewidth"]
+    eb_config["markersize"] = 2.5
+
+    plt.errorbar(x_values, y_values, np.sqrt(y_values), **eb_config)
     plt.plot(x_values, std.make_n_area_gaussian(len(lines))(x_values, *res), label="final")
-    std.default.plt_finish("channel", "count")
-    # return p.ev(res, err), rsq
+    std.default.plt_finish("channel", "count", save)
+
+    ps = p.ev(res, err)
+
+    return {
+        "A": ps[0::3],
+        "$\\mu$": ps[1::3],
+        "$\\sigma$": ps[2::3]
+    }
