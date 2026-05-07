@@ -2,6 +2,7 @@ import numpy as np
 import std
 from matplotlib import pyplot as plt
 import propeller as p
+import numba
 import scipy
 
 plot_subfits = False
@@ -83,8 +84,10 @@ def find_gaussian_peaks(amplitude):
     return gaussian_shaped, params
 
 
+@np.vectorize
+@numba.njit
 def poly_4(x, a, b, c, d):
-    return a * (x**4) + b * (x**3), + c * (x**2) + d * x
+    return a * (x**4) + b * (x**3) + c * (x**2) + d * x
 
 
 def analyze_spectrum(x_values, y_values, save):

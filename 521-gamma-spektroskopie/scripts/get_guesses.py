@@ -58,7 +58,7 @@ class click_handler:
         p0 = [max(y_part), np.average(x_part), (x_part[-1] - x_part[0]) / 2.5]
         try:
             res, _ = scipy.optimize.curve_fit(std.gaussian, x_part, y_part, p0)
-            self.p0s[-1] = res
+            self.p0s[-1] = np.abs(res)
             self.handles[-1].curve = plt.plot(x_part, std.gaussian(x_part, *res), color="darkgreen")[0]
         except Exception as e:
             print(e)
@@ -66,15 +66,15 @@ class click_handler:
 
 
     def fit_spectrum(self):
-        func = spectrum_fit.make_spectrum_function(len(self.lop), spectrum_fit.poly_4)
+        func = spectrum_fit.make_spectrum_function(len(self.p0s), spectrum_fit.poly_4)
         total_p0 = []
         for p in self.p0s:
-            total_p0 += [p[0], p[1], p[2]]
+            total_p0 += [p[0] * (p[2] * np.sqrt(2 * np.pi)), p[1], p[2]]
         lower_bound = np.array(total_p0) - 0.2 * np.array(total_p0)
         upper_bound = np.array(total_p0) + 0.2 * np.array(total_p0)
-        total_p0 += [0] * 4
         lower_bound = np.append(lower_bound, np.array([-1e3] * 4))
-        upper_bound = np.append(lower_bound, np.array([1e3] * 4))
+        upper_bound = np.append(upper_bound, np.array([1e3] * 4))
+        total_p0 += [0] * 4
 
         res, cov = scipy.optimize.curve_fit(
             # std.make_n_area_gaussian(len(lines)),
@@ -87,7 +87,7 @@ class click_handler:
         )
         # p0 += [0, 0, 0, 0]
         # res, (err, goodness) = std.fit_func(spectrum_fit.make_spectrum_function(len(self.lop), spectrum_fit.poly_4), self.x, self.y, y_errors=np.sqrt(self.y), p0=p0, force_cf=True)
-        self.total_handle.curve = plt.plot(self.x, std.gaussian(self.x, *res), color="lightgreen")[0]
+        self.total_handle.curve = plt.plot(self.x, func(self.x, *res), color="lightgreen")[0]
         plt.draw()
         print("updated total")
 
