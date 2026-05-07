@@ -63,8 +63,9 @@ class click_handler:
         p0 = [area_guess, np.average(x_part), sigma_guess, offset_guess]
         try:
             res, cov = scipy.optimize.curve_fit(std.area_gaussian_ug, x_part, y_part, p0)
+            red_chi_sq = std.reduced_chi_2(y_part, std.area_gaussian_ug(x_part, *res), res, sigma=np.sqrt(y_part))
             err = np.sqrt(np.diag(cov))
-            self.p0s[-1] = p.ev(np.abs(res), err)
+            self.p0s[-1] = list(p.ev(np.abs(res), err)) + [red_chi_sq]
             self.handles[-1].curve = plt.plot(x_part, std.area_gaussian_ug(x_part, *res), color="darkgreen")[0]
         except Exception as e:
             print(e)
@@ -115,15 +116,15 @@ class click_handler:
             self.lop += [(event.xdata, 0)]
             self.p0s += [[0, 0, 0]]
             self.handles.append(handle_keeper())
-            self.handles[-1].first_line = plt.vlines(event.xdata, self.interval[0], self.interval[1], color="red")
+            self.handles[-1].first_line = plt.vlines(event.xdata, self.interval[0], self.interval[1], color="green", linewidth=0.5)
             self.in_area = True
             plt.draw()
 
         elif event.inaxes and event.key == "w" and self.in_area:
             self.lop[-1] = (self.lop[-1][0], event.xdata)
             self.in_area = False
-            self.handles[-1].second_line = plt.vlines(event.xdata, self.interval[0], self.interval[1], color="green")
-            self.handles[-1].area = plt.fill_between(np.linspace(*self.lop[-1]), max(self.y), alpha=0.25, color="green")
+            self.handles[-1].second_line = plt.vlines(event.xdata, self.interval[0], self.interval[1], color="green", linewidth=0.5)
+            self.handles[-1].area = plt.fill_between(np.linspace(*self.lop[-1]), max(self.y), alpha=0.1, color="green")
             self.fit_single_peak(*self.lop[-1])
             plt.draw()
 
@@ -131,18 +132,21 @@ class click_handler:
             print("rerunning fit?")
             self.fit_spectrum()
 
-        elif event.key == "s":
+        elif event.key == "S":
             total_p0 = []
             for line in self.p0s:
-                total_p0 += [line[0], line[1], line[2], line[3]]
+                total_p0 += [line[0], line[1], line[2], line[3], line[4]]
             lines_data ={
-                "Fläche": total_p0[0::4],
-                "$\\mu$": total_p0[1::4],
-                "$\\sigma$": total_p0[2::4],
-                "C":total_p0[3::4]
+                "Fläche": total_p0[0::5],
+                "$\\mu$": total_p0[1::5],
+                "$\\sigma$": total_p0[2::5],
+                "C": total_p0[3::5],
+                "$\\chi^2_\\text{red}$": total_p0[4::5]
             }
             std.print_tex_table(lines_data, self.save + ".table")
             std.print_csv_table(lines_data, self.save + ".csv")
+            plt.savefig(self.save + ".pdf")
+            print("done saving!!")
 
 
 def let_user_click_peaks(x_values, y_values, output):
