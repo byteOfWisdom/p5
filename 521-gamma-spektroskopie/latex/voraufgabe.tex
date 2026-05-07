@@ -1,0 +1,23 @@
+\chapter{Voraufgabe}
+Um die aufgenommenen Impulshöhenspektren der Gammastrahlungsquellen zu untersuchen, werden die aufgenommenen Spektren in Kanal-Ereignisanzahl- bzw. nach Abschnitt \todo{ref abschnitt kalibration} in Energie-Ereignisanzahl-Darstellung auf Gaußfunktions-förmige Peaks (die Photopeaks des Spektrums, bei denen die gesamte Energie der $\gamma$-Photonen vom Detektor gemessen werden konnte) analysiert. Zum Testen des Verfahrens wurde vor dem Versuch ein bereitgestelltes Testspektrum analysiert.
+
+\todo{kurze Methodenbeschreibung}
+
+Als Anpassungsfunktion an die einzelnen Gaußpeaks wird
+\begin{equation}\label{eq:gaußpeak_const}
+f(x,A,\mu,\sigma,C) = \frac{A}{\sqrt{2\pi}\sigma} \text{e}^{-\frac{1}{2}(\frac{x-\mu_i}{\sigma_i})^2}+C
+\end{equation}
+genutzt. Dabei beschreibt die Konstante $C$ den in einer reellen Messung immer vorhandenen Untergrund, der einerseits aus Rauschen und andererseits aus weiteren Prozessen, bei denen nicht die gesamte Energie des $\gamma$-Photons im Detektor gemessen werden konnte (insbesondere Compton-Kontinuum mit Compton-Kante), die nicht zum zugehörigen Totalenergiepeak des Spektrums beitragen.
+
+
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|c|} \hline
+    \input{voraufgabe.table}
+    \end{tabular}
+    \caption{Anpassungsparameter der überlagerten Gaussfunktionen und Untergrund-Funktion $f(\text{Kanal})=a\cdot \text{Kanal}+b$}
+    \label{tab:voraufgabe}
+\end{table}
+
+\jafps{voraufgabe}{Bereitgestellte Daten mit Anpassungsfunktion mit eingezeichneten Amplitudenspitzen $\mu_i$ und jeweiligen.}{0.6}
