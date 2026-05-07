@@ -63,10 +63,10 @@ class click_handler:
         p0 = [area_guess, np.average(x_part), sigma_guess, offset_guess]
         try:
             res, cov = scipy.optimize.curve_fit(std.area_gaussian_ug, x_part, y_part, p0)
-            red_chi_sq = std.reduced_chi_2(y_part, std.area_gaussian_ug(x_part, *res), res, sigma=np.sqrt(y_part))
+            red_chi_sq = std.reduced_chi_2(y_part, std.area_gaussian_ug(x_part, *res), res)#, sigma=np.sqrt(y_part))
             err = np.sqrt(np.diag(cov))
             self.p0s[-1] = list(p.ev(np.abs(res), err)) + [red_chi_sq]
-            self.handles[-1].curve = plt.plot(x_part, std.area_gaussian_ug(x_part, *res), color="darkgreen")[0]
+            self.handles[-1].curve = plt.plot(x_part, std.area_gaussian_ug(x_part, *res), color="lightgreen")[0]
         except Exception as e:
             print(e)
             self.delete_last()
@@ -92,7 +92,7 @@ class click_handler:
             xtol=1e-2,
             ftol=1e-2
         )
-        self.total_handle.curve = plt.plot(self.x, func(self.x, *res), color="lightgreen")[0]
+        self.total_handle.curve = plt.plot(self.x, func(self.x, *res), color="yellow")[0]
         plt.draw()
         print("updated total")
 
