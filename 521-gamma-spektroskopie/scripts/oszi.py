@@ -44,7 +44,7 @@ def plot_as_subfigs(files,corrected=False):
         times, volts, index = get_data(files[i])
         #optionally correct voltages for zero position
         if corrected:
-            volts=rel_volts(volts)
+            volts = rel_volts(volts)
 
         axs[first_ind,second_ind].plot(times*1e6,volts, color="tab:green",linewidth=0.8)
         print("plotting "+files[i])
