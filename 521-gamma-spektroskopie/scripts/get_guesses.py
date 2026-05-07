@@ -4,6 +4,7 @@ from sys import argv
 import scipy
 import std
 import spectrum_fit
+import propeller as p
 
 
 class handle_keeper:
@@ -37,6 +38,7 @@ class click_handler:
         self.p0s = []
         self.in_area = False
         self.total_params = None
+        self.save = False
 
 
     def start(self):
@@ -55,11 +57,15 @@ class click_handler:
         a, b = min(a, b), max(a, b)
         curve = np.where((b >= self.x) & (self.x >= a))
         x_part, y_part = self.x[curve], self.y[curve]
-        p0 = [max(y_part), np.average(x_part), (x_part[-1] - x_part[0]) / 2.5]
+        sigma_guess = (x_part[-1] - x_part[0]) / 2.5
+        offset_guess = min(y_part)
+        area_guess = max(y_part) * np.sqrt(2 * np.pi) * sigma_guess
+        p0 = [area_guess, np.average(x_part), sigma_guess, offset_guess]
         try:
-            res, _ = scipy.optimize.curve_fit(std.gaussian, x_part, y_part, p0)
-            self.p0s[-1] = np.abs(res)
-            self.handles[-1].curve = plt.plot(x_part, std.gaussian(x_part, *res), color="darkgreen")[0]
+            res, cov = scipy.optimize.curve_fit(std.area_gaussian_ug, x_part, y_part, p0)
+            err = np.sqrt(np.diag(cov))
+            self.p0s[-1] = p.ev(np.abs(res), err)
+            self.handles[-1].curve = plt.plot(x_part, std.area_gaussian_ug(x_part, *res), color="darkgreen")[0]
         except Exception as e:
             print(e)
             self.delete_last()
@@ -68,8 +74,8 @@ class click_handler:
     def fit_spectrum(self):
         func = spectrum_fit.make_spectrum_function(len(self.p0s), spectrum_fit.poly_4)
         total_p0 = []
-        for p in self.p0s:
-            total_p0 += [p[0] * (p[2] * np.sqrt(2 * np.pi)), p[1], p[2]]
+        for line in self.p0s:
+            total_p0 += [line[0], line[1], line[2]]
         lower_bound = np.array(total_p0) - 0.2 * np.array(total_p0)
         upper_bound = np.array(total_p0) + 0.2 * np.array(total_p0)
         lower_bound = np.append(lower_bound, np.array([-1e3] * 4))
@@ -85,8 +91,6 @@ class click_handler:
             xtol=1e-2,
             ftol=1e-2
         )
-        # p0 += [0, 0, 0, 0]
-        # res, (err, goodness) = std.fit_func(spectrum_fit.make_spectrum_function(len(self.lop), spectrum_fit.poly_4), self.x, self.y, y_errors=np.sqrt(self.y), p0=p0, force_cf=True)
         self.total_handle.curve = plt.plot(self.x, func(self.x, *res), color="lightgreen")[0]
         plt.draw()
         print("updated total")
@@ -123,21 +127,40 @@ class click_handler:
             self.fit_single_peak(*self.lop[-1])
             plt.draw()
 
-        if event.key == "e":
+        elif event.key == "e":
             print("rerunning fit?")
             self.fit_spectrum()
 
+        elif event.key == "s":
+            total_p0 = []
+            for line in self.p0s:
+                total_p0 += [line[0], line[1], line[2], line[3]]
+            lines_data ={
+                "Fläche": total_p0[0::4],
+                "$\\mu$": total_p0[1::4],
+                "$\\sigma$": total_p0[2::4],
+                "C":total_p0[3::4]
+            }
+            std.print_tex_table(lines_data, self.save + ".table")
+            std.print_csv_table(lines_data, self.save + ".csv")
 
-def let_user_click_peaks(x_values, y_values):
+
+def let_user_click_peaks(x_values, y_values, output):
     handler = click_handler(x_values, y_values)
+    if output:
+        handler.save = output
     handler.start()
     # ok might have wanted to do that earlier... let's not talk about that
 
 
 def main():
     data = np.transpose(np.loadtxt(argv[1]))
-    # out = argv[2]
-    let_user_click_peaks(data[0], data[1])
+    underground = np.transpose(np.loadtxt(argv[2]))
+    data[1] = data[1] - underground[1]
+    out = False
+    if len(argv) > 3:
+        out = argv[3]
+    let_user_click_peaks(data[0], data[1], out)
     return None
 
 if __name__ == "__main__":
