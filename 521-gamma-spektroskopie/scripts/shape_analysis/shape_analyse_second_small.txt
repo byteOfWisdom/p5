@@ -1,0 +1,12 @@
+file  7 :
+maximum at: 1.20(20)e-07  index:  25006
+ with:  0.01809(65) V
+half height of  0.00663(39) V at  5.6500(20)e-05 s
+duration:  5.6380(28)e-05 s
+file  9 :
+maximum at: 1.20(20)e-07  index:  25006
+ with:  0.01819(65) V
+half height of  0.00653(40) V at  5.7760(20)e-05 s
+duration:  5.7640(28)e-05 s
+average height:  0.01814(59) V
+average duration:  5.7010(24)e-05 s
