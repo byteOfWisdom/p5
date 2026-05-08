@@ -12,8 +12,8 @@ def area_fraction(dist, detector_size):
 
 
 def activity_at_time(starting_activity, time, half_life):
-    decay_const = np.log(2) / half_life
-    return starting_activity * np.exp(- time * decay_const)
+    decay_const =  half_life / np.log(2)
+    return starting_activity * np.exp(- time / decay_const)
 
 
 def time_with_err(time, err, unit):
@@ -82,12 +82,13 @@ fitted_peaks = {
 }
 
 
-for d, e in std.mesh(["ge", "scint"], ["cs"]):
+for d, e in std.mesh(["ge", "scint"], ["cs", "co"]):
     counts_in_peak = fitted_peaks[d][e][0][0]
     transition_chance = p.ev(0.947, 0.002) # just looking at the ceasium peak here
     covered_area = area_fraction(dist[d][e], radius[d])
     emitted_rays = activity[e] * duration[d]
+    print(activity[e].format())
     reaching_detector = covered_area * emitted_rays * transition_chance
     ratio = counts_in_peak / reaching_detector
     # print(d, "efficiency for 137Cs of:", ratio.format())
-    print(d, "efficiency for 137Cs of:", ~ratio)
+    print(d, "efficiency for", e, "of:", ~ratio * 100, "%")
