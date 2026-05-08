@@ -68,14 +68,26 @@ dist = {
     }
 }
 
-elements = activity.keys()
-detectors = radius.keys()
+fitted_peaks = {
+    "ge": {
+        "eu": std.load_csv("../figs/eu_ge_bin.csv", skiprows=1),
+        "cs": std.load_csv("../figs/cs_ge_bin.csv", skiprows=1),
+        "co": std.load_csv("../figs/co_ge_bin.csv", skiprows=1),
+    },
+    "scint": {
+        "eu": std.load_csv("../figs/eu_nai_bin.csv", skiprows=1),
+        "cs": std.load_csv("../figs/cs_nai_bin.csv", skiprows=1),
+        "co": std.load_csv("../figs/co_nai_bin.csv", skiprows=1),
+    }
+}
 
-for d, e in std.mesh(detectors, elements):
-    counts_in_peak = 1 # TODO: read correct data
-    transition_chance = 1
+
+for d, e in std.mesh(["ge", "scint"], ["cs"]):
+    counts_in_peak = fitted_peaks[d][e][0][0]
+    transition_chance = p.ev(0.947, 0.002) # just looking at the ceasium peak here
     covered_area = area_fraction(dist[d][e], radius[d])
     emitted_rays = activity[e] * duration[d]
     reaching_detector = covered_area * emitted_rays * transition_chance
     ratio = counts_in_peak / reaching_detector
-    print(ratio.format())
+    # print(d, "efficiency for 137Cs of:", ratio.format())
+    print(d, "efficiency for 137Cs of:", ~ratio)
