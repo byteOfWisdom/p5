@@ -35,3 +35,4 @@ for detector, element in std.mesh(["ge", "scint"], ["eu", "cs", "co"]):
     total_hits = sum(spectra[detector][element][1])
     peak_to_toal = fitted_peaks[detector][element][0] / total_hits
     print(peak_to_toal)
+    print(sum(peak_to_toal).format())
