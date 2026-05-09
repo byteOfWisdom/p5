@@ -48,7 +48,8 @@ class click_handler:
 
 
     def render(self):
-        plt.plot(self.x, self.y)
+        plt.plot(self.x, self.y, linewidth=0.5)
+        # plt.errorbar(self.x, self.y, np.sqrt(self.y), **std.default.error_bar_def)
         std.default.plt_pretty("Kanal", "Anzahl")
         plt.show()
 

@@ -7,13 +7,14 @@ from matplotlib import pyplot as plt
 
 # %%
 def area_fraction(dist, detector_size):
-    denominator = 2 * np.sqrt(1 + (detector_size / dist) ** 2)
+    # denominator = 2 * np.sqrt(1 + (detector_size / dist) ** 2)
+    denominator = 2 * np.sqrt(1 + (dist / detector_size) ** 2)
     return 1 / denominator
 
 
 def activity_at_time(starting_activity, time, half_life):
-    decay_const =  half_life / np.log(2)
-    return starting_activity * np.exp(- time / decay_const)
+    mean_life =  half_life / np.log(2)
+    return starting_activity * np.exp(- time / mean_life)
 
 
 def time_with_err(time, err, unit):
@@ -92,3 +93,19 @@ for d, e in std.mesh(["ge", "scint"], ["cs", "co"]):
     ratio = counts_in_peak / reaching_detector
     # print(d, "efficiency for 137Cs of:", ratio.format())
     print(d, "efficiency for", e, "of:", ~ratio * 100, "%")
+
+# %%
+print(activity)
+europium_line_matches = std.load_csv("../figs/europium_lit.csv", skiprows=1)
+energy = europium_line_matches[0]
+covered_area = area_fraction(dist["ge"]["eu"], radius["ge"])
+total_gammas = activity["eu"] * duration["ge"]
+intensity = europium_line_matches[1] / 100
+reaching_detector = total_gammas * covered_area * intensity
+ids = list(map(int, europium_line_matches[2]))
+peak_areas = fitted_peaks["ge"]["eu"][0][ids]
+effs = peak_areas / reaching_detector
+
+print(effs)
+plt.errorbar(~energy, ~effs, xerr=p.error(energy), yerr=p.error(effs), **std.default.error_bar_def)
+std.default.plt_finish("Energie / keV", "$\\epsilon$")
