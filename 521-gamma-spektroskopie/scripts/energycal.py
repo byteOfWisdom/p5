@@ -200,7 +200,7 @@ def plot_data_nai(save_to=False):
 
 
 def main():
-    plot_data_ge(save_to=False)
+    plot_data_nai(save_to=False)
     return
 
 if __name__ == "__main__":
