@@ -156,6 +156,8 @@ def plot_data_nai(save_to=False):
     x_meas_vals, x_meas_errs = p.ve(x_meas)
     y_temp = np.append(y_lit_co, y_lit_cs[:-1])
     y_lit = np.append(y_temp, y_lit_eu)
+    print(y_lit)
+    y_lit_errs = [0, 0, 0, 3e-4, 8e-4, 12e-4, 24e-4, 5e-3, 10e-3, 3e-3]
 
     #print(x_meas_errs)
     y_temp = np.append(y_lit_co, y_lit_cs[:-1])
@@ -178,7 +180,7 @@ def plot_data_nai(save_to=False):
     x_ax = np.linspace(0, max(~x_meas), 500)
     #print(fit[0]*90+fit[1])
 
-    plt.errorbar(x_meas_vals, y_lit*1e3, xerr=x_meas_errs,label="zugeordnete Linien (NaI-Detektor)",color="tab:red", **std.default.error_bar_def)
+    plt.errorbar(x_meas_vals, y_lit*1e3, xerr=x_meas_errs, yerr=y_lit_errs, label="zugeordnete Linien (NaI-Detektor)",color="tab:red", **std.default.error_bar_def)
     #plt.scatter(x_meas_vals, y_lit*1e3, color="tab:blue", marker="x", linewidths=0.7)
 
     plt.plot(x_ax,std.linear(x_ax,*fit), label=f"Anpassungsgerade, $R^2$={round(goodness,3)}",color="tab:blue")
@@ -198,7 +200,8 @@ def plot_data_nai(save_to=False):
 
 
 def main():
-    plot_data_ge(save_to=True)
+    plot_data_nai(save_to=True)
+    #plot_data_ge(save_to=True)
     return
 
 if __name__ == "__main__":
