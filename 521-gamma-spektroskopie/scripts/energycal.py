@@ -64,6 +64,7 @@ def lit_values_nai(element):
         return europium
     return "error with the lit vals!"
 
+
 def lit_values_ge(element):
     cobalt = [1173.2,1332.5]
     caesium = [661.7]
@@ -80,6 +81,7 @@ def lit_values_ge(element):
     if str(element) == "eu":
         return (eu_energies, eu_ints)
     return "error with the lit vals!"
+
 
 def plot_data_ge(save_to=False):
     #get data for all elements
@@ -127,7 +129,7 @@ def plot_data_ge(save_to=False):
     x_ax = np.linspace(0, max(~x_meas), 500)
 
     #plot data and fit
-    plt.errorbar(x_meas_vals, ~y_lit*1e3, xerr=x_meas_errs, yerr=y_lit_errs, label="zugeordnete Linien (HPGe-Detektor)",color="tab:red", **std.default.error_bar_def)
+    plt.errorbar(x_meas_vals, ~y_lit * 1e3, xerr=x_meas_errs, yerr=y_lit_errs * 1e3, label="zugeordnete Linien (HPGe-Detektor)",color="tab:red", **std.default.error_bar_def)
     plt.plot(x_ax,std.linear(x_ax,*fit), label=f"Anpassungsgerade, $R^2$={round(goodness, 5)}", color="tab:blue")
 
     plt.legend(loc="best", fontsize="small")
@@ -198,7 +200,7 @@ def plot_data_nai(save_to=False):
 
 
 def main():
-    plot_data_ge(save_to=True)
+    plot_data_ge(save_to=False)
     return
 
 if __name__ == "__main__":
