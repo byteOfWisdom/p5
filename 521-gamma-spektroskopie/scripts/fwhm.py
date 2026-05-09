@@ -44,23 +44,25 @@ for detector, element in std.mesh(["ge", "scint"], ["eu", "cs", "co"]):
 
 # %%
 def func(e, c, a):
-    return a + c * np.sqrt(e)
+    return a + c * (e ** 0.5)
 
 # %%
 fwhm = fitted_peaks["ge"]["eu"][sigma] * fwhm_const
 fwhm_energy = fwhm * energy_cal["ge"]["slope"]
 energy = fitted_peaks["ge"]["eu"][mu] * energy_cal["ge"]["slope"] + energy_cal["ge"]["offset"]
 
-# europium_line_matches = std.load_csv("../figs/europium_lit.csv", skiprows=1)
-# ids = list(map(int, europium_line_matches[2]))
-# fwhm_energy = fwhm_energy[ids]
-# energy = energy[ids]
+europium_line_matches = std.load_csv("../figs/europium_lit.csv", skiprows=1)
+ids = list(map(int, europium_line_matches[2]))
+fwhm_energy = fwhm_energy[ids]
+energy = energy[ids]
 # fwhm = fitted_peaks["scint"]["eu"][sigma] * fwhm_const
 # fwhm_energy = fwhm * energy_cal["scint"]["slope"]
 # energy = fitted_peaks["scint"]["eu"][mu] * energy_cal["scint"]["slope"] + energy_cal["scint"]["offset"]
 
-# res, (err, rsq) = std.fit_func(func, ~energy, ~fwhm_energy, force_cf=True)
-res, _ = scipy.optimize.curve_fit(func, ~energy, ~fwhm_energy)
+res, (err, rsq) = std.fit_func(func, ~energy, ~fwhm_energy, force_cf=True)
+# res, (err, rsq) = std.fit_func(lambda x, a, b:a * x + b, ~energy, ~fwhm_energy, force_cf=True)
+print(rsq)
+# res, _ = scipy.optimize.curve_fit(func, ~energy, ~fwhm_energy)
 
 plt.errorbar(~energy, ~fwhm_energy, p.error(fwhm_energy), p.error(energy), **std.default.error_bar_def)
 # plt.scatter(~energy, ~fwhm_energy)
