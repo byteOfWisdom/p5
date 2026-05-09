@@ -1,0 +1,94 @@
+# %%
+import propeller as p
+import numpy as np
+import std
+from matplotlib import pyplot as plt
+
+
+# %%
+def area_fraction(dist, detector_size):
+    denominator = 2 * np.sqrt(1 + (detector_size / dist) ** 2)
+    return 1 / denominator
+
+
+def activity_at_time(starting_activity, time, half_life):
+    decay_const =  half_life / np.log(2)
+    return starting_activity * np.exp(- time / decay_const)
+
+
+def time_with_err(time, err, unit):
+    conversion = np.timedelta64(1, "D").item().total_seconds() * 365 if unit=="Y" else 1
+    value =  time * conversion
+    err = err * conversion
+    return p.ev(value, err)
+
+
+# %%
+start_date = np.datetime64("2021-10-01")
+experiment_date = np.datetime64("2026-04-29")
+time_difference = experiment_date - start_date
+delta_t = p.ev(time_difference.item().total_seconds(), np.timedelta64(1, "D").item().total_seconds())
+
+# source: https://atom.kaeri.re.kr/nuchart/#
+eu_152_hlt = time_with_err(13.517, 0.006, "Y")
+cs_137_hlt = time_with_err(30.04, 0.04, "Y")
+co_60_hlt =  time_with_err(5.2714, 0.0006, "Y")
+
+activity = {
+    "eu": activity_at_time(709e3, delta_t, eu_152_hlt),
+    "cs": activity_at_time(405e3, delta_t, cs_137_hlt),
+    "co": activity_at_time(67e3, delta_t, co_60_hlt),
+}
+
+print("152 Eu:", activity["eu"].format(), "Bq")
+print("137 Cs:", activity["cs"].format(), "Bq")
+print("60 Co:", activity["co"].format(), "Bq")
+
+# %%
+radius = {
+    "scint": 50.8e-3 / 2,
+    "ge": 55.7e-3 / 2,
+}
+
+duration = {
+    "scint": 400,
+    "ge": 300
+}
+
+dist = {
+    "ge": {
+        "eu": p.ev(14e-2, 5e-3),
+        "cs": p.ev(85e-3, 5e-3),
+        "co": p.ev(2e-3, 5e-3),
+    },
+    "scint": {
+        "eu":  p.ev(10e-3, 5e-3),
+        "cs":  p.ev(90e-3, 5e-3),
+        "co":  p.ev(170e-3, 5e-3),
+    }
+}
+
+fitted_peaks = {
+    "ge": {
+        "eu": std.load_csv("../figs/eu_ge_bin.csv", skiprows=1),
+        "cs": std.load_csv("../figs/cs_ge_bin.csv", skiprows=1),
+        "co": std.load_csv("../figs/co_ge_bin.csv", skiprows=1),
+    },
+    "scint": {
+        "eu": std.load_csv("../figs/eu_nai_bin.csv", skiprows=1),
+        "cs": std.load_csv("../figs/cs_nai_bin.csv", skiprows=1),
+        "co": std.load_csv("../figs/co_nai_bin.csv", skiprows=1),
+    }
+}
+
+
+for d, e in std.mesh(["ge", "scint"], ["cs", "co"]):
+    counts_in_peak = fitted_peaks[d][e][0][0]
+    transition_chance = p.ev(0.947, 0.002) # just looking at the ceasium peak here
+    covered_area = area_fraction(dist[d][e], radius[d])
+    emitted_rays = activity[e] * duration[d]
+    print(activity[e].format())
+    reaching_detector = covered_area * emitted_rays * transition_chance
+    ratio = counts_in_peak / reaching_detector
+    # print(d, "efficiency for 137Cs of:", ratio.format())
+    print(d, "efficiency for", e, "of:", ~ratio * 100, "%")
