@@ -8,8 +8,8 @@
 \contentsline {chapter}{\numberline {3}Signalform}{8}{chapter.3}%
 \contentsline {subsection}{\numberline {3.0.1}Analyse der Signale des NaI-Detektors}{8}{subsection.3.0.1}%
 \contentsline {subsection}{\numberline {3.0.2}Analyse der Signale des HPGe-Detektors}{9}{subsection.3.0.2}%
-\contentsline {chapter}{\numberline {4}Anhang}{11}{chapter.4}%
+\contentsline {chapter}{\numberline {4}Anhang}{12}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Zusätzliche Abbildungen}{12}{section.4.1}%
 \contentsline {subsection}{\numberline {4.1.1}Oszilloskopaufnahmen mit Anpassungsfunktionen}{12}{subsection.4.1.1}%
-\contentsline {section}{\numberline {4.2}Literaturverzeichnis}{13}{section.4.2}%
+\contentsline {section}{\numberline {4.2}Zerfallsschemata verwendeter Elemente}{12}{section.4.2}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
