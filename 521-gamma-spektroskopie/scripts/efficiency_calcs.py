@@ -7,9 +7,9 @@ from matplotlib import pyplot as plt
 
 # %%
 def area_fraction(dist, detector_size):
-    # denominator = 2 * np.sqrt(1 + (detector_size / dist) ** 2)
-    denominator = 2 * np.sqrt(1 + (dist / detector_size) ** 2)
-    return 1 / denominator
+    denominator = 2 * np.sqrt(1 + (detector_size / dist) ** 2)
+    # denominator = 2 * np.sqrt(1 + (dist / detector_size) ** 2)
+    return 0.5 - (1 / denominator)
 
 
 def activity_at_time(starting_activity, time, half_life):
@@ -63,9 +63,9 @@ dist = {
         "co": p.ev(2e-3, 5e-3),
     },
     "scint": {
-        "eu":  p.ev(10e-3, 5e-3),
+        "eu":  p.ev(170e-3, 5e-3),
         "cs":  p.ev(90e-3, 5e-3),
-        "co":  p.ev(170e-3, 5e-3),
+        "co":  p.ev(10e-3, 5e-3),
     }
 }
 
@@ -88,11 +88,15 @@ for d, e in std.mesh(["ge", "scint"], ["cs", "co"]):
     transition_chance = p.ev(0.947, 0.002) # just looking at the ceasium peak here
     covered_area = area_fraction(dist[d][e], radius[d])
     emitted_rays = activity[e] * duration[d]
-    print(activity[e].format())
     reaching_detector = covered_area * emitted_rays * transition_chance
     ratio = counts_in_peak / reaching_detector
-    # print(d, "efficiency for 137Cs of:", ratio.format())
-    print(d, "efficiency for", e, "of:", ~ratio * 100, "%")
+
+    print("running for:", d, e)
+    print("area fraction is", covered_area.format())
+    print("counts in peak are:", counts_in_peak.format())
+    print("activity is:", activity[e].format())
+    print("efficiency is:", ~ratio * 100, "%")
+    print()
 
 # %%
 print(activity)
