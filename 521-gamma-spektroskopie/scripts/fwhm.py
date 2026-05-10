@@ -39,7 +39,9 @@ fwhm_const = np.sqrt(8 * np.log(2))
 for detector, element in std.mesh(["ge", "scint"], ["cs", "co"]):
     fwhm = fitted_peaks[detector][element][sigma] * fwhm_const
     fwhm_energy = fwhm * energy_cal[detector]["slope"]
-    print(f"{detector}, {element}, {fwhm}, {fwhm_energy}")
+    energy = fitted_peaks[detector][element][mu] * energy_cal[detector]["slope"] + energy_cal[detector]["offset"]
+    for i in range(len(fwhm)):
+        print(f"{detector} & {element} & {energy[i].format()} & {fitted_peaks[detector][element][sigma][i].format()} & {fwhm[i].format()} & {fwhm_energy[i].format()} \\\\")
 
 
 # %%

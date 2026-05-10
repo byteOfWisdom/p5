@@ -9,6 +9,8 @@
 \contentsline {subsection}{\numberline {3.0.1}Analyse der Signale des NaI-Detektors}{8}{subsection.3.0.1}%
 \contentsline {subsection}{\numberline {3.0.2}Analyse der Signale des HPGe-Detektors}{9}{subsection.3.0.2}%
 \contentsline {chapter}{\numberline {4}Halbwertsbreiten}{12}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Vergleich der Detektorarten}{12}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Intrinsische- und elektronische Halbwertsbreiten in HPGE}{12}{section.4.2}%
 \contentsline {chapter}{\numberline {5}Anhang}{14}{chapter.5}%
 \contentsline {section}{\numberline {5.1}Zusätzliche Abbildungen}{14}{section.5.1}%
 \contentsline {subsection}{\numberline {5.1.1}Oszilloskopaufnahmen mit Anpassungsfunktionen}{14}{subsection.5.1.1}%
