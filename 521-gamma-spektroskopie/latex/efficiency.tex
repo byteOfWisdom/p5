@@ -4,7 +4,7 @@
 
 Die Detektoreffizienz ist definiert als 
 \begin{align}
-	\epsilon = \frac{N_{E_\gamma \, \text{Photopeak}}}{N_{E_\gamma \, Detektor}}
+	\epsilon = \frac{N_{E_\gamma \, \text{Photopeak}}}{N_{E_\gamma \, Detektor}} \label{eq:basic_efficiency}
 \end{align}
 
 wobei $N_{E_\gamma \, \text{Photopeak}}$ die Anzahl der im Photopeak einer Linie nachgewiesenen Photonen ist und $N_{E_\gamma \, \text{Detektor}}$ die Anzahl der Photonen dieser Linie ist, welche den Detektor erreichen\cite[6]{521versuchsanleitung}. 
@@ -48,14 +48,28 @@ Die Aktivitäten, gemessen am 01.10.2021, sind auf den Proben angegeben und zusa
     \label{tab:activity}
 \end{table}
 
+% \begin{table}[h]
+%     \centering
+%     \begin{tabular}{|c||c|c|c|} \hline
+% 	Abstand / m & Cs & Co & Eu \\ 
+% 	\hline \hline
+% 	HPGe & \num{0.0850(50)} & \num{0.0020(50)}& \num{0.1400(50)} \\
+% 	NaI & \num{0.0900(50)} & \num{0.0100(50)} & \num{0.1700(50)} \\
+% 	\hline
+%     \end{tabular}
+%     \caption{Abstände der Proben bei den Messungen}
+%     \label{tab:distance}
+% \end{table}
+
 
 Mit diesen Ausdrücken, und $p_\text{Übergang}$ der Wahrscheinlichkeit eines Übergangs, kann die Anzahl der Photonen die den Detektor erreichen geschrieben werden als
 \begin{align}
-	N_{E_\gamma, \text{Detektor}} = A(t) \cdot T_\text{Messung} \cdot q = A_0 e^{-\frac{t \ln(2)}{T_{1/2}}} T_\text{Messung} \frac12 \bigg (1 - \sqrt{1 + (\frac{r_\text{Detektor}}{d_\text{Probe}})}^{-1}\bigg) \cdot p_\text{Übergang}
+	N_{E_\gamma, \text{Detektor}} &= A(t) \cdot T_\text{Messung} \cdot q \cdot p_\text{Übergang}\label{eq:hit_count_summary}\\
+	 &= A_0 e^{-\frac{t \ln(2)}{T_{1/2}}} T_\text{Messung} \frac12 \bigg (1 - \sqrt{1 + (r_\text{Detektor} / d_\text{Probe})}^{-1}\bigg) \cdot p_\text{Übergang}
 \end{align}
 
 
-Die Anzahl der im Phtotopeak registrierten Photonen ist direkt als Anpassungsparameter in Tabelle \todo{refrence} verfügbar.
+Die Anzahl der im Phtotopeak registrierten Photonen ist direkt als Anpassungsparameter in Tabelle \todo{refrence} verfügbar, die Abstände der Proben sind in Tabell \ref{tab:distance} gelistet. Der HPGe Detektor hat einen Durchmesser von $\SI{55.7}{\milli\meter}$ und der NaI Detektor von $\SI{50.8}{\milli\meter}$\ref{521versuchsanleitung}. Diese sind Fehlerfrei angegeben, was vermutlich bedeutet, dass die Dimensionen so exakt sind, dass die Unsicherheit nicht relevant ist. 
 
 \todo{Tabelle mit beliebig vielen zwischenwerten}
 
@@ -68,4 +82,38 @@ Man erkennt bei dieser Linie eine deutlich höhere Effizienz des Szintillationsd
 
 \section{Effizienzkurve HPGE}
 
-Nun wird für alle in \todo{refrence chapter} identifizierten Europium Linien die Effizienzen im HPGE Detektor bestimmt.
+Nun wird für alle in \todo{refrence chapter} identifizierten Europium Linien die Effizienzen im HPGE Detektor bestimmt. Die Wahrscheinlichkeiten $p_\text{Übergang}$ sind hierbei der Praktikumsanleitung entnommen.
+Die so gewonnenen Effizienzen werden in Abbildung \ref{fig:ge_efficiency} aufgetragen.
+
+An die Daten wird die Funktion
+\begin{align}
+	\ln(\epsilon) = \Sigma_{i=0}^N a_i \bigg(\ln \bigg( \frac{E}{E_0} \bigg) \bigg)^i \label{eq:fuckthis}
+\end{align}
+
+angepasst. Es wird dabei $E_0 = \SI{100}{\kilo\electronvolt}$ gewählt und $N=2$. Diese Funktion ist empirisch aber Üblich für diesen Anwendungsfall \cite{bestpracticeefficiency} und hat hinreichend wenige Parameter um auch bei den wenigen Datenpunkten nicht zu overfitten. In Abbildung \ref{fig:ge_efficiency_log} ist diese Version aufgetragen. Die Anpassungsparameter sind in \ref{tab:eff_fit} gelistet.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|c|} \hline
+	$i$ & 2 & 1 & 0 \\
+	\hline
+	$a_i$ & \num{-0.170(38)} & \num{-0.30(11)} &\num{-1.651(69)} \\
+	\hline
+    \end{tabular}
+    \caption{Parameter aus der Anpassung von Gl \eqref{eq:fuckthis}, zu sehen in Abbildung \ref{fig:ge_efficiency_log}.}
+    \label{tab:eff_fit}
+\end{table}
+
+
+\jafpp{ge_efficiency}{Effizienzkurve des HPGE Detektors mit Effizienz für Cäsium und Anpassungsfunktion eingezeichnet}{ge_efficiency_log}{Auftragung der Daten nach \eqref{eq:fuckthis} an denen die Anpassung durchgeführt wurde.}
+
+Das Modell beschreibt die Effizienzen der Europiumlinien gut ($R^2 = 0.995$) und beschreibt auch die Effizienz bei $\SI{661.7}{\kilo\electronvolt}$ von der Cäsium Linie gut.
+
+
+Mit dieser Funktion soll nun die Aktivität der Kobalt Quelle abgeschätzt werden. Dafür wird Gl \eqref{eq:basic_efficiency} zusammen mit Gl \eqref{eq:hit_count_summary} nach der Aktivität umgeformt. Man erhält dann Gl \eqref{eq:act_from_measure}.
+
+\begin{align}
+	A = \frac{N_\text{Photopeak}}{\epsilon(E_\gamma) \cdot q \cdot T_\text{Messung}}\label{eq:act_from_measure}
+\end{align}
+
+Damit erhält man eine Aktivität in Kobalt von $A = \SI{8.6(1.7)e+03}{\Bq}$, welche deutlich von der angegebenen (und zeitlich entwickelten) von $\SI{3.67(18)e+04}{\Bq}$ abweicht. \todo{Fehelr finden oder grund bullshiten} 

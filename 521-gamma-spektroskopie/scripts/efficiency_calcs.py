@@ -55,8 +55,8 @@ radius = {
 }
 
 duration = {
-    "scint": 400,
-    "ge": 300
+    "scint": p.ev(400, 0.5),
+    "ge": p.ev(300, 0.5)
 }
 
 dist = {
@@ -72,6 +72,12 @@ dist = {
     }
 }
 
+# %%
+for a, b in std.mesh(["cs", "co", "eu"], ["ge", "scint"]):
+    print(a, b, dist[b][a].format())
+
+
+# %%
 fitted_peaks = {
     "ge": {
         "eu": std.load_csv("../figs/eu_ge_bin.csv", skiprows=1),
@@ -131,10 +137,31 @@ y = np.log(effs)
 # y = effs
 res, (err, rsq) = std.curve_fit(poly, x, y)
 
-# print(effs)
-# plt.errorbar(~energy, ~effs, xerr=p.error(energy), yerr=p.error(effs), **std.default.error_bar_def)
+print(p.ev(res, err))
+
 plt.errorbar(~energy, ~effs, xerr=p.error(energy), yerr=p.error(effs), **std.default.error_bar_def)
 plt.errorbar(661.7, ~eff_cs, p.error(eff_cs), label="137Cs", color="red", **std.default.error_bar_def)
 xrange = np.linspace(min(energy), max(energy), 1000)
 plt.plot(xrange, np.exp(poly(np.log(xrange/ 100), *res)), label=f"$R^2 = {round(rsq, 3)}$")
-std.default.plt_finish("$\\ln(E / E_0)$ / ln(keV)", "$\\ln(\\epsilon)$", "../figs/ge_efficiency.pdf")
+std.default.plt_finish("E / keV", "$\\epsilon$", "../figs/ge_efficiency.pdf")
+
+
+# %%
+plt.errorbar(~x, ~y, xerr=p.error(x), yerr=p.error(y), **std.default.error_bar_def)
+plt.errorbar(np.log(661.7 / 100), ~np.log(eff_cs), p.error(np.log(eff_cs)), label="137Cs", color="red", **std.default.error_bar_def)
+xrange = np.linspace(min(x), max(x), 1000)
+plt.plot(xrange, poly(xrange, *res), label=f"$R^2 = {round(rsq, 3)}$")
+std.default.plt_finish("$\\ln(E/E0) $/ keV", "$\\ln(\\epsilon)$", "../figs/ge_efficiency_log.pdf")
+
+# %%
+e = 1173.2
+eps = np.exp(poly(np.log(e / 100), *res))
+co_act = fitted_peaks["ge"]["co"][0][0] / (eps  * duration["ge"] * area_fraction(dist["ge"]["co"], radius["ge"]))
+
+e2 = 1173.2
+eps = np.exp(poly(np.log(e2 / 100), *res))
+co_act_2 = fitted_peaks["ge"]["co"][0][1] / (eps  * duration["ge"] * area_fraction(dist["ge"]["co"], radius["ge"]))
+
+print(co_act.format())
+print(co_act_2.format())
+print((0.5 * co_act + 0.5 * co_act_2).format())
