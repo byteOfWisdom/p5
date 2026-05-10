@@ -30,9 +30,9 @@ time_difference = experiment_date - start_date
 delta_t = p.ev(time_difference.item().total_seconds(), np.timedelta64(1, "D").item().total_seconds())
 
 # source: https://atom.kaeri.re.kr/nuchart/#
-eu_152_hlt = time_with_err(13.517, 0.006, "Y")
-cs_137_hlt = time_with_err(30.04, 0.04, "Y")
-co_60_hlt =  time_with_err(5.2714, 0.0006, "Y")
+eu_152_hlt = time_with_err(13.517, 0, "Y")
+cs_137_hlt = time_with_err(30.08, 0.09, "Y")
+co_60_hlt =  time_with_err(5.275, 0, "Y")
 
 activity = {
     "eu": activity_at_time(p.ev(709e3, 0.05 * 709e3), delta_t, eu_152_hlt),
@@ -99,6 +99,7 @@ for d, e in std.mesh(["ge", "scint"], ["cs", "co"]):
     print("counts in peak are:", counts_in_peak.format())
     print("activity is:", activity[e].format())
     print("efficiency is:", ~ratio * 100, "%")
+    print("efficiency is:", ratio.format())
     print()
 
 # %%

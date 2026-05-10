@@ -31,7 +31,7 @@ Dafür wird das Zerfallsgesetz genutzt \todo{source}. Während der relativ kurze
 	A = A_0 e^{- t \frac{\ln(2)}{T_{1/2}}}
 \end{align}
 
-Die Aktivitäten, gemessen am 01.10.2021, sind auf den Proben angegeben und zusammen mit den aktivitäten am Versuchstag (26.05.2026) in Tabelle \todo{ref}zu finden. Hierbei wurde als Unsicherheit bei der Zeit ein Tag angenommen, da keine Uhrzeit der Messung bekannt ist. weiterhin wird auf die angegebene Aktivität ein Fehler von 5\% des angegebenen Wertes angenommen, da keine weitere Angabe vorliegt. Diese Unsicherheit mag natürlich völlig falsch sein, vermittelt bei den resultierenden Rechnungen aber ein Gefühl für die zu erwartende Genauigkeit.
+Die Aktivitäten, gemessen am 01.10.2021, sind auf den Proben angegeben und zusammen mit den aktivitäten am Versuchstag (29.04.2026) in Tabelle \ref{tab:activity} zu finden. Hierbei wurde als Unsicherheit bei der Zeit ein Tag angenommen, da keine Uhrzeit der Messung bekannt ist. weiterhin wird auf die angegebene Aktivität ein Fehler von 5\% des angegebenen Wertes angenommen, da keine weitere Angabe vorliegt. Diese Unsicherheit mag natürlich völlig falsch sein, vermittelt bei den resultierenden Rechnungen aber ein Gefühl für die zu erwartende Genauigkeit.
 
 
 \begin{table}[h]
@@ -39,19 +39,19 @@ Die Aktivitäten, gemessen am 01.10.2021, sind auf den Proben angegeben und zusa
     \begin{tabular}{|c|c|c|c|} \hline
 	Isotop & $T_{1/2}$ / a & A_0 / Bq & A(t_\text{versuch}) / Bq \\
 	\hline
-	137 Cs & \num{30.04(4)} & \num{4.05(20)e+05} & \num{3.64(18)e+05} \\
-	152 Eu & \num{13.517(6)} & \num{7.09(35)e+05} & \num{5.61(28)e+05} \\
-	60 Co & \num{5.2714(6)} & \num{6.70(34)e+04} & \num{3.67(18)e+04} \\
+	137 Cs & \num{30.08(9)} & \num{4.05(20)e+05} & \num{3.64(18)e+05} \\
+	152 Eu & \num{13.517} & \num{7.09(35)e+05} & \num{5.61(28)e+05} \\
+	60 Co & \num{5.275} & \num{6.70(34)e+04} & \num{3.67(18)e+04} \\
 	\hline
     \end{tabular}
-    \caption{Halbwertszeiten \todo{source} der Isotope sowie Aktivitäten der Proben}
-    \label{tab:fwhm}
+    \caption{Halbwertszeiten \cite{521versuchsanleitung} der Isotope sowie Aktivitäten der Proben}
+    \label{tab:activity}
 \end{table}
 
 
-Mit diesen Ausdrücken kann die Anzahl der Photonen die den Detektor erreichen geschrieben werden als
+Mit diesen Ausdrücken, und $p_\text{Übergang}$ der Wahrscheinlichkeit eines Übergangs, kann die Anzahl der Photonen die den Detektor erreichen geschrieben werden als
 \begin{align}
-	N_{E_\gamma, \text{Detektor}} = A(t) \cdot T_\text{Messung} \cdot q = A_0 e^{-\frac{t \ln(2)}{T_{1/2}}} T_\text{Messung} \frac12 \bigg (1 - \sqrt{1 + (\frac{r_\text{Detektor}}{d_\text{Probe}})}^{-1}\bigg)
+	N_{E_\gamma, \text{Detektor}} = A(t) \cdot T_\text{Messung} \cdot q = A_0 e^{-\frac{t \ln(2)}{T_{1/2}}} T_\text{Messung} \frac12 \bigg (1 - \sqrt{1 + (\frac{r_\text{Detektor}}{d_\text{Probe}})}^{-1}\bigg) \cdot p_\text{Übergang}
 \end{align}
 
 
@@ -60,5 +60,12 @@ Die Anzahl der im Phtotopeak registrierten Photonen ist direkt als Anpassungspar
 \todo{Tabelle mit beliebig vielen zwischenwerten}
 
 \section{Vergleich der Detektortypen}
-Mit diesen Überlegungen wird für die Cäsium\-137 Quelle die Effizienz in beiden Detektoren bestimmt.
+Mit diesen Überlegungen und $p_\text{Übergang} = \SI{94.7(2)}{\percent}$ \cite{521versuchsanleitung} wird für die $\SI{661.7}{\kilo\electronvolt}$ Linie von Cäsium\-137 Quelle die Effizienz in beiden Detektoren bestimmt.
+Es ergibt sich eine Effizienz des HPGE Detektors von $\epsilon_\text{HPGE} = \num{0.0567(68)}$ ($\approx 5.7\%$) und für NaI $\epsilon_\text{NaI} = 0.101(12)$ ($\approx 10.1\%$).
 
+Man erkennt bei dieser Linie eine deutlich höhere Effizienz des Szintillationsdetektors, was genau den Erwartungen entspricht \todo{cite}.
+
+
+\section{Effizienzkurve HPGE}
+
+Nun wird für alle in \todo{refrence chapter} identifizierten Europium Linien die Effizienzen im HPGE Detektor bestimmt.
