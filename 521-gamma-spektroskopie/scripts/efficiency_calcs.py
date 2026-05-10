@@ -55,8 +55,8 @@ radius = {
 }
 
 duration = {
-    "scint": 400,
-    "ge": 300
+    "scint": p.ev(400, 0.5),
+    "ge": p.ev(300, 0.5)
 }
 
 dist = {
@@ -131,10 +131,16 @@ y = np.log(effs)
 # y = effs
 res, (err, rsq) = std.curve_fit(poly, x, y)
 
-# print(effs)
-# plt.errorbar(~energy, ~effs, xerr=p.error(energy), yerr=p.error(effs), **std.default.error_bar_def)
 plt.errorbar(~energy, ~effs, xerr=p.error(energy), yerr=p.error(effs), **std.default.error_bar_def)
 plt.errorbar(661.7, ~eff_cs, p.error(eff_cs), label="137Cs", color="red", **std.default.error_bar_def)
 xrange = np.linspace(min(energy), max(energy), 1000)
 plt.plot(xrange, np.exp(poly(np.log(xrange/ 100), *res)), label=f"$R^2 = {round(rsq, 3)}$")
-std.default.plt_finish("$\\ln(E / E_0)$ / ln(keV)", "$\\ln(\\epsilon)$", "../figs/ge_efficiency.pdf")
+std.default.plt_finish("E / keV", "$\\epsilon$", "../figs/ge_efficiency.pdf")
+
+
+# %%
+plt.errorbar(~x, ~y, xerr=p.error(x), yerr=p.error(y), **std.default.error_bar_def)
+plt.errorbar(np.log(661.7 / 100), ~np.log(eff_cs), p.error(np.log(eff_cs)), label="137Cs", color="red", **std.default.error_bar_def)
+xrange = np.linspace(min(x), max(x), 1000)
+plt.plot(xrange, poly(xrange, *res), label=f"$R^2 = {round(rsq, 3)}$")
+std.default.plt_finish("E / keV", "$\\epsilon$", "../figs/ge_efficiency_log.pdf")
