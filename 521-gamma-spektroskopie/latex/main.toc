@@ -11,17 +11,20 @@
 \contentsline {chapter}{\numberline {4}Halbwertsbreiten}{12}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Vergleich der Detektorarten}{12}{section.4.1}%
 \contentsline {section}{\numberline {4.2}Intrinsische- und elektronische Halbwertsbreiten in HPGE}{12}{section.4.2}%
-\contentsline {chapter}{\numberline {5}Analyse der Bodenprobe}{14}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Durchführung}{14}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Identifikation der vorhandenen Radionuklide}{14}{section.5.2}%
-\contentsline {subsection}{\numberline {5.2.1}Diskussion der Zuordnung}{15}{subsection.5.2.1}%
-\contentsline {chapter}{\numberline {6}Anhang}{17}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Oszilloskopaufnahmen mit Anpassungsfunktionen}{17}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Spektren mit Fehlerbalken}{18}{section.6.2}%
-\contentsline {subsection}{\numberline {6.2.1}NaI-Detektor}{18}{subsection.6.2.1}%
-\contentsline {subsection}{\numberline {6.2.2}HPGe-Detektor}{20}{subsection.6.2.2}%
-\contentsline {subsection}{\numberline {6.2.3}Bodenprobe}{22}{subsection.6.2.3}%
-\contentsline {section}{\numberline {6.3}Zerfallsschemata verwendeter Elemente}{23}{section.6.3}%
-\contentsline {section}{\numberline {6.4}Tabellen}{23}{section.6.4}%
-\contentsline {subsection}{\numberline {6.4.1}Bodenprobe}{23}{subsection.6.4.1}%
+\contentsline {chapter}{\numberline {5}Detektoreffizienz}{14}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Vergleich der Detektortypen}{15}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Effizienzkurve HPGE}{15}{section.5.2}%
+\contentsline {chapter}{\numberline {6}Analyse der Bodenprobe}{17}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Durchführung}{17}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Identifikation der vorhandenen Radionuklide}{17}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Diskussion der Zuordnung}{18}{subsection.6.2.1}%
+\contentsline {chapter}{\numberline {7}Anhang}{20}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Oszilloskopaufnahmen mit Anpassungsfunktionen}{20}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Spektren mit Fehlerbalken}{21}{section.7.2}%
+\contentsline {subsection}{\numberline {7.2.1}NaI-Detektor}{21}{subsection.7.2.1}%
+\contentsline {subsection}{\numberline {7.2.2}HPGe-Detektor}{23}{subsection.7.2.2}%
+\contentsline {subsection}{\numberline {7.2.3}Bodenprobe}{25}{subsection.7.2.3}%
+\contentsline {section}{\numberline {7.3}Zerfallsschemata verwendeter Elemente}{26}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Tabellen}{26}{section.7.4}%
+\contentsline {subsection}{\numberline {7.4.1}Bodenprobe}{26}{subsection.7.4.1}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
