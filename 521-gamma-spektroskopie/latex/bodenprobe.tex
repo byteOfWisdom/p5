@@ -1,0 +1,55 @@
+\chapter{Analyse der Bodenprobe}
+
+\section{Durchführung}
+
+Es wurde nun eine mitgebrachte Bodenprobe (ca. $\SI{1}{\kg}$ Material) mit dem HPGe-Detektor untersucht. Dazu wurde die Probe in einem transparenten Plastikbeutel direkt vor den Detektor gestellt und mit einer annähernd kompletten Abschirmung aus Bleiblöcken umgeben, um Hintergrundsignale möglichst zu eliminieren. Als Messdauer wurden $t = \SI{18}{\hour}=\SI{64800}{\second}$ über Nacht gewählt. Als Verstärkung des Detektors blieb weiterhin $1,700$ eingestellt. Anschließend dazu wurde die gleiche Messung wiederholt, nur ohne Probe, damit ein Untergrundspektrum aufgenommen werden konnte. Die so erhaltenen Spektren sind (mit Fehlerbalken, die für den weiteren Verlauf um eine sinnvolle Inspektion der Spektrumsform zu ermöglichen, weggelassen werden) in Abbildungen \ref{fig:langzeit_mitprobe_ge_with_eb} und \ref{fig:langzeit_ohneprobe_ge_with_eb} dargestellt. Es wird das Differenzspektrum durch Subtraktion des Untergrundspektrums vom Probenspektrum erzeugt, eine Normierung der Messanzahlen ist aufgrund der gleich gewählten Messdauern nicht notwendig. Das Differenzspektrum ist in Abbildung \todo{fig Spektrum} dargestellt.
+
+\section{Identifikation der vorhandenen Radionuklide}
+Es soll nun identifiziert werden, welche Radionuklide in der Probe vorhanden waren, da in der Umgebung ständig eine geringfügige Strahlungsbelastung vorhanden ist. Dabei handelt es sich sowohl um primordiale, sehr langlebige Radionuklide und ihre Zerfallsprodukte als auch um ständig aufgrund von hochenergetischer kosmischer Strahlung produzierte Radionuklide \cite[55-58]{ex_techniques}. Auch zivilisatorisch erzeugte Radionuklide kommen dabei in Frage \cite[7]{521versuchsanleitung}, welche nicht natürlich, sondern nur als künstlich entstandene Zerfallsprodukte bei Kernwaffeneinsätzen oder bei der Erzeugung nuklearer Energie entstehen \cite[73]{leotechniques}.
+
+Um die in der spezifischen Probe vorhandenen Nuklide identifizieren zu können, sollen die Energien der gemessenen $\gamma$-Photonen anhand der erkennbaren Totalenergie-Peaks des gemessenen Spektrum bestimmt werden. Als Detektor wurde der HPGe-Detektor verwendet, daher wird im Folgenden für die Berechnung der korrespondierenden Energien der Kanälnummern, bei denen die Peakschwerpunkte liegen, die oben bestimmte (\todo{ref sec und Gleichung}) Energiekalibrationsfunktion des HPGe-Detektors genutzt.
+Es wurden mit dem gleichen Verfahren wie bereits oben verwendet die deutlich sichtbaren Gaußpeaks im Spektrum identifiziert und die Daten jeweils mit den einzelnen Gaußfunktionen angepasst. Das Spektrum mit Anpassungsfunktionen ist in Abbildung \ref{fig:bodenprobe} dargestellt (Daten in blau, Anpassungsfunktionen in grün, die grünen Bereich zeigen die benutzten Datenbereiche für die einzelnen Anpassungsfunktionen). Die Anpassungsparameter sind in Tabelle \ref{tab:bodenprobe_peaks} zu finden.
+
+\jafps{bodenprobe}{Differenzspektrum der Bodenprobe (in blau, aus Lesbarkeitsgründen ohne Fehler) mit eingezeichneten Anpassungsbereichen (hellgrüne Bereiche) und Anpassungsfunktionen an die erkennbaren Gaußpeaks (jeweils in grün) in Ereignisanzahl-Kanal-Darstellung.}{0.6}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|} \hline
+    Fläche & $\mu$ & $\sigma$ & C & $\chi^2_\text{red}$ \\ \hline
+    $\num{1.25(29)e+03}$ & $\num{804.48(75)}$ & $\num{3.63(83)}$ & $\num{84.1(9.5)}$ & $\num{0.6147}$ \\
+
+
+    \end{tabular}
+    \caption{Anpassungsparameter der einzelnen Gaussfunktionen}
+    \label{tab:bodenprobe_peaks}
+\end{table}
+
+
+% 7.0(3.3)e+02 830.9(1.2) 3.7(1.5) 69(13) 0.8355
+% 1.5(1.1)e+03 929.1(8.6) 21(12) 55.3(9.0) 0.9884
+% 5.11(23)e+03 2573.49(21) 5.19(23) 36.5(5.0) 0.0751
+% 3.9(2.9)e+03 2599.1(3.9) 21.5(9.6) 14(27) 0.7186
+% 1.43(19)e+03 3184.20(68) 6.11(78) 21.3(4.0) 0.3954
+% 6.1(4.9)e+02 3237.2(2.9) 9.7(5.4) 13.9(9.5) 0.931
+% 1.31(16)e+03 3648.33(72) 6.54(80) 17.8(3.1) 0.4141
+% 2.30(15)e+03 3795.37(32) 5.18(34) 14.4(3.1) 0.1703
+% 3.0(1.2)e+02 4992.7(2.6) 7.1(2.8) 12.5(1.9) 0.9306
+% 1.12(21)e+03 5511.2(1.7) 12.8(2.1) 6.2(2.4) 0.6249
+% 1.86(11)e+03 6290.62(35) 6.14(37) 7.7(1.8) 0.1813
+% 1.90(14)e+03 6572.81(51) 7.98(57) 5.3(2.2) 0.214
+% 380(66) 7844.56(81) 5.01(88) 3.2(1.5) 0.5774
+% 247(72) 8576.4(1.6) 5.9(1.7) 5.0(1.4) 0.8251
+% 1332(96) 9828.40(56) 8.45(61) 5.0(1.3) 0.2697
+% 364(89) 10409.7(1.9) 9.2(2.2) 3.0(1.3) 0.7735
+% 661(87) 10453.83(99) 8.6(1.1) 4.9(1.3) 0.4993
+% 561(92) 12085.5(1.5) 10.5(1.7) 4.0(1.1) 0.6781
+% 7.24(19)e+03 15758.86(22) 9.46(24) 1.7(2.5) 0.0414
+
+
+Es wurden mithilfe der Germanium-Energiekalibrationsfunktion die Peakschwerpunkte in Energien umgerechnet und anschließend mit möglichen Energien von $\gamma$-Photonen verglichen. Es kommen nur Energien in Frage, die zu bekannten in der Umwelt vorkommenden Radionukliden gehören, die eine Lebensdauer haben, die in der gleichen Größenordnung wie die Messdauer liegt, wie die Messung und eine relativ hohe relative Intensität (Anteil der Zerfälle, bei denen ein Photon dieser Energie emittiert wird) haben, da sonst die Intensität zu klein wäre. Zur Recherche der möglichen Energien werden \cite{nudat} sowie \cite[Anhang A]{list_bmumwelt} genutzt. Es können nicht alle gefundenen Peaks des aufgenommenen Spektrums sicher zuordnet werden. Dies ist insbesondere bei den niedrigeren Peakenergien dadurch zu erklären, dass wahrscheinlich auch Röntgenstrahlung (bei Zustandsübergängen von Elektronen in der Hülle der Atome, entweder im Detektormaterial oder bei den Molekülen der Probe) im Bereich unter $\SI{100}{\kilo\eV}$ gemessen wurde.
+Auch Rückstreupeaks (Compton-Streuung im Streuwinkelmaximum von $\SI{180}{\degree}$) an der Bleiumschirmung oder am Detektormaterial sowie Escape-Peaks (bei $e^{+}e^{-}$-Annihilation für einige der erzeugten freien Elektronen, bei denen bei Paarbildung von dem Positron mit einem Materialelektron nur eins (oder keins) der dabei erzeugten zwei Photonen mit jeweiliger Energie $\SI{511}{\kilo\eV}$ registriert wird und so zur gemessenen $\gamma$-Photon-Energie betragen kann) könnten zu weiteren Peaks im Spektrum beitragen, die dann keine zuordnenbaren Totalenergiepeaks sein können.
+In Tabelle \todo{tabelle zuordnungen} sind die Linien mit den jeweiligen zuordneten Radionukliden aufgelistet, bei denen eine Zuordnung erfolgen konnte.
+
+\todo{tabelle}
+
+\subsection{Diskussion der Zuordnung}
