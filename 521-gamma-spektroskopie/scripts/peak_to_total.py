@@ -22,17 +22,22 @@ spectra = {
         "eu": std.load_csv("../data/eu_ge.txt"),
         "cs": std.load_csv("../data/cs_ge.txt"),
         "co": std.load_csv("../data/co_ge.txt"),
+        "ug": std.load_csv("../data/undergrd_ge.txt")
     },
     "scint": {
         "eu": std.load_csv("../data/eu_nai.txt"),
         "cs": std.load_csv("../data/cs_nai_fixed.txt"),
         "co": std.load_csv("../data/co_nai.txt"),
+        "ug": std.load_csv("../data/undergrd_nai.txt")
     }
 }
 
 # %%
-for detector, element in std.mesh(["ge", "scint"], ["eu", "cs", "co"]):
-    total_hits = sum(spectra[detector][element][1])
-    peak_to_toal = fitted_peaks[detector][element][0] / total_hits
-    print(peak_to_toal)
-    print(sum(peak_to_toal).format())
+for detector, element in std.mesh(["ge", "scint"], ["cs", "co"]):
+    print(detector, element)
+    total_hits = sum(spectra[detector][element][1]) - sum(spectra[detector]["ug"][1])
+    peak_to_total = fitted_peaks[detector][element][0] / total_hits
+    print("mu:", fitted_peaks[detector][element][1])
+    print("PTT:", peak_to_total)
+    print(sum(peak_to_total).format())
+    print()

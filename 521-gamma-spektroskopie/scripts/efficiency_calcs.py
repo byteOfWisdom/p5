@@ -3,7 +3,6 @@ import propeller as p
 import numpy as np
 import std
 from matplotlib import pyplot as plt
-import scipy
 
 # %%
 def area_fraction(dist, detector_size):
@@ -109,8 +108,19 @@ ids = list(map(int, europium_line_matches[2]))
 peak_areas = fitted_peaks["ge"]["eu"][0][ids]
 effs = peak_areas / reaching_detector
 # res, cov = scipy.optimize.curve_fit(lambda x, a, b, c, d: a * np.exp(- b * x) + c * np.exp(- d * x), ~energy, ~effs, p0=[1,1,1,1])
-res, (err, rsq) = std.odr_fit(lambda x, a, b, c, d: a * np.exp(- b * x) + c * np.exp(- d * x), energy, effs)
 
-print(effs)
+def poly(x, a, b, c):
+    return a * (x ** 2) + b * x + c
+
+x = np.log(energy / 100)
+y = np.log(effs)
+# x = energy
+# y = effs
+res, (err, rsq) = std.curve_fit(poly, x, y)
+
+# print(effs)
+# plt.errorbar(~energy, ~effs, xerr=p.error(energy), yerr=p.error(effs), **std.default.error_bar_def)
 plt.errorbar(~energy, ~effs, xerr=p.error(energy), yerr=p.error(effs), **std.default.error_bar_def)
-std.default.plt_finish("Energie / keV", "$\\epsilon$")
+xrange = np.linspace(min(energy), max(energy), 1000)
+plt.plot(xrange, np.exp(poly(np.log(xrange/ 100), *res)), label=f"$R^2 = {round(rsq, 3)}$")
+std.default.plt_finish("$\\ln(E / E_0)$ / ln(keV)", "$\\ln(\\epsilon)$")
