@@ -18,15 +18,47 @@ Die Berechnung von $N_{E_\gamma \, \text{Detektor}}$ folgt aus der Aktivität de
 
 Der Winkel $\alpha$ ist hierbei der Öffnungswinkel eines Kegels, welcher von der Probe und dem Rand des Detektors aufgespannt wird, also $\alpha = \arctan(r_\text{Detektor} / d_\text{Probe})$ ($d_\text{Probe}$ ist dabei der Abstand der Probe zur Dektorvorderseite).
 \todo{skizze davon in den anhang maybe}
+Damit ist dann die Fläche gegeben als
+
+\begin{align}
+	q = \frac12 (1 - \frac{1}{\sqrt{1 + (\frac{r_\text{Detektor}}{d_\text{Probe}})}})
+\end{align}
 
 
 Die Aktivität der Proben zu einem Referenzzeitpunkt ist bekannt und muss nur mittels der Halbwertszeiten für den Versuchstag berechnet werden.
-Dafür wird das Zerfallsgesetz genutzt \todo{source}
+Dafür wird das Zerfallsgesetz genutzt \todo{source}. Während der relativ kurzen Messung wird die Aktivität als konstant betrachtet.
 \begin{align}
 	A = A_0 e^{- t \frac{\ln(2)}{T_{1/2}}}
 \end{align}
 
+Die Aktivitäten, gemessen am 01.10.2021, sind auf den Proben angegeben und zusammen mit den aktivitäten am Versuchstag (26.05.2026) in Tabelle \todo{ref}zu finden. Hierbei wurde als Unsicherheit bei der Zeit ein Tag angenommen, da keine Uhrzeit der Messung bekannt ist. weiterhin wird auf die angegebene Aktivität ein Fehler von 5\% des angegebenen Wertes angenommen, da keine weitere Angabe vorliegt. Diese Unsicherheit mag natürlich völlig falsch sein, vermittelt bei den resultierenden Rechnungen aber ein Gefühl für die zu erwartende Genauigkeit.
 
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|c|} \hline
+	Isotop & $T_{1/2}$ / a & A_0 / Bq & A(t_\text{versuch}) / Bq \\
+	\hline
+	137 Cs & \num{30.04(4)} & \num{4.05(20)e+05} & \num{3.64(18)e+05} \\
+	152 Eu & \num{13.517(6)} & \num{7.09(35)e+05} & \num{5.61(28)e+05} \\
+	60 Co & \num{5.2714(6)} & \num{6.70(34)e+04} & \num{3.67(18)e+04} \\
+	\hline
+    \end{tabular}
+    \caption{Halbwertszeiten \todo{source} der Isotope sowie Aktivitäten der Proben}
+    \label{tab:fwhm}
+\end{table}
+
+
+Mit diesen Ausdrücken kann die Anzahl der Photonen die den Detektor erreichen geschrieben werden als
+\begin{align}
+	N_{E_\gamma, \text{Detektor}} = A(t) \cdot T_\text{Messung} \cdot q = A_0 e^{-\frac{t \ln(2)}{T_{1/2}}} T_\text{Messung} \frac12 \bigg (1 - \sqrt{1 + (\frac{r_\text{Detektor}}{d_\text{Probe}})}^{-1}\bigg)
+\end{align}
+
+
+Die Anzahl der im Phtotopeak registrierten Photonen ist direkt als Anpassungsparameter in Tabelle \todo{refrence} verfügbar.
+
+\todo{Tabelle mit beliebig vielen zwischenwerten}
 
 \section{Vergleich der Detektortypen}
+Mit diesen Überlegungen wird für die Cäsium\-137 Quelle die Effizienz in beiden Detektoren bestimmt.
 
