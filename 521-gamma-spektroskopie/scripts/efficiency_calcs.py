@@ -3,7 +3,7 @@ import propeller as p
 import numpy as np
 import std
 from matplotlib import pyplot as plt
-
+import scipy
 
 # %%
 def area_fraction(dist, detector_size):
@@ -99,7 +99,6 @@ for d, e in std.mesh(["ge", "scint"], ["cs", "co"]):
     print()
 
 # %%
-print(activity)
 europium_line_matches = std.load_csv("../figs/europium_lit.csv", skiprows=1)
 energy = europium_line_matches[0]
 covered_area = area_fraction(dist["ge"]["eu"], radius["ge"])
@@ -109,6 +108,8 @@ reaching_detector = total_gammas * covered_area * intensity
 ids = list(map(int, europium_line_matches[2]))
 peak_areas = fitted_peaks["ge"]["eu"][0][ids]
 effs = peak_areas / reaching_detector
+# res, cov = scipy.optimize.curve_fit(lambda x, a, b, c, d: a * np.exp(- b * x) + c * np.exp(- d * x), ~energy, ~effs, p0=[1,1,1,1])
+res, (err, rsq) = std.odr_fit(lambda x, a, b, c, d: a * np.exp(- b * x) + c * np.exp(- d * x), energy, effs)
 
 print(effs)
 plt.errorbar(~energy, ~effs, xerr=p.error(energy), yerr=p.error(effs), **std.default.error_bar_def)
