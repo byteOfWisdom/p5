@@ -30,15 +30,19 @@ time_difference = experiment_date - start_date
 delta_t = p.ev(time_difference.item().total_seconds(), np.timedelta64(1, "D").item().total_seconds())
 
 # source: https://atom.kaeri.re.kr/nuchart/#
-eu_152_hlt = time_with_err(13.517, 0.006, "Y")
-cs_137_hlt = time_with_err(30.04, 0.04, "Y")
-co_60_hlt =  time_with_err(5.2714, 0.0006, "Y")
+eu_152_hlt = time_with_err(13.517, 0, "Y")
+cs_137_hlt = time_with_err(30.08, 0.09, "Y")
+co_60_hlt =  time_with_err(5.275, 0, "Y")
 
 activity = {
-    "eu": activity_at_time(709e3, delta_t, eu_152_hlt),
-    "cs": activity_at_time(405e3, delta_t, cs_137_hlt),
-    "co": activity_at_time(67e3, delta_t, co_60_hlt),
+    "eu": activity_at_time(p.ev(709e3, 0.05 * 709e3), delta_t, eu_152_hlt),
+    "cs": activity_at_time(p.ev(405e3, 0.05 * 405e3), delta_t, cs_137_hlt),
+    "co": activity_at_time(p.ev(67e3, 0.05 * 67e3), delta_t, co_60_hlt),
 }
+
+print("152 Eu:", p.ev(709e3, 0.05 * 709e3).format(), "Bq")
+print("137 Cs:", p.ev(405e3, 0.05 * 405e3).format(), "Bq")
+print("60 Co:", p.ev(67e3, 0.05 * 67e3).format(), "Bq")
 
 print("152 Eu:", activity["eu"].format(), "Bq")
 print("137 Cs:", activity["cs"].format(), "Bq")
@@ -95,6 +99,7 @@ for d, e in std.mesh(["ge", "scint"], ["cs", "co"]):
     print("counts in peak are:", counts_in_peak.format())
     print("activity is:", activity[e].format())
     print("efficiency is:", ~ratio * 100, "%")
+    print("efficiency is:", ratio.format())
     print()
 
 # %%
@@ -109,6 +114,14 @@ peak_areas = fitted_peaks["ge"]["eu"][0][ids]
 effs = peak_areas / reaching_detector
 # res, cov = scipy.optimize.curve_fit(lambda x, a, b, c, d: a * np.exp(- b * x) + c * np.exp(- d * x), ~energy, ~effs, p0=[1,1,1,1])
 
+counts_in_peak = fitted_peaks["ge"]["cs"][0][0]
+transition_chance = p.ev(0.947, 0.002) # just looking at the ceasium peak here
+covered_area = area_fraction(dist["ge"]["cs"], radius["ge"])
+emitted_rays = activity["cs"] * duration["ge"]
+reaching_detector = covered_area * emitted_rays * transition_chance
+eff_cs = counts_in_peak / reaching_detector
+
+
 def poly(x, a, b, c):
     return a * (x ** 2) + b * x + c
 
@@ -121,6 +134,7 @@ res, (err, rsq) = std.curve_fit(poly, x, y)
 # print(effs)
 # plt.errorbar(~energy, ~effs, xerr=p.error(energy), yerr=p.error(effs), **std.default.error_bar_def)
 plt.errorbar(~energy, ~effs, xerr=p.error(energy), yerr=p.error(effs), **std.default.error_bar_def)
+plt.errorbar(661.7, ~eff_cs, p.error(eff_cs), label="137Cs", color="red", **std.default.error_bar_def)
 xrange = np.linspace(min(energy), max(energy), 1000)
 plt.plot(xrange, np.exp(poly(np.log(xrange/ 100), *res)), label=f"$R^2 = {round(rsq, 3)}$")
-std.default.plt_finish("$\\ln(E / E_0)$ / ln(keV)", "$\\ln(\\epsilon)$")
+std.default.plt_finish("$\\ln(E / E_0)$ / ln(keV)", "$\\ln(\\epsilon)$", "../figs/ge_efficiency.pdf")
