@@ -1,0 +1,32 @@
+\chapter{Detektoreffizienz}
+
+\todo{irgendwo erklären warum chi2 bei gradenfit doof ist}
+
+Die Detektoreffizienz ist definiert als 
+\begin{align}
+	\epsilon = \frac{N_{E_\gamma \, \text{Photopeak}}}{N_{E_\gamma \, Detektor}}
+\end{align}
+
+wobei $N_{E_\gamma \, \text{Photopeak}}$ die Anzahl der im Photopeak einer Linie nachgewiesenen Photonen ist und $N_{E_\gamma \, \text{Detektor}}$ die Anzahl der Photonen dieser Linie ist, welche den Detektor erreichen\cite[6]{521versuchsanleitung}. 
+
+Die Berechnung von $N_{E_\gamma \, \text{Detektor}}$ folgt aus der Aktivität der Probe sowie geometrischen Überlegungen; es wird angenommen, dass die Probe isotrop in alle Raumrichtungen strahlt. Dann ist der Anteil der Strahlung, welche den Detektor erreicht genau der Anteil einer Kugelfläche, welche der Detektor abdeckt. Bei runden Detektoren, zu denen die Probe normal und mittig platziert ist (was zumindest näherungsweise gegeben ist), ergibt sich die Fläche (als Teil einer Kugelschale), welche der Detektor verdeckt als
+
+\begin{align}
+	A_\text{Detektor} &= \int_0^\alpha \int_0^{2 \pi} \d{\theta} \d{\phi} r^2 \sin(\theta) = 2 \pi r^2 (1 - \cos(\alpha))\\
+	\imply q &= \frac{A_\text{Detektor}}{A_\text{Kugel}} = \frac12 (1 - \cos(\alpha))
+\end{align}
+
+Der Winkel $\alpha$ ist hierbei der Öffnungswinkel eines Kegels, welcher von der Probe und dem Rand des Detektors aufgespannt wird, also $\alpha = \arctan(r_\text{Detektor} / d_\text{Probe})$ ($d_\text{Probe}$ ist dabei der Abstand der Probe zur Dektorvorderseite).
+\todo{skizze davon in den anhang maybe}
+
+
+Die Aktivität der Proben zu einem Referenzzeitpunkt ist bekannt und muss nur mittels der Halbwertszeiten für den Versuchstag berechnet werden.
+Dafür wird das Zerfallsgesetz genutzt \todo{source}
+\begin{align}
+	A = A_0 e^{- t \frac{\ln(2)}{T_{1/2}}}
+\end{align}
+
+
+
+\section{Vergleich der Detektortypen}
+

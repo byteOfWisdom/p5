@@ -109,6 +109,14 @@ peak_areas = fitted_peaks["ge"]["eu"][0][ids]
 effs = peak_areas / reaching_detector
 # res, cov = scipy.optimize.curve_fit(lambda x, a, b, c, d: a * np.exp(- b * x) + c * np.exp(- d * x), ~energy, ~effs, p0=[1,1,1,1])
 
+counts_in_peak = fitted_peaks["ge"]["cs"][0][0]
+transition_chance = p.ev(0.947, 0.002) # just looking at the ceasium peak here
+covered_area = area_fraction(dist["ge"]["cs"], radius["ge"])
+emitted_rays = activity["cs"] * duration["ge"]
+reaching_detector = covered_area * emitted_rays * transition_chance
+eff_cs = counts_in_peak / reaching_detector
+
+
 def poly(x, a, b, c):
     return a * (x ** 2) + b * x + c
 
@@ -121,6 +129,7 @@ res, (err, rsq) = std.curve_fit(poly, x, y)
 # print(effs)
 # plt.errorbar(~energy, ~effs, xerr=p.error(energy), yerr=p.error(effs), **std.default.error_bar_def)
 plt.errorbar(~energy, ~effs, xerr=p.error(energy), yerr=p.error(effs), **std.default.error_bar_def)
+plt.errorbar(661.7, ~eff_cs, p.error(eff_cs), label="137Cs", color="red", **std.default.error_bar_def)
 xrange = np.linspace(min(energy), max(energy), 1000)
 plt.plot(xrange, np.exp(poly(np.log(xrange/ 100), *res)), label=f"$R^2 = {round(rsq, 3)}$")
-std.default.plt_finish("$\\ln(E / E_0)$ / ln(keV)", "$\\ln(\\epsilon)$")
+std.default.plt_finish("$\\ln(E / E_0)$ / ln(keV)", "$\\ln(\\epsilon)$", "../figs/ge_efficiency.pdf")
