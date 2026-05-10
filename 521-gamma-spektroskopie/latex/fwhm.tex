@@ -1,0 +1,59 @@
+\chapter{Halbwertsbreiten}
+
+\section{Vergleich der Detektorarten}
+Die Halbwertsbreite (FWHM) von Gaußkurven ist gegeben über \todo{source}
+\begin{align}
+	\text{FWHM} = \sigma \cdot \sqrt{8 \ln(2)} \label{eq:fwhm}
+\end{align}
+
+Interessant sind die Halbwertsbreiten in der Energie-Domäne. Da die Gaußanpassungen in Kanälen durchgeführt werden, erfolgt die Umrechnung mit $a$, der Steigung aus der Energiekalibration.
+
+\begin{align}
+	\Delta E = \text{FWHM}_E = \text{FWHM}_b * a \label{eq:fwhme}
+\end{align}
+
+
+Die FWHM der angepassten Linien aus Tabelle \ref{tab:fwhm} werden nun mit Gl \eqref{eq:fwhm} und \eqref{eq:fwhme} berechnet. Die Ergebnisse sind in Tabelle \todo{refrence} zu finden. Man erkennt sofort, dass die Halbwertsbreite des HPGE Detektors um mehrere Größenordnungen kleiner ist, als die des NaI Detektors.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c c|c|c|c|c|} \hline
+	Detektor & Element & E (ca.) / eV & $\sigma$ / Kanäle & FWHM / Kanäle & FWHM / eV\\
+	\hline
+	HPGE & Cs &  \num{661647(23)    } & \num{7.0397(73) } & \num{16.577(17) } & \num{1536.2(1.6) }\\
+	HPGE & Co &  \num{1173257(31)   } & \num{8.874(30)  } & \num{20.897(71) } & \num{1936.4(6.5) }\\
+	HPGE & Co &  \num{1332507(33)   } & \num{9.429(24)  } & \num{22.204(57) } & \num{2057.5(5.2) }\\
+	NaI& cs & \num{6.76(12)e+05  } & \num{195.82(52) } & \num{461.1(1.2) } & \num{5.547(62)e+04 }\\
+	NaI& cs & \num{3.77(97)e+04  } & \num{26.17(23)  } & \num{61.63(54)  } & \num{7.41(10)e+03 }\\
+	NaI& co & \num{1.165(16)e+06 } & \num{305(12)    } & \num{718(28)    } & \num{8.64(35)e+04 }\\
+	NaI& co & \num{1.318(17)e+06 } & \num{336.1(4.9) } & \num{791(12)    } & \num{9.52(17)e+04 }\\
+	\hline
+    \end{tabular}
+    \caption{Linienbreiten bei Cobalt und Cäsium  \todo{maybe da noch die xray peaks raus kicken??}}
+    \label{tab:fwhm}
+\end{table}
+
+
+
+\section{Intrinsische- und elektronische Halbwertsbreiten in HPGE}
+Anhand der Identifizierten Europiumlinien im HPGE Detektor wird der intrinsische- und elektronische Teil der Halbwertsbreite bestimmt. Für diese gilt der Zusammenhang
+
+\begin{align}
+	\Delta E (E_\gamma) &= \sqrt{(\Delta E_d (E_\gamma))^2 + (\Delta E_e)^2}\\
+	\Delta E_d (E_\gamma) &= k \cdot \sqrt{E_\gamma}
+\end{align}
+
+wobei $E_d$ die intrinsische und $E_e$ die elektronische Halbwertsbreite sind \cite[5-6]{521versuchsanleitung}. 
+Zum Überprüfen dieses Zusammenhangs wird 
+
+\begin{align}
+	(\Delta E (E_\gamma))^2 &= (\Delta E_d (E_\gamma))^2 + (\Delta E_e)^2 = k^2 E_\gamma + (\Delta E_e)^2\\
+	&= a * E_\gamma + b \label{eq:grade}
+\end{align}
+
+aufgetragen (Abb. \ref{fig:fwhm_fit}) und eine Gradengleichung (Gl \eqref{eq:grade}) daran angepasst. Die Fitparameter sind dann $a = \SI{2.201(64)}{\electronvolt}$ und $b = \SI{8.95(19)e+05}{\electronvolt^2}$. Es ist dann die intrinsische Halbwertsbreite $\Delta E_d = \sqrt{b} = \SI{946(10)}{\electronvolt}$ und die Konstante $k = \sqrt{a} = \SI{1.482(22)}{\electronvolt}$.
+
+\todo{kommentieren was das uns jetzt sagt...}
+\todo{tabelle mit den werten}
+\jafps{fwhm_fit}{\todoP{write this}}{0.75}
+

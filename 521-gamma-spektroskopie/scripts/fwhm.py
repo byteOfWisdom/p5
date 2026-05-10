@@ -36,36 +36,43 @@ fitted_peaks = {
 fwhm_const = np.sqrt(8 * np.log(2))
 
  # %%
-for detector, element in std.mesh(["ge", "scint"], ["eu", "cs", "co"]):
+for detector, element in std.mesh(["ge", "scint"], ["cs", "co"]):
     fwhm = fitted_peaks[detector][element][sigma] * fwhm_const
     fwhm_energy = fwhm * energy_cal[detector]["slope"]
-    print(f"{detector}, {element}, {fwhm}, {fwhm_energy}")
+    energy = fitted_peaks[detector][element][mu] * energy_cal[detector]["slope"] + energy_cal[detector]["offset"]
+    for i in range(len(fwhm)):
+        print(f"{detector} & {element} & {energy[i].format()} & {fitted_peaks[detector][element][sigma][i].format()} & {fwhm[i].format()} & {fwhm_energy[i].format()} \\\\")
 
 
 # %%
-def func(e, c, a):
-    return a + c * (e ** 0.5)
+def func(x, a, b):
+    return a * x + b
 
 # %%
 fwhm = fitted_peaks["ge"]["eu"][sigma] * fwhm_const
 fwhm_energy = fwhm * energy_cal["ge"]["slope"]
 energy = fitted_peaks["ge"]["eu"][mu] * energy_cal["ge"]["slope"] + energy_cal["ge"]["offset"]
 
-europium_line_matches = std.load_csv("../figs/europium_lit.csv", skiprows=1)
-ids = list(map(int, europium_line_matches[2]))
-fwhm_energy = fwhm_energy[ids]
-energy = energy[ids]
 # fwhm = fitted_peaks["scint"]["eu"][sigma] * fwhm_const
 # fwhm_energy = fwhm * energy_cal["scint"]["slope"]
 # energy = fitted_peaks["scint"]["eu"][mu] * energy_cal["scint"]["slope"] + energy_cal["scint"]["offset"]
 
-res, (err, rsq) = std.fit_func(func, ~energy, ~fwhm_energy, force_cf=True)
+europium_line_matches = std.load_csv("../figs/europium_lit.csv", skiprows=1)
+ids = list(map(int, europium_line_matches[2]))
+fwhm_energy = fwhm_energy[ids]
+energy = energy[ids]
+energy = europium_line_matches[0] * 1e3
+
+x = energy
+y = fwhm_energy ** 2
+
+res, (err, rsq) = std.curve_fit(func, x, y)
 # res, (err, rsq) = std.fit_func(lambda x, a, b:a * x + b, ~energy, ~fwhm_energy, force_cf=True)
-print(rsq)
+print(p.ev(res, err))
+print(np.sqrt(p.ev(res, err)))
 # res, _ = scipy.optimize.curve_fit(func, ~energy, ~fwhm_energy)
 
-plt.errorbar(~energy, ~fwhm_energy, p.error(fwhm_energy), p.error(energy), **std.default.error_bar_def)
-# plt.scatter(~energy, ~fwhm_energy)
-erange = np.linspace(min(~energy), max(~energy), 10000)
-plt.plot(erange, func(erange, *res), label="fit")
-std.default.plt_finish("Energie / eV", "FWHM / eV")
+plt.errorbar(~x, ~y, p.error(y), p.error(x), **std.default.error_bar_def)
+erange = np.linspace(0.8 * min(~energy), 1.05 * max(~energy), 10000)
+plt.plot(erange, func(erange, *res), label=f"$R^2={round(rsq, 3)}$")
+std.default.plt_finish("$E_\\gamma$ / eV", "$\\text{FWHM}^2$ / $\\text{eV}^2$", "../figs/fwhm_fit.pdf")
