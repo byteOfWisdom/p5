@@ -36,7 +36,7 @@ fitted_peaks = {
 fwhm_const = np.sqrt(8 * np.log(2))
 
  # %%
-for detector, element in std.mesh(["ge", "scint"], ["eu", "cs", "co"]):
+for detector, element in std.mesh(["ge", "scint"], ["cs", "co"]):
     fwhm = fitted_peaks[detector][element][sigma] * fwhm_const
     fwhm_energy = fwhm * energy_cal[detector]["slope"]
     print(f"{detector}, {element}, {fwhm}, {fwhm_energy}")
@@ -59,6 +59,7 @@ europium_line_matches = std.load_csv("../figs/europium_lit.csv", skiprows=1)
 ids = list(map(int, europium_line_matches[2]))
 fwhm_energy = fwhm_energy[ids]
 energy = energy[ids]
+energy = europium_line_matches[0] * 1e3
 
 x = energy
 y = fwhm_energy ** 2
@@ -66,9 +67,10 @@ y = fwhm_energy ** 2
 res, (err, rsq) = std.curve_fit(func, x, y)
 # res, (err, rsq) = std.fit_func(lambda x, a, b:a * x + b, ~energy, ~fwhm_energy, force_cf=True)
 print(p.ev(res, err))
+print(np.sqrt(p.ev(res, err)))
 # res, _ = scipy.optimize.curve_fit(func, ~energy, ~fwhm_energy)
 
 plt.errorbar(~x, ~y, p.error(y), p.error(x), **std.default.error_bar_def)
-erange = np.linspace(min(~energy), max(~energy), 10000)
+erange = np.linspace(0.8 * min(~energy), 1.05 * max(~energy), 10000)
 plt.plot(erange, func(erange, *res), label=f"$R^2={round(rsq, 3)}$")
-std.default.plt_finish("Energie / eV", "$\\text{FWHM}^2$ / $\\text{eV}^2$")
+std.default.plt_finish("$E_\\gamma$ / eV", "$\\text{FWHM}^2$ / $\\text{eV}^2$", "../figs/fwhm_fit.pdf")
