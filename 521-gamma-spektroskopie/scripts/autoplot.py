@@ -23,5 +23,5 @@ for file in files:
     yerr = np.sqrt(y)
 
     plt.cla()
-    plt.errorbar(x, y, yerr, **std.default.error_bar_def)
+    plt.errorbar(x, y, yerr, label="Messdaten", **std.default.error_bar_def)
     std.default.plt_finish("Kanal", "Anzahl", save_to= "figs/" + file[:-4] + "_with_eb.pdf")
