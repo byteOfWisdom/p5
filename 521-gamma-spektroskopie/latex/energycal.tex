@@ -21,12 +21,11 @@ Die gewählten Abstände der Quellen (gewählt um eine Zählrate im gewünschten
     \label{tab:distance}
 \end{table}
 
-Die Spektren entsprechen in ihrer Form alle den Erwartungen an ein Gammaspektrum. Sie enthalten eine variable Anzahl an deutlichen Totalenergie-Peaks (Photopeaks) sowie die unregelmäßige Form des Compton-Untergrunds pro Photopeak durch Compton-Streuung der $\gamma$-Photonen in variablen Streuwinkeln an Detektormaterial-Hüllenelektronen sowie den deutlich erkennbaren Abfall der Compton-Kante (bei dem maximalen Compton-Streuwinkel von $\theta=\SI{180}{\degree}$, bei dem gerade zurückgestreut wird) \cite[526-531]{gammahandbook}. Es ist aufgrund des betrachteten Energiebereichs bis ca. $\SI{2000}{\kilo\eV}$ nicht mit Paarbildung zu rechnen, es sind in den Spektren (auch bei weiterer Analyse wird sich dies bestätigen) keine deutlichen Escape-Peaks zu sehen.
+Die Spektren entsprechen in ihrer Form alle den Erwartungen an ein Gammaspektrum. Sie enthalten eine variable Anzahl an deutlichen Totalenergie-Peaks (Photopeaks) sowie die unregelmäßige Form des Compton-Untergrunds pro Photopeak durch Compton-Streuung der $\gamma$-Photonen in variablen Streuwinkeln an Detektormaterial-Hüllenelektronen sowie den deutlich erkennbaren Abfall der Compton-Kante (bei dem maximalen Compton-Streuwinkel von $\theta=\SI{180}{\degree}$, bei dem gerade zurückgestreut wird) \cite[526-531]{gammahandbook}. Es ist aufgrund des betrachteten Energiebereichs bis ca. $\SI{2000}{\kilo\eV}$ nicht mit Paarbildung zu rechnen, es sind in den Spektren keine deutlichen Escape-Peaks zu sehen.
 
+\section{Energiekalibration des NaI-Detektors}\label{sec:nai_cal}
 
-\section{Energiekalibration des NaI-Detektors}
-
-Es wird davon ausgegangen, dass die Kanäle des NaI-Detektors für die beobachteten Zählraten linear mit der Energie der $\gamma$-Photonen zusammenhängen \cite[5]{521versuchsanleitung}. Um diese Proportionalität zu überprüfen und den spezifischen funktionalen Zusammenhang für den verwendeten Detektor zu bestimmen, wurden in den gemessenen Spektren von $\ce{^60Co}, \ce{^137Cs}$ und $\ce{^152Eu}$ mit der bereits beschriebenen Methode die Gaußpeaks identifiziert. Beim Spektrum von $\ce{^152Eu}$ wurden nur die deutlichsten, klar getrennten Linien in die Kalibration einbezogen.
+Es wird davon ausgegangen, dass die Kanäle des NaI-Detektors für die beobachteten Zählraten linear mit der Energie der $\gamma$-Photonen zusammenhängen \cite[5]{521versuchsanleitung}. Um diese Proportionalität zu überprüfen und den spezifischen funktionalen Zusammenhang für den verwendeten Detektor zu bestimmen, wurden in den gemessenen Spektren von $\ce{^60Co}, \ce{^137Cs}$ und $\ce{^152Eu}$ mit der bereits beschriebenen Methode die Gaußpeaks identifiziert. Alle gefundenen Gaußpeaks für die drei Proben sind in Tabellen \ref{tab:nai_co_peaks}-\ref{tab:nai_eu_peaks} dargestellt. Beim Spektrum von $\ce{^152Eu}$ wurden nur die deutlichsten, klar getrennten Linien in die Kalibration einbezogen.
 
 Auffallend ist hier zunächst im NaI-Spektrum von $\ce{^137Cs}$ eine zweite Linie, die so aufgrund des Zerfallsschemas in \ref{fig:zerfallsschema_cs} nicht erwartet wurde, da die zweite gelistete Übergangsenergie von $E_\gamma=\SI{283.5(1)}{\kilo\eV}$ sehr unwahrscheinlich ist. Vermutlich handelt es sich hier um eine Röntgenlinie, bei der keine Kernanregung zu einer Photonemission geführt haben, sondern eine Anregung eines Hüllenelektrons von $\ce{^137Cs}$. Diese Linie wurde bei der Energiekalibration nicht beachtet, da sie nicht zuverlässig einer Energie zugeordnet werden konnte, bei Eintragung auf der finalen Anpassungsfunktion als die zweite $\gamma$-Photon-Übergangslinie passte sie auch deutlich sichtbar nicht zum restlichen Verlauf und wurde daher nicht weiter einbezogen.
 
@@ -38,7 +37,19 @@ Die Schwerpunkte der Linien der verschiedenen Nuklide und die jeweiligen Energie
     \centering
     \begin{tabular}{|c|c|c|c|c|} \hline
     Nuklid & $\mu$ / Kanal & zugeordnete Energie / keV \\
-	\hline
+	\hline \hline
+	$\ce{^60Co}$ & $\num{9683.0(2.0)}$ & $\num{1173.2}$ \\
+     & $ \num{10959.8(1.8)}$ & $\num{1332.5}$ \\
+    \hline
+    $\ce{^137Cs}$ & $ \num{5622.93(40)}$ & $\num{661.7}$ \\
+    \hline
+    $\ce{^152Eu}$ & $\num{1122.87(30)}$ & $\num{121.7817(3)}$ \\
+    & $\num{2149.4(1.3)}$ &$\num{244.6974(8)}$ \\
+    & $\num{3000.51(66)}$ & $\num{344.2785(12)}$ \\
+    & $\num{6571.6(4.2)}$ & $\num{778.9045(24)}$ \\
+    & $\num{8046.3(4.8)}$ & $\num{964.057(5)}$ \\
+    & $\num{9137.4(3.1)}$ & $\num{1085.837(10)}$ \\
+    & $\num{11600.5(4.0)}$ & $\num{1408.013(3)}$ \\
 	\hline
     \end{tabular}
     \caption{Bestimmte Peakschwerpunkte $\mu$ und zugeordnete Linien der verschiedenen Nuklide für den NaI-Detektor.}
@@ -49,9 +60,8 @@ Die zugeordneten Energien werden nun gegen die bestimmten Kanäle der Peakschwer
 \begin{equation}
 E(\text{Kanal})=a\cdot \text{Kanal}+b
 \end{equation}
-wird an die Datenpunkte angepasst. Für die Anpassung wird die Methode der kleinsten gemeinsamen Quadrate mithilfe der Funktion \texttt{scipy.optimize.curve\_fit} in \texttt{python} genutzt. Die Anpassungsfunktion und die eingetragenen Datenpunkte sind in Abbildung \ref{fig:nai_calibration} dargestellt. Der Wert des Bestimmtheitsmaßes $R^2=0,999$ zeigt die sehr gute Übereinstimmung der Daten mit der linearen Anpassungspunktion, der erwartete lineare Zusammenhang kann somit bestätigt werden. Als Anpassungparameter ergaben sich:
-
-$a = \SI{120.3(1.3)}{\eV}$ und $b = \SI{0.0(9.7)e+03}{\eV}$
+wird an die Datenpunkte angepasst. Für die Anpassung wird die Methode der kleinsten gemeinsamen Quadrate mithilfe der Funktion \texttt{scipy.optimize.curve\_fit} in \texttt{python} genutzt. Die Anpassungsfunktion und die eingetragenen Datenpunkte sind in Abbildung \ref{fig:nai_calibration} dargestellt. Der Wert des Bestimmtheitsmaßes $R^2=0,999$ zeigt die sehr gute Übereinstimmung der Daten mit der linearen Anpassungspunktion, der erwartete lineare Zusammenhang kann somit bestätigt werden. Als Anpassungparameter ergaben sich
+$a = \SI{120.3(1.3)}{\eV}$ und $b = \SI{0.0(9.7)e+03}{\eV}$.
 
 \jafps{nai_calibration}{Für NaI-Detektor gemessene Linien mit zugeordneten Literaturwerten für Energien sowie lineare Anpassungsgerade mit $a = \SI{120.3(1.3)}{\eV}, b = \SI{0.0(9.7)e+03}{\eV}$.}{0.6}
 
@@ -63,15 +73,39 @@ Somit können Peakschwerpunkte jetzt in Energien umgerechnet werden und in $\gam
 
 \section{Energiekalibration des HPGe-Detektors}
 
-Auch beim HPGe-Dektektor soll nun die lineare Proportionalität zwischen den Kanälen und der korrespondieren Impulshöhe (und damit Energie des $\gamma$-Photons, welches gemessen wird) untersucht werden um eine Kalibrationsfunktion zu erhalten. Wie für den NaI-Detektor werden aus Literaturangaben (Energien aus \cite[8]{521versuchsanleitung}) den Peakschwerpunkten der gut erkennbaren Linien der drei mit dem HPGe-Detektor gemessenen Spektren (mit Untergrundspektrum abgezogen) Energien von $\gamma$-Zerfällen zugeordnet. Die Zuordnungen sind in Tabelle \ref{tab:zuordnungen_ge} dargestellt. Aus dem Spektrum von $\ce{^152Eu}$ werden auch hier nur die deutlich erkennbaren und klar zuordbaren Linien betrachtet.
+Auch beim HPGe-Dektektor soll nun die lineare Proportionalität zwischen den Kanälen und der korrespondieren Impulshöhe (und damit Energie des $\gamma$-Photons, welches gemessen wird) untersucht werden um eine Kalibrationsfunktion zu erhalten. Wie für den NaI-Detektor werden zunächst die sichtbaren Gaußpeaks in den um den Untergrund korrigierten Spektren identifiziert und dann aus Literaturangaben (Energien aus \cite[8]{521versuchsanleitung}) den Peakschwerpunkten der gut erkennbaren Linien der drei Spektren Energien von $\gamma$-Zerfällen zugeordnet. Die Zuordnungen sind in Tabelle \ref{tab:zuordnungen_ge} dargestellt. Aus dem Spektrum von $\ce{^152Eu}$ werden auch hier nur die deutlich erkennbaren und klar zuordbaren Linien betrachtet, aber mehr als beim NaI-Detektor.
+Alle gefundenen Gaußpeaks mit ihren Anpassungsparametern sind in Abbildungen \ref{fig:ge_co_peaks}-\ref{fig:ge_eu_peaks}, die Zuordnungen in Tabelle \ref{tab:zuordnungen_ge} dargestellt.
 
 \begin{table}[h]
     \centering
     \begin{tabular}{|c|c|c|c|c|} \hline
-    Nuklid & $\mu$ / Kanal & zugeordnete Energie / keV \\
-	\hline
+    Nuklid & $\mu$ / Kanal & zugeordnete Energie / keV \\ \hline
+    \hline
+    $\ce{^60Co}$ & $\num{12659.418(29)}$ &  $\num{1173.2}$\\
+    &  $\num{14377.995(23)}$ &  $\num{1332.5}$ \\
+    \hline
+    $\ce{^137Cs}$ & $\num{7138.4371(73)}$ & $\num{661.7}$ \\
+    \hline
+    $\ce{^152Eu}$ & $\num{1312.769(13)}$ & $\num{121.7817(3)}$ \\
+    & $\num{2639.037(23)}$ & $\num{244.6974(8)}$ \\
+    & $ \num{3713.470(17)}$ & $\num{344.2785(12)}$ \\
+    & $ \num{8403.804(56)}$ & $\num{778.9045(24)}$ \\
+    & $ \num{9358.69(15)}$ & $\num{867.380(3)}$ \\
+    & $ \num{10401.745(57)}$ & $\num{964.057(5)}$ \\
+    & $ \num{11716.119(83)}$ & $\num{1085.837(10)}$ \\
+    & $ \num{11999.159(68)}$ & $\num{1112.076(3)}$ \\
+    & $ \num{15192.416(62)}$ &$\num{1408.013(3)}$ \\
 	\hline
     \end{tabular}
     \caption{Bestimmte Peakschwerpunkte $\mu$ und zugeordnete Linien der verschiedenen Nuklide für den HPGe-Detektor.}
     \label{tab:zuordnungen_ge}
 \end{table}
+
+Die zugeordneten Energien werden nun gegen die bestimmten Kanäle der Peakschwerpunkte der Messungen aufgetragen. Der Zusammenhang wird als linear erwartet (s.o.) und eine Anpassungsgerade wird wie in \ref{sec:nai_cal} an die Datenpunkte angepasst. Als Anpassungsparameter ergeben sich hier $a = \SI{92.6664(19)}{\eV}$ und $b = \SI{154(19)}{\eV}$. Auch hier zeigt als Maß der Anpassungsgüte das Bestimmtheitsmaß $R^2=1,000$ (gerundet auf die 3. Nachkommastelle als erste signifikante Stelle) die sehr gute Übereinstimmung der Daten mit der Erwartung des linearen funktionalen Zusammenhangs und bestätigt zudem auch die Zuordnung der Linien zu den Energien, insbesondere im komplizierten $\ce{^152Eu}$-Spektrum.
+
+\jafps{hpge_calibration}{Für HPGe-Detektor gemessene Linien mit zugeordneten Literaturwerten für Energien sowie lineare Anpassungsgerade mit $a = \SI{92.6664(19)}{\eV}, b = \SI{154(19)}{\eV}$.}{0.6}
+
+Als Energiekalibrationsfunktion für den HPGe-Detektor ergibt sich so (zur Abkürzung mit $x$ für den Kanal):
+\begin{equation}\label{eq:cal_ge}
+    E(x)=(\SI{92.6664(19)}{\eV})x +\SI{154(19)}{\eV}
+\end{equation}

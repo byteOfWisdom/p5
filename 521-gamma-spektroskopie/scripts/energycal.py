@@ -203,7 +203,7 @@ def plot_data_nai(save_to=False):
 
 def main():
 
-    plot_data_nai(save_to=True)
+    plot_data_ge(save_to=True)
 
     return
 

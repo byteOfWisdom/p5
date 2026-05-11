@@ -1,5 +1,5 @@
-Fläche&$\mu$&$\sigma$&C&$\chi^2_\text{red}$\\
-\hline
+Fläche / (Anzahl$\cdot$Kanal) & $\mu$ / Kanal & $\sigma$ / Kanal & C / Anzahl & $\chi^2_\text{red}$ \\ \hline
+
 $ \num{7.970(19)e+04}$&$ \num{1312.769(13)}$&$ \num{4.982(13)}$&$ \num{111.5(2.9)}$&0.00058\\
 $ \num{17083(69)}$&$ \num{2639.037(23)}$&$ \num{5.431(24)}$&$ \num{48.84(96)}$&0.00183\\
 $ \num{946(48)}$&$ \num{3191.18(31)}$&$ \num{6.16(33)}$&$ \num{35.53(71)}$&0.17554\\

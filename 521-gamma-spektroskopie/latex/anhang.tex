@@ -29,7 +29,6 @@
 \jafpsh{langzeit_ohneprobe_ge_with_eb}{Mit HPGE-Detektor aufgenommenes Untergrundpektrum für die Bodenprobe, mit Fehler der Messanzahl N von $\Delta N = \sqrt{N}$, Messdauer: $t=\SI{64800(0.5)}{\second}$.}{0.6}
 
 
-
 \section{Zerfallsschemata verwendeter Elemente}\label{sec:schemata}
 
 \jafpp{zerfallsschema_co}{Zerfallsschema von $\ce{ ^60Co }$, entnommen aus\cite[8]{521versuchsanleitung}.}{zerfallsschema_cs}{Zerfallsschema von $\ce{ ^137CS }$, entnommen aus\cite[8]{521versuchsanleitung}.}
@@ -37,9 +36,67 @@
 
 \section{Tabellen}
 
-\subsection{Bodenprobe}
+\subsection{Messungen mit dem NaI-Detektor}
 
-\begin{table}[h]
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|} \hline
+    \input{../figs/co_nai_bin.table}
+    \end{tabular}
+    \caption{Anpassungsparameter der einzelnen Gaussfunktionen der NaI-Messung von $\ce{^60Co}$.}
+    \label{tab:nai_co_peaks}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|} \hline
+    \input{../figs/cs_nai_bin.table}
+    \end{tabular}
+    \caption{Anpassungsparameter der einzelnen Gaussfunktionen der NaI-Messung von $\ce{^137Cs}$.}
+    \label{tab:nai_cs_peaks}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|} \hline
+    \input{../figs/eu_nai_bin.table}
+    \end{tabular}
+    \caption{Anpassungsparameter der einzelnen Gaussfunktionen der NaI-Messung von $\ce{^152Eu}$.}
+    \label{tab:nai_eu_peaks}
+\end{table}
+
+\subsection{Messungen mit dem HPGe-Detektor}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|} \hline
+    \input{../figs/co_ge_bin.table}
+    \end{tabular}
+    \caption{Anpassungsparameter der einzelnen Gaussfunktionen der HPGe-Messung von $\ce{^60Co}$.}
+    \label{tab:ge_co_peaks}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|} \hline
+    \input{../figs/cs_ge_bin.table}
+    \end{tabular}
+    \caption{Anpassungsparameter der einzelnen Gaussfunktionen der HPGe-Messung von $\ce{^137Cs}$.}
+    \label{tab:ge_cs_peaks}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|} \hline
+    \input{../figs/eu_ge_bin.table}
+    \end{tabular}
+    \caption{Anpassungsparameter der einzelnen Gaussfunktionen der HPGe-Messung von $\ce{^152Eu}$.}
+    \label{tab:ge_eu_peaks}
+\end{table}
+
+\subsection{Messung der Bodenprobe}
+
+\begin{table}[H]
     \centering
     \begin{tabular}{|c|c|c|c|c|} \hline
     \input{../figs/bodenprobe_linien.table}
