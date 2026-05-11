@@ -60,6 +60,7 @@ energy = fitted_peaks["ge"]["eu"][mu] * energy_cal["ge"]["slope"] + energy_cal["
 europium_line_matches = std.load_csv("../figs/europium_lit.csv", skiprows=1)
 ids = list(map(int, europium_line_matches[2]))
 fwhm_energy = fwhm_energy[ids]
+fwhm = fwhm[ids]
 energy = energy[ids]
 energy = europium_line_matches[0] * 1e3
 

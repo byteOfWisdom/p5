@@ -69,8 +69,6 @@ Mit diesen Ausdrücken, und $p_\text{Übergang}$ der Wahrscheinlichkeit eines Ü
 
 Die Anzahl der im Phtotopeak registrierten Photonen ist direkt als Anpassungsparameter $A$ in den Tabellen \ref{tab:tab:nai_co_peaks}-\ref{tab:ge_eu_peaks} verfügbar, die Abstände der Proben sind in Tabelle \ref{tab:distance} gelistet. Der HPGe-Detektor hat einen Durchmesser von $\SI{55.7}{\milli\meter}$ und der NaI-Detektor von $\SI{50.8}{\milli\meter}$ \cite[6]{521versuchsanleitung}. Diese sind fehlerfrei angegeben, was vermutlich bedeutet, dass die Dimensionen so exakt sind, dass die Unsicherheit nicht relevant ist.
 
-\todo{Tabelle mit beliebig vielen zwischenwerten}
-
 \section{Vergleich der Detektortypen}
 Mit diesen Überlegungen und $p_\text{Übergang} = \SI{94.7(2)}{\percent}$ \cite{521versuchsanleitung} wird für die $\SI{661.7}{\kilo\electronvolt}$ Linie der Cäsium\-137 Quelle die Effizienz in beiden Detektoren bestimmt.
 Es ergibt sich eine Effizienz des HPGE Detektors von $\epsilon_\text{HPGE} = \num{0.0567(68)}$ ($\approx 5.7\%$) und für NaI $\epsilon_\text{NaI} = 0.101(12)$ ($\approx 10.1\%$).
@@ -115,3 +113,5 @@ Mit dieser Funktion soll nun die Aktivität der Cobalt Quelle abgeschätzt werde
 \end{align}
 
 Im Mittel der beiden Photopeaks erhält man eine Aktivität in Cobalt von $A = \SI{9.2(1.8)e+03}{\becquerel}$, welche deutlich von der angegebenen (und zeitlich entwickelten) von $\SI{3.67(18)e+04}{\becquerel}$ abweicht. Dieser deutliche Unterschied liegt daran, dass bei der Berechnung des abgedeckten Raumwinkels mit der Vorderseite des Deketros gerechnet wird. Für weiter entfernte Proben ist diese Näherung hinreichend gut, wenn die Probe, wie Cobalt, unmittelbar vor dem Detektor stand, muss zusätzlich noch berücksichtigt werden, dass die Pfadlänge eines Teilchens im Detektor die Detektionswahrscheinlichkeit beeinflusst (es ist wahrscheinlicher, dass ein Teilchen detektiert wird, welches die gesamte Länge des Detektors durchfliegt als eines, welches nur wenige Millimeter durch eine Ecke fliegt). Durch die größeren möglichen Eintrittswinkel bei kurzen Abständen sind mehr solcher deutlich verschiedenen Weglängen im Detektor möglich. Auch ist um den tatsächlichen Detektor eine Hülle unbekannter Dicke, welche zu dem Abstand dazuaddiert werden muss, von uns aber nicht quantifiziert werden kann. Der Anteil dieser Hülle am Gesamtabstand ist, bei kleinen Abständen wie dem des Cobalts, dominierend.
+
+Führt man die gleiche Rechnung mit Cäsium durch, so erhält man $A = \SI{3.29(36)e+05}{\becquerel}$ was gut zu den $\SI{3.64(18)e+05}{\becquerel}$ aus der Angabe auf der Quelle passt. Das Verfahren und die Rechnung liefern also grundsätzlich gute Ergebnisse, sofern die Probe weit genug vom Detektor entfernt ist um dessen Geometrie vernachlässigen zu können.
