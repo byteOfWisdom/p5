@@ -162,7 +162,12 @@ e2 = 1332.5
 eps = np.exp(poly(np.log(e2 / 100), *res))
 co_act_2 = fitted_peaks["ge"]["co"][0][1] / (eps  * duration["ge"] * area_fraction(dist["ge"]["co"], radius["ge"]))
 
+e3 = 661.7
+eps = np.exp(poly(np.log(e3 / 100), *res))
+cs_act = fitted_peaks["ge"]["cs"][0][0] / (eps  * duration["ge"] * area_fraction(dist["ge"]["cs"], radius["ge"]))
+
 print(co_act.format())
 print(co_act_2.format())
+print(cs_act)
 print((0.5 * co_act + 0.5 * co_act_2).format())
 print((activity["co"] / co_act).format())

@@ -13,28 +13,28 @@
 \contentsline {section}{\numberline {4.1}Durchführung der Messungen}{11}{section.4.1}%
 \contentsline {section}{\numberline {4.2}Energiekalibration des NaI-Detektors}{12}{section.4.2}%
 \contentsline {section}{\numberline {4.3}Energiekalibration des HPGe-Detektors}{13}{section.4.3}%
-\contentsline {section}{\numberline {6.3}Peak-to-Total-Verhältnisse}{21}{section.6.3}%
-\contentsline {chapter}{\numberline {5}Halbwertsbreiten}{16}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Vergleich der Detektorarten}{16}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Intrinsische- und elektronische Halbwertsbreiten in HPGE}{16}{section.5.2}%
-\contentsline {chapter}{\numberline {6}Detektoreffizienz}{18}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Vergleich der Detektortypen}{19}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Effizienzkurve HPGE}{19}{section.6.2}%
-\contentsline {section}{\numberline {6.3}Peak-to-Total-Verhältnisse}{21}{section.6.3}%
-\contentsline {chapter}{\numberline {7}Analyse der Bodenprobe}{22}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Durchführung}{22}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Identifikation der vorhandenen Radionuklide}{22}{section.7.2}%
-\contentsline {subsection}{\numberline {7.2.1}Diskussion der Zuordnung}{23}{subsection.7.2.1}%
-\contentsline {chapter}{\numberline {8}Anhang}{25}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Oszilloskopaufnahmen mit Anpassungsfunktionen}{25}{section.8.1}%
-\contentsline {section}{\numberline {8.2}Spektren mit Fehlerbalken}{26}{section.8.2}%
-\contentsline {subsection}{\numberline {8.2.1}NaI-Detektor}{26}{subsection.8.2.1}%
-\contentsline {subsection}{\numberline {8.2.2}HPGe-Detektor}{28}{subsection.8.2.2}%
-\contentsline {subsection}{\numberline {8.2.3}Bodenprobe}{30}{subsection.8.2.3}%
-\contentsline {section}{\numberline {8.3}Zerfallsschemata verwendeter Elemente}{31}{section.8.3}%
-\contentsline {section}{\numberline {8.4}Tabellen}{32}{section.8.4}%
-\contentsline {subsection}{\numberline {8.4.1}Messungen mit dem NaI-Detektor}{32}{subsection.8.4.1}%
-\contentsline {subsection}{\numberline {8.4.2}Messungen mit dem HPGe-Detektor}{32}{subsection.8.4.2}%
-\contentsline {subsection}{\numberline {8.4.3}Summen der Spektren}{33}{subsection.8.4.3}%
-\contentsline {subsection}{\numberline {8.4.4}Messung der Bodenprobe}{34}{subsection.8.4.4}%
+\contentsline {chapter}{\numberline {5}Halbwertsbreiten}{15}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Vergleich der Detektorarten}{15}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Intrinsische- und elektronische Halbwertsbreiten in HPGE}{15}{section.5.2}%
+\contentsline {chapter}{\numberline {6}Detektoreffizienz}{17}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Vergleich der Detektortypen}{18}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Effizienzkurve HPGE}{18}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Peak-to-Total-Verhältnisse}{20}{section.6.3}%
+\contentsline {chapter}{\numberline {7}Analyse der Bodenprobe}{21}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Durchführung}{21}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Identifikation der vorhandenen Radionuklide}{21}{section.7.2}%
+\contentsline {subsection}{\numberline {7.2.1}Diskussion der Zuordnung}{22}{subsection.7.2.1}%
+\contentsline {chapter}{\numberline {8}Fazit}{24}{chapter.8}%
+\contentsline {chapter}{\numberline {9}Anhang}{25}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Oszilloskopaufnahmen mit Anpassungsfunktionen}{25}{section.9.1}%
+\contentsline {section}{\numberline {9.2}Spektren mit Fehlerbalken}{26}{section.9.2}%
+\contentsline {subsection}{\numberline {9.2.1}NaI-Detektor}{26}{subsection.9.2.1}%
+\contentsline {subsection}{\numberline {9.2.2}HPGe-Detektor}{28}{subsection.9.2.2}%
+\contentsline {subsection}{\numberline {9.2.3}Bodenprobe}{30}{subsection.9.2.3}%
+\contentsline {section}{\numberline {9.3}Zerfallsschemata verwendeter Elemente}{31}{section.9.3}%
+\contentsline {section}{\numberline {9.4}Tabellen}{32}{section.9.4}%
+\contentsline {subsection}{\numberline {9.4.1}Messungen mit dem NaI-Detektor}{32}{subsection.9.4.1}%
+\contentsline {subsection}{\numberline {9.4.2}Messungen mit dem HPGe-Detektor}{32}{subsection.9.4.2}%
+\contentsline {subsection}{\numberline {9.4.3}Summen der Spektren}{33}{subsection.9.4.3}%
+\contentsline {subsection}{\numberline {9.4.4}Messung der Bodenprobe}{34}{subsection.9.4.4}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
