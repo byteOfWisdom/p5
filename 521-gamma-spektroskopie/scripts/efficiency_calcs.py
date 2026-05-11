@@ -168,6 +168,6 @@ cs_act = fitted_peaks["ge"]["cs"][0][0] / (eps  * duration["ge"] * area_fraction
 
 print(co_act.format())
 print(co_act_2.format())
-print(cs_act)
+print(cs_act.format())
 print((0.5 * co_act + 0.5 * co_act_2).format())
 print((activity["co"] / co_act).format())
