@@ -84,4 +84,5 @@ table = {
     "FWHM / eV": fwhm_energy
 }
 
+print(table)
 std.print_tex_table(table, "../figs/fwhm_eu_ge.table")
