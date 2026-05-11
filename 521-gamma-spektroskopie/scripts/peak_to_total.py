@@ -35,9 +35,14 @@ spectra = {
 # %%
 for detector, element in std.mesh(["ge", "scint"], ["cs", "co"]):
     print(detector, element)
-    total_hits = sum(spectra[detector][element][1]) - sum(spectra[detector]["ug"][1])
+    total_hits = sum(np.vectorize(int)(spectra[detector][element][1]) - np.vectorize(int)(spectra[detector]["ug"][1]))
+    print(total_hits)
     peak_to_total = fitted_peaks[detector][element][0] / total_hits
     print("mu:", fitted_peaks[detector][element][1])
     print("PTT:", peak_to_total)
     print(sum(peak_to_total).format())
     print()
+
+
+# %%
+print()

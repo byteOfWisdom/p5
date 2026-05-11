@@ -76,3 +76,12 @@ plt.errorbar(~x, ~y, p.error(y), p.error(x), **std.default.error_bar_def)
 erange = np.linspace(0.8 * min(~energy), 1.05 * max(~energy), 10000)
 plt.plot(erange, func(erange, *res), label=f"$R^2={round(rsq, 3)}$")
 std.default.plt_finish("$E_\\gamma$ / eV", "$\\text{FWHM}^2$ / $\\text{eV}^2$", "../figs/fwhm_fit.pdf")
+
+# %%
+table = {
+    "$E_\\gamma$ / eV": energy,
+    "FWHM / Kanäle": fwhm,
+    "FWHM / eV": fwhm_energy
+}
+
+std.print_tex_table(table, "../figs/fwhm_eu_ge.table")
