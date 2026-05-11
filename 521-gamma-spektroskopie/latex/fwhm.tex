@@ -1,12 +1,15 @@
 \chapter{Halbwertsbreiten}
 
 \section{Vergleich der Detektorarten}
+
+Im Allgemeinen weisen die Gaußpeaks der Detektorspektren eine endliche Breite auf. Dies liegt vor allem an der statistischen Verteilung der pro $\gamma$-Photon-Wechselwirkung erzeugten Anregungen und Elektron-Loch-Paaren. Aus der Halbwertsbreite (\textit{Full Width Half Maximum}, volle Breite bei halber Höhe, FWHM) folgt direkt die Auflösung der Detektoren für eine gegebene Energie als $\mathcal{A}(E_\gamma) = \frac{\text{FWHM}}{E_\gamma}$. Zusätzlich zum intrinsischen Teil der Halbwertsbreite ($\Delta E_d(E_\gamma)$, aus der Poisson-Statistik der Ladungsträgererzeugung und -rekombination im HPGe-Detektor bzw. der erzeugten Anregungen und Szintillationsphotonen im NaI-Kristall) gibt es noch einen weiteren Anteil $\Delta E_e$, der v.a. aufgrund elektronischem Rauschen entsteht. In einem Detektor mit idealer Elektronik wäre dieser Teil nicht vorhanden, in reellen Detektoren aber immer.
+
 Die Halbwertsbreite (FWHM) von Gaußkurven ist gegeben über \cite[521]{gammahandbook}
 \begin{align}
 	\text{FWHM} = \sigma \cdot \sqrt{8 \ln(2)} \label{eq:fwhm}
 \end{align}
 
-Interessant sind die Halbwertsbreiten in der Energie-Domäne. Da die Gaußanpassungen in Kanälen durchgeführt werden, erfolgt die Umrechnung mit $a$, der Steigung aus der Energiekalibration.
+Interessant sind die Halbwertsbreiten in der Energie-Domäne. Da die Gaußanpassungen in Kanälen durchgeführt werden, erfolgt die Umrechnung mit $a$, der Steigung aus der Energiekalibration des jeweiligen Detektors (Gl. \ref{eq:kalibration_nai} und \ref{eq:cal_ge}).
 
 \begin{align}
 	\Delta E = \text{FWHM}_E = \text{FWHM}_b * a \label{eq:fwhme}
@@ -36,23 +39,26 @@ Die FWHM der angepassten Linien aus Tabelle \ref{tab:fwhm} werden nun mit Gl. \e
 
 
 \section{Intrinsische- und elektronische Halbwertsbreiten in HPGE}
-Anhand der Identifizierten Europiumlinien im HPGE Detektor wird der intrinsische- und elektronische Teil der Halbwertsbreite bestimmt. Für diese gilt der Zusammenhang
+Anhand der identifizierten Europiumlinien im HPGe-Detektor (s. Abschnitt \ref{sec:ge_cal}) wird der intrinsische- und elektronische Teil der Halbwertsbreite bestimmt. Für diese gilt der Zusammenhang
 
 \begin{align}
 	\Delta E (E_\gamma) &= \sqrt{(\Delta E_d (E_\gamma))^2 + (\Delta E_e)^2}\\
-	\Delta E_d (E_\gamma) &= k \cdot \sqrt{E_\gamma}
+	\Delta E_d (E_\gamma) &= k \cdot \sqrt{E_\gamma} \label{eq:intrins}
 \end{align}
 
-wobei $E_d$ die intrinsische und $E_e$ die elektronische Halbwertsbreite sind \cite[5-6]{521versuchsanleitung}.
+wobei $\Delta E_d$ die intrinsische und $\Delta E_e$ die elektronische Halbwertsbreite sind \cite[5-6]{521versuchsanleitung}.
 Zum Überprüfen dieses Zusammenhangs wird
 
 \begin{align}
 	(\Delta E (E_\gamma))^2 &= (\Delta E_d (E_\gamma))^2 + (\Delta E_e)^2 = k^2 E_\gamma + (\Delta E_e)^2\\
-	&= a * E_\gamma + b \label{eq:grade}
+	&= a * E_\gamma + b \label{eq:gerade}
 \end{align}
 
-aufgetragen (Abb. \ref{fig:fwhm_fit}) und eine Geradengleichung (Gl \eqref{eq:grade}) daran angepasst. Die Fitparameter sind dann $a = \SI{2.201(64)}{\electronvolt}$ und $b = \SI{8.95(19)e+05}{\electronvolt^2}$. Es ist dann die intrinsische Halbwertsbreite $\Delta E_d = \sqrt{b} = \SI{946(10)}{\electronvolt}$ und die Konstante $k = \sqrt{a} = \SI{1.482(22)}{\electronvolt}$.
+aufgetragen (Abb. \ref{fig:fwhm_fit}) und eine Geradengleichung (Gl \eqref{eq:gerade}) daran angepasst. Die Anpassungsparameter ergeben sich als $a = \SI{2.201(64)}{\electronvolt}$ und $b = \SI{8.95(19)e+05}{\electronvolt^2}$.
+Somit hat die elektronische Halbwertsbreite den Wert $\Delta E_e = \sqrt{b} = \SI{946(10)}{\electronvolt}$ und die Konstante der intrinsischen Halbwertsbreite (aus Gl. \ref{eq:intrins}) $k = \sqrt{a} = \SI{1.482(22)}{\electronvolt}$.
 
-\todo{kommentieren was das uns jetzt sagt...}
+Dieses Ergebnis passt zu den Erwartungen, dass die elektronische Halbwertsbreite einen
+
 \todo{tabelle mit den werten}
-\jafps{fwhm_fit}{\todo{write this}}{0.75}
+
+\jafps{fwhm_fit}{Auftragung der Quadrate der Halbwertsbreiten der gefundenen $\ce{^152Eu}$-Peaks gegen die Photonenenergien der zugeordneten Zerfälle mit eingezeichneter Anpassungsgerade \ref{eq:gerade} mit Parametern $a = \SI{2.201(64)}{\electronvolt}$, $b = \SI{8.95(19)e+05}{\electronvolt^2}.}{0.75}
