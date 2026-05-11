@@ -1,7 +1,5 @@
 \chapter{Detektoreffizienz}
 
-\todo{irgendwo erklären warum chi2 bei gradenfit doof ist}
-
 Die Detektoreffizienz ist definiert als 
 \begin{align}
 	\epsilon = \frac{N_{E_\gamma \, \text{Photopeak}}}{N_{E_\gamma \, Detektor}} \label{eq:basic_efficiency}
@@ -18,7 +16,7 @@ Die Berechnung von $N_{E_\gamma \, \text{Detektor}}$ folgt aus der Aktivität de
 
 Der Winkel $\alpha$ ist hierbei der Öffnungswinkel eines Kegels, welcher von der Probe und dem Rand des Detektors aufgespannt wird, also $\alpha = \arctan(r_\text{Detektor} / d_\text{Probe})$ ($d_\text{Probe}$ ist dabei der Abstand der Probe zur Dektorvorderseite).
 \todo{skizze davon in den anhang maybe}
-Damit ist dann die Fläche gegeben als
+Damit ist dann der Anteil der Fläche gegeben als
 
 \begin{align}
 	q = \frac12 (1 - \frac{1}{\sqrt{1 + (\frac{r_\text{Detektor}}{d_\text{Probe}})}})
@@ -116,4 +114,4 @@ Mit dieser Funktion soll nun die Aktivität der Kobalt Quelle abgeschätzt werde
 	A = \frac{N_\text{Photopeak}}{\epsilon(E_\gamma) \cdot q \cdot T_\text{Messung}}\label{eq:act_from_measure}
 \end{align}
 
-Damit erhält man eine Aktivität in Kobalt von $A = \SI{8.6(1.7)e+03}{\Bq}$, welche deutlich von der angegebenen (und zeitlich entwickelten) von $\SI{3.67(18)e+04}{\Bq}$ abweicht. \todo{Fehelr finden oder grund bullshiten} 
+Im Mittel der beiden Photopeaks erhält man eine Aktivität in Kobalt von $A = \SI{9.2(1.8)e+03}{\Becquerel}$, welche deutlich von der angegebenen (und zeitlich entwickelten) von $\SI{3.67(18)e+04}{\Becquerel}$ abweicht. Dieser deutliche Unterschied liegt daran, dass bei der berechnung des abgedeckten Raumwinkels mit der Vorderseite des Deketros gerechnet wird. Für weiter entfernte Proben ist diese Näherung hinreichend gut, wenn die Probe, wie Kobalt, unmittelbar vor dem Detektor ist, muss zusätzlich noch berücksichtigt werden, dass die Pfadlänge eines Teilchens im Detektor die Detektionswahrscheinlichkeit beeinflusst (es ist wahrscheinlicher, dass ein Teilchen detektiert wird, welches die gesamte Länge des Detektors durchfliegt als eines, welches nur wenige Millimeter durch eine Ecke fliegt). Durch die größeren möglichen Eintrittswinkel bei kurzen Abständen sind mehr solcher deutlich verschiedenen Weglängen im Detektor möglich. Auch ist um den tatsächlichen Detektor eine Hülle unbekannter Dicke, welche zu dem Abstand dazuaddiert werden muss, von uns aber nicht quantifiziert werden kann. Der Anteil dieser Hülle am Gesamtabstand ist, bei kleinen Abständen wie dem des Kobalts, dominierend.
