@@ -1,0 +1,35 @@
+\babel@toc {german}{}\relax 
+\contentsline {chapter}{\numberline {1}Einleitung}{3}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Versuchsziel}{3}{section.1.1}%
+\contentsline {chapter}{\numberline {2}Voraufgabe}{4}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Versuchsaufbau}{6}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}NaI-Szintillationsdetektor}{6}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}HPGe-Halbleiterdetektor}{7}{subsection.2.1.2}%
+\contentsline {chapter}{\numberline {3}Signalform}{8}{chapter.3}%
+\contentsline {subsection}{\numberline {3.0.1}Analyse der Signale des NaI-Detektors}{8}{subsection.3.0.1}%
+\contentsline {subsection}{\numberline {3.0.2}Analyse der Signale des HPGe-Detektors}{9}{subsection.3.0.2}%
+\contentsline {subsection}{\numberline {3.0.3}MCA-Verstärkungsfaktor}{10}{subsection.3.0.3}%
+\contentsline {chapter}{\numberline {4}Energiekalibration der Detektoren}{11}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Durchführung der Messungen}{11}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Energiekalibration des NaI-Detektors}{12}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Energiekalibration des HPGe-Detektors}{13}{section.4.3}%
+\contentsline {chapter}{\numberline {5}Peak-to-Total-Verhältnisse}{15}{chapter.5}%
+\contentsline {chapter}{\numberline {6}Halbwertsbreiten}{16}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Vergleich der Detektorarten}{16}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Intrinsische- und elektronische Halbwertsbreiten in HPGE}{16}{section.6.2}%
+\contentsline {chapter}{\numberline {7}Analyse der Bodenprobe}{18}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Durchführung}{18}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Identifikation der vorhandenen Radionuklide}{18}{section.7.2}%
+\contentsline {subsection}{\numberline {7.2.1}Diskussion der Zuordnung}{19}{subsection.7.2.1}%
+\contentsline {chapter}{\numberline {8}Anhang}{21}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Oszilloskopaufnahmen mit Anpassungsfunktionen}{21}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Spektren mit Fehlerbalken}{22}{section.8.2}%
+\contentsline {subsection}{\numberline {8.2.1}NaI-Detektor}{22}{subsection.8.2.1}%
+\contentsline {subsection}{\numberline {8.2.2}HPGe-Detektor}{24}{subsection.8.2.2}%
+\contentsline {subsection}{\numberline {8.2.3}Bodenprobe}{26}{subsection.8.2.3}%
+\contentsline {section}{\numberline {8.3}Zerfallsschemata verwendeter Elemente}{27}{section.8.3}%
+\contentsline {section}{\numberline {8.4}Tabellen}{28}{section.8.4}%
+\contentsline {subsection}{\numberline {8.4.1}Messungen mit dem NaI-Detektor}{28}{subsection.8.4.1}%
+\contentsline {subsection}{\numberline {8.4.2}Messungen mit dem HPGe-Detektor}{28}{subsection.8.4.2}%
+\contentsline {subsection}{\numberline {8.4.3}Messung der Bodenprobe}{30}{subsection.8.4.3}%
+\providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
