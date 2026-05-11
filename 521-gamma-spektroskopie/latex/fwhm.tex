@@ -57,8 +57,15 @@ Zum Überprüfen dieses Zusammenhangs wird
 aufgetragen (Abb. \ref{fig:fwhm_fit}) und eine Geradengleichung (Gl \eqref{eq:gerade}) daran angepasst. Die Anpassungsparameter ergeben sich als $a = \SI{2.201(64)}{\electronvolt}$ und $b = \SI{8.95(19)e+05}{\electronvolt^2}$.
 Somit hat die elektronische Halbwertsbreite den Wert $\Delta E_e = \sqrt{b} = \SI{946(10)}{\electronvolt}$ und die Konstante der intrinsischen Halbwertsbreite (aus Gl. \ref{eq:intrins}) $k = \sqrt{a} = \SI{1.482(22)}{\electronvolt}$.
 
-Dieses Ergebnis passt zu den Erwartungen, dass die elektronische Halbwertsbreite einen
+Dieses Ergebnis passt zu den Erwartungen, dass die elektronische Halbwertsbreite einen gewissen Anteil zur gesamten Halbwertsbreite der gemessenen Photopeaks liefert. Allerdings zeigt es auch, dass selbst bei perfekter Elektronik noch immer die intrinsische Detektorhalbwertsbreite eine endliche Breite hat, die Auflösung des HPGe-Detektors also grundsätzlich limitiert ist. Dies liegt am statistischen Verhalten der Ladungsansammlung im Detektormaterial, wie oben erläutert, und entspricht genau den Erwartungen. Weitere Quellen für eine verbreiterte Halbwertsbreite können Verunreinigungen im Germanium des Detektors sein \cite[219]{leotechniques} oder eine unzureichende Kühlung, um thermische Leckströme im Diodenmaterial zu vermeiden.
 
-\todo{tabelle mit den werten}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|} \hline
+    \input{../figs/fwhm_eu_ge.table}
+    \end{tabular}
+    \caption{}
+    \label{tab:fwhm_eu}
+\end{table}
 
 \jafps{fwhm_fit}{Auftragung der Quadrate der Halbwertsbreiten der gefundenen $\ce{^152Eu}$-Peaks gegen die Photonenenergien der zugeordneten Zerfälle mit eingezeichneter Anpassungsgerade \ref{eq:gerade} mit Parametern $a = \SI{2.201(64)}{\electronvolt}$, $b = \SI{8.95(19)e+05}{\electronvolt^2}.}{0.75}
