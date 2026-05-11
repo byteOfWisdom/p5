@@ -1,11 +1,11 @@
-\chapter{Detektoreffizienz}
+\chapter{Detektoreffizienz}\label{sec:efficiency}
 
-Die Detektoreffizienz ist definiert als 
+Die Detektoreffizienz ist definiert als
 \begin{align}
 	\epsilon = \frac{N_{E_\gamma \, \text{Photopeak}}}{N_{E_\gamma \, Detektor}} \label{eq:basic_efficiency}
 \end{align}
 
-wobei $N_{E_\gamma \, \text{Photopeak}}$ die Anzahl der im Photopeak einer Linie nachgewiesenen Photonen ist und $N_{E_\gamma \, \text{Detektor}}$ die Anzahl der Photonen dieser Linie ist, welche den Detektor erreichen\cite[6]{521versuchsanleitung}. 
+wobei $N_{E_\gamma \, \text{Photopeak}}$ die Anzahl der im Photopeak einer Linie nachgewiesenen Photonen ist und $N_{E_\gamma \, \text{Detektor}}$ die Anzahl der Photonen dieser Linie ist, welche den Detektor erreichen\cite[6]{521versuchsanleitung}.
 
 Die Berechnung von $N_{E_\gamma \, \text{Detektor}}$ folgt aus der Aktivität der Probe sowie geometrischen Überlegungen; es wird angenommen, dass die Probe isotrop in alle Raumrichtungen strahlt. Dann ist der Anteil der Strahlung, welche den Detektor erreicht genau der Anteil einer Kugelfläche, welche der Detektor abdeckt. Bei runden Detektoren, zu denen die Probe normal und mittig platziert ist (was zumindest näherungsweise gegeben ist), ergibt sich die Fläche (als Teil einer Kugelschale), welche der Detektor verdeckt als
 
@@ -15,7 +15,7 @@ Die Berechnung von $N_{E_\gamma \, \text{Detektor}}$ folgt aus der Aktivität de
 \end{align}
 
 Der Winkel $\alpha$ ist hierbei der Öffnungswinkel eines Kegels, welcher von der Probe und dem Rand des Detektors aufgespannt wird, also $\alpha = \arctan(r_\text{Detektor} / d_\text{Probe})$ ($d_\text{Probe}$ ist dabei der Abstand der Probe zur Dektorvorderseite).
-\todo{skizze davon in den anhang maybe}
+\jafps{detektor_skizze}{Skizze der geometrischen Überlegungen des Detektorflächenanteils, hier am Germanium-Detektor.}{0.6}
 Damit ist dann der Anteil der Fläche gegeben als
 
 \begin{align}
@@ -23,8 +23,8 @@ Damit ist dann der Anteil der Fläche gegeben als
 \end{align}
 
 
-Die Aktivität der Proben zu einem Referenzzeitpunkt ist bekannt und muss nur mittels der Halbwertszeiten für den Versuchstag berechnet werden.
-Dafür wird das Zerfallsgesetz genutzt \todo{source}. Während der relativ kurzen Messung wird die Aktivität als konstant betrachtet.
+Die Aktivität (gemessen in Becquerel, d.h. Zerfälle pro Sekunde) der Proben zu einem Referenzzeitpunkt ist bekannt und muss nur mittels der Halbwertszeiten für den Versuchstag berechnet werden.
+Dafür wird das Zerfallsgesetz genutzt \cite[10]{leotechniques}. Während der relativ kurzen Messung wird die Aktivität als konstant betrachtet und kann somit berechnet werden als.
 \begin{align}
 	A = A_0 e^{- t \frac{\ln(2)}{T_{1/2}}}
 \end{align}
@@ -49,7 +49,7 @@ Die Aktivitäten, gemessen am 01.10.2021, sind auf den Proben angegeben und zusa
 % \begin{table}[h]
 %     \centering
 %     \begin{tabular}{|c||c|c|c|} \hline
-% 	Abstand / m & Cs & Co & Eu \\ 
+% 	Abstand / m & Cs & Co & Eu \\
 % 	\hline \hline
 % 	HPGe & \num{0.0850(50)} & \num{0.0020(50)}& \num{0.1400(50)} \\
 % 	NaI & \num{0.0900(50)} & \num{0.0100(50)} & \num{0.1700(50)} \\
@@ -67,20 +67,20 @@ Mit diesen Ausdrücken, und $p_\text{Übergang}$ der Wahrscheinlichkeit eines Ü
 \end{align}
 
 
-Die Anzahl der im Phtotopeak registrierten Photonen ist direkt als Anpassungsparameter in Tabelle \todo{refrence} verfügbar, die Abstände der Proben sind in Tabell \ref{tab:distance} gelistet. Der HPGe Detektor hat einen Durchmesser von $\SI{55.7}{\milli\meter}$ und der NaI Detektor von $\SI{50.8}{\milli\meter}$\ref{521versuchsanleitung}. Diese sind Fehlerfrei angegeben, was vermutlich bedeutet, dass die Dimensionen so exakt sind, dass die Unsicherheit nicht relevant ist. 
+Die Anzahl der im Phtotopeak registrierten Photonen ist direkt als Anpassungsparameter $A$ in den Tabellen \ref{tab:tab:nai_co_peaks}-\ref{tab:ge_eu_peaks} verfügbar, die Abstände der Proben sind in Tabelle \ref{tab:distance} gelistet. Der HPGe-Detektor hat einen Durchmesser von $\SI{55.7}{\milli\meter}$ und der NaI-Detektor von $\SI{50.8}{\milli\meter}$ \cite[6]{521versuchsanleitung}. Diese sind fehlerfrei angegeben, was vermutlich bedeutet, dass die Dimensionen so exakt sind, dass die Unsicherheit nicht relevant ist.
 
 \todo{Tabelle mit beliebig vielen zwischenwerten}
 
 \section{Vergleich der Detektortypen}
-Mit diesen Überlegungen und $p_\text{Übergang} = \SI{94.7(2)}{\percent}$ \cite{521versuchsanleitung} wird für die $\SI{661.7}{\kilo\electronvolt}$ Linie von Cäsium\-137 Quelle die Effizienz in beiden Detektoren bestimmt.
+Mit diesen Überlegungen und $p_\text{Übergang} = \SI{94.7(2)}{\percent}$ \cite{521versuchsanleitung} wird für die $\SI{661.7}{\kilo\electronvolt}$ Linie der Cäsium\-137 Quelle die Effizienz in beiden Detektoren bestimmt.
 Es ergibt sich eine Effizienz des HPGE Detektors von $\epsilon_\text{HPGE} = \num{0.0567(68)}$ ($\approx 5.7\%$) und für NaI $\epsilon_\text{NaI} = 0.101(12)$ ($\approx 10.1\%$).
 
-Man erkennt bei dieser Linie eine deutlich höhere Effizienz des Szintillationsdetektors, was genau den Erwartungen entspricht \todo{cite}.
+Man erkennt bei dieser Linie eine deutlich höhere Effizienz des Szintillationsdetektors, was genau den Erwartungen entspricht, da der NaI-Szintillator eine höhere Ordnungszahl als das Germanium des Halbleiterdetektors besitzt und so der Wirkungsquerschnitt des Szintillators im betrachteten Energiebereich höher ist \cite[561,571]{gammahandbook}.
 
 
 \section{Effizienzkurve HPGE}
 
-Nun wird für alle in \todo{refrence chapter} identifizierten Europium Linien die Effizienzen im HPGE Detektor bestimmt. Die Wahrscheinlichkeiten $p_\text{Übergang}$ sind hierbei der Praktikumsanleitung entnommen.
+Nun wird für alle in \ref{sec:ge_cal} identifizierten Europium-Linien die Effizienzen im HPGe-Detektor bestimmt. Die Wahrscheinlichkeiten $p_\text{Übergang}$ sind hierbei der Praktikumsanleitung entnommen \cite[8]{521versuchsanleitung}.
 Die so gewonnenen Effizienzen werden in Abbildung \ref{fig:ge_efficiency} aufgetragen.
 
 An die Daten wird die Funktion
@@ -88,7 +88,7 @@ An die Daten wird die Funktion
 	\ln(\epsilon) = \Sigma_{i=0}^N a_i \bigg(\ln \bigg( \frac{E}{E_0} \bigg) \bigg)^i \label{eq:fuckthis}
 \end{align}
 
-angepasst. Es wird dabei $E_0 = \SI{100}{\kilo\electronvolt}$ gewählt und $N=2$. Diese Funktion ist empirisch aber Üblich für diesen Anwendungsfall \cite{bestpracticeefficiency} und hat hinreichend wenige Parameter um auch bei den wenigen Datenpunkten nicht zu overfitten. In Abbildung \ref{fig:ge_efficiency_log} ist diese Version aufgetragen. Die Anpassungsparameter sind in \ref{tab:eff_fit} gelistet.
+angepasst. Es wird dabei $E_0 = \SI{100}{\kilo\electronvolt}$ gewählt und $N=2$. Diese Funktion ist empirisch aber üblich für diesen Anwendungsfall (siehe \cite{bestpracticeefficiency}, \cite{characteristicefficiencyfunction}) und hat hinreichend wenige Parameter um auch bei den wenigen Datenpunkten nicht zu overfitten. In Abbildung \ref{fig:ge_efficiency_log} ist diese Version aufgetragen. Die Anpassungsparameter sind in \ref{tab:eff_fit} gelistet.
 
 \begin{table}[h]
     \centering
@@ -103,15 +103,15 @@ angepasst. Es wird dabei $E_0 = \SI{100}{\kilo\electronvolt}$ gewählt und $N=2$
 \end{table}
 
 
-\jafpp{ge_efficiency}{Effizienzkurve des HPGE Detektors mit Effizienz für Cäsium und Anpassungsfunktion eingezeichnet}{ge_efficiency_log}{Auftragung der Daten nach \eqref{eq:fuckthis} an denen die Anpassung durchgeführt wurde.}
+\jafpp{ge_efficiency}{Effizienzkurve des HPGe-Detektors mit Effizienz für Europium und Cäsium und Anpassungsfunktion eingezeichnet}{ge_efficiency_log}{Auftragung der Daten nach \eqref{eq:fuckthis} an denen die Anpassung durchgeführt wurde.}
 
-Das Modell beschreibt die Effizienzen der Europiumlinien gut ($R^2 = 0.995$) und beschreibt auch die Effizienz bei $\SI{661.7}{\kilo\electronvolt}$ von der Cäsium Linie gut.
+Das Modell beschreibt die Effizienzen der Europiumlinien gut ($R^2 = 0.995$) und beschreibt auch die Effizienz bei $\SI{661.7}{\kilo\electronvolt}$ von der Cäsium-Linie gut.
 
 
-Mit dieser Funktion soll nun die Aktivität der Kobalt Quelle abgeschätzt werden. Dafür wird Gl \eqref{eq:basic_efficiency} zusammen mit Gl \eqref{eq:hit_count_summary} nach der Aktivität umgeformt. Man erhält dann Gl \eqref{eq:act_from_measure}.
+Mit dieser Funktion soll nun die Aktivität der Cobalt Quelle abgeschätzt werden. Dafür wird Gl \eqref{eq:basic_efficiency} zusammen mit Gl \eqref{eq:hit_count_summary} nach der Aktivität umgeformt. Man erhält dann Gl \eqref{eq:act_from_measure}.
 
 \begin{align}
 	A = \frac{N_\text{Photopeak}}{\epsilon(E_\gamma) \cdot q \cdot T_\text{Messung}}\label{eq:act_from_measure}
 \end{align}
 
-Im Mittel der beiden Photopeaks erhält man eine Aktivität in Kobalt von $A = \SI{9.2(1.8)e+03}{\Becquerel}$, welche deutlich von der angegebenen (und zeitlich entwickelten) von $\SI{3.67(18)e+04}{\Becquerel}$ abweicht. Dieser deutliche Unterschied liegt daran, dass bei der berechnung des abgedeckten Raumwinkels mit der Vorderseite des Deketros gerechnet wird. Für weiter entfernte Proben ist diese Näherung hinreichend gut, wenn die Probe, wie Kobalt, unmittelbar vor dem Detektor ist, muss zusätzlich noch berücksichtigt werden, dass die Pfadlänge eines Teilchens im Detektor die Detektionswahrscheinlichkeit beeinflusst (es ist wahrscheinlicher, dass ein Teilchen detektiert wird, welches die gesamte Länge des Detektors durchfliegt als eines, welches nur wenige Millimeter durch eine Ecke fliegt). Durch die größeren möglichen Eintrittswinkel bei kurzen Abständen sind mehr solcher deutlich verschiedenen Weglängen im Detektor möglich. Auch ist um den tatsächlichen Detektor eine Hülle unbekannter Dicke, welche zu dem Abstand dazuaddiert werden muss, von uns aber nicht quantifiziert werden kann. Der Anteil dieser Hülle am Gesamtabstand ist, bei kleinen Abständen wie dem des Kobalts, dominierend.
+Im Mittel der beiden Photopeaks erhält man eine Aktivität in Cobalt von $A = \SI{9.2(1.8)e+03}{\becquerel}$, welche deutlich von der angegebenen (und zeitlich entwickelten) von $\SI{3.67(18)e+04}{\becquerel}$ abweicht. Dieser deutliche Unterschied liegt daran, dass bei der Berechnung des abgedeckten Raumwinkels mit der Vorderseite des Deketros gerechnet wird. Für weiter entfernte Proben ist diese Näherung hinreichend gut, wenn die Probe, wie Cobalt, unmittelbar vor dem Detektor stand, muss zusätzlich noch berücksichtigt werden, dass die Pfadlänge eines Teilchens im Detektor die Detektionswahrscheinlichkeit beeinflusst (es ist wahrscheinlicher, dass ein Teilchen detektiert wird, welches die gesamte Länge des Detektors durchfliegt als eines, welches nur wenige Millimeter durch eine Ecke fliegt). Durch die größeren möglichen Eintrittswinkel bei kurzen Abständen sind mehr solcher deutlich verschiedenen Weglängen im Detektor möglich. Auch ist um den tatsächlichen Detektor eine Hülle unbekannter Dicke, welche zu dem Abstand dazuaddiert werden muss, von uns aber nicht quantifiziert werden kann. Der Anteil dieser Hülle am Gesamtabstand ist, bei kleinen Abständen wie dem des Cobalts, dominierend.

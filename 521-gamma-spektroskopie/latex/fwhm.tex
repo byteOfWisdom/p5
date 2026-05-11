@@ -1,7 +1,7 @@
 \chapter{Halbwertsbreiten}
 
 \section{Vergleich der Detektorarten}
-Die Halbwertsbreite (FWHM) von Gaußkurven ist gegeben über \todo{source}
+Die Halbwertsbreite (FWHM) von Gaußkurven ist gegeben über \cite[521]{gammahandbook}
 \begin{align}
 	\text{FWHM} = \sigma \cdot \sqrt{8 \ln(2)} \label{eq:fwhm}
 \end{align}
@@ -13,7 +13,7 @@ Interessant sind die Halbwertsbreiten in der Energie-Domäne. Da die Gaußanpass
 \end{align}
 
 
-Die FWHM der angepassten Linien aus Tabelle \ref{tab:fwhm} werden nun mit Gl \eqref{eq:fwhm} und \eqref{eq:fwhme} berechnet. Die Ergebnisse sind in Tabelle \todo{refrence} zu finden. Man erkennt sofort, dass die Halbwertsbreite des HPGE Detektors um mehrere Größenordnungen kleiner ist, als die des NaI Detektors.
+Die FWHM der angepassten Linien aus Tabelle \ref{tab:fwhm} werden nun mit Gl. \eqref{eq:fwhm} und \eqref{eq:fwhme} berechnet. Die Ergebnisse sind in Tabelle \ref{tab:fwhm} zu finden. Man erkennt sofort, dass die Halbwertsbreite des HPGe-Detektors um mehrere Größenordnungen kleiner ist, als die des NaI-Detektors. Dies entspricht den Erwartungen an Halbleiterdetektoren, welche eine deutlich bessere Energieauflösung als Szintillationsdetektoren haben, v.a. aufgrund der geringeren Bandlücke zwischen Valenz- und Leiterband und damit der größeren Zahl von Leitungselektronen, die von einem $\gamma$-Photon erzeugt werden \cite[117]{leotechniques}, \cite[570]{gammahandbook}.
 
 \begin{table}[h]
     \centering
@@ -22,11 +22,11 @@ Die FWHM der angepassten Linien aus Tabelle \ref{tab:fwhm} werden nun mit Gl \eq
 	\hline
 	HPGE & Cs &  \num{661647(23)    } & \num{7.0397(73) } & \num{16.577(17) } & \num{1536.2(1.6) }\\
 	HPGE & Co &  \num{1173257(31)   } & \num{8.874(30)  } & \num{20.897(71) } & \num{1936.4(6.5) }\\
-	HPGE & Co &  \num{1332507(33)   } & \num{9.429(24)  } & \num{22.204(57) } & \num{2057.5(5.2) }\\
-	NaI& cs & \num{6.76(12)e+05  } & \num{195.82(52) } & \num{461.1(1.2) } & \num{5.547(62)e+04 }\\
-	NaI& cs & \num{3.77(97)e+04  } & \num{26.17(23)  } & \num{61.63(54)  } & \num{7.41(10)e+03 }\\
-	NaI& co & \num{1.165(16)e+06 } & \num{305(12)    } & \num{718(28)    } & \num{8.64(35)e+04 }\\
-	NaI& co & \num{1.318(17)e+06 } & \num{336.1(4.9) } & \num{791(12)    } & \num{9.52(17)e+04 }\\
+	HPGE & Co &  \num{1332507(33)   } & \num{9.429(24)  } & \num{22.204(57) } & \num{2057.5(5.2) }\\ \hline
+	NaI& Cs & \num{6.76(12)e+05  } & \num{195.82(52) } & \num{461.1(1.2) } & \num{5.547(62)e+04 }\\
+	%NaI& Cs & \num{3.77(97)e+04  } & \num{26.17(23)  } & \num{61.63(54)  } & \num{7.41(10)e+03 }\\
+	NaI& Co & \num{1.165(16)e+06 } & \num{305(12)    } & \num{718(28)    } & \num{8.64(35)e+04 }\\
+	NaI& Co & \num{1.318(17)e+06 } & \num{336.1(4.9) } & \num{791(12)    } & \num{9.52(17)e+04 }\\
 	\hline
     \end{tabular}
     \caption{Linienbreiten bei Cobalt und Cäsium  \todo{maybe da noch die xray peaks raus kicken??}}
