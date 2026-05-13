@@ -15,13 +15,18 @@ mkey = [np.where(muon_data[2] == e_voltage)[0][0] for e_voltage in electron_data
 m_counts = muon_data[0][mkey]
 m_times = muon_data[1][mkey]
 
+for r, u in zip(muon_data[0] / muon_data[1], muon_data[2]):
+    print(u, r)
+
 muon_rate = m_counts / m_times
 electron_rate = e_counts / e_times
 ratio = electron_rate / muon_rate
 
-std.print_csv_table({
-                        "voltage": electron_data[2][ekey],
-                        "muon rate": muon_rate,
-                        "electron rate": electron_rate,
-                        "ratio": ratio
-                    }, "../figs/ratios.csv")
+
+
+# std.print_csv_table({
+                    #     "voltage": electron_data[2][ekey],
+                    #     "muon rate": muon_rate,
+                    #     "electron rate": electron_rate,
+                    #     "ratio": ratio
+                    # }, "../figs/ratios.csv")
