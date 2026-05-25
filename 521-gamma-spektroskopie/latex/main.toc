@@ -8,35 +8,35 @@
 \contentsline {subsection}{\numberline {3.0.1}Analyse der Signale des NaI-Detektors}{9}{subsection.3.0.1}%
 \contentsline {subsection}{\numberline {3.0.2}Analyse der Signale des HPGe-Detektors}{10}{subsection.3.0.2}%
 \contentsline {subsection}{\numberline {3.0.3}MCA-Verstärkungsfaktor}{11}{subsection.3.0.3}%
-\contentsline {chapter}{\numberline {4}Energiekalibration der Detektoren}{12}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Durchführung der Messungen}{12}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Energiekalibration des NaI-Detektors}{13}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Energiekalibration des HPGe-Detektors}{14}{section.4.3}%
-\contentsline {chapter}{\numberline {5}Halbwertsbreiten}{16}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Vergleich der Detektorarten}{16}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Intrinsische- und elektronische Halbwertsbreiten in HPGE}{16}{section.5.2}%
-\contentsline {chapter}{\numberline {6}Detektoreffizienz}{19}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Vergleich der Detektortypen}{20}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Effizienzkurve HPGE}{20}{section.6.2}%
-\contentsline {section}{\numberline {6.3}Peak-to-Total-Verhältnisse}{23}{section.6.3}%
-\contentsline {chapter}{\numberline {7}Analyse der Bodenprobe}{24}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Durchführung}{24}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Identifikation der vorhandenen Radionuklide}{24}{section.7.2}%
-\contentsline {subsection}{\numberline {7.2.1}Diskussion der Zuordnung}{25}{subsection.7.2.1}%
-\contentsline {chapter}{\numberline {8}Fazit}{27}{chapter.8}%
-\contentsline {chapter}{\numberline {9}Anhang}{28}{chapter.9}%
-\contentsline {section}{\numberline {9.1}Oszilloskopaufnahmen mit Anpassungsfunktionen}{28}{section.9.1}%
-\contentsline {section}{\numberline {9.2}Spektren mit Fehlerbalken}{29}{section.9.2}%
-\contentsline {subsection}{\numberline {9.2.1}NaI-Detektor}{29}{subsection.9.2.1}%
-\contentsline {subsection}{\numberline {9.2.2}HPGe-Detektor}{31}{subsection.9.2.2}%
-\contentsline {subsection}{\numberline {9.2.3}Bodenprobe}{33}{subsection.9.2.3}%
-\contentsline {section}{\numberline {9.3}Spektren mit Anpassungsfunktionen}{34}{section.9.3}%
-\contentsline {subsection}{\numberline {9.3.1}NaI-Detektor}{34}{subsection.9.3.1}%
-\contentsline {subsection}{\numberline {9.3.2}HPGe-Detektor}{35}{subsection.9.3.2}%
-\contentsline {section}{\numberline {9.4}Zerfallsschemata verwendeter Elemente}{37}{section.9.4}%
-\contentsline {section}{\numberline {9.5}Tabellen}{38}{section.9.5}%
-\contentsline {subsection}{\numberline {9.5.1}Messungen mit dem NaI-Detektor}{38}{subsection.9.5.1}%
-\contentsline {subsection}{\numberline {9.5.2}Messungen mit dem HPGe-Detektor}{38}{subsection.9.5.2}%
-\contentsline {subsection}{\numberline {9.5.3}Summen der Spektren}{39}{subsection.9.5.3}%
-\contentsline {subsection}{\numberline {9.5.4}Messung der Bodenprobe}{40}{subsection.9.5.4}%
+\contentsline {chapter}{\numberline {4}Energiekalibration der Detektoren}{13}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Durchführung der Messungen}{13}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Energiekalibration des NaI-Detektors}{14}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Energiekalibration des HPGe-Detektors}{15}{section.4.3}%
+\contentsline {chapter}{\numberline {5}Halbwertsbreiten}{17}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Vergleich der Detektorarten}{17}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Intrinsische- und elektronische Halbwertsbreiten in HPGE}{17}{section.5.2}%
+\contentsline {chapter}{\numberline {6}Detektoreffizienz}{20}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Vergleich der Detektortypen}{21}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Effizienzkurve HPGE}{21}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Peak-to-Total-Verhältnisse}{24}{section.6.3}%
+\contentsline {chapter}{\numberline {7}Analyse der Bodenprobe}{25}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Durchführung}{25}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Identifikation der vorhandenen Radionuklide}{25}{section.7.2}%
+\contentsline {subsection}{\numberline {7.2.1}Diskussion der Zuordnung}{26}{subsection.7.2.1}%
+\contentsline {chapter}{\numberline {8}Fazit}{28}{chapter.8}%
+\contentsline {chapter}{\numberline {9}Anhang}{29}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Oszilloskopaufnahmen mit Anpassungsfunktionen}{29}{section.9.1}%
+\contentsline {section}{\numberline {9.2}Spektren mit Fehlerbalken}{30}{section.9.2}%
+\contentsline {subsection}{\numberline {9.2.1}NaI-Detektor}{30}{subsection.9.2.1}%
+\contentsline {subsection}{\numberline {9.2.2}HPGe-Detektor}{32}{subsection.9.2.2}%
+\contentsline {subsection}{\numberline {9.2.3}Bodenprobe}{34}{subsection.9.2.3}%
+\contentsline {section}{\numberline {9.3}Spektren mit Anpassungsfunktionen}{35}{section.9.3}%
+\contentsline {subsection}{\numberline {9.3.1}NaI-Detektor}{35}{subsection.9.3.1}%
+\contentsline {subsection}{\numberline {9.3.2}HPGe-Detektor}{36}{subsection.9.3.2}%
+\contentsline {section}{\numberline {9.4}Zerfallsschemata verwendeter Elemente}{38}{section.9.4}%
+\contentsline {section}{\numberline {9.5}Tabellen}{39}{section.9.5}%
+\contentsline {subsection}{\numberline {9.5.1}Messungen mit dem NaI-Detektor}{39}{subsection.9.5.1}%
+\contentsline {subsection}{\numberline {9.5.2}Messungen mit dem HPGe-Detektor}{39}{subsection.9.5.2}%
+\contentsline {subsection}{\numberline {9.5.3}Summen der Spektren}{40}{subsection.9.5.3}%
+\contentsline {subsection}{\numberline {9.5.4}Messung der Bodenprobe}{41}{subsection.9.5.4}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
