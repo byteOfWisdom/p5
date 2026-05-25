@@ -1,0 +1,23 @@
+[
+  {
+    "file": "analysis.cpp",
+    "arguments": [
+      "/usr/local/bin/g++",
+      "-std=c++21",
+      "-Wall",
+      "-Wpedantic",
+      "-stdlib=libc++",
+      "-m64",
+      "-stdlib=libc++",
+      "-pthread",
+      "-std=c++17",
+      "-m64",
+      "-I/opt/homebrew/Cellar/root/6.40.00/include/root",
+      "analysis.cpp",
+      "-o",
+      "analysis"
+    ],
+    "directory": "/Users/leonidessau/code/uni/p5/515-driftkammer/script",
+    "output": "analysis"
+  }
+]
