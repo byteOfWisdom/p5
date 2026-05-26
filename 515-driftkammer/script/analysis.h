@@ -11,6 +11,8 @@
 #include <TROOT.h>
 #include <TChain.h>
 #include <TFile.h>
+#include <TH1D.h>
+#include <TH2.h>
 
 // Header file for the classes stored in the TTree if any.
 
@@ -62,6 +64,14 @@ public :
    virtual void     Loop();
    virtual Bool_t   Notify();
    virtual void     Show(Long64_t entry = -1);
+   virtual bool get_next_entry();
+   virtual void reset_entry_count();
+   virtual TH1D dt_relation();
+   virtual TH2D wire_correlation();
+
+   private:
+   Long64_t current_entry = 0;
+   Long64_t n_entries = -1;
 };
 
 #endif

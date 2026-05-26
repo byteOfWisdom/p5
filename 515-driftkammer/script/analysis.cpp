@@ -1,3 +1,4 @@
+#include "TH1.h"
 #define analysis_cxx
 #include "analysis.h"
 #include <TH2.h>
@@ -5,6 +6,54 @@
 #include <TCanvas.h>
 #include <TROOT.h>
 #include <TRint.h>
+
+
+void analysis::reset_entry_count() {
+   this->current_entry = 0;
+}
+
+
+bool analysis::get_next_entry() {
+   // gets next entry and returns whether or not there are more
+   if (this->n_entries == -1) 
+      this->n_entries = fChain->GetEntriesFast();
+
+   if (this->current_entry < this->n_entries) {
+      this->GetEntry(this->current_entry);
+      return this->current_entry++ < this->n_entries;
+   }
+   return false;
+}
+
+
+TH1D analysis::dt_relation() {
+   TH1D drift_time_hist = TH1D("Driftzeiten", "Driftzeiten", 251, -2.5 / 2., 250 * 2.5 + 2.5 / 2.);
+
+   for (reset_entry_count(); get_next_entry();) {
+      for(UInt_t hit = 0; hit < nhits_le; hit++) {
+         Double_t time = time_le[hit] * 2.5;
+	       drift_time_hist.Fill(time);
+	    }
+   }
+
+   return drift_time_hist;
+}
+
+
+TH2D analysis::wire_correlation() {
+   TH2D wire_correlation = TH2D("wireCorrelation", "wire correlations", 48, 0.5, 48.5, 48, 0.5, 48.5);
+   for (reset_entry_count(); get_next_entry();) {
+      for(UInt_t hit = 0; hit < nhits_le; hit++) {
+         for (UInt_t j = 0; j<nhits_le; j++) {
+            if (hit == j) continue;
+            // if (wire_le[hit] == wire_le[j]) continue;
+            wire_correlation.Fill(wire_le[hit], wire_le[j]);
+         	}
+	    }
+   }
+   return wire_correlation;
+}
+
 
 void analysis::Loop()
 {
@@ -36,12 +85,7 @@ void analysis::Loop()
 
    if (fChain == 0) return;
 
-   Long64_t nentries = fChain->GetEntriesFast();
-
-   for (Long64_t jentry = 0; jentry < nentries; jentry++) {
-      Long64_t ientry = LoadTree(jentry);
-      if (ientry < 0) break;
-      this->fChain->GetEntry(jentry);
+   for (;this->get_next_entry();) {
       
       for(UInt_t hit = 0; hit < nhits_le; hit++) {
          Double_t time = time_le[hit] * 2.5;
@@ -64,19 +108,19 @@ void analysis::Loop()
 }
 
 int main(int argc, char** argv) {
-  TROOT root("app","app");
-  Int_t dargc=1;
-  char** dargv = &argv[0];
-  // TRint* app = new TRint("app", &dargc, dargv);
-  TRint app = TRint("app", &dargc, dargv);
-  //TRint *app = new TRint("app", 0, NULL);
-  TCanvas *c1 = new TCanvas("c", "c", 800, 600);
-  TFile* f = new TFile(argv[1]);
-  TTree* tree = (TTree*) f->FindObjectAny("t");
-  //tree->Dump();
-  analysis* ana = new analysis(tree);
-  ana->Loop();
- 
-  // app->Run(kTRUE);
-  app.Run(kTRUE);
+   TROOT root("app","app");
+   Int_t dargc=1;
+   char** dargv = &argv[0];
+   TRint app = TRint("app", &dargc, dargv);
+   TCanvas c1 = TCanvas("c", "c", 800, 600);
+   TFile f = TFile(argv[1]);
+   TTree* tree = (TTree*) f.FindObjectAny("t");
+   analysis* ana = new analysis(tree);
+   // ana->Loop();
+   auto dt_rel = ana->dt_relation();
+   dt_rel.Draw();
+   // auto wire_correlation = ana->wire_correlation();
+   // wire_correlation.Draw();
+
+   app.Run(kTRUE);
 }
