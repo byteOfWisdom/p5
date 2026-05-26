@@ -67,8 +67,7 @@ public :
 #endif
 
 #ifdef analysis_cxx
-analysis::analysis(TTree *tree) : fChain(0) 
-{
+analysis::analysis(TTree *tree) : fChain(0) {
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {
@@ -82,20 +81,21 @@ analysis::analysis(TTree *tree) : fChain(0)
    Init(tree);
 }
 
-analysis::~analysis()
-{
+
+analysis::~analysis() {
    if (!fChain) return;
    delete fChain->GetCurrentFile();
 }
 
-Int_t analysis::GetEntry(Long64_t entry)
-{
+
+Int_t analysis::GetEntry(Long64_t entry) {
 // Read contents of entry.
    if (!fChain) return 0;
    return fChain->GetEntry(entry);
 }
-Long64_t analysis::LoadTree(Long64_t entry)
-{
+
+
+Long64_t analysis::LoadTree(Long64_t entry) {
 // Set the environment to read one entry
    if (!fChain) return -5;
    Long64_t centry = fChain->LoadTree(entry);
@@ -107,8 +107,8 @@ Long64_t analysis::LoadTree(Long64_t entry)
    return centry;
 }
 
-void analysis::Init(TTree *tree)
-{
+
+void analysis::Init(TTree *tree) {
    // The Init() function is called when the selector needs to initialize
    // a new tree or chain. Typically here the branch addresses and branch
    // pointers of the tree will be set.
@@ -140,8 +140,7 @@ void analysis::Init(TTree *tree)
    Notify();
 }
 
-Bool_t analysis::Notify()
-{
+Bool_t analysis::Notify() {
    // The Notify() function is called when a new file is opened. This
    // can be either for a new TTree in a TChain or when when a new TTree
    // is started when using PROOF. It is normally not necessary to make changes
@@ -151,15 +150,15 @@ Bool_t analysis::Notify()
    return kTRUE;
 }
 
-void analysis::Show(Long64_t entry)
-{
+void analysis::Show(Long64_t entry) {
 // Print contents of entry.
 // If entry is not specified, print current entry
    if (!fChain) return;
    fChain->Show(entry);
 }
-Int_t analysis::Cut(Long64_t entry)
-{
+
+
+Int_t analysis::Cut(Long64_t entry) {
 // This function may be called from Loop.
 // returns  1 if entry is accepted.
 // returns -1 otherwise.
