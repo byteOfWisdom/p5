@@ -9,6 +9,7 @@
 #include <TROOT.h>
 #include <TRint.h>
 
+#define for_range(I, A, B) for (auto I = A; I < B; ++I)
 
 const double TIME_LB  = -1.25;
 const double TIME_UB  = 250 * 2.5 + 2.5 / 2.;
@@ -41,6 +42,9 @@ bool analysis::get_next_entry() {
 
    if (this->current_entry < this->n_entries) {
       this->GetEntry(this->current_entry);
+
+      for_range(j, 0, nhits_le) this->wire_le[j] = this->wire_lut[wire_le[j]];
+      for_range(j, 0, nhits_te) this->wire_te[j] = this->wire_lut[wire_te[j]];
       return this->current_entry++ < this->n_entries;
    }
    return false;
@@ -52,6 +56,7 @@ TH1D analysis::dt_relation() {
 
    for (reset_entry_count(); get_next_entry();) {
       for(UInt_t hit = 0; hit < nhits_le; hit++) {
+         if (filter_exclude(hit)) continue;
          Double_t time = time_le[hit] * 2.5;
 	       drift_time_hist.Fill(time);
 	    }
@@ -64,9 +69,9 @@ TH1D analysis::dt_relation() {
 TH2D analysis::wire_correlation() {
    TH2D wire_correlation = TH2D("wireCorrelation", "wire correlations", WIRE_BINS, WIRE_BINS);
    for (reset_entry_count(); get_next_entry();) {
-      for(UInt_t hit = 0; hit < nhits_le; hit++) {
+      for_range(hit, 0, nhits_le) {
          if (filter_exclude(hit)) continue;
-         for (UInt_t j = 0; j<nhits_le; j++) {
+         for_range(j, 0, nhits_le) {
             if (hit == j) continue;
             if (wire_le[hit] == wire_le[j]) continue;
             wire_correlation.Fill(wire_le[hit], wire_le[j]);
@@ -192,16 +197,16 @@ int main(int argc, char** argv) {
    TFile f = TFile(argv[1]);
    TTree* tree = (TTree*) f.FindObjectAny("t");
    analysis* ana = new analysis(tree);
-   // ana->Loop();
    auto dt_rel = ana->dt_relation();
-   // dt_rel.Draw();
    auto tot_plot = ana->tot_wire_hist();
-   // tot_plot.Draw();
    auto wire_correlation = ana->wire_correlation();
-   wire_correlation.Draw();
+   auto dt_tot = ana->dt_tot_relation();
+
    // auto _ = make_bin_lut(wire_correlation);
 
-   auto dt_tot = ana->dt_tot_relation();
+   // dt_rel.Draw();
+   // tot_plot.Draw();
+   wire_correlation.Draw();
    // dt_tot.Draw();
 
    app.Run(kTRUE);
