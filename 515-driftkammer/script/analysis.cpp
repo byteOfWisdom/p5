@@ -1,6 +1,5 @@
 #include "RtypesCore.h"
 #include "TH1.h"
-#include <sys/_types/_uid_t.h>
 #include <vector>
 #define analysis_cxx
 #include "analysis.h"
@@ -25,6 +24,13 @@ const unsigned int WIRE_N = 48;
 
 void analysis::reset_entry_count() {
    this->current_entry = 0;
+}
+
+
+bool analysis::filter_exclude(unsigned int hit) {
+   bool hit_too_late = time_le[hit] * 2.5 > 300;
+   bool tot_too_short = tot[hit] * 2.5 < 100;
+   return filter_enabled && (hit_too_late || tot_too_short);
 }
 
 
@@ -59,6 +65,7 @@ TH2D analysis::wire_correlation() {
    TH2D wire_correlation = TH2D("wireCorrelation", "wire correlations", WIRE_BINS, WIRE_BINS);
    for (reset_entry_count(); get_next_entry();) {
       for(UInt_t hit = 0; hit < nhits_le; hit++) {
+         if (filter_exclude(hit)) continue;
          for (UInt_t j = 0; j<nhits_le; j++) {
             if (hit == j) continue;
             if (wire_le[hit] == wire_le[j]) continue;
@@ -75,6 +82,7 @@ TH2D analysis::tot_wire_hist() {
 
    for (reset_entry_count(); get_next_entry();) {
       for(UInt_t hit = 0; hit < nhits_le; hit++) {
+         if (filter_exclude(hit)) continue;
          Double_t time = tot[hit] * 2.5;
          int wire = wire_le[hit];
          if (time < 5) continue;
@@ -90,6 +98,7 @@ TH2D analysis::dt_tot_relation() {
 
    for (reset_entry_count(); get_next_entry();) {
       for(UInt_t hit = 0; hit < nhits_le; hit++) {
+         if (filter_exclude(hit)) continue;
          Double_t time = this->tot[hit] * 2.5;
          Double_t dt = this->time_le[hit] * 2.5;
 	       hist.Fill(dt, time);
@@ -189,11 +198,11 @@ int main(int argc, char** argv) {
    auto tot_plot = ana->tot_wire_hist();
    // tot_plot.Draw();
    auto wire_correlation = ana->wire_correlation();
-   // wire_correlation.Draw();
+   wire_correlation.Draw();
    // auto _ = make_bin_lut(wire_correlation);
 
    auto dt_tot = ana->dt_tot_relation();
-   dt_tot.Draw();
+   // dt_tot.Draw();
 
    app.Run(kTRUE);
 }
