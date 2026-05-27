@@ -18,10 +18,12 @@ const unsigned int TIME_N = 251;
 const double WIRE_LB = 0.5;
 const double WIRE_UB = 48.5;
 const unsigned int WIRE_N = 48;
+const unsigned int SPACE_N = TIME_N;
 
 // i feel guilty for this but i am also too lazy to repeat myself
 #define TIME_BINS TIME_N, TIME_LB, TIME_UB
 #define WIRE_BINS WIRE_N, WIRE_LB, WIRE_UB
+#define SPACE_BINS SPACE_N, -8.5, 8.5
 
 
 void analysis::reset_entry_count() {
@@ -52,7 +54,7 @@ bool analysis::get_next_entry() {
 }
 
 
-TH1D analysis::dt_relation() {
+TH1D analysis::dt_hist() {
    TH1D drift_time_hist = TH1D("Driftzeiten", "Driftzeiten", TIME_BINS);
 
    for (reset_entry_count(); get_next_entry();) {
@@ -83,13 +85,13 @@ TH2D analysis::wire_correlation() {
 }
 
 
-TH2D analysis::tot_wire_hist() {
-   TH2D tot_hist = TH2D("tot_wire_hist", "Time over Treshhold per wire", WIRE_BINS, TIME_BINS);
+TH2D analysis::dt_wire_hist() {
+   TH2D tot_hist = TH2D("dt_wire_hist", "Driftzeit pro Draht", WIRE_BINS, TIME_BINS);
 
    for (reset_entry_count(); get_next_entry();) {
       for(UInt_t hit = 0; hit < nhits_le; hit++) {
          if (filter_exclude(hit)) continue;
-         Double_t time = tot[hit] * 2.5;
+         Double_t time = time_le[hit] * 2.5;
          int wire = wire_le[hit];
          if (time < 5) continue;
 	       tot_hist.Fill(wire, time);
@@ -115,9 +117,24 @@ TH2D analysis::dt_tot_relation() {
 
 
 std::vector<UInt_t> make_wire_lut() {
-   auto res = std::vector<UInt_t>(48);
-   forr(i, 0, 48) res[i] = (i % 2? i + 48 + 1: i + 48 - 1) % 48;
+   auto res = std::vector<UInt_t>(49);
+   forr(i, 0, 49) res[i] = (i % 2? i + 49 + 1: i + 49 - 1) % 49;
+   forr(i, 0, 49) printf("%u\n", res[i]);
    return res;
+}
+
+
+TH1D make_odb(TH1D& drift_time_spectrum) {
+   TH1D odb = TH1D("odb", "Orts- Driftzeitbeziehung", TIME_BINS);
+
+   Double_t sum = 0;
+   forr(i, 1, SPACE_N + 1) {
+      sum += drift_time_spectrum.GetBinContent(i);
+      odb.SetBinContent(i, sum);
+   }
+
+   odb.Scale(8.5 / sum);
+   return odb;
 }
 
 
@@ -130,17 +147,23 @@ int main(int argc, char** argv) {
    TFile f = TFile(argv[1]);
    TTree* tree = (TTree*) f.FindObjectAny("t");
    analysis* ana = new analysis(tree);
+
    ana->wire_lut = make_wire_lut();
-   auto dt_rel = ana->dt_relation();
-   auto tot_plot = ana->tot_wire_hist();
+
+   auto dt_rel = ana->dt_hist();
+   auto dt_wire_plot = ana->dt_wire_hist();
    auto wire_correlation = ana->wire_correlation();
    auto dt_tot = ana->dt_tot_relation();
 
 
    // dt_rel.Draw();
-   // tot_plot.Draw();
-   wire_correlation.Draw();
+   // dt_wire_plot.Draw();
+   // wire_correlation.Draw();
    // dt_tot.Draw();
+
+   // TODO: maybe this needs to be done before filtering??
+   auto odb = make_odb(dt_rel);
+   odb.Draw();
 
    app.Run(kTRUE);
 }
