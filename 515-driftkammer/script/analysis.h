@@ -55,6 +55,8 @@ public :
    TBranch        *b_time_te;   //!
    TBranch        *b_tot;   //!
 
+   bool filter_enabled = true;
+
    analysis(TTree *tree=0);
    virtual ~analysis();
    virtual Int_t    Cut(Long64_t entry);
@@ -65,9 +67,12 @@ public :
    virtual Bool_t   Notify();
    virtual void     Show(Long64_t entry = -1);
    virtual bool get_next_entry();
+   virtual bool filter_exclude(unsigned int);
    virtual void reset_entry_count();
    virtual TH1D dt_relation();
    virtual TH2D wire_correlation();
+   virtual TH2D tot_wire_hist();
+   virtual TH2D dt_tot_relation();
 
    private:
    Long64_t current_entry = 0;
