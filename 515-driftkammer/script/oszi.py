@@ -102,65 +102,61 @@ def analyze(file, verbose=True):
 
     return min_time[0], half_time[0][0], duration
 
-
-#doesnt work for drift chamber measurements due to 2nd & consec. peaks overlaying each other -> needs other method for determining half life length
-def analyze_second(file):
+def drift_signal(file):
     times, currents = get_data(file)
     t_err = []
     c_err = []
     for t in range(len(times)):
         t_err.append(2*1e-9) #set times err to time div/2
         c_err.append(abs(currents[t]*3e-2)) #set current errs to 3%
+
     times_w_err = p.ev(times, t_err)
     currents_w_err = p.ev(currents, c_err)
 
-    min_time_1, half_time_1, duration_1 = analyze(file, verbose=False)
-    print("min time 1: ", min_time_1.format())
-    min_time_index_1 = np.where(times == ~min_time_1)[0][0]
-    half_time_index_1 = np.where(times == ~half_time_1)[0][0]
+    max_curr = max(currents_w_err)
 
-    plt.plot(times, currents, label="Messdaten", color = "tab:orange")
+    signal_level = p.ev(-0.55,0.55*3e-2) #estimated as average of measurements before signal w/ usual 3% error on current
+    #print(signal_level.format())
 
-    plt.vlines([~min_time_1, ~half_time_1], min(currents-0.01), max(currents+0.01), color="tab:green", label=f"Dauer: {duration_1.format()} s")
-    plt.axvspan(~min_time_1, ~half_time_1, ymin = 0, ymax = 1, alpha=0.3, color='lightgreen', linewidth=0)
+    start_where = np.where(~signal_level <= currents)
+    x_start = times[517] # for file 004!!!
+    x_start = p.ev(x_start, 4*1e-9) #estimated error of double the div
+    #x_start = p.ev(-7.150e-9, 4*1e-9) #estimated error of double the div
 
+    list_where = np.where(~signal_level == currents)[0]
+    list_len = len(list_where)
+    #print(list_where)
 
-    sliced_times = times_w_err[half_time_index_1:]
-    sliced_currents = currents_w_err[half_time_index_1:]
-
-    min_volt_2 = min(sliced_currents)
-    half_volt_height_2 = min_volt_2/np.exp(1)
-
-    min_time_index_2 = np.where(currents_w_err == min_volt_2)
-    print("min time index 2: ", min_time_index_2[0][0])
-    min_time_2 = times_w_err[min_time_index_2[0][0]]
-    print("min time 2: ", min_time_2.format())
-
-    # sliced_curr_2 = currents_w_err[min_time_index_2[0][0]:]
-    # half_rel_index_2 = np.where(~sliced_curr_2 >= ~half_volt_height_2)[0][0]
-    # half_index_2 = min_time_index_2 + half_rel_index_2
-    # half_volt_2 = currents_w_err[half_index_2]
-    # half_time_2 = times_w_err[half_index_2]
-
-    # duration = half_time_2[0][0] - min_time_2[0]
+    if list_len != 0:
+       x_end = p.ev(list_where[:-1],4*1e-9)
+    else:
+        x_end = p.ev(1.23184e-8, 4*1e-9)
+    #print(x_end.format())
+    duration = x_end - x_start
+    print("duration:", duration.format(), "s")
 
 
 
-    # plt.vlines([~min_time_2, ~half_time_2], min(currents-0.01), max(currents+0.01), color="tab:green", label=f"Dauer: {duration_1.format()} s")
-    # plt.axvspan(~min_time_2, ~half_time_2, ymin = 0, ymax = 1, alpha=0.3, color='lightgreen', linewidth=0)
+    plt.plot(times, currents, label = "Messdaten", color="tab:blue")
+    plt.hlines([~signal_level], min(times), max(times), label = f"geschätztes Signallevel: {signal_level.format()} V", color="tab:orange")
+    #plt.hlines([~max_curr], min(times), max(times), label = "lowest amplitude of current", color="tab:green")
+    plt.vlines([~x_start, ~x_end], 0, min(currents), color = "tab:green", label = f"Signaldauer: {duration.format()} s")
+    plt.axvspan(~x_start, ~x_end, ymin = 0, ymax = 1, alpha=0.3, color='lightgreen', linewidth=0)
+    #plt.axvspan(1, 2, ymin = 0, ymax = 1, alpha=0.3, color='lightgreen', linewidth=0)
 
-    # std.default.plt_pretty("Zeit / s", "Spannung / V")
-    plt.legend(loc="best", fontsize="small")
-    plt.show()
+    #plt.vlines(start_where, 0, min(currents), color = "tab:green")
+    plt.legend(fontsize = "small", loc = "lower right")
+    std.default.plt_pretty("Zeit / s", "Spannung / V")
+    #plt.show()
+    plt.savefig("../figs/"+file.strip(".csv").strip("../data/")+".pdf")
+
 
     return
 
 
-
 def main():
-    #analyze_second(argv[1])
-    #analyze(argv[1])
-    plot_data(argv[1])
+    #plot_data(argv[1])
+    drift_signal(argv[1])
     return
 
 if __name__ == "__main__":
