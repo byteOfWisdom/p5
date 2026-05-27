@@ -114,77 +114,9 @@ TH2D analysis::dt_tot_relation() {
 }
 
 
-void analysis::Loop()
-{
-//   In a ROOT session, you can do:
-//      Root > .L analysis.C
-//      Root > analysis t
-//      Root > t.GetEntry(12); // Fill t data members with entry number 12
-//      Root > t.Show();       // Show values of entry 12
-//      Root > t.Show(16);     // Read and show values of entry 16
-//      Root > t.Loop();       // Loop on all entries
-//
-
-//     This is the loop skeleton where:
-//    jentry is the global entry number in the chain
-//    ientry is the entry number in the current Tree
-//  Note that the argument to GetEntry must be:
-//    jentry for TChain::GetEntry
-//    ientry for TTree::GetEntry and TBranch::GetEntry
-//
-//       To read only selected branches, Insert statements like:
-// METHOD1:
-//    fChain->SetBranchStatus("*",0);  // disable all branches
-//    fChain->SetBranchStatus("branchname",1);  // activate branchname
-// METHOD2: replace line
-//    fChain->GetEntry(jentry);       //read all branches
-//by  b_branchname->GetEntry(ientry); //read only this branch
-   TH1D* driftTimesHisto = new TH1D("Driftzeiten", "Driftzeiten", 251, -2.5 / 2., 250 * 2.5 + 2.5 / 2.);
-   TH2 *wireCorrHisto = new TH2D("wireCorrelation", "wire correlations", 48, 0.5, 48.5, 48, 0.5, 48.5);
-
-   if (fChain == 0) return;
-
-   for (;this->get_next_entry();) {
-      
-      for(UInt_t hit = 0; hit < nhits_le; hit++) {
-         Double_t time = time_le[hit] * 2.5;
-	       driftTimesHisto->Fill(time);
-
-         for (UInt_t j = 0; j<nhits_le; j++) {
-            if (hit == j) {
-               continue;
-            }
-            wireCorrHisto->Fill(wire_le[hit],wire_le[j]);
-         	}
-      }
-
-      // if (Cut(ientry) < 0) continue;
-   }
-   driftTimesHisto->GetXaxis()->SetTitle("Zeit / ns");
-   driftTimesHisto->GetYaxis()->SetTitle("Trefferanzahl");
-   //gStyle->SetOptStat(0);
-   driftTimesHisto->Draw();
-}
-
-
-std::vector<int> make_bin_lut(TH2D& wire_correlation) {
-   auto res = std::vector<int>(48);
-   for (int i = 0; i < 48; ++i) {
-      Long64_t max_before_i, max_after_i = 0;
-      forr(j, 0, i) {
-         auto elem = wire_correlation.GetBinContent(i, j);
-         auto current_max = wire_correlation.GetBinContent(i, max_before_i);
-         max_before_i = elem > current_max ? j : max_before_i;
-      }
-
-      forr(j, i, 48) {
-         auto elem = wire_correlation.GetBinContent(i, j);
-         auto current_max = wire_correlation.GetBinContent(i, max_after_i);
-         max_after_i = elem > current_max ? j : max_after_i;
-      }
-
-      printf("for row %d: %lld and %lld\n", i, max_before_i, max_after_i);
-   }
+std::vector<UInt_t> make_wire_lut() {
+   auto res = std::vector<UInt_t>(48);
+   forr(i, 0, 48) res[i] = (i % 2? i + 48 + 1: i + 48 - 1) % 48;
    return res;
 }
 
@@ -198,12 +130,12 @@ int main(int argc, char** argv) {
    TFile f = TFile(argv[1]);
    TTree* tree = (TTree*) f.FindObjectAny("t");
    analysis* ana = new analysis(tree);
+   ana->wire_lut = make_wire_lut();
    auto dt_rel = ana->dt_relation();
    auto tot_plot = ana->tot_wire_hist();
    auto wire_correlation = ana->wire_correlation();
    auto dt_tot = ana->dt_tot_relation();
 
-   auto _ = make_bin_lut(wire_correlation);
 
    // dt_rel.Draw();
    // tot_plot.Draw();
