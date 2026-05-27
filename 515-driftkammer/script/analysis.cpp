@@ -10,6 +10,7 @@
 #include <TRint.h>
 
 #define for_range(I, A, B) for (auto I = A; I < B; ++I)
+#define forr for_range
 
 const double TIME_LB  = -1.25;
 const double TIME_UB  = 250 * 2.5 + 2.5 / 2.;
@@ -170,13 +171,13 @@ std::vector<int> make_bin_lut(TH2D& wire_correlation) {
    auto res = std::vector<int>(48);
    for (int i = 0; i < 48; ++i) {
       Long64_t max_before_i, max_after_i = 0;
-      for (int j = 0; j < i; ++j) {
+      forr(j, 0, i) {
          auto elem = wire_correlation.GetBinContent(i, j);
          auto current_max = wire_correlation.GetBinContent(i, max_before_i);
          max_before_i = elem > current_max ? j : max_before_i;
       }
 
-      for (int j = i; j < 48; ++j) {
+      forr(j, i, 48) {
          auto elem = wire_correlation.GetBinContent(i, j);
          auto current_max = wire_correlation.GetBinContent(i, max_after_i);
          max_after_i = elem > current_max ? j : max_after_i;
@@ -202,7 +203,7 @@ int main(int argc, char** argv) {
    auto wire_correlation = ana->wire_correlation();
    auto dt_tot = ana->dt_tot_relation();
 
-   // auto _ = make_bin_lut(wire_correlation);
+   auto _ = make_bin_lut(wire_correlation);
 
    // dt_rel.Draw();
    // tot_plot.Draw();
