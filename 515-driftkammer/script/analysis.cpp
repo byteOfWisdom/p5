@@ -1,4 +1,7 @@
+#include "RtypesCore.h"
 #include "TH1.h"
+#include <sys/_types/_uid_t.h>
+#include <vector>
 #define analysis_cxx
 #include "analysis.h"
 #include <TH2.h>
@@ -6,6 +9,18 @@
 #include <TCanvas.h>
 #include <TROOT.h>
 #include <TRint.h>
+
+
+const double TIME_LB  = -1.25;
+const double TIME_UB  = 250 * 2.5 + 2.5 / 2.;
+const unsigned int TIME_N = 251;
+const double WIRE_LB = 0.5;
+const double WIRE_UB = 48.5;
+const unsigned int WIRE_N = 48;
+
+// i feel guilty for this but i am also too lazy to repeat myself
+#define TIME_BINS TIME_N, TIME_LB, TIME_UB
+#define WIRE_BINS WIRE_N, WIRE_LB, WIRE_UB
 
 
 void analysis::reset_entry_count() {
@@ -27,7 +42,7 @@ bool analysis::get_next_entry() {
 
 
 TH1D analysis::dt_relation() {
-   TH1D drift_time_hist = TH1D("Driftzeiten", "Driftzeiten", 251, -2.5 / 2., 250 * 2.5 + 2.5 / 2.);
+   TH1D drift_time_hist = TH1D("Driftzeiten", "Driftzeiten", TIME_BINS);
 
    for (reset_entry_count(); get_next_entry();) {
       for(UInt_t hit = 0; hit < nhits_le; hit++) {
@@ -41,17 +56,46 @@ TH1D analysis::dt_relation() {
 
 
 TH2D analysis::wire_correlation() {
-   TH2D wire_correlation = TH2D("wireCorrelation", "wire correlations", 48, 0.5, 48.5, 48, 0.5, 48.5);
+   TH2D wire_correlation = TH2D("wireCorrelation", "wire correlations", WIRE_BINS, WIRE_BINS);
    for (reset_entry_count(); get_next_entry();) {
       for(UInt_t hit = 0; hit < nhits_le; hit++) {
          for (UInt_t j = 0; j<nhits_le; j++) {
             if (hit == j) continue;
-            // if (wire_le[hit] == wire_le[j]) continue;
+            if (wire_le[hit] == wire_le[j]) continue;
             wire_correlation.Fill(wire_le[hit], wire_le[j]);
          	}
 	    }
    }
    return wire_correlation;
+}
+
+
+TH2D analysis::tot_wire_hist() {
+   TH2D tot_hist = TH2D("tot_wire_hist", "Time over Treshhold per wire", WIRE_BINS, TIME_BINS);
+
+   for (reset_entry_count(); get_next_entry();) {
+      for(UInt_t hit = 0; hit < nhits_le; hit++) {
+         Double_t time = tot[hit] * 2.5;
+         int wire = wire_le[hit];
+         if (time < 5) continue;
+	       tot_hist.Fill(wire, time);
+	    }
+   }
+   return tot_hist;
+}
+
+
+TH2D analysis::dt_tot_relation() {
+   TH2D hist = TH2D("dt_tot_relation", "Driftzeit / TOT Relation", TIME_BINS, TIME_BINS);
+
+   for (reset_entry_count(); get_next_entry();) {
+      for(UInt_t hit = 0; hit < nhits_le; hit++) {
+         Double_t time = this->tot[hit] * 2.5;
+         Double_t dt = this->time_le[hit] * 2.5;
+	       hist.Fill(dt, time);
+	    }
+   }
+   return hist;
 }
 
 
@@ -107,6 +151,29 @@ void analysis::Loop()
    driftTimesHisto->Draw();
 }
 
+
+std::vector<int> make_bin_lut(TH2D& wire_correlation) {
+   auto res = std::vector<int>(48);
+   for (int i = 0; i < 48; ++i) {
+      Long64_t max_before_i, max_after_i = 0;
+      for (int j = 0; j < i; ++j) {
+         auto elem = wire_correlation.GetBinContent(i, j);
+         auto current_max = wire_correlation.GetBinContent(i, max_before_i);
+         max_before_i = elem > current_max ? j : max_before_i;
+      }
+
+      for (int j = i; j < 48; ++j) {
+         auto elem = wire_correlation.GetBinContent(i, j);
+         auto current_max = wire_correlation.GetBinContent(i, max_after_i);
+         max_after_i = elem > current_max ? j : max_after_i;
+      }
+
+      printf("for row %d: %lld and %lld\n", i, max_before_i, max_after_i);
+   }
+   return res;
+}
+
+
 int main(int argc, char** argv) {
    TROOT root("app","app");
    Int_t dargc=1;
@@ -118,9 +185,15 @@ int main(int argc, char** argv) {
    analysis* ana = new analysis(tree);
    // ana->Loop();
    auto dt_rel = ana->dt_relation();
-   dt_rel.Draw();
-   // auto wire_correlation = ana->wire_correlation();
+   // dt_rel.Draw();
+   auto tot_plot = ana->tot_wire_hist();
+   // tot_plot.Draw();
+   auto wire_correlation = ana->wire_correlation();
    // wire_correlation.Draw();
+   // auto _ = make_bin_lut(wire_correlation);
+
+   auto dt_tot = ana->dt_tot_relation();
+   dt_tot.Draw();
 
    app.Run(kTRUE);
 }

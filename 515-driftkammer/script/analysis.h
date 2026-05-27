@@ -68,6 +68,8 @@ public :
    virtual void reset_entry_count();
    virtual TH1D dt_relation();
    virtual TH2D wire_correlation();
+   virtual TH2D tot_wire_hist();
+   virtual TH2D dt_tot_relation();
 
    private:
    Long64_t current_entry = 0;
