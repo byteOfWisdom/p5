@@ -1,5 +1,6 @@
 #include "RtypesCore.h"
 #include "TH1.h"
+#include <string>
 #include <vector>
 #define analysis_cxx
 #include "analysis.h"
@@ -154,20 +155,24 @@ int main(int argc, char** argv) {
    auto wire_correlation = ana->wire_correlation();
    auto dt_tot = ana->dt_tot_relation();
 
+   std::vector<TCanvas*> canvas_vec = std::vector<TCanvas*>();
+   forr(i, 0, 5) canvas_vec.push_back(new TCanvas(("c" + std::to_string(i)).c_str(), "c", 800, 600));
 
-   TCanvas c1 = TCanvas("c", "c", 800, 600);
+   canvas_vec[0]->cd();
    dt_rel.Draw();
-   TCanvas c2 = TCanvas("c", "c", 800, 600);
+   canvas_vec[1]->cd();
    dt_wire_plot.Draw();
-   TCanvas c3 = TCanvas("c", "c", 800, 600);
+   canvas_vec[2]->cd();
    wire_correlation.Draw();
-   TCanvas c4 = TCanvas("c", "c", 800, 600);
+   canvas_vec[3]->cd();
    dt_tot.Draw();
 
    // TODO: maybe this needs to be done before filtering??
    auto odb = make_odb(dt_rel);
-   TCanvas c5 = TCanvas("c", "c", 800, 600);
+   canvas_vec[4]->cd();
    odb.Draw();
+
+   forr(i, 0, 5) canvas_vec[i]->Update();
 
    app.Run(kTRUE);
 }
