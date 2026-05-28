@@ -77,7 +77,7 @@ TH2D analysis::wire_correlation() {
          if (filter_exclude(hit)) continue;
          for_range(j, 0, nhits_le) {
             if (hit == j) continue;
-            if (wire_le[hit] == wire_le[j]) continue;
+            // if (wire_le[hit] == wire_le[j]) continue;
             wire_correlation.Fill(wire_le[hit], wire_le[j]);
          	}
 	    }
@@ -120,7 +120,7 @@ TH2D analysis::dt_tot_relation() {
 std::vector<UInt_t> make_wire_lut() {
    auto res = std::vector<UInt_t>(49);
    forr(i, 0, 49) res[i] = (i % 2? i + 49 + 1: i + 49 - 1) % 49;
-   forr(i, 0, 49) printf("%u\n", res[i]);
+   // forr(i, 0, 49) printf("%u\n", res[i]);
    return res;
 }
 
@@ -136,6 +136,14 @@ TH1D make_odb(TH1D& drift_time_spectrum) {
 
    odb.Scale(8.5 / sum);
    return odb;
+}
+
+
+template<typename Plotable>
+void plot(Plotable& p, TCanvas* C) {
+   C->cd();
+   p.Draw();
+   C->Update();
 }
 
 
@@ -158,21 +166,15 @@ int main(int argc, char** argv) {
    std::vector<TCanvas*> canvas_vec = std::vector<TCanvas*>();
    forr(i, 0, 5) canvas_vec.push_back(new TCanvas(("c" + std::to_string(i)).c_str(), "c", 800, 600));
 
-   canvas_vec[0]->cd();
-   dt_rel.Draw();
-   canvas_vec[1]->cd();
-   dt_wire_plot.Draw();
-   canvas_vec[2]->cd();
-   wire_correlation.Draw();
-   canvas_vec[3]->cd();
-   dt_tot.Draw();
+
+   plot(dt_rel, canvas_vec[0]);
+   plot(dt_wire_plot, canvas_vec[1]);
+   plot(wire_correlation, canvas_vec[2]);
+   plot(dt_tot, canvas_vec[3]);
 
    // TODO: maybe this needs to be done before filtering??
    auto odb = make_odb(dt_rel);
-   canvas_vec[4]->cd();
-   odb.Draw();
-
-   forr(i, 0, 5) canvas_vec[i]->Update();
+   plot(odb, canvas_vec[4]);
 
    app.Run(kTRUE);
 }
