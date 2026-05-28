@@ -76,6 +76,7 @@ public :
    virtual TH2D wire_correlation();
    virtual TH2D dt_wire_hist();
    virtual TH2D dt_tot_relation();
+   virtual TH1D basic_angle_distrib();
 
    private:
    Long64_t current_entry = 0;

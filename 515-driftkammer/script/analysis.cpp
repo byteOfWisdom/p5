@@ -1,5 +1,6 @@
 #include "RtypesCore.h"
 #include "TH1.h"
+#include <cstdint>
 #include <string>
 #include <vector>
 #define analysis_cxx
@@ -25,6 +26,18 @@ const unsigned int SPACE_N = TIME_N;
 #define TIME_BINS TIME_N, TIME_LB, TIME_UB
 #define WIRE_BINS WIRE_N, WIRE_LB, WIRE_UB
 #define SPACE_BINS SPACE_N, -8.5, 8.5
+
+
+
+struct checklist_64{
+   uint64_t content = 0;
+
+   bool check(unsigned char i) {
+      bool was_checked = (1 << i) & content;
+      content |= (1 << i);
+      return !was_checked;
+   }
+};
 
 
 void analysis::reset_entry_count() {
@@ -58,7 +71,8 @@ bool analysis::get_next_entry() {
 TH1D analysis::dt_hist() {
    TH1D drift_time_hist = TH1D("Driftzeiten", "Driftzeiten", TIME_BINS);
 
-   for (reset_entry_count(); get_next_entry();) {
+   reset_entry_count();
+   while (get_next_entry()) {
       for(UInt_t hit = 0; hit < nhits_le; hit++) {
          if (filter_exclude(hit)) continue;
          Double_t time = time_le[hit] * 2.5;
@@ -72,7 +86,8 @@ TH1D analysis::dt_hist() {
 
 TH2D analysis::wire_correlation() {
    TH2D wire_correlation = TH2D("wireCorrelation", "wire correlations", WIRE_BINS, WIRE_BINS);
-   for (reset_entry_count(); get_next_entry();) {
+   reset_entry_count();
+   while (get_next_entry()) {
       for_range(hit, 0, nhits_le) {
          if (filter_exclude(hit)) continue;
          for_range(j, 0, nhits_le) {
@@ -89,7 +104,8 @@ TH2D analysis::wire_correlation() {
 TH2D analysis::dt_wire_hist() {
    TH2D tot_hist = TH2D("dt_wire_hist", "Driftzeit pro Draht", WIRE_BINS, TIME_BINS);
 
-   for (reset_entry_count(); get_next_entry();) {
+   reset_entry_count();
+   while (get_next_entry()) {
       for(UInt_t hit = 0; hit < nhits_le; hit++) {
          if (filter_exclude(hit)) continue;
          Double_t time = time_le[hit] * 2.5;
@@ -105,7 +121,8 @@ TH2D analysis::dt_wire_hist() {
 TH2D analysis::dt_tot_relation() {
    TH2D hist = TH2D("dt_tot_relation", "Driftzeit / TOT Relation", TIME_BINS, TIME_BINS);
 
-   for (reset_entry_count(); get_next_entry();) {
+   reset_entry_count();
+   while (get_next_entry()) {
       for(UInt_t hit = 0; hit < nhits_le; hit++) {
          if (filter_exclude(hit)) continue;
          Double_t time = this->tot[hit] * 2.5;
@@ -114,6 +131,21 @@ TH2D analysis::dt_tot_relation() {
 	    }
    }
    return hist;
+}
+
+TH1D analysis::basic_angle_distrib() {
+   TH1D angle_distribution = TH1D("basic_angle_distribution", "Winkelverteilung der Kosmischen Strahlung", WIRE_BINS);
+
+   reset_entry_count();
+   while(get_next_entry()) {
+      checklist_64 first_hit;
+      forr(hit, 0, nhits_le) {
+         if (filter_exclude(hit)) continue;
+         if (first_hit.check(wire_le[hit])) angle_distribution.Fill(wire_le[hit]);
+      }
+   }
+
+   return angle_distribution;
 }
 
 
@@ -164,7 +196,7 @@ int main(int argc, char** argv) {
    auto dt_tot = ana->dt_tot_relation();
 
    std::vector<TCanvas*> canvas_vec = std::vector<TCanvas*>();
-   forr(i, 0, 5) canvas_vec.push_back(new TCanvas(("c" + std::to_string(i)).c_str(), "c", 800, 600));
+   forr(i, 0, 6) canvas_vec.push_back(new TCanvas(("c" + std::to_string(i)).c_str(), "c", 800, 600));
 
 
    plot(dt_rel, canvas_vec[0]);
@@ -175,6 +207,9 @@ int main(int argc, char** argv) {
    // TODO: maybe this needs to be done before filtering??
    auto odb = make_odb(dt_rel);
    plot(odb, canvas_vec[4]);
+
+   auto basic_angles = ana->basic_angle_distrib();
+   plot(basic_angles, canvas_vec[5]);
 
    app.Run(kTRUE);
 }
