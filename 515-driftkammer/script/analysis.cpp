@@ -143,7 +143,6 @@ int main(int argc, char** argv) {
    Int_t dargc=1;
    char** dargv = &argv[0];
    TRint app = TRint("app", &dargc, dargv);
-   TCanvas c1 = TCanvas("c", "c", 800, 600);
    TFile f = TFile(argv[1]);
    TTree* tree = (TTree*) f.FindObjectAny("t");
    analysis* ana = new analysis(tree);
@@ -156,13 +155,18 @@ int main(int argc, char** argv) {
    auto dt_tot = ana->dt_tot_relation();
 
 
-   // dt_rel.Draw();
-   // dt_wire_plot.Draw();
-   // wire_correlation.Draw();
-   // dt_tot.Draw();
+   TCanvas c1 = TCanvas("c", "c", 800, 600);
+   dt_rel.Draw();
+   TCanvas c2 = TCanvas("c", "c", 800, 600);
+   dt_wire_plot.Draw();
+   TCanvas c3 = TCanvas("c", "c", 800, 600);
+   wire_correlation.Draw();
+   TCanvas c4 = TCanvas("c", "c", 800, 600);
+   dt_tot.Draw();
 
    // TODO: maybe this needs to be done before filtering??
    auto odb = make_odb(dt_rel);
+   TCanvas c5 = TCanvas("c", "c", 800, 600);
    odb.Draw();
 
    app.Run(kTRUE);
