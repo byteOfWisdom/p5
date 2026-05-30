@@ -1,5 +1,6 @@
 #include "RtypesCore.h"
 #include "TH1.h"
+#include <algorithm>
 #include <cstdint>
 #include <string>
 #include <vector>
@@ -36,6 +37,10 @@ struct checklist_64{
       bool was_checked = (1 << i) & content;
       content |= (1 << i);
       return !was_checked;
+   }
+
+   bool static_check(unsigned char i) {
+      return (1 << i) & content;
    }
 };
 
@@ -139,10 +144,16 @@ TH1D analysis::basic_angle_distrib() {
    reset_entry_count();
    while(get_next_entry()) {
       checklist_64 first_hit;
+      // Double_t sum = 0, valid_hits = 0;
       forr(hit, 0, nhits_le) {
          if (filter_exclude(hit)) continue;
-         if (first_hit.check(wire_le[hit])) angle_distribution.Fill(wire_le[hit]);
+         if (first_hit.check(wire_le[hit])) {
+            // sum += wire_le[hit];
+            // valid_hits += 1;
+            angle_distribution.Fill(wire_le[hit]);
+         }
       }
+      // angle_distribution.Fill(sum / valid_hits);
    }
 
    return angle_distribution;
@@ -171,6 +182,41 @@ TH1D make_odb(TH1D& drift_time_spectrum) {
 }
 
 
+TH2D analysis::dist_plot(TH1D& odb) {
+   TH2D dists = TH2D ("dists_plot", "TODO", 51, -4.5, 4.5, 51, -0.2, 17.2);
+   reset_entry_count();
+   while(get_next_entry()) {
+      checklist_64 wires_hit;
+      forr (hit, 0, nhits_le) {
+         if (filter_exclude(hit)) continue;
+         wires_hit.check(wire_le[hit]);
+      }
+
+
+      unsigned int time_a, time_b;
+      forr (hit, 0, nhits_le) {
+         if (filter_exclude(hit)) continue;
+         if (wires_hit.static_check(wire_le[hit] + 1)) {
+            forr (i, 0, nhits_le) {
+         if (filter_exclude(i)) continue;
+               if (wire_le[hit] + 1 != wire_le[i]) continue;
+               time_a = time_le[hit];
+               time_b = time_le[i];
+            }
+         }
+      }
+
+      Double_t dist_a = odb.At(time_a);
+      Double_t dist_b = odb.At(time_b);
+
+      printf("%lf %lf \n", dist_a, dist_b);
+
+      dists.Fill(0.5 * (dist_a - dist_b), (dist_a + dist_b));
+   }
+   return dists;
+}
+
+
 template<typename Plotable>
 void plot(Plotable& p, TCanvas* C) {
    C->cd();
@@ -196,7 +242,7 @@ int main(int argc, char** argv) {
    auto dt_tot = ana->dt_tot_relation();
 
    std::vector<TCanvas*> canvas_vec = std::vector<TCanvas*>();
-   forr(i, 0, 6) canvas_vec.push_back(new TCanvas(("c" + std::to_string(i)).c_str(), "c", 800, 600));
+   forr(i, 0, 7) canvas_vec.push_back(new TCanvas(("c" + std::to_string(i)).c_str(), "c", 800, 600));
 
 
    plot(dt_rel, canvas_vec[0]);
@@ -210,6 +256,9 @@ int main(int argc, char** argv) {
 
    auto basic_angles = ana->basic_angle_distrib();
    plot(basic_angles, canvas_vec[5]);
+
+   auto sum_vs_diff = ana->dist_plot(odb);
+   plot(sum_vs_diff, canvas_vec[6]);
 
    app.Run(kTRUE);
 }

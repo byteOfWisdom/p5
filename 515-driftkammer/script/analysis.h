@@ -77,6 +77,7 @@ public :
    virtual TH2D dt_wire_hist();
    virtual TH2D dt_tot_relation();
    virtual TH1D basic_angle_distrib();
+   virtual TH2D dist_plot(TH1D&);
 
    private:
    Long64_t current_entry = 0;
