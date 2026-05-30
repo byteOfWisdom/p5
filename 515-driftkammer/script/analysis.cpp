@@ -165,10 +165,11 @@ TH1D analysis::basic_angle_distrib() {
    }
    new_bins[WIRE_N] = angle_distribution.GetBinCenter(WIRE_N - 1) + 0.5 * angle_distribution.GetBinWidth(WIRE_N - 1);
 
+   auto dist = 10e-2;
    forr(i, 0, WIRE_N + 1) {
       new_bins[i] -= zero_bin;
       new_bins[i] *= 8.5;
-            
+      new_bins[i] = asin(dist / new_bins[i]);
    }
 
    angle_distribution.SetBins(WIRE_N, new_bins);
@@ -203,6 +204,8 @@ TH2D analysis::dist_plot(TH1D& odb, unsigned int wire_lb, unsigned int wire_ub) 
    TH2D dists = TH2D ("dists_plot", "TODO", 40, -4.5, 4.5, 40, -0.2, 17.2);
    reset_entry_count();
    while(get_next_entry()) {
+      checklist_64 hit_wires;
+      forr(hit, 0, nhits_le) hit_wires.check(wire_le[hit]);
       forr (hit, 0, nhits_le) {
          if (filter_exclude(hit)) continue;
          if ((wire_le[hit] < wire_lb) || (wire_le[hit] > wire_ub)) continue;
@@ -212,16 +215,14 @@ TH2D analysis::dist_plot(TH1D& odb, unsigned int wire_lb, unsigned int wire_ub) 
                unsigned int time_a, time_b;
                time_a = time_le[hit];
                time_b = time_le[i];
-               // printf("%u %u %u %u\n", wire_le[hit], wire_le[i], time_le[hit], time_le[i]);
                Double_t dist_a = odb.At(time_a);
                Double_t dist_b = odb.At(time_b);
 
-               // printf("%lf %lf \n", dist_a, dist_b);
 
                dists.Fill(0.5 * (dist_a - dist_b), (dist_a + dist_b));
 
-               if (0.5 * (dist_a - dist_b) < 0. && (dist_a + dist_b) < 0.8)
-                  printf("%u %u %u %u %u %u\n", wire_le[hit], wire_le[i], time_le[hit], time_le[i], tot[hit], tot[i]);
+               // if (0.5 * (dist_a - dist_b) < 0. && (dist_a + dist_b) < 0.8)
+               //    printf("%u %u %u %u %u %u %d %d\n", wire_le[hit], wire_le[i], time_le[hit], time_le[i], tot[hit], tot[i], hit_wires.check_static(wire_le[hit] - 2), hit_wires.check_static(wire_le[hit] + 2));
                break;
             }
          }

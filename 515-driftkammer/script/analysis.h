@@ -20,6 +20,14 @@
 
 // Fixed size dimensions of array or collections stored in the TTree if any.
 
+struct hit_chunk {
+   unsigned char n_hits;
+   unsigned char wire[8];
+   unsigned char tot[8];
+   unsigned char time_le[8];
+};
+
+
 class analysis {
 public :
    TTree          *fChain;   //!pointer to the analyzed TTree or TChain
@@ -81,6 +89,7 @@ public :
    virtual TH2D dt_tot_relation();
    virtual TH1D basic_angle_distrib();
    virtual TH2D dist_plot(TH1D&, unsigned int, unsigned int);
+   virtual std::vector<hit_chunk> get_chunks();
 
    private:
    Long64_t current_entry = 0;
