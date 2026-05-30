@@ -1,5 +1,7 @@
 #include "RtypesCore.h"
 #include "TH1.h"
+#include <cstdint>
+#include <string>
 #include <vector>
 #define analysis_cxx
 #include "analysis.h"
@@ -9,6 +11,8 @@
 #include <TROOT.h>
 #include <TRint.h>
 
+#define for_range(I, A, B) for (auto I = A; I < B; ++I)
+#define forr for_range
 
 const double TIME_LB  = -1.25;
 const double TIME_UB  = 250 * 2.5 + 2.5 / 2.;
@@ -16,10 +20,24 @@ const unsigned int TIME_N = 251;
 const double WIRE_LB = 0.5;
 const double WIRE_UB = 48.5;
 const unsigned int WIRE_N = 48;
+const unsigned int SPACE_N = TIME_N;
 
 // i feel guilty for this but i am also too lazy to repeat myself
 #define TIME_BINS TIME_N, TIME_LB, TIME_UB
 #define WIRE_BINS WIRE_N, WIRE_LB, WIRE_UB
+#define SPACE_BINS SPACE_N, -8.5, 8.5
+
+
+
+struct checklist_64{
+   uint64_t content = 0;
+
+   bool check(unsigned char i) {
+      bool was_checked = (1 << i) & content;
+      content |= (1 << i);
+      return !was_checked;
+   }
+};
 
 
 void analysis::reset_entry_count() {
@@ -41,17 +59,22 @@ bool analysis::get_next_entry() {
 
    if (this->current_entry < this->n_entries) {
       this->GetEntry(this->current_entry);
+
+      for_range(j, 0, nhits_le) this->wire_le[j] = this->wire_lut[wire_le[j]];
+      for_range(j, 0, nhits_te) this->wire_te[j] = this->wire_lut[wire_te[j]];
       return this->current_entry++ < this->n_entries;
    }
    return false;
 }
 
 
-TH1D analysis::dt_relation() {
+TH1D analysis::dt_hist() {
    TH1D drift_time_hist = TH1D("Driftzeiten", "Driftzeiten", TIME_BINS);
 
-   for (reset_entry_count(); get_next_entry();) {
+   reset_entry_count();
+   while (get_next_entry()) {
       for(UInt_t hit = 0; hit < nhits_le; hit++) {
+         if (filter_exclude(hit)) continue;
          Double_t time = time_le[hit] * 2.5;
 	       drift_time_hist.Fill(time);
 	    }
@@ -63,12 +86,13 @@ TH1D analysis::dt_relation() {
 
 TH2D analysis::wire_correlation() {
    TH2D wire_correlation = TH2D("wireCorrelation", "wire correlations", WIRE_BINS, WIRE_BINS);
-   for (reset_entry_count(); get_next_entry();) {
-      for(UInt_t hit = 0; hit < nhits_le; hit++) {
+   reset_entry_count();
+   while (get_next_entry()) {
+      for_range(hit, 0, nhits_le) {
          if (filter_exclude(hit)) continue;
-         for (UInt_t j = 0; j<nhits_le; j++) {
+         for_range(j, 0, nhits_le) {
             if (hit == j) continue;
-            if (wire_le[hit] == wire_le[j]) continue;
+            // if (wire_le[hit] == wire_le[j]) continue;
             wire_correlation.Fill(wire_le[hit], wire_le[j]);
          	}
 	    }
@@ -77,13 +101,14 @@ TH2D analysis::wire_correlation() {
 }
 
 
-TH2D analysis::tot_wire_hist() {
-   TH2D tot_hist = TH2D("tot_wire_hist", "Time over Treshhold per wire", WIRE_BINS, TIME_BINS);
+TH2D analysis::dt_wire_hist() {
+   TH2D tot_hist = TH2D("dt_wire_hist", "Driftzeit pro Draht", WIRE_BINS, TIME_BINS);
 
-   for (reset_entry_count(); get_next_entry();) {
+   reset_entry_count();
+   while (get_next_entry()) {
       for(UInt_t hit = 0; hit < nhits_le; hit++) {
          if (filter_exclude(hit)) continue;
-         Double_t time = tot[hit] * 2.5;
+         Double_t time = time_le[hit] * 2.5;
          int wire = wire_le[hit];
          if (time < 5) continue;
 	       tot_hist.Fill(wire, time);
@@ -96,7 +121,8 @@ TH2D analysis::tot_wire_hist() {
 TH2D analysis::dt_tot_relation() {
    TH2D hist = TH2D("dt_tot_relation", "Driftzeit / TOT Relation", TIME_BINS, TIME_BINS);
 
-   for (reset_entry_count(); get_next_entry();) {
+   reset_entry_count();
+   while (get_next_entry()) {
       for(UInt_t hit = 0; hit < nhits_le; hit++) {
          if (filter_exclude(hit)) continue;
          Double_t time = this->tot[hit] * 2.5;
@@ -107,79 +133,49 @@ TH2D analysis::dt_tot_relation() {
    return hist;
 }
 
+TH1D analysis::basic_angle_distrib() {
+   TH1D angle_distribution = TH1D("basic_angle_distribution", "Winkelverteilung der Kosmischen Strahlung", WIRE_BINS);
 
-void analysis::Loop()
-{
-//   In a ROOT session, you can do:
-//      Root > .L analysis.C
-//      Root > analysis t
-//      Root > t.GetEntry(12); // Fill t data members with entry number 12
-//      Root > t.Show();       // Show values of entry 12
-//      Root > t.Show(16);     // Read and show values of entry 16
-//      Root > t.Loop();       // Loop on all entries
-//
-
-//     This is the loop skeleton where:
-//    jentry is the global entry number in the chain
-//    ientry is the entry number in the current Tree
-//  Note that the argument to GetEntry must be:
-//    jentry for TChain::GetEntry
-//    ientry for TTree::GetEntry and TBranch::GetEntry
-//
-//       To read only selected branches, Insert statements like:
-// METHOD1:
-//    fChain->SetBranchStatus("*",0);  // disable all branches
-//    fChain->SetBranchStatus("branchname",1);  // activate branchname
-// METHOD2: replace line
-//    fChain->GetEntry(jentry);       //read all branches
-//by  b_branchname->GetEntry(ientry); //read only this branch
-   TH1D* driftTimesHisto = new TH1D("Driftzeiten", "Driftzeiten", 251, -2.5 / 2., 250 * 2.5 + 2.5 / 2.);
-   TH2 *wireCorrHisto = new TH2D("wireCorrelation", "wire correlations", 48, 0.5, 48.5, 48, 0.5, 48.5);
-
-   if (fChain == 0) return;
-
-   for (;this->get_next_entry();) {
-      
-      for(UInt_t hit = 0; hit < nhits_le; hit++) {
-         Double_t time = time_le[hit] * 2.5;
-	       driftTimesHisto->Fill(time);
-
-         for (UInt_t j = 0; j<nhits_le; j++) {
-            if (hit == j) {
-               continue;
-            }
-            wireCorrHisto->Fill(wire_le[hit],wire_le[j]);
-         	}
+   reset_entry_count();
+   while(get_next_entry()) {
+      checklist_64 first_hit;
+      forr(hit, 0, nhits_le) {
+         if (filter_exclude(hit)) continue;
+         if (first_hit.check(wire_le[hit])) angle_distribution.Fill(wire_le[hit]);
       }
-
-      // if (Cut(ientry) < 0) continue;
    }
-   driftTimesHisto->GetXaxis()->SetTitle("Zeit / ns");
-   driftTimesHisto->GetYaxis()->SetTitle("Trefferanzahl");
-   //gStyle->SetOptStat(0);
-   driftTimesHisto->Draw();
+
+   return angle_distribution;
 }
 
 
-std::vector<int> make_bin_lut(TH2D& wire_correlation) {
-   auto res = std::vector<int>(48);
-   for (int i = 0; i < 48; ++i) {
-      Long64_t max_before_i, max_after_i = 0;
-      for (int j = 0; j < i; ++j) {
-         auto elem = wire_correlation.GetBinContent(i, j);
-         auto current_max = wire_correlation.GetBinContent(i, max_before_i);
-         max_before_i = elem > current_max ? j : max_before_i;
-      }
-
-      for (int j = i; j < 48; ++j) {
-         auto elem = wire_correlation.GetBinContent(i, j);
-         auto current_max = wire_correlation.GetBinContent(i, max_after_i);
-         max_after_i = elem > current_max ? j : max_after_i;
-      }
-
-      printf("for row %d: %lld and %lld\n", i, max_before_i, max_after_i);
-   }
+std::vector<UInt_t> make_wire_lut() {
+   auto res = std::vector<UInt_t>(49);
+   forr(i, 0, 49) res[i] = (i % 2? i + 49 + 1: i + 49 - 1) % 49;
+   // forr(i, 0, 49) printf("%u\n", res[i]);
    return res;
+}
+
+
+TH1D make_odb(TH1D& drift_time_spectrum) {
+   TH1D odb = TH1D("odb", "Orts- Driftzeitbeziehung", TIME_BINS);
+
+   Double_t sum = 0;
+   forr(i, 1, SPACE_N + 1) {
+      sum += drift_time_spectrum.GetBinContent(i);
+      odb.SetBinContent(i, sum);
+   }
+
+   odb.Scale(8.5 / sum);
+   return odb;
+}
+
+
+template<typename Plotable>
+void plot(Plotable& p, TCanvas* C) {
+   C->cd();
+   p.Draw();
+   C->Update();
 }
 
 
@@ -188,21 +184,32 @@ int main(int argc, char** argv) {
    Int_t dargc=1;
    char** dargv = &argv[0];
    TRint app = TRint("app", &dargc, dargv);
-   TCanvas c1 = TCanvas("c", "c", 800, 600);
    TFile f = TFile(argv[1]);
    TTree* tree = (TTree*) f.FindObjectAny("t");
    analysis* ana = new analysis(tree);
-   // ana->Loop();
-   auto dt_rel = ana->dt_relation();
-   // dt_rel.Draw();
-   auto tot_plot = ana->tot_wire_hist();
-   // tot_plot.Draw();
-   auto wire_correlation = ana->wire_correlation();
-   wire_correlation.Draw();
-   // auto _ = make_bin_lut(wire_correlation);
 
+   ana->wire_lut = make_wire_lut();
+
+   auto dt_rel = ana->dt_hist();
+   auto dt_wire_plot = ana->dt_wire_hist();
+   auto wire_correlation = ana->wire_correlation();
    auto dt_tot = ana->dt_tot_relation();
-   // dt_tot.Draw();
+
+   std::vector<TCanvas*> canvas_vec = std::vector<TCanvas*>();
+   forr(i, 0, 6) canvas_vec.push_back(new TCanvas(("c" + std::to_string(i)).c_str(), "c", 800, 600));
+
+
+   plot(dt_rel, canvas_vec[0]);
+   plot(dt_wire_plot, canvas_vec[1]);
+   plot(wire_correlation, canvas_vec[2]);
+   plot(dt_tot, canvas_vec[3]);
+
+   // TODO: maybe this needs to be done before filtering??
+   auto odb = make_odb(dt_rel);
+   plot(odb, canvas_vec[4]);
+
+   auto basic_angles = ana->basic_angle_distrib();
+   plot(basic_angles, canvas_vec[5]);
 
    app.Run(kTRUE);
 }
