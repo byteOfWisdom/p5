@@ -1,6 +1,6 @@
 #include "RtypesCore.h"
 #include "TH1.h"
-#include <algorithm>
+#include <cmath>
 #include <cstdint>
 #include <string>
 #include <vector>
@@ -29,22 +29,6 @@ const unsigned int SPACE_N = TIME_N;
 #define SPACE_BINS SPACE_N, -8.5, 8.5
 
 
-
-struct checklist_64{
-   uint64_t content = 0;
-
-   bool check(unsigned char i) {
-      bool was_checked = (1 << i) & content;
-      content |= (1 << i);
-      return !was_checked;
-   }
-
-   bool static_check(unsigned char i) {
-      return (1 << i) & content;
-   }
-};
-
-
 void analysis::reset_entry_count() {
    this->current_entry = 0;
 }
@@ -53,7 +37,9 @@ void analysis::reset_entry_count() {
 bool analysis::filter_exclude(unsigned int hit) {
    bool hit_too_late = time_le[hit] * 2.5 > 300;
    bool tot_too_short = tot[hit] * 2.5 < 100;
-   return filter_enabled && (hit_too_late || tot_too_short);
+   bool not_first_hit = false;
+   forr (i, 0, hit) not_first_hit |= wire_le[hit] == wire_le[i];
+   return filter_enabled && (hit_too_late || tot_too_short || not_first_hit);
 }
 
 
@@ -141,20 +127,26 @@ TH2D analysis::dt_tot_relation() {
 TH1D analysis::basic_angle_distrib() {
    TH1D angle_distribution = TH1D("basic_angle_distribution", "Winkelverteilung der Kosmischen Strahlung", WIRE_BINS);
 
+   unsigned int zero_bin = 22;
+
    reset_entry_count();
    while(get_next_entry()) {
-      checklist_64 first_hit;
-      // Double_t sum = 0, valid_hits = 0;
       forr(hit, 0, nhits_le) {
          if (filter_exclude(hit)) continue;
-         if (first_hit.check(wire_le[hit])) {
-            // sum += wire_le[hit];
-            // valid_hits += 1;
             angle_distribution.Fill(wire_le[hit]);
-         }
       }
-      // angle_distribution.Fill(sum / valid_hits);
    }
+
+   Double_t new_bins[WIRE_N + 1];
+   auto current_pos = WIRE_UB;
+   auto stepsize = angle_distribution.GetBinWidth(0);
+
+   forr(i, 0, WIRE_N + 1) {
+      new_bins[i] = acos(current_pos * 8.5e-3);
+      current_pos += stepsize;
+   }
+
+   angle_distribution.SetBins(WIRE_N, new_bins);
 
    return angle_distribution;
 }
@@ -182,36 +174,31 @@ TH1D make_odb(TH1D& drift_time_spectrum) {
 }
 
 
-TH2D analysis::dist_plot(TH1D& odb) {
-   TH2D dists = TH2D ("dists_plot", "TODO", 51, -4.5, 4.5, 51, -0.2, 17.2);
+TH2D analysis::dist_plot(TH1D& odb, unsigned int wire_lb, unsigned int wire_ub) {
+   TH2D dists = TH2D ("dists_plot", "TODO", 40, -4.5, 4.5, 40, -0.2, 17.2);
    reset_entry_count();
    while(get_next_entry()) {
-      checklist_64 wires_hit;
       forr (hit, 0, nhits_le) {
          if (filter_exclude(hit)) continue;
-         wires_hit.check(wire_le[hit]);
-      }
-
-
-      unsigned int time_a, time_b;
-      forr (hit, 0, nhits_le) {
-         if (filter_exclude(hit)) continue;
-         if (wires_hit.static_check(wire_le[hit] + 1)) {
-            forr (i, 0, nhits_le) {
-         if (filter_exclude(i)) continue;
-               if (wire_le[hit] + 1 != wire_le[i]) continue;
+         if ((wire_le[hit] < wire_lb) || (wire_le[hit] > wire_ub)) continue;
+         forr (i, 0, nhits_le) {
+            if (filter_exclude(i)) continue;
+            if (wire_le[hit] + 1 == wire_le[i]) {
+               unsigned int time_a, time_b;
                time_a = time_le[hit];
                time_b = time_le[i];
+               // printf("%u %u %u %u\n", wire_le[hit], wire_le[i], time_le[hit], time_le[i]);
+               Double_t dist_a = odb.At(time_a);
+               Double_t dist_b = odb.At(time_b);
+
+               // printf("%lf %lf \n", dist_a, dist_b);
+
+               dists.Fill(0.5 * (dist_a - dist_b), (dist_a + dist_b));
+               break;
             }
          }
       }
 
-      Double_t dist_a = odb.At(time_a);
-      Double_t dist_b = odb.At(time_b);
-
-      printf("%lf %lf \n", dist_a, dist_b);
-
-      dists.Fill(0.5 * (dist_a - dist_b), (dist_a + dist_b));
    }
    return dists;
 }
@@ -257,7 +244,7 @@ int main(int argc, char** argv) {
    auto basic_angles = ana->basic_angle_distrib();
    plot(basic_angles, canvas_vec[5]);
 
-   auto sum_vs_diff = ana->dist_plot(odb);
+   auto sum_vs_diff = ana->dist_plot(odb, 35, 45);
    plot(sum_vs_diff, canvas_vec[6]);
 
    app.Run(kTRUE);
