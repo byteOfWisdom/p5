@@ -20,6 +20,14 @@
 
 // Fixed size dimensions of array or collections stored in the TTree if any.
 
+struct hit_chunk {
+   unsigned char n_hits;
+   unsigned char wire[8];
+   unsigned char tot[8];
+   unsigned char time_le[8];
+};
+
+
 class analysis {
 public :
    TTree          *fChain;   //!pointer to the analyzed TTree or TChain
@@ -58,6 +66,9 @@ public :
    TBranch        *b_tot;   //!
 
    bool filter_enabled = true;
+   Double_t max_le_time = 300;
+   Double_t min_le_time = 0;
+   Double_t min_tot = 100;
    std::vector<UInt_t> wire_lut = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48};
 
    analysis(TTree *tree=0);
@@ -77,7 +88,8 @@ public :
    virtual TH2D dt_wire_hist();
    virtual TH2D dt_tot_relation();
    virtual TH1D basic_angle_distrib();
-   virtual TH2D dist_plot(TH1D&);
+   virtual TH2D dist_plot(TH1D&, unsigned int, unsigned int);
+   virtual std::vector<hit_chunk> get_chunks();
 
    private:
    Long64_t current_entry = 0;
