@@ -65,6 +65,8 @@ public :
    TBranch        *b_time_te;   //!
    TBranch        *b_tot;   //!
 
+
+   unsigned char sorted[100];
    bool filter_enabled = true;
    Double_t max_le_time = 300;
    Double_t min_le_time = 0;
@@ -89,7 +91,7 @@ public :
    virtual TH2D dt_tot_relation();
    virtual TH1D basic_angle_distrib();
    virtual TH2D dist_plot(TH1D&, unsigned int, unsigned int);
-   virtual std::vector<hit_chunk> get_chunks();
+   virtual void argsort();
 
    private:
    Long64_t current_entry = 0;
