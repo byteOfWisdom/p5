@@ -14,6 +14,7 @@
 #include <TRint.h>
 
 #define for_range(I, A, B) for (auto I = A; I < B; ++I)
+// #define iterate(I, A, B) for (auto I = A; I != A + B; ++I)
 #define forr for_range
 
 const double TIME_LB  = -1.25;
@@ -57,13 +58,6 @@ bool analysis::filter_exclude(unsigned int hit) {
    bool not_first_hit = false;
    forr (i, 0, hit) not_first_hit |= wire_le[hit] == wire_le[i];
    return filter_enabled && (hit_too_late || tot_too_short || not_first_hit || hit_too_early);
-   // bool is_longest_tot_for_wire = true;
-   // forr (i, 0, nhits_le) {
-   //    if ((tot[hit] < tot[i]) && (i != hit) && (wire_le[hit] == wire_le[i]))
-   //       is_longest_tot_for_wire = false;
-   // }
-   // bool not_longest = !is_longest_tot_for_wire;
-   // return filter_enabled && (hit_too_late || tot_too_short || not_longest || hit_too_early);
 }
 
 
@@ -78,6 +72,11 @@ bool analysis::get_next_entry() {
       for_range(j, 0, nhits_le) this->wire_le[j] = this->wire_lut[wire_le[j]];
       for_range(j, 0, nhits_te) this->wire_te[j] = this->wire_lut[wire_te[j]];
       argsort();
+      forr (i, 0, nhits_le) {
+         if (filter_exclude(i)) continue;
+         valid_sorted[n_valid] = i;
+         n_valid ++;
+      }
       return this->current_entry++ < this->n_entries;
    }
    return false;
@@ -179,16 +178,9 @@ TH1D analysis::basic_angle_distrib() {
    while(get_next_entry()) {
       bool in_seq = false;
       unsigned char block_start;
-      forr (i, 0, nhits_le - 1) {
-         auto hit = sorted[i];
-         auto hit_next = sorted[i + 1];
-         if (filter_exclude(hit)) continue;
-         auto j = 2;
-         while (filter_exclude(hit_next)) {
-            hit_next = sorted[i + j];
-            if (i + j < nhits_le) j ++;
-            else break;
-         }
+      forr (i, 0, n_valid - 1) {
+         auto hit = valid_sorted[i];
+         auto hit_next = valid_sorted[i + 1];
 
          bool sequential = wire_le[hit] + 1 == wire_le[hit_next];
          bool sequential_same_layer = wire_le[hit] + 2 == wire_le[hit_next];
@@ -201,7 +193,7 @@ TH1D analysis::basic_angle_distrib() {
          }
          if (in_seq && !seq) {
             in_seq = false;
-            // printf("block from %u to %u\n", block_start, wire_le[hit]);
+            printf("block from %u to %u\n", block_start, wire_le[hit]);
          }
       }
    }
