@@ -1,7 +1,8 @@
 #include "RtypesCore.h"
 #include "TH1.h"
-#include <cmath>
+#include <cstddef>
 #include <cstdint>
+#include <numeric>
 #include <string>
 #include <vector>
 #define analysis_cxx
@@ -76,9 +77,22 @@ bool analysis::get_next_entry() {
 
       for_range(j, 0, nhits_le) this->wire_le[j] = this->wire_lut[wire_le[j]];
       for_range(j, 0, nhits_te) this->wire_te[j] = this->wire_lut[wire_te[j]];
+      argsort();
       return this->current_entry++ < this->n_entries;
    }
    return false;
+}
+
+
+template<typename T>
+void c_argsort(const T* array, unsigned char* indices, size_t len) {
+    std::iota(indices, indices + len, 0);
+    std::sort(indices, indices + len, [&array](int left, int right) -> bool { return array[left] < array[right]; });
+}
+
+
+void analysis::argsort() {
+   c_argsort(wire_le, sorted, nhits_le);
 }
 
 
@@ -148,31 +162,49 @@ TH2D analysis::dt_tot_relation() {
 }
 
 TH1D analysis::basic_angle_distrib() {
-   TH1D angle_distribution = TH1D("basic_angle_distribution", "Winkelverteilung der Kosmischen Strahlung", WIRE_BINS);
+   auto cell_edges_to_angles = [](Double_t x) -> Double_t {
+      const auto scint_pos = 0;
+      x -= scint_pos;
+      x *= 17.; // to position
+      return 17. * x;
+   };
+
+   Double_t bin_edges[25];
+   std::iota(bin_edges, bin_edges + 25, 0);
+   std::transform(bin_edges, bin_edges + 25, bin_edges, cell_edges_to_angles);
+
+   TH1D angle_distribution = TH1D("basic_angle_distribution", "Winkelverteilung der Kosmischen Strahlung", 24, bin_edges);
 
    reset_entry_count();
    while(get_next_entry()) {
-      forr(hit, 0, nhits_le) {
+      bool in_seq = false;
+      unsigned char block_start;
+      forr (i, 0, nhits_le - 1) {
+         auto hit = sorted[i];
+         auto hit_next = sorted[i + 1];
          if (filter_exclude(hit)) continue;
-            angle_distribution.Fill(wire_le[hit]);
+         auto j = 2;
+         while (filter_exclude(hit_next)) {
+            hit_next = sorted[i + j];
+            if (i + j < nhits_le) j ++;
+            else break;
+         }
+
+         bool sequential = wire_le[hit] + 1 == wire_le[hit_next];
+         bool sequential_same_layer = wire_le[hit] + 2 == wire_le[hit_next];
+         bool seq = sequential || sequential_same_layer;
+
+         if (in_seq && seq) continue;
+         if (!in_seq && seq) {
+            in_seq = true;
+            block_start = wire_le[hit];
+         }
+         if (in_seq && !seq) {
+            in_seq = false;
+            printf("block from %u to %u\n", block_start, wire_le[hit]);
+         }
       }
    }
-
-   Double_t new_bins[WIRE_N + 1];
-   Double_t zero_bin = 22;
-   forr(i, 0, WIRE_N - 1) {
-      new_bins[i] = angle_distribution.GetBinLowEdge(i);
-   }
-   new_bins[WIRE_N] = angle_distribution.GetBinCenter(WIRE_N - 1) + 0.5 * angle_distribution.GetBinWidth(WIRE_N - 1);
-
-   auto dist = 10e-2;
-   forr(i, 0, WIRE_N + 1) {
-      new_bins[i] -= zero_bin;
-      new_bins[i] *= 8.5;
-      new_bins[i] = asin(dist / new_bins[i]);
-   }
-
-   angle_distribution.SetBins(WIRE_N, new_bins);
 
    return angle_distribution;
 }
