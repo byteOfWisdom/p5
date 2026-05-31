@@ -201,7 +201,7 @@ TH1D analysis::basic_angle_distrib() {
          }
          if (in_seq && !seq) {
             in_seq = false;
-            printf("block from %u to %u\n", block_start, wire_le[hit]);
+            // printf("block from %u to %u\n", block_start, wire_le[hit]);
          }
       }
    }
@@ -213,7 +213,7 @@ TH1D analysis::basic_angle_distrib() {
 std::vector<UInt_t> make_wire_lut() {
    auto res = std::vector<UInt_t>(49);
    forr(i, 0, 49) res[i] = (i % 2? i + 49 + 1: i + 49 - 1) % 49;
-   // forr(i, 0, 49) printf("%u\n", res[i]);
+   // forr(i, 0, 49) printf("%u %u\n", i, res[i]);
    return res;
 }
 
