@@ -67,7 +67,7 @@ public :
 
 
    unsigned char sorted[100];
-   unsigned char valid_sorted[100];
+   unsigned char valid[100];
    unsigned char n_valid;
    bool filter_enabled = true;
    Double_t max_le_time = 300;

@@ -14,7 +14,7 @@
 #include <TRint.h>
 
 #define for_range(I, A, B) for (auto I = A; I < B; ++I)
-// #define iterate(I, A, B) for (auto I = A; I != A + B; ++I)
+#define iterate(I, A, B) for (auto I = A; I != A + B; ++I)
 #define forr for_range
 
 const double TIME_LB  = -1.25;
@@ -74,7 +74,7 @@ bool analysis::get_next_entry() {
       argsort();
       forr (i, 0, nhits_le) {
          if (filter_exclude(i)) continue;
-         valid_sorted[n_valid] = i;
+         valid[n_valid] = i;
          n_valid ++;
       }
       return this->current_entry++ < this->n_entries;
@@ -178,22 +178,19 @@ TH1D analysis::basic_angle_distrib() {
    while(get_next_entry()) {
       bool in_seq = false;
       unsigned char block_start;
-      forr (i, 0, n_valid - 1) {
-         auto hit = valid_sorted[i];
-         auto hit_next = valid_sorted[i + 1];
-
-         bool sequential = wire_le[hit] + 1 == wire_le[hit_next];
-         bool sequential_same_layer = wire_le[hit] + 2 == wire_le[hit_next];
+      iterate(hit, valid, n_valid - 1){
+         bool sequential = wire_le[*hit] + 1 == wire_le[*(hit + 1)];
+         bool sequential_same_layer = wire_le[*hit] + 2 == wire_le[*(hit + 1)];
          bool seq = sequential || sequential_same_layer;
 
          if (in_seq && seq) continue;
          if (!in_seq && seq) {
             in_seq = true;
-            block_start = wire_le[hit];
+            block_start = wire_le[*hit];
          }
          if (in_seq && !seq) {
             in_seq = false;
-            printf("block from %u to %u\n", block_start, wire_le[hit]);
+            printf("block from %u to %u\n", block_start, wire_le[*hit]);
          }
       }
    }
