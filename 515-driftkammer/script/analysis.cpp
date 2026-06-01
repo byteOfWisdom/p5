@@ -1,5 +1,6 @@
 #include "RtypesCore.h"
 #include "TH1.h"
+#include <cmath>
 #include <cstddef>
 #include <cstdint>
 #include <numeric>
@@ -12,6 +13,7 @@
 #include <TCanvas.h>
 #include <TROOT.h>
 #include <TRint.h>
+#include <TMath.h>
 
 #define for_range(I, A, B) for (auto I = A; I < B; ++I)
 #define iterate(I, A, B) for (auto I = A; I != A + B; ++I)
@@ -160,19 +162,27 @@ TH2D analysis::dt_tot_relation() {
    return hist;
 }
 
+inline unsigned char abs_diff(unsigned char a, unsigned char b) {
+   return abs((int) a - (int) b); }
+
+
 TH1D analysis::basic_angle_distrib() {
+   const auto middle_bin = 20;
    auto cell_edges_to_angles = [](Double_t x) -> Double_t {
-      const auto scint_pos = 0;
-      x -= scint_pos;
-      x *= 17.; // to position
-      return 17. * x;
+      const auto scint_pos = 0.5 * middle_bin - 0.5;
+      const auto height_diff = 12.5e-2;
+      auto d = (x - scint_pos) * 17.e-3;
+      auto theta = atan(d / height_diff);
+      const auto rad_to_deg = 180 / TMath::Pi();
+      return theta * rad_to_deg;
    };
 
    Double_t bin_edges[25];
    std::iota(bin_edges, bin_edges + 25, 0);
    std::transform(bin_edges, bin_edges + 25, bin_edges, cell_edges_to_angles);
 
-   TH1D angle_distribution = TH1D("basic_angle_distribution", "Winkelverteilung der Kosmischen Strahlung", 24, bin_edges);
+   // TH1D angle_distribution = TH1D("basic_angle_distribution", "Winkelverteilung der Kosmischen Strahlung", 24, bin_edges);
+   TH1D block_starts = TH1D("block_starts", "Winkelverteilung der Kosmischen Strahlung", WIRE_BINS);
 
    reset_entry_count();
    while(get_next_entry()) {
@@ -190,9 +200,21 @@ TH1D analysis::basic_angle_distrib() {
          }
          if (in_seq && !seq) {
             in_seq = false;
-            printf("block from %u to %u\n", block_start, wire_le[*hit]);
+            auto first_hit = abs_diff(block_start, middle_bin) <= abs_diff(wire_le[*hit], middle_bin)? block_start: wire_le[*hit];
+            block_starts.Fill(first_hit);
+            // printf("block from %u to %u, first hit at %u\n", block_start, wire_le[*hit], first_hit);
          }
       }
+   }
+
+
+   TH1D angle_distribution = TH1D("basic_angle_distribution", "Winkelverteilung der Kosmischen Strahlung", 24, bin_edges);
+   forr (wire, 1, 49) {
+      auto count = block_starts.GetBinContent(wire);
+      int direction = wire < middle_bin? 1: -1;
+      int target_bin = wire % 2? wire / 2 + direction: wire / 2;
+      if (wire % 2) continue;
+      angle_distribution.AddBinContent(target_bin, count);
    }
 
    return angle_distribution;
