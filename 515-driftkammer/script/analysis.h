@@ -87,7 +87,7 @@ public :
    virtual bool get_next_entry();
    virtual bool filter_exclude(unsigned int);
    virtual void reset_entry_count();
-   virtual TH1D dt_hist();
+   virtual TH1D dt_hist(TString);
    virtual TH2D wire_correlation();
    virtual TH2D dt_wire_hist();
    virtual TH2D dt_tot_relation();

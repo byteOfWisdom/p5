@@ -1,8 +1,14 @@
 #include "RtypesCore.h"
+#include "TColor.h"
+#include "TFitResultPtr.h"
 #include "TH1.h"
+#include "TString.h"
+#include "TTree.h"
+#include <algorithm>
 #include <cmath>
 #include <cstddef>
 #include <cstdint>
+#include <cstdio>
 #include <numeric>
 #include <string>
 #include <vector>
@@ -14,6 +20,8 @@
 #include <TROOT.h>
 #include <TRint.h>
 #include <TMath.h>
+#include <TF1.h>
+#include <TFitResult.h>
 
 #define for_range(I, A, B) for (auto I = A; I < B; ++I)
 #define iterate(I, A, B) for (auto I = A; I != A + B; ++I)
@@ -31,6 +39,53 @@ const unsigned int SPACE_N = TIME_N;
 #define TIME_BINS TIME_N, TIME_LB, TIME_UB
 #define WIRE_BINS WIRE_N, WIRE_LB, WIRE_UB
 #define SPACE_BINS SPACE_N, -8.5, 8.5
+
+
+class dataset{
+   private:
+   TTree* tree;
+   TFile* f;
+
+   public:
+   analysis* ana;
+   dataset(TString fname) {
+      this->f = new TFile(fname);
+      this->tree = (TTree*) f->FindObjectAny("t");
+      this->ana = new analysis(this->tree);
+   };
+
+  ~dataset() {
+      delete this->ana;
+      delete this->tree;     
+      delete this->f;
+  }; 
+};
+
+
+class global_object_store{
+   public:
+      global_object_store() {};
+      TH1D* hold(TH1D obj) {
+         this->hists.push_back(obj);
+         return &this->hists.back();
+      };
+
+      TH2D* hold(TH2D obj){
+         this->hists2.push_back(obj);
+         return &this->hists2.back();
+      };
+
+      dataset* hold(dataset obj){
+         this->datasets.push_back(obj);
+         return &this->datasets.back();
+      };
+
+   private:
+      std::vector<TH1D> hists;
+      std::vector<TH2D> hists2;
+      std::vector<dataset> datasets;
+};
+
 
 
 struct checklist_64{
@@ -97,8 +152,8 @@ void analysis::argsort() {
 }
 
 
-TH1D analysis::dt_hist() {
-   TH1D drift_time_hist = TH1D("Driftzeiten", "Driftzeiten", TIME_BINS);
+TH1D analysis::dt_hist(TString name = "Driftzeiten") {
+   TH1D drift_time_hist = TH1D(name, "Driftzeiten", TIME_BINS);
 
    reset_entry_count();
    while (get_next_entry()) {
@@ -284,6 +339,26 @@ void plot(Plotable& p, TCanvas* C) {
 }
 
 
+void plot_set(std::vector<dataset*>& files, TCanvas* canv, global_object_store* gob) {
+   canv->cd();
+   EColor colors[] = {kBlue, kPink, kRed, kOrange};
+   int i = 0;
+   printf("entering func\n");
+   for (dataset* ds : files) {
+      ds->ana->filter_enabled = false;
+      auto hist = gob->hold(ds->ana->dt_hist("hist" + std::to_string(i)));
+
+      hist->SetLineColor(colors[i]);
+      if (i == 0) hist->DrawCopy("HIST");
+      else hist->DrawCopy("HIST same");
+
+      i++;
+   }
+
+   canv->Update();
+}
+
+
 int main(int argc, char** argv) {
    // weniger statistik mit guten parametern ..161632.root
    // viel statistik mit guten parametern ...161826.root
@@ -291,9 +366,12 @@ int main(int argc, char** argv) {
    Int_t dargc=1;
    char** dargv = &argv[0];
    TRint app = TRint("app", &dargc, dargv);
-   TFile f = TFile(argv[1]);
-   TTree* tree = (TTree*) f.FindObjectAny("t");
-   analysis* ana = new analysis(tree);
+   // TFile f = TFile(argv[1]);
+   // TTree* tree = (TTree*) f.FindObjectAny("t");
+   // analysis* ana = new analysis(tree);
+   dataset* data = new dataset(argv[1]);
+   analysis* ana = data->ana;
+   // analysis* ana = load_file(argv[1]);
 
    TFile calib_file = TFile("../data/B103/run_260513_161826.root"); 
    TTree* calib_tree = (TTree*) calib_file.FindObjectAny("t");
@@ -321,11 +399,27 @@ int main(int argc, char** argv) {
    auto odb = make_odb(dt_rel);
    plot(odb, canvas_vec[4]);
 
+   TF1 angle_dist_func = TF1("angle_dist_func", "[0] * cos([1] * x * pi / 180)^2", -90, 90);
+
    auto basic_angles = ana->basic_angle_distrib();
+   TFitResultPtr fit = basic_angles.Fit(&angle_dist_func, "S");
    plot(basic_angles, canvas_vec[5]);
+   plot(*fit, canvas_vec[5]);
 
    auto sum_vs_diff = ana->dist_plot(odb, 12, 30);
    plot(sum_vs_diff, canvas_vec[6]);
+
+
+   TCanvas* voltage_canvas = new TCanvas("voltage_sweep", "Verschiedene Beschleunigungsspannungen");
+   std::vector<dataset*> voltage_data = std::vector<dataset*> ({
+      new dataset("../data/B103/run_260513_145435.root"),
+      new dataset("../data/B103/run_260513_145148.root"),
+      new dataset("../data/B103/run_260513_144851.root"),
+   });
+
+   global_object_store* gob = new global_object_store();
+   plot_set(voltage_data, voltage_canvas, gob);
+
 
    app.Run(kTRUE);
 }
