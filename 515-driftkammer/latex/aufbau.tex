@@ -1,0 +1,20 @@
+\section{Aufbau}
+
+Die Driftkammer besteht aus zwei Lagen hexagonaler Zellen aus jeweils sechs zugehörigen Kathodendrähten (geerdet), in dessen Mitte je ein Anodendraht (stark negativ geladen gegenüber den Kathoden durch angelegte Hochspannung $U_D$) platziert ist. Pro Lage sind 24 Drähte vorhanden, sodass mit insgesamt 48 Zellen die Position und der Einfallswinkel eines einfliegenden Teilchens aus den Zellen, in denen ein Signal gemessen wurde, rekonstruiert werden kann \cite[18-19]{hammanndiplom}. In der Driftkammer befindet sich ein Gasgemisch aus Argon-Kohlenstoffdioxid im Verhältnis von $80:20$ \footnote{Idealerweise würde $70:30$ genutzt werden \cite[16]{hammanndiplom}, das im Experiment genutzte Gas weicht laut Tutorangabe hiervon jedoch aus Praktikabilitätsgründen ab.}.
+
+
+\todo{Funktionsweise Detektor mit Elektronenlawine} Fliegt ein geladenes Teilchen...
+
+
+\jafpsh{hexagons_pre_final}{Ausschnitt der hexagonalen Anordnung der Driftkammerzellen in zwei, gegeneinander verschobenen Lagen mit den Kathodendrähten in dunkelblau sowie Anodendrähten der Zellen in rot, mit zugeordneter Drahtnummer (hier die ersten 4 Drähte). In hellblau ist die Gasfüllung der Driftkammer angedeutet, in gelb ist eine mögliche Flugbahn eines einfallenden Myons dargestellt. Der Szintillationszähler befindet sich überhalb der oberen Lage. Grafik erstellt mit \cite{geogebra}.}{0.4}
+
+
+
+\todo{Rest aufbau driftkammer, vgl siehe diplomarbeiten i guess}
+\todo{Bild Aufbau mit Szinti und Driftkammer und Elektronik, von ecampus-Seite}
+
+Der Szintillationsdetektor wird als Trigger für die Messintervalle der Ausleseelektronik verwendet. Wenn ein geladenes Teilchen in das Szintillatormaterial fliegt, wird durch Interaktion mit den Detektoratomen Energie im Material deponiert, wodurch Materialatome angeregt werden. Bei der Abregung zurück in einen niedrigeren Zustand werden Szintillationsphotonen emittiert, die von der angeschlossenen Photomultiplier-Röhre (PMT) durch Photoeffekt (d.h. Elektronenemission an den Dynoden in der PMT) und negativer Beschleunigungsspannung lawinenartig beschleunigt, und dadurch als großer Strompuls gemessen werden können \cite[497-500]{kolanoskiwermerdetektoren}. Dieser Vorgang ist sehr schnell \cite[513]{kolanoskiwermerdetektoren} und kann daher als Triggersignal für die nachgeschaltete Elektronik verwendet werden. Wird ein Signal am Szintillationsdetektor registriert, wird für eine Zeitdauer von $\SI{625}{\nano\s}$ (in Abschnitten von $\SI{2,5}{\nano\s}$) das ausgehende Signal der Driftkammer gemessen \cite[5]{515versuchsanleitung}.
+
+\jafps{scintillator_aufbau_skizze}{Aufbau des Szintillationsdetektors aus Szintillationskristall und angeschlossener Photomultiplier-Röhre. Abbildung entnommen aus \cite[250]{mcgregorscintillator}, hier mit einfallender Röntgenstrahlung eingezeichnet, der gleiche Aufbau wird aber auch für geladene Teilchen genutzt, wie im Text beschrieben.}{0.5}
+
+\section{Durchführung}

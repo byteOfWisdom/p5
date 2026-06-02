@@ -1,5 +1,29 @@
 \chapter{Einleitung}
 
+\section{Versuchsziel}
 Um den Einfall von Myonen als geladenene kosmische Strahlung auf die Erdoberfläche zu charakterisieren, wird in diesem Versuch ihre Winkelverteilung mit einem gasgefüllten Teilchendetektor gemessen. Dabei wird als Detektor die Prototyp-Driftkammer des B-GOOD-Experiments \cite[1]{515versuchsanleitung} mit zwei zueinander versetzten Schichten von hexagonalen Drahtzellen verwendet, welche mit einem Szintillationsdetektor als Triggersignal sowie einer Ausleseelektronik verbunden ist \cite[18-20]{hammanndiplom}.
 
-Die Driftkammer wird zunächst mithilfe einer Probe von $\ce{^90Sr}$, welches $\beta$-Strahlung ($\beta$-Zerfall: $\ce{n -> p + e- + \bar{\nu}}$ \cite[4]{leotechniques}) emittiert \cite{nudatsr90}, kalibriert. Die so emittierten Elektronen sind gleich geladen wie die zu messenden Myonen und können aufgrund dann der großen Aktivität (verglichen mit der deutlichen geringeren Flussrate der Myonen) der \ce{^90Sr}-Quelle zur praktischen Detektorkalibration genutzt werden.
+Die Driftkammer wird zunächst mithilfe einer Probe von $\ce{^90Sr}$, welches $\beta$-Strahlung (aus $\beta$-Zerfall: $\ce{n -> p + e- + \bar{\nu}}$ \cite[4]{leotechniques}) emittiert \cite{nudatsr90}, kalibriert. Die so emittierten Elektronen sind gleich geladen wie die zu messenden Myonen und können aufgrund dann der großen Aktivität (verglichen mit der deutlichen geringeren Flussrate der Myonen von ca. $1$ Muon pro $\text{cm}^2$ und pro Sekunde \cite{muonrays}) der \ce{^90Sr}-Quelle zur praktischen Detektorkalibration genutzt werden. Es werden so die Betriebsparameter der Zeitverzögerung zwischen Triggerauslösung und Messstart für die Driftkammer-Signale, der Diskriminatorschwelle (siehe Abschnitt \todo{erklärtung und ref}) und der Höhe der Hochspannungen von Szintillationsdetektor $U_\text{Szint}$ und Driftkammer $U_D$ kalibriert.
+
+Anschließend werden in einer Langzeitmessung über $\Delta t = \SI{18}{\hour}$ die Signale von Myonen, die als Teil kosmischer Strahlung auf die Erdoberfläche einfallen \cite{muonrays}, mit der Driftkammer aufgenommen. Aus diesen Daten wird die Winkelverteilung der Myonen bestimmt. \footnote{Für die Datenauswertung der Driftkammer wurde die Open-Source-Software \texttt{ROOT}\cite{root} genutzt. Die Daten, die mit dem Oszilloskop und mit dem Multimeter aufgenommen wurden, wurden in \texttt{python} ausgewertet und mit \textit{matplotlib} sowie \textit{numpy} dargestellt. Die aufgenommenen Rohdaten sowie die Auswertungsprogramme sind unter \url{https://github.com/byteOfWisdom/p5/tree/main/515-driftkammer} zu finden.}
+
+\section{Aufbau}
+
+Die Driftkammer besteht aus zwei Lagen hexagonaler Zellen aus jeweils sechs zugehörigen Kathodendrähten (geerdet), in dessen Mitte je ein Anodendraht (stark negativ geladen gegenüber den Kathoden durch angelegte Hochspannung $U_D$) platziert ist. Pro Lage sind 24 Drähte vorhanden, sodass mit insgesamt 48 Zellen die Position und der Einfallswinkel eines einfliegenden Teilchens aus den Zellen, in denen ein Signal gemessen wurde, rekonstruiert werden kann \cite[18-19]{hammanndiplom}. In der Driftkammer befindet sich ein Gasgemisch aus Argon-Kohlenstoffdioxid im Verhältnis von $80:20$ \footnote{Idealerweise würde $70:30$ genutzt werden \cite[16]{hammanndiplom}, das im Experiment genutzte Gas weicht laut Tutorangabe hiervon jedoch aus Praktikabilitätsgründen ab.}.
+
+
+\todo{Funktionsweise Detektor mit Elektronenlawine} Fliegt ein geladenes Teilchen...
+
+
+\jafps{hexagons_pre_final}{Ausschnitt der hexagonalen Anordnung der Driftkammerzellen in zwei, gegeneinander verschobenen Lagen mit den Kathodendrähten in dunkelblau sowie Anodendrähten der Zellen in rot, mit zugeordneter Drahtnummer (hier die ersten 4 Drähte). In hellblau ist die Gasfüllung der Driftkammer angedeutet, in gelb ist eine mögliche Flugbahn eines einfallenden Myons dargestellt. Der Szintillationszähler befindet sich überhalb der oberen Lage. Grafik erstellt mit \cite{geogebra}.}{0.4}
+
+
+
+\todo{Rest aufbau driftkammer, vgl siehe diplomarbeiten i guess}
+\todo{Bild Aufbau mit Szinti und Driftkammer und Elektronik, von ecampus-Seite}
+
+Der Szintillationsdetektor wird als Trigger für die Messintervalle der Ausleseelektronik verwendet. Wenn ein geladenes Teilchen in das Szintillatormaterial fliegt, wird durch Interaktion mit den Detektoratomen Energie im Material deponiert, wodurch Materialatome angeregt werden. Bei der Abregung zurück in einen niedrigeren Zustand werden Szintillationsphotonen emittiert, die von der angeschlossenen Photomultiplier-Röhre (PMT) durch Photoeffekt (d.h. Elektronenemission an den Dynoden in der PMT) und negativer Beschleunigungsspannung lawinenartig beschleunigt, und dadurch als großer Strompuls gemessen werden können \cite[497-500]{kolanoskiwermerdetektoren}. Dieser Vorgang ist sehr schnell \cite[513]{kolanoskiwermerdetektoren} und kann daher als Triggersignal für die nachgeschaltete Elektronik verwendet werden. Wird ein Signal am Szintillationsdetektor registriert, wird für eine Zeitdauer von $\SI{625}{\nano\s}$ (in Abschnitten von $\SI{2,5}{\nano\s}$) das ausgehende Signal der Driftkammer gemessen \cite[5]{515versuchsanleitung}.
+
+\jafps{scintillator_aufbau_skizze}{Aufbau des Szintillationsdetektors aus Szintillationskristall und angeschlossener Photomultiplier-Röhre. Abbildung entnommen aus \cite[250]{mcgregorscintillator}, hier mit einfallender Röntgenstrahlung eingezeichnet, der gleiche Aufbau wird aber auch für geladene Teilchen genutzt, wie im Text beschrieben.}{0.5}
+
+\section{Durchführung}
