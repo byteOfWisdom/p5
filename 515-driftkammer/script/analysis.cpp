@@ -339,14 +339,13 @@ void plot(Plotable& p, TCanvas* C) {
 }
 
 
-void plot_set(std::vector<dataset*>& files, TCanvas* canv, global_object_store* gob) {
+void plot_set(std::vector<dataset*>& files, TCanvas* canv, global_object_store* gob, int j = 0) {
    canv->cd();
    EColor colors[] = {kBlue, kPink, kRed, kOrange};
    int i = 0;
-   printf("entering func\n");
    for (dataset* ds : files) {
       ds->ana->filter_enabled = false;
-      auto hist = gob->hold(ds->ana->dt_hist("hist" + std::to_string(i)));
+      auto hist = gob->hold(ds->ana->dt_hist("hist" + std::to_string(j) + std::to_string(i)));
 
       hist->SetLineColor(colors[i]);
       if (i == 0) hist->DrawCopy("HIST");
@@ -399,7 +398,9 @@ int main(int argc, char** argv) {
    auto odb = make_odb(dt_rel);
    plot(odb, canvas_vec[4]);
 
-   TF1 angle_dist_func = TF1("angle_dist_func", "[0] * cos([1] * x * pi / 180)^2", -90, 90);
+   TF1 angle_dist_func = TF1("angle_dist_func", "[0] * cos((x - [2]) * pi / 180)^[1]", -90, 90);
+   angle_dist_func.SetParameter(0, 80000);
+   angle_dist_func.SetParameter(1, 2);
 
    auto basic_angles = ana->basic_angle_distrib();
    TFitResultPtr fit = basic_angles.Fit(&angle_dist_func, "S");
@@ -420,6 +421,13 @@ int main(int argc, char** argv) {
    global_object_store* gob = new global_object_store();
    plot_set(voltage_data, voltage_canvas, gob);
 
+   TCanvas* discriminator_canvas = new TCanvas("discriminator_sweep", "Verschiedene Diskriminatoreinstellungen");
+   std::vector<dataset*> discriminator_data = std::vector<dataset*> ({
+      new dataset("../data/B103/run_260513_145435.root"), // TODO: pick correct files
+      new dataset("../data/B103/run_260513_145148.root"),
+      new dataset("../data/B103/run_260513_144851.root"),
+   });
+   plot_set(discriminator_data, discriminator_canvas, gob, 1);
 
    app.Run(kTRUE);
 }
