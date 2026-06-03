@@ -70,8 +70,8 @@ public :
    unsigned char valid[100];
    unsigned char n_valid;
    bool filter_enabled = true;
-   Double_t max_le_time = 300;
-   Double_t min_le_time = 0;
+   Double_t max_le_time = 400;
+   Double_t min_le_time = 6;
    Double_t min_tot = 100;
    std::vector<UInt_t> wire_lut = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48};
 
