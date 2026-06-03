@@ -305,9 +305,8 @@ TH1D analysis::precise_angle_distribution() {
    forr (i, 0, 48) {
       Double_t angle_lb = std::min(cell_edges_to_angles(i, scint_edge_l), cell_edges_to_angles(i, scint_edge_r));
       Double_t angle_ub = std::max(cell_edges_to_angles(i + 1, scint_edge_l), cell_edges_to_angles(i + 1, scint_edge_r));
-      // Double_t angle_ub = cell_edges_to_angles(i + 1);
       angle_intervals[i] = {angle_lb, angle_ub};
-      printf("cell %d: %lf - %lf\n", i, angle_lb, angle_ub);
+      // printf("cell %d: %lf - %lf\n", i, angle_lb, angle_ub);
    }
 
 
@@ -315,7 +314,7 @@ TH1D analysis::precise_angle_distribution() {
 
       // check for sequential cells that are hit
       bool in_seq = false;
-      unsigned char block_start_id, block_end_id;
+      unsigned char block_start, block_end;
       iterate(hit, valid, n_valid - 1){
          bool sequential = wire_le[*hit] + 1 == wire_le[*(hit + 1)];
          bool sequential_same_layer = wire_le[*hit] + 2 == wire_le[*(hit + 1)];
@@ -324,11 +323,19 @@ TH1D analysis::precise_angle_distribution() {
          if (in_seq && seq) continue;
          if (!in_seq && seq) {
             in_seq = true;
-            block_start_id = *hit;
+            block_start = wire_le[*hit];
          }
          if (in_seq && !seq) {
             in_seq = false;
-            block_end_id = *hit;
+            block_end = wire_le[*hit];
+
+            Double_t angle_lb = -90, angle_ub = 90;
+            angle_ub = std::get<1>(angle_intervals[block_start - 1]);
+            angle_lb = std::get<0>(angle_intervals[block_end - 1]);
+            printf("block from: %u %u\n", block_start, block_end);
+            printf("event_time: %lf\n", eventTime);
+            printf("angle_interval in (%u): %lf %lf\n", event, angle_lb, angle_ub);
+            break;
          }
       }
    }
