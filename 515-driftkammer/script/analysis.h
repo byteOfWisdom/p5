@@ -91,7 +91,7 @@ public :
    virtual TH2D wire_correlation();
    virtual TH2D dt_wire_hist();
    virtual TH2D dt_tot_relation();
-   // virtual TH1D basic_angle_distrib();
+   virtual TH1D basic_angle_distrib();
    virtual TH2D dist_plot(TH1D&, unsigned int, unsigned int);
    // virtual void argsort();
    virtual Double_t get_runtime();

@@ -225,62 +225,12 @@ TH2D analysis::dt_tot_relation() {
 }
 
 inline unsigned char abs_diff(unsigned char a, unsigned char b) {
-   return abs((int) a - (int) b); }
+   return abs((int) a - (int) b);
+}
 
-
-// TH1D analysis::basic_angle_distrib() {
-//    const auto middle_bin = 20;
-//    auto cell_edges_to_angles = [](Double_t x) -> Double_t {
-//       const auto scint_pos = 0.5 * middle_bin - 0.5;
-//       const auto height_diff = 12.5e-2;
-//       auto d = (x - scint_pos) * 17.e-3;
-//       auto theta = atan(d / height_diff);
-//       const auto rad_to_deg = 180 / M_PI;
-//       return theta * rad_to_deg;
-//    };
-
-//    Double_t bin_edges[25];
-//    std::iota(bin_edges, bin_edges + 25, 0);
-//    std::transform(bin_edges, bin_edges + 25, bin_edges, cell_edges_to_angles);
-
-//    // TH1D angle_distribution = TH1D("basic_angle_distribution", "Winkelverteilung der Kosmischen Strahlung", 24, bin_edges);
-//    TH1D block_starts = TH1D("block_starts", "Winkelverteilung der Kosmischen Strahlung", WIRE_BINS);
-
-//    reset_entry_count();
-//    while(get_next_entry()) {
-//       bool in_seq = false;
-//       unsigned char block_start;
-//       iterate(hit, valid, n_valid - 1){
-//          bool sequential = wire_le[*hit] + 1 == wire_le[*(hit + 1)];
-//          bool sequential_same_layer = wire_le[*hit] + 2 == wire_le[*(hit + 1)];
-//          bool seq = sequential || sequential_same_layer;
-
-//          if (in_seq && seq) continue;
-//          if (!in_seq && seq) {
-//             in_seq = true;
-//             block_start = wire_le[*hit];
-//          }
-//          if (in_seq && !seq) {
-//             in_seq = false;
-//             auto first_hit = abs_diff(block_start, middle_bin) <= abs_diff(wire_le[*hit], middle_bin)? block_start: wire_le[*hit];
-//             block_starts.Fill(first_hit);
-//             // printf("block from %u to %u, first hit at %u\n", block_start, wire_le[*hit], first_hit);
-//          }
-//       }
-//    }
-
-
-//    TH1D angle_distribution = TH1D("basic_angle_distribution", "Winkelverteilung der Kosmischen Strahlung", 24, bin_edges);
-//    forr (wire, 1, 49) {
-//       auto count = block_starts.GetBinContent(wire);
-//       int direction = wire < middle_bin? 1: -1;
-//       int target_bin = wire % 2? wire / 2 + direction: wire / 2;
-//       // if (wire % 2) continue;
-//       angle_distribution.AddBinContent(target_bin, count);
-//    }
-
-//    return angle_distribution;
-// }
+inline unsigned char abs_diff(int a, int b) {
+   return abs(a - b);
+}
 
 
 std::vector<std::vector<unsigned int>> get_sequences(checklist_64 hits) {
@@ -306,6 +256,58 @@ std::vector<std::vector<unsigned int>> get_sequences(checklist_64 hits) {
    }
 
    return res;
+}
+
+
+TH1D analysis::basic_angle_distrib() {
+   const auto middle_bin = 20;
+   auto cell_edges_to_angles = [](Double_t x) -> Double_t {
+      const auto scint_pos = 0.5 * middle_bin - 0.5;
+      const auto height_diff = 12.5e-2;
+      auto d = (x - scint_pos) * 17.e-3;
+      auto theta = atan(d / height_diff);
+      const auto rad_to_deg = 180 / M_PI;
+      return theta * rad_to_deg;
+   };
+
+   Double_t bin_edges[25];
+   std::iota(bin_edges, bin_edges + 25, 0);
+   std::transform(bin_edges, bin_edges + 25, bin_edges, cell_edges_to_angles);
+
+   // TH1D angle_distribution = TH1D("basic_angle_distribution", "Winkelverteilung der Kosmischen Strahlung", 24, bin_edges);
+   TH1D block_starts = TH1D("block_starts", "Winkelverteilung der Kosmischen Strahlung", WIRE_BINS);
+
+   reset_entry_count();
+   while(get_next_entry()) {
+      // check for sequential cells that are hit
+      checklist_64 wires_hit = checklist_64();
+      forr (i, 0, nhits_le) {
+         if (filter_exclude(i)) continue;
+         else wires_hit.check(wire_le[i]);
+      }
+
+      auto sequences = get_sequences(wires_hit);
+      for (auto seq: sequences) {
+         int inner_most_wire = 100;
+         for (auto wire: seq) {
+            if (abs_diff(wire, middle_bin) < abs_diff(inner_most_wire, middle_bin))
+               inner_most_wire = wire;
+         }
+
+         block_starts.Fill(inner_most_wire);
+      }
+   }
+
+   TH1D angle_distribution = TH1D("basic_angle_distribution", "Winkelverteilung der Kosmischen Strahlung", 24, bin_edges);
+   forr (wire, 1, 49) {
+      auto count = block_starts.GetBinContent(wire);
+      int direction = wire < middle_bin? 1: -1;
+      int target_bin = wire % 2? wire / 2 + direction: wire / 2;
+      // if (wire % 2) continue;
+      angle_distribution.AddBinContent(target_bin, count);
+   }
+
+   return angle_distribution;
 }
 
 
@@ -397,9 +399,9 @@ TH1D analysis::precise_angle_distribution() {
          auto [angle_lb, angle_ub] = get_angle(seq);
          auto avg_angle = 0.5 * (angle_lb + angle_ub);
          angle_distribution.Fill(avg_angle);
-         printf("block from: %u %u\n", block_start, block_end);
-         printf("event_time: %lf\n", eventTime - 1778000000);
-         printf("angle_interval in (%u): %lf %lf\n", event, angle_lb, angle_ub);
+         // printf("block from: %u %u\n", block_start, block_end);
+         // printf("event_time: %lf\n", eventTime - 1778000000);
+         // printf("angle_interval in (%u): %lf %lf\n", event, angle_lb, angle_ub);
       }
 
    }
@@ -606,7 +608,7 @@ int main(int argc, char** argv) {
    char** dargv = &argv[0];
    TRint app = TRint("app", &dargc, dargv);
    std::vector<TCanvas*> canvas_vec = std::vector<TCanvas*>();
-   forr(i, 0, 7) canvas_vec.push_back(new TCanvas(("c" + std::to_string(i)).c_str(), "c", 800, 600));
+   forr(i, 0, 8) canvas_vec.push_back(new TCanvas(("c" + std::to_string(i)).c_str(), "c", 800, 600));
 
 
    dataset* data = new dataset(argv[1]);
@@ -631,8 +633,8 @@ int main(int argc, char** argv) {
    angle_dist_func.SetParameter(0, 80000);
    angle_dist_func.SetParameter(1, 2);
 
-   // auto basic_angles = ana->basic_angle_distrib();
-   // TFitResultPtr fit = basic_angles.Fit(&angle_dist_func, "S");
+   auto basic_angles = ana->basic_angle_distrib();
+   TFitResultPtr fit = basic_angles.Fit(&angle_dist_func, "S");
 
    auto precise_angles = ana->precise_angle_distribution();
 
@@ -641,9 +643,10 @@ int main(int argc, char** argv) {
    plot(wire_correlation, canvas_vec[2]);
    plot(dt_tot, canvas_vec[3]);
    plot(odb, canvas_vec[4]);
-   plot(precise_angles, canvas_vec[5]);
+   plot(basic_angles, canvas_vec[5]);
    // plot(*fit, canvas_vec[5]);
    plot(sum_vs_diff, canvas_vec[6]);
+   plot(precise_angles, canvas_vec[7]);
 
    // plot_parameter_search();
 
