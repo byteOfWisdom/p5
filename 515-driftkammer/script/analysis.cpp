@@ -1,8 +1,6 @@
 #include "RtypesCore.h"
-#include "TColor.h"
 #include "TFitResultPtr.h"
 #include "TH1.h"
-#include "TPad.h"
 #include "TString.h"
 #include "TTree.h"
 #include <algorithm>
@@ -230,7 +228,7 @@ TH1D analysis::basic_angle_distrib() {
       const auto height_diff = 12.5e-2;
       auto d = (x - scint_pos) * 17.e-3;
       auto theta = atan(d / height_diff);
-      const auto rad_to_deg = 180 / TMath::Pi();
+      const auto rad_to_deg = 180 / M_PI;
       return theta * rad_to_deg;
    };
 
@@ -274,6 +272,35 @@ TH1D analysis::basic_angle_distrib() {
       angle_distribution.AddBinContent(target_bin, count);
    }
 
+   return angle_distribution;
+}
+
+
+TH1D analysis::precise_angle_distribution() {
+   TH1D angle_distribution = TH1D("precise_angle_distribution", "Winkelverteilung der Kosmischen Strahlung", 50, -60., 60.);
+   reset_entry_count();
+   while(get_next_entry()) {
+      bool in_seq = false;
+      unsigned char block_start;
+      iterate(hit, valid, n_valid - 1){
+         bool sequential = wire_le[*hit] + 1 == wire_le[*(hit + 1)];
+         bool sequential_same_layer = wire_le[*hit] + 2 == wire_le[*(hit + 1)];
+         bool seq = sequential || sequential_same_layer;
+
+         if (in_seq && seq) continue;
+         if (!in_seq && seq) {
+            in_seq = true;
+            block_start = wire_le[*hit];
+         }
+         if (in_seq && !seq) {
+            in_seq = false;
+            // TODO: handle block
+            // auto first_hit = abs_diff(block_start, middle_bin) <= abs_diff(wire_le[*hit], middle_bin)? block_start: wire_le[*hit];
+            // block_starts.Fill(first_hit);
+            // printf("block from %u to %u, first hit at %u\n", block_start, wire_le[*hit], first_hit);
+         }
+      }
+   }
    return angle_distribution;
 }
 
@@ -391,59 +418,7 @@ void plot_set(std::vector<dataset*>& files, TCanvas* canv, global_object_store* 
 }
 
 
-int main(int argc, char** argv) {
-   // weniger statistik mit guten parametern ..161632.root
-   // viel statistik mit guten parametern ...161826.root
-   TROOT root("app","app");
-   Int_t dargc=1;
-   char** dargv = &argv[0];
-   TRint app = TRint("app", &dargc, dargv);
-   // TFile f = TFile(argv[1]);
-   // TTree* tree = (TTree*) f.FindObjectAny("t");
-   // analysis* ana = new analysis(tree);
-   dataset* data = new dataset(argv[1]);
-   analysis* ana = data->ana;
-   // analysis* ana = load_file(argv[1]);
-
-   TFile calib_file = TFile("../data/B103/run_260513_161826.root"); 
-   TTree* calib_tree = (TTree*) calib_file.FindObjectAny("t");
-   analysis* calib_data = new analysis(calib_tree);
-   calib_data->max_le_time = 500;
-
-
-   ana->wire_lut = make_wire_lut();
-   // auto dt_rel = ana->dt_hist();
-   auto dt_rel = calib_data->dt_hist();
-   auto dt_wire_plot = ana->dt_wire_hist();
-   auto wire_correlation = ana->wire_correlation();
-   auto dt_tot = ana->dt_tot_relation();
-
-   std::vector<TCanvas*> canvas_vec = std::vector<TCanvas*>();
-   forr(i, 0, 7) canvas_vec.push_back(new TCanvas(("c" + std::to_string(i)).c_str(), "c", 800, 600));
-
-
-   plot(dt_rel, canvas_vec[0]);
-   plot(dt_wire_plot, canvas_vec[1]);
-   plot(wire_correlation, canvas_vec[2]);
-   plot(dt_tot, canvas_vec[3]);
-
-   // TODO: maybe this needs to be done before filtering??
-   auto odb = make_odb(dt_rel);
-   plot(odb, canvas_vec[4]);
-
-   TF1 angle_dist_func = TF1("angle_dist_func", "[0] * cos((x - [2]) * pi / 180)^[1]", -90, 90);
-   angle_dist_func.SetParameter(0, 80000);
-   angle_dist_func.SetParameter(1, 2);
-
-   auto basic_angles = ana->basic_angle_distrib();
-   TFitResultPtr fit = basic_angles.Fit(&angle_dist_func, "S");
-   plot(basic_angles, canvas_vec[5]);
-   plot(*fit, canvas_vec[5]);
-
-   auto sum_vs_diff = ana->dist_plot(odb, 12, 30);
-   plot(sum_vs_diff, canvas_vec[6]);
-
-
+void plot_parameter_search() {
    TCanvas* voltage_canvas = new TCanvas("voltage_sweep", "Verschiedene Beschleunigungsspannungen");
    std::vector<dataset*> voltage_data = std::vector<dataset*> ({
       new dataset("../data/B103/run_260513_145435.root"),
@@ -466,17 +441,71 @@ int main(int argc, char** argv) {
    global_object_store* gob = new global_object_store();
    plot_set(voltage_data, voltage_canvas, gob, names);
 
-   // TCanvas* discriminator_canvas = new TCanvas("discriminator_sweep", "Verschiedene Diskriminatoreinstellungen");
-   // std::vector<dataset*> discriminator_data = std::vector<dataset*> ({
-   //    new dataset("../data/B103/run_260513_145435.root"), // TODO: pick correct files
-   //    new dataset("../data/B103/run_260513_145148.root"),
-   //    new dataset("../data/B103/run_260513_144851.root"),
-   // });
+   TCanvas* discriminator_canvas = new TCanvas("discriminator_sweep", "Verschiedene Diskriminatoreinstellungen");
+   std::vector<dataset*> discriminator_data = std::vector<dataset*> ({
+      new dataset("../data/B103/run_260513_160116.root"),
+      new dataset("../data/B103/run_260513_155621.root"),
+      new dataset("../data/B103/run_260513_155230.root"),
+      new dataset("../data/B103/run_260513_154351.root"),
+      new dataset("../data/B103/run_260513_153904.root"),
+   });
 
-   // std::vector<TString> disc_names = {
-   //    "",
-   // };
-   // plot_set(discriminator_data, discriminator_canvas, gob, disc_names, 1);
+   std::vector<TString> disc_names = {
+      "0x40",
+      "0x68",
+      "0x58",
+      "0x28",
+      "0x20"
+   };
+   plot_set(discriminator_data, discriminator_canvas, gob, disc_names, 1);
+}
+
+
+int main(int argc, char** argv) {
+   // weniger statistik mit guten parametern ..161632.root
+   // viel statistik mit guten parametern ...161826.root
+
+   TROOT root("app","app");
+   Int_t dargc=1;
+   char** dargv = &argv[0];
+   TRint app = TRint("app", &dargc, dargv);
+   std::vector<TCanvas*> canvas_vec = std::vector<TCanvas*>();
+   forr(i, 0, 7) canvas_vec.push_back(new TCanvas(("c" + std::to_string(i)).c_str(), "c", 800, 600));
+
+
+   dataset* data = new dataset(argv[1]);
+   analysis* ana = data->ana;
+   ana->wire_lut = make_wire_lut();
+
+   dataset* calib_dataset = new dataset("../data/B103/run_260513_161826.root");
+   calib_dataset->ana->max_le_time = 500;
+
+   // auto dt_rel = ana->dt_hist();
+   auto dt_rel = calib_dataset->ana->dt_hist();
+   auto dt_wire_plot = ana->dt_wire_hist();
+   auto wire_correlation = ana->wire_correlation();
+   auto dt_tot = ana->dt_tot_relation();
+   // TODO: maybe this needs to be done before filtering??
+   auto odb = make_odb(dt_rel);
+   auto sum_vs_diff = ana->dist_plot(odb, 12, 30);
+
+   TF1 angle_dist_func = TF1("angle_dist_func", "[0] * cos((x - [2]) * pi / 180)^[1] + [3]", -90, 90);
+   angle_dist_func.SetParameter(0, 80000);
+   angle_dist_func.SetParameter(1, 2);
+
+   auto basic_angles = ana->basic_angle_distrib();
+   TFitResultPtr fit = basic_angles.Fit(&angle_dist_func, "S");
+
+   plot(dt_rel, canvas_vec[0]);
+   plot(dt_wire_plot, canvas_vec[1]);
+   plot(wire_correlation, canvas_vec[2]);
+   plot(dt_tot, canvas_vec[3]);
+   plot(odb, canvas_vec[4]);
+   plot(basic_angles, canvas_vec[5]);
+   plot(*fit, canvas_vec[5]);
+   plot(sum_vs_diff, canvas_vec[6]);
+
+   plot_parameter_search();
 
    app.Run(kTRUE);
 }
