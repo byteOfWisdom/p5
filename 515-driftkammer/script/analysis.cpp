@@ -1,7 +1,13 @@
 #include "RtypesCore.h"
+#include "TFitResultPtr.h"
 #include "TH1.h"
+#include "TString.h"
+#include "TTree.h"
+#include <algorithm>
+#include <cmath>
 #include <cstddef>
 #include <cstdint>
+#include <cstdio>
 #include <numeric>
 #include <string>
 #include <vector>
@@ -12,8 +18,13 @@
 #include <TCanvas.h>
 #include <TROOT.h>
 #include <TRint.h>
+#include <TMath.h>
+#include <TF1.h>
+#include <TFitResult.h>
+#include <TLegend.h>
 
 #define for_range(I, A, B) for (auto I = A; I < B; ++I)
+#define iterate(I, A, B) for (auto I = A; I != A + B; ++I)
 #define forr for_range
 
 const double TIME_LB  = -1.25;
@@ -28,6 +39,53 @@ const unsigned int SPACE_N = TIME_N;
 #define TIME_BINS TIME_N, TIME_LB, TIME_UB
 #define WIRE_BINS WIRE_N, WIRE_LB, WIRE_UB
 #define SPACE_BINS SPACE_N, -8.5, 8.5
+
+
+class dataset{
+   private:
+   TTree* tree;
+   TFile* f;
+
+   public:
+   analysis* ana;
+   dataset(TString fname) {
+      this->f = new TFile(fname);
+      this->tree = (TTree*) f->FindObjectAny("t");
+      this->ana = new analysis(this->tree);
+   };
+
+  ~dataset() {
+      delete this->ana;
+      delete this->tree;     
+      delete this->f;
+  }; 
+};
+
+
+class global_object_store{
+   public:
+      global_object_store() {};
+      TH1D* hold(TH1D obj) {
+         this->hists.push_back(obj);
+         return &this->hists.back();
+      };
+
+      TH2D* hold(TH2D obj){
+         this->hists2.push_back(obj);
+         return &this->hists2.back();
+      };
+
+      dataset* hold(dataset obj){
+         this->datasets.push_back(obj);
+         return &this->datasets.back();
+      };
+
+   private:
+      std::vector<TH1D> hists;
+      std::vector<TH2D> hists2;
+      std::vector<dataset> datasets;
+};
+
 
 
 struct checklist_64{
@@ -57,13 +115,6 @@ bool analysis::filter_exclude(unsigned int hit) {
    bool not_first_hit = false;
    forr (i, 0, hit) not_first_hit |= wire_le[hit] == wire_le[i];
    return filter_enabled && (hit_too_late || tot_too_short || not_first_hit || hit_too_early);
-   // bool is_longest_tot_for_wire = true;
-   // forr (i, 0, nhits_le) {
-   //    if ((tot[hit] < tot[i]) && (i != hit) && (wire_le[hit] == wire_le[i]))
-   //       is_longest_tot_for_wire = false;
-   // }
-   // bool not_longest = !is_longest_tot_for_wire;
-   // return filter_enabled && (hit_too_late || tot_too_short || not_longest || hit_too_early);
 }
 
 
@@ -78,6 +129,11 @@ bool analysis::get_next_entry() {
       for_range(j, 0, nhits_le) this->wire_le[j] = this->wire_lut[wire_le[j]];
       for_range(j, 0, nhits_te) this->wire_te[j] = this->wire_lut[wire_te[j]];
       argsort();
+      forr (i, 0, nhits_le) {
+         if (filter_exclude(i)) continue;
+         valid[n_valid] = i;
+         n_valid ++;
+      }
       return this->current_entry++ < this->n_entries;
    }
    return false;
@@ -96,8 +152,8 @@ void analysis::argsort() {
 }
 
 
-TH1D analysis::dt_hist() {
-   TH1D drift_time_hist = TH1D("Driftzeiten", "Driftzeiten", TIME_BINS);
+TH1D analysis::dt_hist(TString name = "Driftzeiten") {
+   TH1D drift_time_hist = TH1D(name, "Driftzeiten", TIME_BINS);
 
    reset_entry_count();
    while (get_next_entry()) {
@@ -161,59 +217,115 @@ TH2D analysis::dt_tot_relation() {
    return hist;
 }
 
+inline unsigned char abs_diff(unsigned char a, unsigned char b) {
+   return abs((int) a - (int) b); }
+
+
 TH1D analysis::basic_angle_distrib() {
+   const auto middle_bin = 20;
    auto cell_edges_to_angles = [](Double_t x) -> Double_t {
-      const auto scint_pos = 0;
-      x -= scint_pos;
-      x *= 17.; // to position
-      return 17. * x;
+      const auto scint_pos = 0.5 * middle_bin - 0.5;
+      const auto height_diff = 12.5e-2;
+      auto d = (x - scint_pos) * 17.e-3;
+      auto theta = atan(d / height_diff);
+      const auto rad_to_deg = 180 / M_PI;
+      return theta * rad_to_deg;
    };
 
    Double_t bin_edges[25];
    std::iota(bin_edges, bin_edges + 25, 0);
    std::transform(bin_edges, bin_edges + 25, bin_edges, cell_edges_to_angles);
 
-   TH1D angle_distribution = TH1D("basic_angle_distribution", "Winkelverteilung der Kosmischen Strahlung", 24, bin_edges);
+   // TH1D angle_distribution = TH1D("basic_angle_distribution", "Winkelverteilung der Kosmischen Strahlung", 24, bin_edges);
+   TH1D block_starts = TH1D("block_starts", "Winkelverteilung der Kosmischen Strahlung", WIRE_BINS);
 
    reset_entry_count();
    while(get_next_entry()) {
       bool in_seq = false;
       unsigned char block_start;
-      forr (i, 0, nhits_le - 1) {
-         auto hit = sorted[i];
-         auto hit_next = sorted[i + 1];
-         if (filter_exclude(hit)) continue;
-         auto j = 2;
-         while (filter_exclude(hit_next)) {
-            hit_next = sorted[i + j];
-            if (i + j < nhits_le) j ++;
-            else break;
-         }
-
-         bool sequential = wire_le[hit] + 1 == wire_le[hit_next];
-         bool sequential_same_layer = wire_le[hit] + 2 == wire_le[hit_next];
+      iterate(hit, valid, n_valid - 1){
+         bool sequential = wire_le[*hit] + 1 == wire_le[*(hit + 1)];
+         bool sequential_same_layer = wire_le[*hit] + 2 == wire_le[*(hit + 1)];
          bool seq = sequential || sequential_same_layer;
 
          if (in_seq && seq) continue;
          if (!in_seq && seq) {
             in_seq = true;
-            block_start = wire_le[hit];
+            block_start = wire_le[*hit];
          }
          if (in_seq && !seq) {
             in_seq = false;
-            printf("block from %u to %u\n", block_start, wire_le[hit]);
+            auto first_hit = abs_diff(block_start, middle_bin) <= abs_diff(wire_le[*hit], middle_bin)? block_start: wire_le[*hit];
+            block_starts.Fill(first_hit);
+            // printf("block from %u to %u, first hit at %u\n", block_start, wire_le[*hit], first_hit);
          }
       }
+   }
+
+
+   TH1D angle_distribution = TH1D("basic_angle_distribution", "Winkelverteilung der Kosmischen Strahlung", 24, bin_edges);
+   forr (wire, 1, 49) {
+      auto count = block_starts.GetBinContent(wire);
+      int direction = wire < middle_bin? 1: -1;
+      int target_bin = wire % 2? wire / 2 + direction: wire / 2;
+      // if (wire % 2) continue;
+      angle_distribution.AddBinContent(target_bin, count);
    }
 
    return angle_distribution;
 }
 
 
+TH1D analysis::precise_angle_distribution() {
+   TH1D angle_distribution = TH1D("precise_angle_distribution", "Winkelverteilung der Kosmischen Strahlung", 50, -60., 60.);
+   reset_entry_count();
+   while(get_next_entry()) {
+      bool in_seq = false;
+      unsigned char block_start;
+      iterate(hit, valid, n_valid - 1){
+         bool sequential = wire_le[*hit] + 1 == wire_le[*(hit + 1)];
+         bool sequential_same_layer = wire_le[*hit] + 2 == wire_le[*(hit + 1)];
+         bool seq = sequential || sequential_same_layer;
+
+         if (in_seq && seq) continue;
+         if (!in_seq && seq) {
+            in_seq = true;
+            block_start = wire_le[*hit];
+         }
+         if (in_seq && !seq) {
+            in_seq = false;
+            // TODO: handle block
+            // auto first_hit = abs_diff(block_start, middle_bin) <= abs_diff(wire_le[*hit], middle_bin)? block_start: wire_le[*hit];
+            // block_starts.Fill(first_hit);
+            // printf("block from %u to %u, first hit at %u\n", block_start, wire_le[*hit], first_hit);
+         }
+      }
+   }
+   return angle_distribution;
+}
+
+
+Double_t analysis::get_runtime() {
+   Double_t min_t = 1e11;
+   Double_t max_t = 0;
+   reset_entry_count();
+   while(get_next_entry()) {
+      if (eventTime < min_t) {
+         min_t = eventTime;
+      }
+
+      if (eventTime > max_t) {
+         max_t = eventTime;
+      }
+   }
+
+   return max_t - min_t;
+}
+
 std::vector<UInt_t> make_wire_lut() {
    auto res = std::vector<UInt_t>(49);
    forr(i, 0, 49) res[i] = (i % 2? i + 49 + 1: i + 49 - 1) % 49;
-   // forr(i, 0, 49) printf("%u\n", res[i]);
+   // forr(i, 0, 49) printf("%u %u\n", i, res[i]);
    return res;
 }
 
@@ -265,56 +377,135 @@ TH2D analysis::dist_plot(TH1D& odb, unsigned int wire_lb, unsigned int wire_ub) 
 }
 
 
-template<typename Plotable>
-void plot(Plotable& p, TCanvas* C) {
+void plot(TFitResult& p, TCanvas* C) {
    C->cd();
    p.Draw();
    C->Update();
 }
 
 
+template<typename Plotable>
+void plot(Plotable& p, TCanvas* C) {
+   C->cd();
+   p.SetStats(0);
+   p.Draw();
+   C->Update();
+}
+
+
+void plot_set(std::vector<dataset*>& files, TCanvas* canv, global_object_store* gob, std::vector<TString> names, int j = 0) {
+   canv->cd();
+   EColor colors[] = {kBlue, kPink, kRed, kOrange, kAzure, kCyan, kMagenta, kTeal};
+   int i = 0;
+   for (dataset* ds : files) {
+      ds->ana->filter_enabled = false;
+      Double_t runtime = ds->ana->get_runtime();
+      auto hist = gob->hold(ds->ana->dt_hist(names[i]));
+      hist->Scale(1 / runtime);
+      hist->SetTitle("");
+      hist->SetStats(false);
+      hist->SetXTitle("Driftzeit / ns");
+      hist->SetYTitle("Rate / s");
+
+      hist->SetLineColor(colors[i]);
+      if (i == 0) hist->DrawCopy("HIST", "");
+      else hist->DrawCopy("HIST same", "");
+
+      i++;
+   }
+   canv->BuildLegend();
+   canv->Update();
+}
+
+
+void plot_parameter_search() {
+   TCanvas* voltage_canvas = new TCanvas("voltage_sweep", "Verschiedene Beschleunigungsspannungen");
+   std::vector<dataset*> voltage_data = std::vector<dataset*> ({
+      new dataset("../data/B103/run_260513_145435.root"),
+      new dataset("../data/B103/run_260513_145148.root"),
+      new dataset("../data/B103/run_260513_144851.root"),
+      new dataset("../data/B103/run_260513_150659.root"),
+      new dataset("../data/B103/run_260513_150905.root"),
+      new dataset("../data/B103/run_260513_153904.root")
+   });
+
+   std::vector<TString> names = {
+      "2.599kV",
+      "2.499kV",
+      "2.403kV",
+      "2.451kV",
+      "2.482kV",
+      "2.801kV"
+   };
+
+   global_object_store* gob = new global_object_store();
+   plot_set(voltage_data, voltage_canvas, gob, names);
+
+   TCanvas* discriminator_canvas = new TCanvas("discriminator_sweep", "Verschiedene Diskriminatoreinstellungen");
+   std::vector<dataset*> discriminator_data = std::vector<dataset*> ({
+      new dataset("../data/B103/run_260513_160116.root"),
+      new dataset("../data/B103/run_260513_155621.root"),
+      new dataset("../data/B103/run_260513_155230.root"),
+      new dataset("../data/B103/run_260513_154351.root"),
+      new dataset("../data/B103/run_260513_153904.root"),
+   });
+
+   std::vector<TString> disc_names = {
+      "0x40",
+      "0x68",
+      "0x58",
+      "0x28",
+      "0x20"
+   };
+   plot_set(discriminator_data, discriminator_canvas, gob, disc_names, 1);
+}
+
+
 int main(int argc, char** argv) {
    // weniger statistik mit guten parametern ..161632.root
    // viel statistik mit guten parametern ...161826.root
+
    TROOT root("app","app");
    Int_t dargc=1;
    char** dargv = &argv[0];
    TRint app = TRint("app", &dargc, dargv);
-   TFile f = TFile(argv[1]);
-   TTree* tree = (TTree*) f.FindObjectAny("t");
-   analysis* ana = new analysis(tree);
-
-   TFile calib_file = TFile("../data/B103/run_260513_161826.root"); 
-   TTree* calib_tree = (TTree*) calib_file.FindObjectAny("t");
-   analysis* calib_data = new analysis(calib_tree);
-   calib_data->max_le_time = 500;
-
-
-   ana->wire_lut = make_wire_lut();
-   // auto dt_rel = ana->dt_hist();
-   auto dt_rel = calib_data->dt_hist();
-   auto dt_wire_plot = ana->dt_wire_hist();
-   auto wire_correlation = ana->wire_correlation();
-   auto dt_tot = ana->dt_tot_relation();
-
    std::vector<TCanvas*> canvas_vec = std::vector<TCanvas*>();
    forr(i, 0, 7) canvas_vec.push_back(new TCanvas(("c" + std::to_string(i)).c_str(), "c", 800, 600));
 
+
+   dataset* data = new dataset(argv[1]);
+   analysis* ana = data->ana;
+   ana->wire_lut = make_wire_lut();
+
+   dataset* calib_dataset = new dataset("../data/B103/run_260513_161826.root");
+   calib_dataset->ana->max_le_time = 500;
+
+   // auto dt_rel = ana->dt_hist();
+   auto dt_rel = calib_dataset->ana->dt_hist();
+   auto dt_wire_plot = ana->dt_wire_hist();
+   auto wire_correlation = ana->wire_correlation();
+   auto dt_tot = ana->dt_tot_relation();
+   // TODO: maybe this needs to be done before filtering??
+   auto odb = make_odb(dt_rel);
+   auto sum_vs_diff = ana->dist_plot(odb, 12, 30);
+
+   TF1 angle_dist_func = TF1("angle_dist_func", "[0] * cos((x - [2]) * pi / 180)^[1] + [3]", -90, 90);
+   angle_dist_func.SetParameter(0, 80000);
+   angle_dist_func.SetParameter(1, 2);
+
+   auto basic_angles = ana->basic_angle_distrib();
+   TFitResultPtr fit = basic_angles.Fit(&angle_dist_func, "S");
 
    plot(dt_rel, canvas_vec[0]);
    plot(dt_wire_plot, canvas_vec[1]);
    plot(wire_correlation, canvas_vec[2]);
    plot(dt_tot, canvas_vec[3]);
-
-   // TODO: maybe this needs to be done before filtering??
-   auto odb = make_odb(dt_rel);
    plot(odb, canvas_vec[4]);
-
-   auto basic_angles = ana->basic_angle_distrib();
    plot(basic_angles, canvas_vec[5]);
-
-   auto sum_vs_diff = ana->dist_plot(odb, 12, 30);
+   plot(*fit, canvas_vec[5]);
    plot(sum_vs_diff, canvas_vec[6]);
+
+   plot_parameter_search();
 
    app.Run(kTRUE);
 }

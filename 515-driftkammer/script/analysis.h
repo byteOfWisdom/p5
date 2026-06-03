@@ -67,6 +67,8 @@ public :
 
 
    unsigned char sorted[100];
+   unsigned char valid[100];
+   unsigned char n_valid;
    bool filter_enabled = true;
    Double_t max_le_time = 300;
    Double_t min_le_time = 0;
@@ -85,13 +87,15 @@ public :
    virtual bool get_next_entry();
    virtual bool filter_exclude(unsigned int);
    virtual void reset_entry_count();
-   virtual TH1D dt_hist();
+   virtual TH1D dt_hist(TString);
    virtual TH2D wire_correlation();
    virtual TH2D dt_wire_hist();
    virtual TH2D dt_tot_relation();
    virtual TH1D basic_angle_distrib();
    virtual TH2D dist_plot(TH1D&, unsigned int, unsigned int);
    virtual void argsort();
+   virtual Double_t get_runtime();
+   virtual TH1D precise_angle_distribution();
 
    private:
    Long64_t current_entry = 0;

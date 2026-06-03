@@ -1,5 +1,5 @@
 default:
-	g++ -std=c++21 -Wall -Wpedantic -O2 `root-config --libs --ldflags` `root-config --cflags` analysis.cpp -o a
+	clang++ -std=c++23 -Wall -Wpedantic -O2 `root-config --libs --ldflags` `root-config --cflags` analysis.cpp -o a
 
 
 run:
