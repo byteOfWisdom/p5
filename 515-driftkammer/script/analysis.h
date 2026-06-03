@@ -94,6 +94,7 @@ public :
    virtual TH1D basic_angle_distrib();
    virtual TH2D dist_plot(TH1D&, unsigned int, unsigned int);
    virtual void argsort();
+   Double_t get_runtime();
 
    private:
    Long64_t current_entry = 0;

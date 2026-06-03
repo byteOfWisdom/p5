@@ -2,6 +2,7 @@
 #include "TColor.h"
 #include "TFitResultPtr.h"
 #include "TH1.h"
+#include "TPad.h"
 #include "TString.h"
 #include "TTree.h"
 #include <algorithm>
@@ -22,6 +23,7 @@
 #include <TMath.h>
 #include <TF1.h>
 #include <TFitResult.h>
+#include <TLegend.h>
 
 #define for_range(I, A, B) for (auto I = A; I < B; ++I)
 #define iterate(I, A, B) for (auto I = A; I != A + B; ++I)
@@ -268,13 +270,30 @@ TH1D analysis::basic_angle_distrib() {
       auto count = block_starts.GetBinContent(wire);
       int direction = wire < middle_bin? 1: -1;
       int target_bin = wire % 2? wire / 2 + direction: wire / 2;
-      if (wire % 2) continue;
+      // if (wire % 2) continue;
       angle_distribution.AddBinContent(target_bin, count);
    }
 
    return angle_distribution;
 }
 
+
+Double_t analysis::get_runtime() {
+   Double_t min_t = 1e11;
+   Double_t max_t = 0;
+   reset_entry_count();
+   while(get_next_entry()) {
+      if (eventTime < min_t) {
+         min_t = eventTime;
+      }
+
+      if (eventTime > max_t) {
+         max_t = eventTime;
+      }
+   }
+
+   return max_t - min_t;
+}
 
 std::vector<UInt_t> make_wire_lut() {
    auto res = std::vector<UInt_t>(49);
@@ -339,21 +358,27 @@ void plot(Plotable& p, TCanvas* C) {
 }
 
 
-void plot_set(std::vector<dataset*>& files, TCanvas* canv, global_object_store* gob, int j = 0) {
+void plot_set(std::vector<dataset*>& files, TCanvas* canv, global_object_store* gob, std::vector<TString> names, int j = 0) {
    canv->cd();
-   EColor colors[] = {kBlue, kPink, kRed, kOrange};
+   EColor colors[] = {kBlue, kPink, kRed, kOrange, kAzure, kCyan, kMagenta, kTeal};
    int i = 0;
    for (dataset* ds : files) {
       ds->ana->filter_enabled = false;
-      auto hist = gob->hold(ds->ana->dt_hist("hist" + std::to_string(j) + std::to_string(i)));
+      Double_t runtime = ds->ana->get_runtime();
+      auto hist = gob->hold(ds->ana->dt_hist(names[i]));
+      hist->Scale(1 / runtime);
+      hist->SetTitle("");
+      hist->SetStats(false);
+      hist->SetXTitle("Driftzeit / ns");
+      hist->SetYTitle("Rate / s");
 
       hist->SetLineColor(colors[i]);
-      if (i == 0) hist->DrawCopy("HIST");
-      else hist->DrawCopy("HIST same");
+      if (i == 0) hist->DrawCopy("HIST", "");
+      else hist->DrawCopy("HIST same", "");
 
       i++;
    }
-
+   canv->BuildLegend();
    canv->Update();
 }
 
@@ -416,18 +441,34 @@ int main(int argc, char** argv) {
       new dataset("../data/B103/run_260513_145435.root"),
       new dataset("../data/B103/run_260513_145148.root"),
       new dataset("../data/B103/run_260513_144851.root"),
+      new dataset("../data/B103/run_260513_150659.root"),
+      new dataset("../data/B103/run_260513_150905.root"),
+      new dataset("../data/B103/run_260513_153904.root")
    });
+
+   std::vector<TString> names = {
+      "2.599kV",
+      "2.499kV",
+      "2.403kV",
+      "2.451kV",
+      "2.482kV",
+      "2.801kV"
+   };
 
    global_object_store* gob = new global_object_store();
-   plot_set(voltage_data, voltage_canvas, gob);
+   plot_set(voltage_data, voltage_canvas, gob, names);
 
-   TCanvas* discriminator_canvas = new TCanvas("discriminator_sweep", "Verschiedene Diskriminatoreinstellungen");
-   std::vector<dataset*> discriminator_data = std::vector<dataset*> ({
-      new dataset("../data/B103/run_260513_145435.root"), // TODO: pick correct files
-      new dataset("../data/B103/run_260513_145148.root"),
-      new dataset("../data/B103/run_260513_144851.root"),
-   });
-   plot_set(discriminator_data, discriminator_canvas, gob, 1);
+   // TCanvas* discriminator_canvas = new TCanvas("discriminator_sweep", "Verschiedene Diskriminatoreinstellungen");
+   // std::vector<dataset*> discriminator_data = std::vector<dataset*> ({
+   //    new dataset("../data/B103/run_260513_145435.root"), // TODO: pick correct files
+   //    new dataset("../data/B103/run_260513_145148.root"),
+   //    new dataset("../data/B103/run_260513_144851.root"),
+   // });
+
+   // std::vector<TString> disc_names = {
+   //    "",
+   // };
+   // plot_set(discriminator_data, discriminator_canvas, gob, disc_names, 1);
 
    app.Run(kTRUE);
 }
