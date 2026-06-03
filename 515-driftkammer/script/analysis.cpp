@@ -290,6 +290,7 @@ TH1D analysis::basic_angle_distrib() {
       for (auto seq: sequences) {
          int inner_most_wire = 100;
          for (auto wire: seq) {
+            if (wire % 2) continue;
             if (abs_diff(wire, middle_bin) < abs_diff(inner_most_wire, middle_bin))
                inner_most_wire = wire;
          }
@@ -354,35 +355,6 @@ std::tuple<Double_t, Double_t> get_angle(std::vector<unsigned int> wires) {
 TH1D analysis::precise_angle_distribution() {
    TH1D angle_distribution = TH1D("precise_angle_distribution", "Winkelverteilung der Kosmischen Strahlung", 20, -60., 70.);
 
-   std::tuple<Double_t, Double_t> angle_intervals[48];
-
-   const auto middle_bin = 20;
-   const auto height_top_row = 12.5e-2;
-   const auto height_bottom_row = height_top_row + 1.7e-2; // TODO: check!!!
-   const auto scint_edge_l = middle_bin * 8.5e-3;
-   const auto scint_edge_r = (middle_bin + 1) * 8.5e-3;
-   const auto rad_to_deg = 180 / M_PI;
-
-   auto cell_edges_to_angles = [=](unsigned int n, Double_t scint_pos) -> Double_t {
-      if (n % 2) {
-         auto d = (n * 8.5e-3) - scint_pos;
-         auto theta = atan(d / height_bottom_row);
-         return theta * rad_to_deg;
-      } else {
-         auto d = (n * 8.5e-3) - scint_pos;
-         auto theta = atan(d / height_top_row);
-         return theta * rad_to_deg;
-      }
-   };
-
-   forr (i, 0, 48) {
-      Double_t angle_lb = std::min(cell_edges_to_angles(i, scint_edge_l), cell_edges_to_angles(i, scint_edge_r));
-      Double_t angle_ub = std::max(cell_edges_to_angles(i + 1, scint_edge_l), cell_edges_to_angles(i + 1, scint_edge_r));
-      angle_intervals[i] = {angle_lb, angle_ub};
-      // printf("cell %d: %lf - %lf\n", i, angle_lb, angle_ub);
-   }
-
-
    reset_entry_count();
    while(get_next_entry()) {
       // check for sequential cells that are hit
@@ -394,8 +366,6 @@ TH1D analysis::precise_angle_distribution() {
 
       auto sequences = get_sequences(wires_hit);
       for (auto seq: sequences) {
-         auto block_start = seq.front();
-         auto block_end = seq.back();
          auto [angle_lb, angle_ub] = get_angle(seq);
          auto avg_angle = 0.5 * (angle_lb + angle_ub);
          angle_distribution.Fill(avg_angle);
