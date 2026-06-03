@@ -1,3 +1,26 @@
 \chapter{Verlauf des Stroms durch die Driftkammer}
 
+\section{Durchführung der Strommessung}
+
 Es sollte nun der Strom durch die Driftkammer als Funktion der anliegenden Hochspannung $U_D$ untersucht werden.
+
+%Dazu wurde der Szintillationsdetektor wie in Abbildung \ref{fig:scinti_downlow} orthogonal zu den Anodendrähten der Driftkammer unterhalb dieser platziert. Dabei wurde er so verschoben, bis er sich unter der Aussparung der Holzhülle der Driftkammer befand. Dies wurde
+%
+\jafpp{scinti_downlow}{Aufnahme des Aufbaus zur Strommessung mit Szintillator mittig unter dem Schlitz in der Driftkammer zusammen mit (hier neben dem Schlitz platzierter) $\ce{^90Sr}$-Quelle auf der Driftkammer. Die Elektronen, die von $\ce{^90Sr}$ emittiert werden, können das Holz neben dem Schlitz nicht passieren, dies entspricht also dem Messfall ohne Quelle.}{scinti_closeup}{Nahaufnahme des Szintillators unterhalb des Schlitzes, was für Abschnitt \todo{ref abschnitt kalibration rate} wichtig ist.}
+
+Die $\ce{^90Sr}$-Quelle wurde oben auf der Holzhülle der Driftkammer platziert, wie in Abbildung \ref{fig:scinti_downlow}, sodass die emittierten Elektronen nur dann auf die Anodendrähte treffen konnten, wenn die Quelle genau auf der Aussparung im Holz stand. Die Versorgungsspannung der Driftkammer wurde zunächst ohne Quelle (Dunkelmessung) und dann mit über dem Schlitz platzierter Quelle, d.h. mit Elektroneneinfall, variiert und der Strom gemessen. Dies wurde indirekt über einen bekannten Widerstand $R=\SI{1(0.003)}{\mega\ohm}$ mit einem Digital-Multimeter (DMM) als Spannungsmessung realisiert. Die aufgenommenen Spannungen lassen sich mithilfe des \uppercase{Ohm'schen} Gesetzes in Ströme umrechnen: \[I = \frac{U(U_D)}{R}\]
+Es wurde darauf geachtet, die Quelle möglichst mittig zu platzieren und zwischen den verschiedenen Einstellungen von $U_D$ nicht zu verschieben, um eine größmögliche Vergleichbarkeit des Stroms, der von der Driftkammer gemessen wurde, sicherzustellen (damit dessen Veränderungen möglichst nur durch $U_D$ verursacht wurden).
+
+\section{Auswertung des Stromverlaufs}
+
+
+Als Fehler für die Messdaten wurde für die Hochspannung $U_D$ ein Anzeigefehler von $1\%$ \cite[2]{515versuchsanleitung} angenommen, für den Spannungsmesswerte wurde jeweils einzeln ein Fehler aus den beobachteten Fluktuationen der DMM-Anzeige und für den Widerstand ein Fehler von $3\%$ des angebenen Werts geschätzt. Die so erhaltenen Spannungswerte sind abhängig von den eingestellten Werten für $U_D$ in Abbildung \ref{fig:strom_vergleich} dargestellt\footnote{Die Rohdaten der Spannungsmessung sind, wie oben erwähnt, auf \url{https://github.com/byteOfWisdom/p5/tree/main/515-driftkammer} zu finden.}.
+
+\todo{Erwartung: Mehr Verstärkung, mehr Detektionen}‚
+
+\jafps{strom_vergleich}{Darstellung des Verlaufs des Stroms durch die Driftkammer $I_D$ (gemessen am äußersten Pin der unteren Lage) abhängig von der Versorgungshochspannung $U_D$ der Driftkammer mit (in grün) und ohne (in rot) $\ce{^90Sr}$-Quelle. Es ist eine Exponentialfunktion der Form $I_D=C\exp{a\cdot U_D}$ an die Messwerte mit Quelle angepasst (in blau), das Bestimmtheitsmaß $R^2=\num{0.995}$ zeigt eine sehr gute Anpassungsgüte.}{0.8}
+
+Da die Werte der Messung mit Quelle deutlich größer sind als die der Messung ohne, ist der Verlauf der Messwerte der Messung ohne Quelle zusätzlich einzeln in Abbildung \ref{fig:strom_ohne} dargestellt. Es zeigt sich, dass hier, insbesondere bei Beachtung der Fehler der Messwerte, kein signifikanter Stromanstieg abhängig von der Spannung, die an der Driftkammer anlag, zu beobachten war. Dies entspricht den Erwartungen, da ohne die Quelle mit hoher Aktivität nur selten Teilcheneinfälle in die Driftkammer gemessen werden. Die einzigen möglichen Ereignisse könnten nur vereinzelte Teilcheneinfälle aufgrund von kosmischen Myonen sein, von denen aber aufgrund ihrer geringen Flussdichte hier nicht erwartet wurde, in den Momenten der Datenaufnahmen gemessen zu werden. Die geringeren Ströme, die bei Beachtung der Messfehler trotzdem gemessen wurden, entsprechen vermutlich Leckströmen der verwendeten Bauteile und elektronischem Rauschen.
+
+
+Es wurde zur Überprüfung der Erwartungen eine Anpassungsfunktion der Form $I_D=C\exp{a\cdot U_D}$ an die Messwerte mit Quelle angepasst (dargestellt in Abbildung \ref{fig:strom_vergleich}). \todo{finish this mit erwartungen}

@@ -16,6 +16,7 @@ def get_data(file):
 def plot_data(file, color="tab:green"):
     volts, current_volt = get_data(file)
     resist = 1e6
+    resist = p.ev(resist, resist*1e-2)
     currents = current_volt / resist
     #print(currents)
     _, v_err = p.ve(volts)
@@ -33,6 +34,9 @@ def plot_data(file, color="tab:green"):
 def fit_exp(file):
     volts, curr_volts = get_data(file)
     resist = 1e6
+    resist = p.ev(resist, resist*3e-2)
+    #_, r_err = p.ve(resist)
+   #print(r_err)
     currents = curr_volts / resist
     params, (std, goodness) = odr_fit(exponential, volts, currents)
     print("fitfunktion: c*np.exp(a*x)")
@@ -81,7 +85,7 @@ def plot(file1, file2, saved=False):
     return
 
 def main():
-    plot(argv[1], argv[2], saved=True)
+    plot(argv[1], argv[2], saved=False)
     return
 
 
