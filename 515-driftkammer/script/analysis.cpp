@@ -10,6 +10,7 @@
 #include <cstdio>
 #include <numeric>
 #include <string>
+#include <tuple>
 #include <vector>
 #define analysis_cxx
 #include "analysis.h"
@@ -279,9 +280,42 @@ TH1D analysis::basic_angle_distrib() {
 TH1D analysis::precise_angle_distribution() {
    TH1D angle_distribution = TH1D("precise_angle_distribution", "Winkelverteilung der Kosmischen Strahlung", 50, -60., 60.);
    reset_entry_count();
+
+   std::tuple<Double_t, Double_t> angle_intervals[48];
+
+   const auto middle_bin = 20;
+   const auto height_top_row = 12.5e-2;
+   const auto height_bottom_row = height_top_row + 1.7e-2; // TODO: check!!!
+   const auto scint_edge_l = middle_bin * 8.5e-3;
+   const auto scint_edge_r = (middle_bin + 1) * 8.5e-3;
+   const auto rad_to_deg = 180 / M_PI;
+
+   auto cell_edges_to_angles = [=](unsigned int n, Double_t scint_pos) -> Double_t {
+      if (n % 2) {
+         auto d = (n * 8.5e-3) - scint_pos;
+         auto theta = atan(d / height_bottom_row);
+         return theta * rad_to_deg;
+      } else {
+         auto d = (n * 8.5e-3) - scint_pos;
+         auto theta = atan(d / height_top_row);
+         return theta * rad_to_deg;
+      }
+   };
+
+   forr (i, 0, 48) {
+      Double_t angle_lb = std::min(cell_edges_to_angles(i, scint_edge_l), cell_edges_to_angles(i, scint_edge_r));
+      Double_t angle_ub = std::max(cell_edges_to_angles(i + 1, scint_edge_l), cell_edges_to_angles(i + 1, scint_edge_r));
+      // Double_t angle_ub = cell_edges_to_angles(i + 1);
+      angle_intervals[i] = {angle_lb, angle_ub};
+      printf("cell %d: %lf - %lf\n", i, angle_lb, angle_ub);
+   }
+
+
    while(get_next_entry()) {
+
+      // check for sequential cells that are hit
       bool in_seq = false;
-      unsigned char block_start;
+      unsigned char block_start_id, block_end_id;
       iterate(hit, valid, n_valid - 1){
          bool sequential = wire_le[*hit] + 1 == wire_le[*(hit + 1)];
          bool sequential_same_layer = wire_le[*hit] + 2 == wire_le[*(hit + 1)];
@@ -290,14 +324,11 @@ TH1D analysis::precise_angle_distribution() {
          if (in_seq && seq) continue;
          if (!in_seq && seq) {
             in_seq = true;
-            block_start = wire_le[*hit];
+            block_start_id = *hit;
          }
          if (in_seq && !seq) {
             in_seq = false;
-            // TODO: handle block
-            // auto first_hit = abs_diff(block_start, middle_bin) <= abs_diff(wire_le[*hit], middle_bin)? block_start: wire_le[*hit];
-            // block_starts.Fill(first_hit);
-            // printf("block from %u to %u, first hit at %u\n", block_start, wire_le[*hit], first_hit);
+            block_end_id = *hit;
          }
       }
    }
@@ -366,8 +397,8 @@ TH2D analysis::dist_plot(TH1D& odb, unsigned int wire_lb, unsigned int wire_ub) 
                dists.Fill(0.5 * (dist_a - dist_b), (dist_a + dist_b));
 
                // if (0.5 * (dist_a - dist_b) < 0. && (dist_a + dist_b) < 0.8)
-               //    printf("%u %u %u %u %u %u %d %d\n", wire_le[hit], wire_le[i], time_le[hit], time_le[i], tot[hit], tot[i], hit_wires.check_static(wire_le[hit] - 2), hit_wires.check_static(wire_le[hit] + 2));
-               break;
+                  // printf("wires: %u %u    le times: %u %u    tot times: %u %u   n+-2 hits: %d %d\n", wire_le[hit], wire_le[i], time_le[hit], time_le[i], tot[hit], tot[i], hit_wires.check_static(wire_le[hit] - 2), hit_wires.check_static(wire_le[hit] + 2));
+               // break;
             }
          }
       }
@@ -487,7 +518,9 @@ int main(int argc, char** argv) {
    auto dt_tot = ana->dt_tot_relation();
    // TODO: maybe this needs to be done before filtering??
    auto odb = make_odb(dt_rel);
-   auto sum_vs_diff = ana->dist_plot(odb, 12, 30);
+   // auto sum_vs_diff = ana->dist_plot(odb, 16, 24);
+   auto sum_vs_diff = ana->dist_plot(odb, 0, 50);
+   // auto sum_vs_diff = ana->dist_plot(odb, 18, 22);
 
    TF1 angle_dist_func = TF1("angle_dist_func", "[0] * cos((x - [2]) * pi / 180)^[1] + [3]", -90, 90);
    angle_dist_func.SetParameter(0, 80000);
@@ -495,6 +528,8 @@ int main(int argc, char** argv) {
 
    auto basic_angles = ana->basic_angle_distrib();
    TFitResultPtr fit = basic_angles.Fit(&angle_dist_func, "S");
+
+   auto precise_angles = ana->precise_angle_distribution();
 
    plot(dt_rel, canvas_vec[0]);
    plot(dt_wire_plot, canvas_vec[1]);
@@ -505,7 +540,7 @@ int main(int argc, char** argv) {
    plot(*fit, canvas_vec[5]);
    plot(sum_vs_diff, canvas_vec[6]);
 
-   plot_parameter_search();
+   // plot_parameter_search();
 
    app.Run(kTRUE);
 }
