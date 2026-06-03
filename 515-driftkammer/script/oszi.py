@@ -1,3 +1,5 @@
+from mimetypes import init
+
 import numpy as np
 from matplotlib import pyplot as plt
 from scipy import optimize
@@ -30,7 +32,7 @@ def plot_data(file):
 
     #plt.errorbar(times, currents, xerr=t_err, yerr=c_err, label="Messdaten", **std.default.error_bar_def)
     plt.plot(times, currents, label="Messdaten", color = "tab:orange")
-    #rsq = fit_shape(file)
+    rsq = fit_shape(file)
     std.default.plt_pretty("Zeit / s", "Spannung / V")
     plt.legend(loc="best", fontsize="small")
     plt.show()
@@ -46,9 +48,11 @@ def fit_shape(file):
     min_time_index = np.where(times == ~min_time)[0][0]
     half_time_index = np.where(times == ~half_time)[0][0]
 
-    init_guess = [1e4,0.6,-0.08,~min_time]
-    upper_lim = int(half_time_index + (half_time_index - min_time_index))
+    init_guess = [-5e8,0.6,-1.1,-0.1]
+    upper_lim = int(half_time_index + (half_time_index - min_time_index)/6)
     lower_lim = int(min_time_index-(min_time_index/8))
+
+    plt.plot(times[min_time_index:upper_lim], exponential(times[min_time_index:upper_lim], *init_guess))
 
     #fit data to exponential
     fit, (sd, rsq) = std.curve_fit(exponential, times[min_time_index:upper_lim], currents[min_time_index:upper_lim], p0=init_guess)
@@ -138,7 +142,7 @@ def drift_signal(file):
 
 
     plt.plot(times, currents, label = "Messdaten", color="tab:blue")
-    plt.hlines([~signal_level], min(times), max(times), label = f"geschätztes Signallevel: {signal_level.format()} V", color="tab:orange")
+    #plt.hlines([~signal_level], min(times), max(times), label = f"geschätztes Signallevel: {signal_level.format()} V", color="tab:orange")
     #plt.hlines([~max_curr], min(times), max(times), label = "lowest amplitude of current", color="tab:green")
     plt.vlines([~x_start, ~x_end], 0, min(currents), color = "tab:green", label = f"Signaldauer: {duration.format()} s")
     plt.axvspan(~x_start, ~x_end, ymin = 0, ymax = 1, alpha=0.3, color='lightgreen', linewidth=0)
@@ -147,8 +151,8 @@ def drift_signal(file):
     #plt.vlines(start_where, 0, min(currents), color = "tab:green")
     plt.legend(fontsize = "small", loc = "lower right")
     std.default.plt_pretty("Zeit / s", "Spannung / V")
-    #plt.show()
-    plt.savefig("../figs/"+file.strip(".csv").strip("../data/")+".pdf")
+    plt.show()
+    #plt.savefig("../figs/"+file.strip(".csv").strip("../data/")+".pdf")
 
 
     return
@@ -156,7 +160,8 @@ def drift_signal(file):
 
 def main():
     #plot_data(argv[1])
-    drift_signal(argv[1])
+    #drift_signal(argv[1])
+    plot_data(argv[1]) #plots data and gives duration
     return
 
 if __name__ == "__main__":

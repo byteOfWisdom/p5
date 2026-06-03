@@ -1,2 +1,11 @@
 \babel@toc {german}{}\relax 
+\contentsline {chapter}{\numberline {1}Einleitung}{3}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Versuchsziel}{3}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Aufbau}{3}{section.1.2}%
+\contentsline {chapter}{\numberline {2}Messung der analogen Signale}{5}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Driftkammer-Signal}{5}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Szintillationsdetektor-Signal}{6}{section.2.2}%
+\contentsline {chapter}{\numberline {3}Verlauf des Stroms durch die Driftkammer}{8}{chapter.3}%
+\contentsline {chapter}{\numberline {4}Anhang}{9}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Oszilloskopaufnahmen Szintillationsdetektor-Signale}{9}{section.4.1}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
