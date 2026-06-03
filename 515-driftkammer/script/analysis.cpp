@@ -350,9 +350,17 @@ TH2D analysis::dist_plot(TH1D& odb, unsigned int wire_lb, unsigned int wire_ub) 
 }
 
 
+void plot(TFitResult& p, TCanvas* C) {
+   C->cd();
+   p.Draw();
+   C->Update();
+}
+
+
 template<typename Plotable>
 void plot(Plotable& p, TCanvas* C) {
    C->cd();
+   p.SetStats(0);
    p.Draw();
    C->Update();
 }
