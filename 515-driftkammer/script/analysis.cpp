@@ -689,6 +689,25 @@ void plot_parameter_search() {
       "0x20"
    };
    plot_set(discriminator_data, discriminator_canvas, gob, disc_names, 1);
+
+
+   TCanvas* delay_canvas = new TCanvas("delay_sweep", "Verschiedene Verzögerungen");
+   std::vector<dataset*> delay_data = std::vector<dataset*> ({
+      new dataset("../data/B103/run_260513_160116.root"),
+      new dataset("../data/B103/run_260513_155621.root"),
+      new dataset("../data/B103/run_260513_155230.root"),
+      new dataset("../data/B103/run_260513_154351.root"),
+      new dataset("../data/B103/run_260513_153904.root"),
+   });
+
+   std::vector<TString> delay_names = {
+      "0x40",
+      "0x68",
+      "0x58",
+      "0x28",
+      "0x20"
+   };
+   plot_set(delay_data, delay_canvas, gob, delay_names, 2);
 }
 
 
@@ -697,6 +716,7 @@ int main(int argc, char** argv) {
    // weniger statistik mit guten parametern ..161632.root
    // viel statistik mit guten parametern ...161826.root
 
+   // basic setup
    TROOT root("app","app");
    Int_t dargc=1;
    char** dargv = &argv[0];
@@ -713,8 +733,13 @@ int main(int argc, char** argv) {
    calib_dataset->ana->max_le_time = 900;
    calib_dataset->ana->min_le_time = 0;
    auto dt_spectrum = calib_dataset->ana->dt_hist();
-   auto odb = make_odb(dt_spectrum);
+   dt_spectrum.SetXTitle("Driftzeit / ns");
+   dt_spectrum.SetYTitle("Anzahl / 1");
    plot(dt_spectrum, canvas_vec[0]);
+
+   auto odb = make_odb(dt_spectrum);
+   odb.SetXTitle("Driftzeit / ns");
+   odb.SetYTitle("Drahtabstand / mm");
    plot(odb, canvas_vec[4]);
 
    //--------------------------------------------------------
@@ -728,12 +753,16 @@ int main(int argc, char** argv) {
    //--------------------------------------------------------
    // drift time spectrum per wire
    auto dt_wire_plot = ana->dt_wire_hist();
+   dt_wire_plot.SetXTitle("Drahtnummer");
+   dt_wire_plot.SetYTitle("Driftzeit / s");
    plot(dt_wire_plot, canvas_vec[1]);
 
    //--------------------------------------------------------
    // wire correlation after correction   
    // TODO: before correction
    auto wire_correlation = ana->wire_correlation();
+   wire_correlation.SetXTitle("Drahtnummer");
+   wire_correlation.SetYTitle("Drahtnummer");
    plot(wire_correlation, canvas_vec[2]);
 
 
@@ -741,6 +770,8 @@ int main(int argc, char** argv) {
    // dritf time to time over threshhold plot
    // TODO: without filtering
    auto dt_tot = ana->dt_tot_relation();
+   dt_tot.SetXTitle("Driftzeit / ns");
+   dt_tot.SetYTitle("Time-Over-Threshhold / ns");
    plot(dt_tot, canvas_vec[3]);
 
    //--------------------------------------------------------
@@ -748,14 +779,20 @@ int main(int argc, char** argv) {
    // TODO: add exact angles
    auto sum_vs_diff_half_central = ana->dist_plot(16, 28);
    sum_vs_diff_half_central.SetName("half_central");
+   sum_vs_diff_half_central.SetXTitle("halbe Abstandsdifferenz / mm");
+   sum_vs_diff_half_central.SetYTitle("Abstandssumme / mm");
    plot(sum_vs_diff_half_central, canvas_vec[8]);
 
    auto sum_vs_diff_total = ana->dist_plot(0, 48);
    sum_vs_diff_total.SetName("total");
+   sum_vs_diff_total.SetXTitle("halbe Abstandsdifferenz / mm");
+   sum_vs_diff_total.SetYTitle("Abstandssumme / mm");
    plot(sum_vs_diff_total, canvas_vec[7]);
 
    auto sum_vs_diff_central = ana->dist_plot(20, 24);
-   sum_vs_diff_total.SetName("central");
+   sum_vs_diff_central.SetName("central");
+   sum_vs_diff_central.SetXTitle("halbe Abstandsdifferenz / mm");
+   sum_vs_diff_central.SetYTitle("Abstandssumme / mm");
    plot(sum_vs_diff_central, canvas_vec[6]);
 
 
@@ -767,6 +804,8 @@ int main(int argc, char** argv) {
    // angle_dist_func.SetParameter(1, 2);
 
    auto basic_angles = ana->basic_angle_distrib();
+   basic_angles.SetXTitle("Winkel / Grad");
+   basic_angles.SetYTitle("Anzahl / 1");
    TFitResultPtr fit = basic_angles.Fit(&angle_dist_func, "S");
 
    plot(basic_angles, canvas_vec[5]);
