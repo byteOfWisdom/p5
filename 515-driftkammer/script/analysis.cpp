@@ -583,33 +583,27 @@ TH1D make_odb(TH1D& drift_time_spectrum) {
 
 
 TH2D analysis::dist_plot(unsigned int wire_lb, unsigned int wire_ub) {
-   printf("entering dists plot\n");
-   TH2D dists = TH2D ("dists_plot", "TODO", 40, -4.5, 4.5, 40, -0.2, 17.2);
+   // TH2D dists = TH2D ("dists_plot", "TODO", 40, -4.5, 4.5, 40, -0.2, 17.2);
+   TH2D dists = TH2D ("dists_plot", "TODO", 25, -4.5, 4.5, 25, -0.2, 17.2);
    Double_t cell_pos[49];
    checklist_64 hit_wires;
    reset_entry_count();
    while(get_next_event()) {
-      printf("starting loop (%u) [%u]\n", event, nhits_le);
       hit_wires.reset();
       forr(i, 0, nhits_le){
          if (filter_exclude(i)) continue;
          hit_wires.check(wire_le[i]);
-         printf("%u %u %lf\n", wire_le[i], time_le[i], dt_lut.At(time_le[i]));
-         cell_pos[wire_le[i]] = dt_lut.At(time_le[i]);
+         cell_pos[wire_le[i]] = dt_lut[time_le[i]];
       }
       forr (t, wire_lb, wire_ub) {
          if (hit_wires.check_static(t) && hit_wires.check_static(t + 1)) {
-            printf("entering fill stage for %u, %u\n", t, t + 1);
             auto diff = 0.5 * (cell_pos[t + 1] - cell_pos[t]);
             auto sum = cell_pos[t] + cell_pos[t + 1];
-            printf("%lf %lf ", diff, sum);
             dists.Fill(diff, sum);
-            printf("done filling\n");
          }
       }
    }
 
-   printf("done\n");
    return dists;
 }
 
@@ -746,6 +740,7 @@ void plot_parameter_search() {
 
 
 int main(int argc, char** argv) {
+   ROOT::DisableImplicitMT();
    // weniger statistik mit guten parametern ..161632.root
    // viel statistik mit guten parametern ...161826.root
 
@@ -772,9 +767,9 @@ int main(int argc, char** argv) {
    auto wire_correlation = ana->wire_correlation();
    auto dt_tot = ana->dt_tot_relation();
    // TODO: maybe this needs to be done before filtering??
-   // auto sum_vs_diff = ana->dist_plot(16, 24);
-   auto sum_vs_diff = ana->dist_plot(0, 48);
-   // auto sum_vs_diff = ana->dist_plot(odb, 18, 22);
+   // auto sum_vs_diff = ana->dist_plot(16, 28);
+   // auto sum_vs_diff = ana->dist_plot(0, 48);
+   auto sum_vs_diff = ana->dist_plot(20, 24);
 
    TF1 angle_dist_func = TF1("angle_dist_func", "[0] * cos((x - [2]) * pi / 180)^[1]", -90, 90);
    angle_dist_func.SetParameter(0, 700);
