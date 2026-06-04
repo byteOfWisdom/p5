@@ -86,6 +86,7 @@ public :
    virtual Bool_t   Notify();
    virtual void     Show(Long64_t entry = -1);
    virtual bool get_next_entry();
+   virtual bool get_next_event();
    virtual bool filter_exclude(unsigned int);
    virtual void reset_entry_count();
    virtual TH1D dt_hist(TString);
@@ -93,7 +94,7 @@ public :
    virtual TH2D dt_wire_hist();
    virtual TH2D dt_tot_relation();
    virtual TH1D basic_angle_distrib();
-   virtual TH2D dist_plot(TH1D&, unsigned int, unsigned int);
+   virtual TH2D dist_plot(unsigned int, unsigned int);
    // virtual void argsort();
    virtual Double_t get_runtime();
    virtual TH1D precise_angle_distribution();

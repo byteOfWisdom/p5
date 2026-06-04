@@ -108,6 +108,10 @@ struct checklist_64{
    bool check_static(unsigned char i) {
       return content[i];
    }
+
+   void reset() {
+      forr(i, 0, 64) content[i] = false;
+   }
 };
 
 
@@ -181,6 +185,7 @@ bool analysis::filter_exclude(unsigned int hit) {
 
 
 bool analysis::get_next_entry() {
+   // printf("entering get next entry\n");
    // gets next entry and returns whether or not there are more
    if (this->n_entries == -1)
       this->n_entries = fChain->GetEntriesFast();
@@ -190,8 +195,25 @@ bool analysis::get_next_entry() {
 
       for_range(j, 0, nhits_le) this->wire_le[j] = this->wire_lut[wire_le[j]];
       for_range(j, 0, nhits_te) this->wire_te[j] = this->wire_lut[wire_te[j]];
-      return this->current_entry++ < this->n_entries;
+
+      // printf("exiting get next entry a\n");
+      this->current_entry++;
+      return this->current_entry < this->n_entries;
    }
+
+   nhits_le = 0;
+   return false;
+}
+
+
+bool analysis::get_next_event() {
+   bool temp;
+   do {
+      temp = get_next_entry();
+      if (nhits_le > 0) {
+         return temp;
+      }
+   } while(temp);
    return false;
 }
 
@@ -560,44 +582,58 @@ TH1D make_odb(TH1D& drift_time_spectrum) {
 }
 
 
-TH2D analysis::dist_plot(TH1D& odb, unsigned int wire_lb, unsigned int wire_ub) {
+TH2D analysis::dist_plot(unsigned int wire_lb, unsigned int wire_ub) {
+   printf("entering dists plot\n");
    TH2D dists = TH2D ("dists_plot", "TODO", 40, -4.5, 4.5, 40, -0.2, 17.2);
+   Double_t cell_pos[49];
+   checklist_64 hit_wires;
    reset_entry_count();
-   while(get_next_entry()) {
-      checklist_64 hit_wires;
-      forr(hit, 0, nhits_le) hit_wires.check(wire_le[hit]);
-      forr (hit, 0, nhits_le) {
-         if (filter_exclude(hit)) continue;
-         if ((wire_le[hit] < wire_lb) || (wire_le[hit] > wire_ub)) continue;
-         forr (i, 0, nhits_le) {
-            if (filter_exclude(i)) continue;
-            if (wire_le[hit] + 1 == wire_le[i]) {
-               unsigned int time_a, time_b;
-               time_a = time_le[hit];
-               time_b = time_le[i];
-               Double_t dist_a = odb.At(time_a);
-               Double_t dist_b = odb.At(time_b);
-
-
-               dists.Fill(0.5 * (dist_a - dist_b), (dist_a + dist_b));
-
-               // if (0.5 * (dist_a - dist_b) < 0. && (dist_a + dist_b) < 0.8)
-                  // printf("wires: %u %u    le times: %u %u    tot times: %u %u   n+-2 hits: %d %d\n", wire_le[hit], wire_le[i], time_le[hit], time_le[i], tot[hit], tot[i], hit_wires.check_static(wire_le[hit] - 2), hit_wires.check_static(wire_le[hit] + 2));
-               // break;
-            }
+   while(get_next_event()) {
+      printf("starting loop (%u) [%u]\n", event, nhits_le);
+      hit_wires.reset();
+      forr(i, 0, nhits_le){
+         if (filter_exclude(i)) continue;
+         hit_wires.check(wire_le[i]);
+         printf("%u %u %lf\n", wire_le[i], time_le[i], dt_lut.At(time_le[i]));
+         cell_pos[wire_le[i]] = dt_lut.At(time_le[i]);
+      }
+      forr (t, wire_lb, wire_ub) {
+         if (hit_wires.check_static(t) && hit_wires.check_static(t + 1)) {
+            printf("entering fill stage for %u, %u\n", t, t + 1);
+            auto diff = 0.5 * (cell_pos[t + 1] - cell_pos[t]);
+            auto sum = cell_pos[t] + cell_pos[t + 1];
+            printf("%lf %lf ", diff, sum);
+            dists.Fill(diff, sum);
+            printf("done filling\n");
          }
       }
-
    }
+
+   printf("done\n");
    return dists;
 }
 
-// TH2D analysis::dist_plot(TH1D& odb, unsigned int wire_lb, unsigned int wire_ub) {
+// TH2D analysis::dist_plot(unsigned int wire_lb, unsigned int wire_ub) {
 //    TH2D dists = TH2D ("dists_plot", "TODO", 40, -4.5, 4.5, 40, -0.2, 17.2);
+//    auto odb = dt_lut;
 //    reset_entry_count();
+//    checklist_64 hit_wires;
 //    while(get_next_entry()) {
-//       checklist_64 hit_wires;
-//       forr(hit, 0, nhits_le) hit_wires.check(wire_le[hit]);
+//       hit_wires.reset();
+//       forr(hit, 0, nhits_le) {
+//          if (filter_exclude(hit)) continue;
+//          hit_wires.check(wire_le[hit]);
+//       }
+//       forr (t, wire_lb, wire_ub) {
+//          if (hit_wires.check_static(t) && hit_wires.check_static(t + 1)) {
+//             printf("entering fill stage for %u, %u\n", t, t + 1);
+//             auto diff = 0.5 * (cell_pos[t + 1] - cell_pos[t]);
+//             auto sum = cell_pos[t] + cell_pos[t + 1];
+//             printf("%lf %lf ", diff, sum);
+//             dists.Fill(diff, sum);
+//             printf("done filling\n");
+//          }
+//       }
 //       forr (hit, 0, nhits_le) {
 //          if (filter_exclude(hit)) continue;
 //          if ((wire_le[hit] < wire_lb) || (wire_le[hit] > wire_ub)) continue;
@@ -736,8 +772,8 @@ int main(int argc, char** argv) {
    auto wire_correlation = ana->wire_correlation();
    auto dt_tot = ana->dt_tot_relation();
    // TODO: maybe this needs to be done before filtering??
-   // auto sum_vs_diff = ana->dist_plot(odb, 16, 24);
-   auto sum_vs_diff = ana->dist_plot(odb, 0, 50);
+   // auto sum_vs_diff = ana->dist_plot(16, 24);
+   auto sum_vs_diff = ana->dist_plot(0, 48);
    // auto sum_vs_diff = ana->dist_plot(odb, 18, 22);
 
    TF1 angle_dist_func = TF1("angle_dist_func", "[0] * cos((x - [2]) * pi / 180)^[1]", -90, 90);
