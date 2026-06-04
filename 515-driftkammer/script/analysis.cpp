@@ -614,6 +614,13 @@ void plot(TFitResult& p, TCanvas* C) {
    C->Update();
 }
 
+void plot(TH2D& p, TCanvas* C) {
+   C->cd();
+   p.Draw("Colz");
+   p.SetStats(false);
+   C->Update();
+}
+
 
 template<typename Plotable>
 void plot(Plotable& p, TCanvas* C) {
@@ -781,18 +788,21 @@ int main(int argc, char** argv) {
    sum_vs_diff_half_central.SetName("half_central");
    sum_vs_diff_half_central.SetXTitle("halbe Abstandsdifferenz / mm");
    sum_vs_diff_half_central.SetYTitle("Abstandssumme / mm");
+   sum_vs_diff_half_central.SetZTitle("Anzahl / 1");
    plot(sum_vs_diff_half_central, canvas_vec[8]);
 
    auto sum_vs_diff_total = ana->dist_plot(0, 48);
    sum_vs_diff_total.SetName("total");
    sum_vs_diff_total.SetXTitle("halbe Abstandsdifferenz / mm");
    sum_vs_diff_total.SetYTitle("Abstandssumme / mm");
+   sum_vs_diff_total.SetZTitle("Anzahl / 1");
    plot(sum_vs_diff_total, canvas_vec[7]);
 
    auto sum_vs_diff_central = ana->dist_plot(20, 24);
    sum_vs_diff_central.SetName("central");
    sum_vs_diff_central.SetXTitle("halbe Abstandsdifferenz / mm");
    sum_vs_diff_central.SetYTitle("Abstandssumme / mm");
+   sum_vs_diff_central.SetZTitle("Anzahl / 1");
    plot(sum_vs_diff_central, canvas_vec[6]);
 
 
