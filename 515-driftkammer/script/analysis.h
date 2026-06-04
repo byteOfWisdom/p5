@@ -66,9 +66,9 @@ public :
    TBranch        *b_tot;   //!
 
 
-   unsigned char sorted[100];
-   unsigned char valid[100];
-   unsigned char n_valid;
+   // unsigned char sorted[100];
+   // unsigned char valid[100];
+   // unsigned char n_valid;
    bool filter_enabled = true;
    Double_t max_le_time = 400;
    Double_t min_le_time = 6;
@@ -93,9 +93,10 @@ public :
    virtual TH2D dt_tot_relation();
    virtual TH1D basic_angle_distrib();
    virtual TH2D dist_plot(TH1D&, unsigned int, unsigned int);
-   virtual void argsort();
+   // virtual void argsort();
    virtual Double_t get_runtime();
    virtual TH1D precise_angle_distribution();
+   virtual void print_all_events();
 
    private:
    Long64_t current_entry = 0;
