@@ -26,6 +26,8 @@
 #define for_range(I, A, B) for (auto I = A; I < B; ++I)
 #define iterate(I, A, B) for (auto I = A; I != A + B; ++I)
 #define forr for_range
+#define IS_EVEN % 2 == 0
+#define IS_ODD % 2 == 1
 
 const double TIME_LB  = -1.25;
 const double TIME_UB  = 250 * 2.5 + 2.5 / 2.;
@@ -34,12 +36,14 @@ const double WIRE_LB = 0.5;
 const double WIRE_UB = 48.5;
 const unsigned int WIRE_N = 48;
 const unsigned int SPACE_N = TIME_N;
+const auto SCINT_CENTERED_OVER = 22;
 
 // i feel guilty for this but i am also too lazy to repeat myself
 #define TIME_BINS TIME_N, TIME_LB, TIME_UB
 #define WIRE_BINS WIRE_N, WIRE_LB, WIRE_UB
 #define SPACE_BINS SPACE_N, -8.5, 8.5
 
+typedef std::vector<unsigned int> wire_chunk_t;
 
 class dataset{
    private:
@@ -56,9 +60,9 @@ class dataset{
 
   ~dataset() {
       delete this->ana;
-      delete this->tree;     
+      delete this->tree;
       delete this->f;
-  }; 
+  };
 };
 
 
@@ -112,6 +116,60 @@ void analysis::reset_entry_count() {
 }
 
 
+typedef enum {
+   left,
+   center,
+   right
+} position_in_cell_t;
+
+constexpr Double_t cell_edges_to_angles(unsigned int n, position_in_cell_t edge) {
+   // const auto middle_bin = 20;
+   const auto middle_bin = SCINT_CENTERED_OVER;
+   const auto height_bottom_row = 12.5e-2;
+   const auto height_top_row = height_bottom_row - 1.7e-2; // TODO: check!!!
+   const auto scint_edge_l = middle_bin * 8.5e-3;
+   const auto scint_edge_r = (middle_bin + 1) * 8.5e-3;
+   const auto scint_edge_c = (middle_bin + 0.5) * 8.5e-3;
+   const auto rad_to_deg = 180 / M_PI;
+   const auto tan_30_deg = 0.4492185466271425; // sufficient and then stuff can stay constexpr
+   const auto delta_h = 8.5e-3 * tan_30_deg;
+
+   auto a = n IS_ODD? height_bottom_row: height_top_row; 
+   auto d = 0.;
+   if (edge == left) {
+      d = (n * 8.5e-3) - scint_edge_l;
+      a = a - delta_h;
+   }
+   if (edge == right) {
+      d = (n * 8.5e-3) - scint_edge_r;
+      a = a - delta_h;
+   }
+   if (edge == center) {
+      d = (n * 8.5e-3) - scint_edge_c;
+   }
+
+   const auto theta = atan(d / a);
+   return theta * rad_to_deg;
+}
+
+Double_t delta_theta(unsigned int cell, Double_t r) {
+   const auto middle_bin = SCINT_CENTERED_OVER;
+   const auto height_bottom_row = 12.5e-2;
+   const auto height_top_row = height_bottom_row - 1.7e-2; // TODO: check!!!
+   const auto scint_edge_c = (middle_bin + 0.5) * 8.5e-3;
+   const auto rad_to_deg = 180 / M_PI;
+
+   auto a = cell IS_ODD? height_bottom_row: height_top_row; 
+   auto d = (cell * 8.5e-3) - scint_edge_c;
+
+   auto c = sqrt(a * a + d * d);
+
+   const auto delta_theta = atan(r / c);
+   return delta_theta * rad_to_deg;
+}
+
+
+
 bool analysis::filter_exclude(unsigned int hit) {
    bool hit_too_late = time_le[hit] * 2.5 > max_le_time;
    bool hit_too_early = time_le[hit] * 2.5 < min_le_time;
@@ -124,7 +182,7 @@ bool analysis::filter_exclude(unsigned int hit) {
 
 bool analysis::get_next_entry() {
    // gets next entry and returns whether or not there are more
-   if (this->n_entries == -1) 
+   if (this->n_entries == -1)
       this->n_entries = fChain->GetEntriesFast();
 
    if (this->current_entry < this->n_entries) {
@@ -132,31 +190,10 @@ bool analysis::get_next_entry() {
 
       for_range(j, 0, nhits_le) this->wire_le[j] = this->wire_lut[wire_le[j]];
       for_range(j, 0, nhits_te) this->wire_te[j] = this->wire_lut[wire_te[j]];
-      // forr (i, 0, 100) {valid[i] = -1;}
-      // forr (i, 0, 100) {sorted[i] = -1;}
-      // argsort();
-      // n_valid = 0;
-      // forr (i, 0, nhits_le) {
-      //    if (filter_exclude(i)) continue;
-      //    valid[n_valid] = i;
-      //    n_valid ++;
-      // }
       return this->current_entry++ < this->n_entries;
    }
    return false;
 }
-
-
-// template<typename T>
-// void c_argsort(const T* array, unsigned char* indices, size_t len) {
-//     std::iota(indices, indices + len, 0);
-//     std::sort(indices, indices + len, [&array](int left, int right) -> bool { return array[left] < array[right]; });
-// }
-
-
-// void analysis::argsort() {
-//    c_argsort(wire_le, sorted, nhits_le);
-// }
 
 
 TH1D analysis::dt_hist(TString name = "Driftzeiten") {
@@ -260,19 +297,21 @@ std::vector<std::vector<unsigned int>> get_sequences(checklist_64 hits) {
 
 
 TH1D analysis::basic_angle_distrib() {
-   const auto middle_bin = 20;
-   auto cell_edges_to_angles = [](Double_t x) -> Double_t {
-      const auto scint_pos = 0.5 * middle_bin - 0.5;
-      const auto height_diff = 12.5e-2;
-      auto d = (x - scint_pos) * 17.e-3;
-      auto theta = atan(d / height_diff);
-      const auto rad_to_deg = 180 / M_PI;
-      return theta * rad_to_deg;
-   };
+   const auto middle_bin = SCINT_CENTERED_OVER;
+   // auto local_cell_edges_to_angles = [](Double_t x) -> Double_t {
+   //    const auto scint_pos = 0.5 * middle_bin - 0.5;
+   //    const auto height_diff = 12.5e-2;
+   //    auto d = (x - scint_pos) * 17.e-3;
+   //    auto theta = atan(d / height_diff);
+   //    const auto rad_to_deg = 180 / M_PI;
+   //    return theta * rad_to_deg;
+   // };
 
+   auto ce2a = [](Double_t x) -> Double_t {return cell_edges_to_angles(2 * x, left);};
    Double_t bin_edges[25];
    std::iota(bin_edges, bin_edges + 25, 0);
-   std::transform(bin_edges, bin_edges + 25, bin_edges, cell_edges_to_angles);
+   std::transform(bin_edges, bin_edges + 25, bin_edges, ce2a);
+   // std::transform(bin_edges, bin_edges + 25, bin_edges, local_cell_edges_to_angles);
 
    // TH1D angle_distribution = TH1D("basic_angle_distribution", "Winkelverteilung der Kosmischen Strahlung", 24, bin_edges);
    TH1D block_starts = TH1D("block_starts", "Winkelverteilung der Kosmischen Strahlung", WIRE_BINS);
@@ -311,6 +350,54 @@ TH1D analysis::basic_angle_distrib() {
    return angle_distribution;
 }
 
+class PathReconstruction {
+   public:
+      PathReconstruction(checklist_64 hit_wires, Double_t measured_dists[48]) {         
+         forr (i, 0, 48) {
+            Double_t angle_lb = std::min(cell_edges_to_angles(i, left), cell_edges_to_angles(i, right));
+            Double_t angle_ub = std::max(cell_edges_to_angles(i, left), cell_edges_to_angles(i, right));
+            angle_intervals[i] = {angle_lb, angle_ub};
+            base_theta[i] = cell_edges_to_angles(i, center);
+         }
+
+         // copy just to make this technically thread safe. who tf know when root decides to
+         // multithread implicitely at this point
+         // (also costs like... nothing)
+         forr (i, 0, 48) this->dists[i] = measured_dists[i];
+         this->hits = hit_wires;
+      };
+
+      Double_t get_angle(wire_chunk_t);
+
+   private:
+      const static auto middle_bin = SCINT_CENTERED_OVER;
+      static std::tuple<Double_t, Double_t> angle_intervals[48];
+      static Double_t base_theta[48];
+
+      Double_t dists[48];
+      checklist_64 hits;
+};
+
+
+Double_t PathReconstruction::get_angle(wire_chunk_t wires) {
+   auto sequences = get_sequences(hits);
+
+   auto inner_most_even = 50;
+   for (auto wire : wires) {
+      if (abs_diff(wire, middle_bin) < abs_diff(inner_most_even, middle_bin) and wire IS_EVEN) {
+         inner_most_even = wire;
+      }
+   }
+
+   // if the particle hit inner_most_even, it mus fall within this angle interval
+   auto [angle_from, angle_to] = angle_intervals[inner_most_even];
+
+   for (auto wire : wires) {
+      ;
+   }
+
+   return 0.;
+}
 
 
 std::tuple<Double_t, Double_t> get_angle(std::vector<unsigned int> wires) {
@@ -322,7 +409,7 @@ std::tuple<Double_t, Double_t> get_angle(std::vector<unsigned int> wires) {
    const auto rad_to_deg = 180 / M_PI;
 
    std::tuple<Double_t, Double_t> angle_intervals[48];
-   auto cell_edges_to_angles = [=](unsigned int n, Double_t scint_pos) -> Double_t {
+   const auto cell_edges_to_angles = [=](unsigned int n, Double_t scint_pos) -> Double_t {
       if (n % 2) {
          auto d = (n * 8.5e-3) - scint_pos;
          auto theta = atan(d / height_bottom_row);
@@ -336,32 +423,53 @@ std::tuple<Double_t, Double_t> get_angle(std::vector<unsigned int> wires) {
 
    forr (i, 0, 48) {
       Double_t angle_lb = std::min(cell_edges_to_angles(i, scint_edge_l), cell_edges_to_angles(i, scint_edge_r));
-      Double_t angle_ub = std::max(cell_edges_to_angles(i + 1, scint_edge_l), cell_edges_to_angles(i + 1, scint_edge_r));
+      Double_t angle_ub = std::max(cell_edges_to_angles(i, scint_edge_l), cell_edges_to_angles(i, scint_edge_r));
       angle_intervals[i] = {angle_lb, angle_ub};
       // printf("cell %d: %lf - %lf\n", i, angle_lb, angle_ub);
    }
 
-   Double_t lb = -90;
-   Double_t ub = 90;
+   auto inner_most_even = 50;
    for (auto wire : wires) {
-      auto [lb_wire, ub_wire] = angle_intervals[wire];
-      if (lb_wire > lb && lb_wire < ub) lb = lb_wire;
-      if (ub_wire < ub && ub_wire > lb) ub = ub_wire;
+      if (abs_diff(wire, middle_bin) < abs_diff(inner_most_even, middle_bin) and wire IS_EVEN) {
+         inner_most_even = wire;
+      }
+   }
+
+   // we always assume the innermost top level wire to be an actual particle
+   // that passed through the scint
+   // so if anything afterwards doesn't fit
+   //chuck it !!!! 
+   auto [valid_from, valid_to] = angle_intervals[inner_most_even];
+
+   Double_t lb = valid_from;
+   Double_t ub = valid_to;
+   for (auto wire : wires) {
+      auto [wire_from, wire_to] = angle_intervals[wire];
+
+      // check if angle interval doesn't overlap with the valid region
+      if (wire_from > valid_to) continue;
+      if (wire_to < valid_from) continue;
+      if (wire_from > lb && wire_from < ub) lb = wire_from;
+      if (wire_to < ub && wire_to > lb) ub = wire_to;
    }
    return {lb, ub};
 }
 
 
 TH1D analysis::precise_angle_distribution() {
-   TH1D angle_distribution = TH1D("precise_angle_distribution", "Winkelverteilung der Kosmischen Strahlung", 20, -60., 70.);
+   TH1D angle_distribution = TH1D("precise_angle_distribution", "Winkelverteilung der Kosmischen Strahlung", 45, -60., 70.);
 
    reset_entry_count();
+   Double_t dists[48];
    while(get_next_entry()) {
       // check for sequential cells that are hit
       checklist_64 wires_hit = checklist_64();
       forr (i, 0, nhits_le) {
          if (filter_exclude(i)) continue;
-         else wires_hit.check(wire_le[i]);
+         else {
+            wires_hit.check(wire_le[i]);
+            dists[wire_le[i]] = this->dt_lut[time_le[i]];
+         }
       }
 
       auto sequences = get_sequences(wires_hit);
@@ -484,6 +592,38 @@ TH2D analysis::dist_plot(TH1D& odb, unsigned int wire_lb, unsigned int wire_ub) 
    return dists;
 }
 
+// TH2D analysis::dist_plot(TH1D& odb, unsigned int wire_lb, unsigned int wire_ub) {
+//    TH2D dists = TH2D ("dists_plot", "TODO", 40, -4.5, 4.5, 40, -0.2, 17.2);
+//    reset_entry_count();
+//    while(get_next_entry()) {
+//       checklist_64 hit_wires;
+//       forr(hit, 0, nhits_le) hit_wires.check(wire_le[hit]);
+//       forr (hit, 0, nhits_le) {
+//          if (filter_exclude(hit)) continue;
+//          if ((wire_le[hit] < wire_lb) || (wire_le[hit] > wire_ub)) continue;
+//          forr (i, 0, nhits_le) {
+//             if (filter_exclude(i)) continue;
+//             if (wire_le[hit] + 1 == wire_le[i]) {
+//                unsigned int time_a, time_b;
+//                time_a = time_le[hit];
+//                time_b = time_le[i];
+//                Double_t dist_a = odb.At(time_a);
+//                Double_t dist_b = odb.At(time_b);
+
+
+//                dists.Fill(0.5 * (dist_a - dist_b), (dist_a + dist_b));
+
+//                // if (0.5 * (dist_a - dist_b) < 0. && (dist_a + dist_b) < 0.8)
+//                   // printf("wires: %u %u    le times: %u %u    tot times: %u %u   n+-2 hits: %d %d\n", wire_le[hit], wire_le[i], time_le[hit], time_le[i], tot[hit], tot[i], hit_wires.check_static(wire_le[hit] - 2), hit_wires.check_static(wire_le[hit] + 2));
+//                // break;
+//             }
+//          }
+//       }
+
+//    }
+//    return dists;
+// }
+
 
 void plot(TFitResult& p, TCanvas* C) {
    C->cd();
@@ -590,17 +730,18 @@ int main(int argc, char** argv) {
 
    // auto dt_rel = ana->dt_hist();
    auto dt_rel = calib_dataset->ana->dt_hist();
+   auto odb = make_odb(dt_rel);
+   ana->dt_lut = odb;
    auto dt_wire_plot = ana->dt_wire_hist();
    auto wire_correlation = ana->wire_correlation();
    auto dt_tot = ana->dt_tot_relation();
    // TODO: maybe this needs to be done before filtering??
-   auto odb = make_odb(dt_rel);
    // auto sum_vs_diff = ana->dist_plot(odb, 16, 24);
    auto sum_vs_diff = ana->dist_plot(odb, 0, 50);
    // auto sum_vs_diff = ana->dist_plot(odb, 18, 22);
 
-   TF1 angle_dist_func = TF1("angle_dist_func", "[0] * cos((x - [2]) * pi / 180)^[1] + [3]", -90, 90);
-   angle_dist_func.SetParameter(0, 80000);
+   TF1 angle_dist_func = TF1("angle_dist_func", "[0] * cos((x - [2]) * pi / 180)^[1]", -90, 90);
+   angle_dist_func.SetParameter(0, 700);
    angle_dist_func.SetParameter(1, 2);
 
    auto basic_angles = ana->basic_angle_distrib();

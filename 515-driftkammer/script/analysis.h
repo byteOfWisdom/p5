@@ -69,6 +69,7 @@ public :
    // unsigned char sorted[100];
    // unsigned char valid[100];
    // unsigned char n_valid;
+   TH1D dt_lut;
    bool filter_enabled = true;
    Double_t max_le_time = 400;
    Double_t min_le_time = 6;
