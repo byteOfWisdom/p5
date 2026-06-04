@@ -36,6 +36,7 @@ const double WIRE_LB = 0.5;
 const double WIRE_UB = 48.5;
 const unsigned int WIRE_N = 48;
 const unsigned int SPACE_N = TIME_N;
+const auto SCINT_CENTERED_OVER = 22;
 
 // i feel guilty for this but i am also too lazy to repeat myself
 #define TIME_BINS TIME_N, TIME_LB, TIME_UB
@@ -122,7 +123,8 @@ typedef enum {
 } position_in_cell_t;
 
 constexpr Double_t cell_edges_to_angles(unsigned int n, position_in_cell_t edge) {
-   const auto middle_bin = 20;
+   // const auto middle_bin = 20;
+   const auto middle_bin = SCINT_CENTERED_OVER;
    const auto height_bottom_row = 12.5e-2;
    const auto height_top_row = height_bottom_row - 1.7e-2; // TODO: check!!!
    const auto scint_edge_l = middle_bin * 8.5e-3;
@@ -150,6 +152,21 @@ constexpr Double_t cell_edges_to_angles(unsigned int n, position_in_cell_t edge)
    return theta * rad_to_deg;
 }
 
+Double_t delta_theta(unsigned int cell, Double_t r) {
+   const auto middle_bin = SCINT_CENTERED_OVER;
+   const auto height_bottom_row = 12.5e-2;
+   const auto height_top_row = height_bottom_row - 1.7e-2; // TODO: check!!!
+   const auto scint_edge_c = (middle_bin + 0.5) * 8.5e-3;
+   const auto rad_to_deg = 180 / M_PI;
+
+   auto a = cell IS_ODD? height_bottom_row: height_top_row; 
+   auto d = (cell * 8.5e-3) - scint_edge_c;
+
+   auto c = sqrt(a * a + d * d);
+
+   const auto delta_theta = atan(r / c);
+   return delta_theta * rad_to_deg;
+}
 
 
 
@@ -301,7 +318,7 @@ std::vector<std::vector<unsigned int>> get_sequences(checklist_64 hits) {
 
 
 TH1D analysis::basic_angle_distrib() {
-   const auto middle_bin = 20;
+   const auto middle_bin = SCINT_CENTERED_OVER;
    // auto cell_edges_to_angles = [](Double_t x) -> Double_t {
    //    const auto scint_pos = 0.5 * middle_bin - 0.5;
    //    const auto height_diff = 12.5e-2;
@@ -373,7 +390,7 @@ class PathReconstruction {
       Double_t get_angle(wire_chunk_t);
 
    private:
-      const static auto middle_bin = 20;
+      const static auto middle_bin = SCINT_CENTERED_OVER;
       static std::tuple<Double_t, Double_t> angle_intervals[48];
       static Double_t base_theta[48];
 
@@ -392,8 +409,12 @@ Double_t PathReconstruction::get_angle(wire_chunk_t wires) {
       }
    }
 
-   Double_t delta_theta = 0;
+   // if the particle hit inner_most_even, it mus fall within this angle interval
+   auto [angle_from, angle_to] = angle_intervals[inner_most_even];
 
+   for (auto wire : wires) {
+      ;
+   }
 
    return 0.;
 }
@@ -708,7 +729,7 @@ int main(int argc, char** argv) {
    // auto sum_vs_diff = ana->dist_plot(odb, 18, 22);
 
    TF1 angle_dist_func = TF1("angle_dist_func", "[0] * cos((x - [2]) * pi / 180)^[1]", -90, 90);
-   angle_dist_func.SetParameter(0, 80000);
+   angle_dist_func.SetParameter(0, 700);
    angle_dist_func.SetParameter(1, 2);
 
    auto basic_angles = ana->basic_angle_distrib();
