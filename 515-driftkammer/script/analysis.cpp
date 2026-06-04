@@ -190,31 +190,10 @@ bool analysis::get_next_entry() {
 
       for_range(j, 0, nhits_le) this->wire_le[j] = this->wire_lut[wire_le[j]];
       for_range(j, 0, nhits_te) this->wire_te[j] = this->wire_lut[wire_te[j]];
-      // forr (i, 0, 100) {valid[i] = -1;}
-      // forr (i, 0, 100) {sorted[i] = -1;}
-      // argsort();
-      // n_valid = 0;
-      // forr (i, 0, nhits_le) {
-      //    if (filter_exclude(i)) continue;
-      //    valid[n_valid] = i;
-      //    n_valid ++;
-      // }
       return this->current_entry++ < this->n_entries;
    }
    return false;
 }
-
-
-// template<typename T>
-// void c_argsort(const T* array, unsigned char* indices, size_t len) {
-//     std::iota(indices, indices + len, 0);
-//     std::sort(indices, indices + len, [&array](int left, int right) -> bool { return array[left] < array[right]; });
-// }
-
-
-// void analysis::argsort() {
-//    c_argsort(wire_le, sorted, nhits_le);
-// }
 
 
 TH1D analysis::dt_hist(TString name = "Driftzeiten") {
@@ -319,7 +298,7 @@ std::vector<std::vector<unsigned int>> get_sequences(checklist_64 hits) {
 
 TH1D analysis::basic_angle_distrib() {
    const auto middle_bin = SCINT_CENTERED_OVER;
-   // auto cell_edges_to_angles = [](Double_t x) -> Double_t {
+   // auto local_cell_edges_to_angles = [](Double_t x) -> Double_t {
    //    const auto scint_pos = 0.5 * middle_bin - 0.5;
    //    const auto height_diff = 12.5e-2;
    //    auto d = (x - scint_pos) * 17.e-3;
@@ -332,6 +311,7 @@ TH1D analysis::basic_angle_distrib() {
    Double_t bin_edges[25];
    std::iota(bin_edges, bin_edges + 25, 0);
    std::transform(bin_edges, bin_edges + 25, bin_edges, ce2a);
+   // std::transform(bin_edges, bin_edges + 25, bin_edges, local_cell_edges_to_angles);
 
    // TH1D angle_distribution = TH1D("basic_angle_distribution", "Winkelverteilung der Kosmischen Strahlung", 24, bin_edges);
    TH1D block_starts = TH1D("block_starts", "Winkelverteilung der Kosmischen Strahlung", WIRE_BINS);
