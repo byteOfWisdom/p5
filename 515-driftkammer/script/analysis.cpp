@@ -592,6 +592,38 @@ TH2D analysis::dist_plot(TH1D& odb, unsigned int wire_lb, unsigned int wire_ub) 
    return dists;
 }
 
+// TH2D analysis::dist_plot(TH1D& odb, unsigned int wire_lb, unsigned int wire_ub) {
+//    TH2D dists = TH2D ("dists_plot", "TODO", 40, -4.5, 4.5, 40, -0.2, 17.2);
+//    reset_entry_count();
+//    while(get_next_entry()) {
+//       checklist_64 hit_wires;
+//       forr(hit, 0, nhits_le) hit_wires.check(wire_le[hit]);
+//       forr (hit, 0, nhits_le) {
+//          if (filter_exclude(hit)) continue;
+//          if ((wire_le[hit] < wire_lb) || (wire_le[hit] > wire_ub)) continue;
+//          forr (i, 0, nhits_le) {
+//             if (filter_exclude(i)) continue;
+//             if (wire_le[hit] + 1 == wire_le[i]) {
+//                unsigned int time_a, time_b;
+//                time_a = time_le[hit];
+//                time_b = time_le[i];
+//                Double_t dist_a = odb.At(time_a);
+//                Double_t dist_b = odb.At(time_b);
+
+
+//                dists.Fill(0.5 * (dist_a - dist_b), (dist_a + dist_b));
+
+//                // if (0.5 * (dist_a - dist_b) < 0. && (dist_a + dist_b) < 0.8)
+//                   // printf("wires: %u %u    le times: %u %u    tot times: %u %u   n+-2 hits: %d %d\n", wire_le[hit], wire_le[i], time_le[hit], time_le[i], tot[hit], tot[i], hit_wires.check_static(wire_le[hit] - 2), hit_wires.check_static(wire_le[hit] + 2));
+//                // break;
+//             }
+//          }
+//       }
+
+//    }
+//    return dists;
+// }
+
 
 void plot(TFitResult& p, TCanvas* C) {
    C->cd();
