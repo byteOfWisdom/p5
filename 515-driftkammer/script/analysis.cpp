@@ -412,11 +412,11 @@ Double_t PathReconstruction::get_angle(wire_chunk_t wires) {
    }
 
    // if the particle hit inner_most_even, it mus fall within this angle interval
-   auto [angle_from, angle_to] = angle_intervals[inner_most_even];
+   // auto [angle_from, angle_to] = angle_intervals[inner_most_even];
 
-   for (auto wire : wires) {
-      ;
-   }
+   // for (auto wire : wires) {
+      // ;
+   // }
 
    return 0.;
 }
@@ -607,53 +607,6 @@ TH2D analysis::dist_plot(unsigned int wire_lb, unsigned int wire_ub) {
    return dists;
 }
 
-// TH2D analysis::dist_plot(unsigned int wire_lb, unsigned int wire_ub) {
-//    TH2D dists = TH2D ("dists_plot", "TODO", 40, -4.5, 4.5, 40, -0.2, 17.2);
-//    auto odb = dt_lut;
-//    reset_entry_count();
-//    checklist_64 hit_wires;
-//    while(get_next_entry()) {
-//       hit_wires.reset();
-//       forr(hit, 0, nhits_le) {
-//          if (filter_exclude(hit)) continue;
-//          hit_wires.check(wire_le[hit]);
-//       }
-//       forr (t, wire_lb, wire_ub) {
-//          if (hit_wires.check_static(t) && hit_wires.check_static(t + 1)) {
-//             printf("entering fill stage for %u, %u\n", t, t + 1);
-//             auto diff = 0.5 * (cell_pos[t + 1] - cell_pos[t]);
-//             auto sum = cell_pos[t] + cell_pos[t + 1];
-//             printf("%lf %lf ", diff, sum);
-//             dists.Fill(diff, sum);
-//             printf("done filling\n");
-//          }
-//       }
-//       forr (hit, 0, nhits_le) {
-//          if (filter_exclude(hit)) continue;
-//          if ((wire_le[hit] < wire_lb) || (wire_le[hit] > wire_ub)) continue;
-//          forr (i, 0, nhits_le) {
-//             if (filter_exclude(i)) continue;
-//             if (wire_le[hit] + 1 == wire_le[i]) {
-//                unsigned int time_a, time_b;
-//                time_a = time_le[hit];
-//                time_b = time_le[i];
-//                Double_t dist_a = odb.At(time_a);
-//                Double_t dist_b = odb.At(time_b);
-
-
-//                dists.Fill(0.5 * (dist_a - dist_b), (dist_a + dist_b));
-
-//                // if (0.5 * (dist_a - dist_b) < 0. && (dist_a + dist_b) < 0.8)
-//                   // printf("wires: %u %u    le times: %u %u    tot times: %u %u   n+-2 hits: %d %d\n", wire_le[hit], wire_le[i], time_le[hit], time_le[i], tot[hit], tot[i], hit_wires.check_static(wire_le[hit] - 2), hit_wires.check_static(wire_le[hit] + 2));
-//                // break;
-//             }
-//          }
-//       }
-
-//    }
-//    return dists;
-// }
-
 
 void plot(TFitResult& p, TCanvas* C) {
    C->cd();
@@ -740,7 +693,7 @@ void plot_parameter_search() {
 
 
 int main(int argc, char** argv) {
-   ROOT::DisableImplicitMT();
+   // ROOT::DisableImplicitMT();
    // weniger statistik mit guten parametern ..161632.root
    // viel statistik mit guten parametern ...161826.root
 
@@ -749,50 +702,87 @@ int main(int argc, char** argv) {
    char** dargv = &argv[0];
    TRint app = TRint("app", &dargc, dargv);
    std::vector<TCanvas*> canvas_vec = std::vector<TCanvas*>();
-   forr(i, 0, 8) canvas_vec.push_back(new TCanvas(("c" + std::to_string(i)).c_str(), "c", 800, 600));
+   forr(i, 0, 9) canvas_vec.push_back(new TCanvas(("c" + std::to_string(i)).c_str(), "c", 800, 600));
 
 
+   //--------------------------------------------------------
+   // get calibration data
+   //  -> orts-driftzeitbeziehung
+   //  -> driftzeitspektrum
+   dataset* calib_dataset = new dataset("../data/B103/run_260513_161826.root");
+   calib_dataset->ana->max_le_time = 900;
+   calib_dataset->ana->min_le_time = 0;
+   auto dt_spectrum = calib_dataset->ana->dt_hist();
+   auto odb = make_odb(dt_spectrum);
+   plot(dt_spectrum, canvas_vec[0]);
+   plot(odb, canvas_vec[4]);
+
+   //--------------------------------------------------------
+   // longterm measurements prep
    dataset* data = new dataset(argv[1]);
    analysis* ana = data->ana;
    ana->wire_lut = make_wire_lut();
-
-   dataset* calib_dataset = new dataset("../data/B103/run_260513_161826.root");
-   calib_dataset->ana->max_le_time = 500;
-
-   // auto dt_rel = ana->dt_hist();
-   auto dt_rel = calib_dataset->ana->dt_hist();
-   auto odb = make_odb(dt_rel);
    ana->dt_lut = odb;
-   auto dt_wire_plot = ana->dt_wire_hist();
-   auto wire_correlation = ana->wire_correlation();
-   auto dt_tot = ana->dt_tot_relation();
-   // TODO: maybe this needs to be done before filtering??
-   // auto sum_vs_diff = ana->dist_plot(16, 28);
-   // auto sum_vs_diff = ana->dist_plot(0, 48);
-   auto sum_vs_diff = ana->dist_plot(20, 24);
 
-   TF1 angle_dist_func = TF1("angle_dist_func", "[0] * cos((x - [2]) * pi / 180)^[1]", -90, 90);
+
+   //--------------------------------------------------------
+   // drift time spectrum per wire
+   auto dt_wire_plot = ana->dt_wire_hist();
+   plot(dt_wire_plot, canvas_vec[1]);
+
+   //--------------------------------------------------------
+   // wire correlation after correction   
+   // TODO: before correction
+   auto wire_correlation = ana->wire_correlation();
+   plot(wire_correlation, canvas_vec[2]);
+
+
+   //--------------------------------------------------------
+   // dritf time to time over threshhold plot
+   // TODO: without filtering
+   auto dt_tot = ana->dt_tot_relation();
+   plot(dt_tot, canvas_vec[3]);
+
+   //--------------------------------------------------------
+   // for various angles, sum of dists vs diff of dists
+   // TODO: add exact angles
+   auto sum_vs_diff_half_central = ana->dist_plot(16, 28);
+   sum_vs_diff_half_central.SetName("half_central");
+   plot(sum_vs_diff_half_central, canvas_vec[8]);
+
+   auto sum_vs_diff_total = ana->dist_plot(0, 48);
+   sum_vs_diff_total.SetName("total");
+   plot(sum_vs_diff_total, canvas_vec[7]);
+
+   auto sum_vs_diff_central = ana->dist_plot(20, 24);
+   sum_vs_diff_total.SetName("central");
+   plot(sum_vs_diff_central, canvas_vec[6]);
+
+
+   //--------------------------------------------------------
+   // angle distribution SHOULD follow this functinon
+   // TF1 angle_dist_func = TF1("angle_dist_func", "[0] * cos((x - [2]) * pi / 180)^[1]", -90, 90);
+   TF1 angle_dist_func = TF1("angle_dist_func", "[0] * cos((x - [2]) * pi / 180)^2 + [1]", -90, 90);
    angle_dist_func.SetParameter(0, 700);
-   angle_dist_func.SetParameter(1, 2);
+   // angle_dist_func.SetParameter(1, 2);
 
    auto basic_angles = ana->basic_angle_distrib();
    TFitResultPtr fit = basic_angles.Fit(&angle_dist_func, "S");
 
-   auto precise_angles = ana->precise_angle_distribution();
-
-   plot(dt_rel, canvas_vec[0]);
-   plot(dt_wire_plot, canvas_vec[1]);
-   plot(wire_correlation, canvas_vec[2]);
-   plot(dt_tot, canvas_vec[3]);
-   plot(odb, canvas_vec[4]);
    plot(basic_angles, canvas_vec[5]);
-   // plot(*fit, canvas_vec[5]);
-   plot(sum_vs_diff, canvas_vec[6]);
-   plot(precise_angles, canvas_vec[7]);
+   plot(*fit, canvas_vec[5]);
 
-   // plot_parameter_search();
+   
+   //--------------------------------------------------------
+   // auto precise_angles = ana->precise_angle_distribution();
 
+
+
+   //--------------------------------------------------------
+   // plot the various parameter finding plots
+   plot_parameter_search();
+
+   //--------------------------------------------------------
    // ana->print_all_events();
-
    app.Run(kTRUE);
 }
