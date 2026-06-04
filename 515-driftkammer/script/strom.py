@@ -8,8 +8,8 @@ from sys import argv
 
 def get_data(file):
     volts, current_volt = std.load_csv(file, delimiter = ",", skiprows = 1)
-    volts = volts*1e3
-    volts = p.ev(volts, volts*1e-2) #in Volt
+    volts = volts*1e3 #in Volt
+    volts = p.ev(volts, volts*1e-2)
     current_volt = current_volt*1e-3 #in Volt
     return volts, current_volt
 
