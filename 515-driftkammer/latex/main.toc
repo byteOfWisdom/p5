@@ -23,9 +23,9 @@
 \contentsline {section}{\numberline {6.2}Drahtkorrelation}{20}{section.6.2}%
 \contentsline {chapter}{\numberline {7}Orts-Driftzeit-Beziehung}{22}{chapter.7}%
 \contentsline {chapter}{\numberline {8}Winkelverteilung der kosmischen Strahlung}{25}{chapter.8}%
-\contentsline {chapter}{\numberline {9}Abstandssumme gegen Abstandsdifferenz}{27}{chapter.9}%
-\contentsline {chapter}{\numberline {10}Fazit}{29}{chapter.10}%
-\contentsline {chapter}{\numberline {11}Anhang}{30}{chapter.11}%
-\contentsline {section}{\numberline {11.1}Oszilloskopaufnahmen Szintillationsdetektor-Signale}{30}{section.11.1}%
-\contentsline {section}{\numberline {11.2}Strommessung}{30}{section.11.2}%
+\contentsline {chapter}{\numberline {9}Abstandssumme gegen Abstandsdifferenz}{28}{chapter.9}%
+\contentsline {chapter}{\numberline {10}Fazit}{30}{chapter.10}%
+\contentsline {chapter}{\numberline {11}Anhang}{31}{chapter.11}%
+\contentsline {section}{\numberline {11.1}Oszilloskopaufnahmen Szintillationsdetektor-Signale}{31}{section.11.1}%
+\contentsline {section}{\numberline {11.2}Strommessung}{31}{section.11.2}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

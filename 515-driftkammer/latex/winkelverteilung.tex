@@ -2,16 +2,18 @@
 Es soll die Winkelverteilung der kosmischen Strahlung ermittelt werden. Hierzu werden bei den Ereignissen der Langzeitmessung solche gesucht, bei denen Ketten aus nebeneinanderliegenden Drähten angesprochen haben, also mehrere Drähte mit Um eins oder zwei verschiedenen Drahtnummern\footnote{bei flachen Einfallswinkeln können mehrere Zellen der gleichen Lage ansprechen, was einer Drahtnummerdifferenz von zwei entspricht}.
 Unter der Annahme, dass diese Ketten stets zu Myonen gehören, die durch den Szintillator geflogen sind, sollte aus geometrischen Betrachtungen, die auslösenste Zelle, welche am nächsten zum Szintillator liegt, eine der oberen Lage sein. ist dies nicht der Fall, muss davon ausgegangen werden, dass das detektierte Teilchen nicht durch den Szintillator geflogen ist. Die Teilchen, welche durch den Szintillator geflogen sind, werden in ein Histogram aufgetragen, entsprechend der Drahtzahl des am weitesten innen liegenden Ansprechers.
 
-Es wird zunächst jeder Zelle der oberen Lage aus geometrischen überlegungen ein Winkelbereich $\Theta_1$ bis $\Theta_2$ zugeordnet. In \todo{ref skzize} sind die Größen skizzenhaft eingezeichnet. Es ergeben sich die Winkelgrenzen einer Zelle, mit $n_1$ der Drahtnummer und $n_2$ der Drahtnummer minus eins, sowie $S_0$ der Position der Mitte des Szintillators und $a$ dem Abstand des Szintillators zu der Drahtebene, als
+Es wird zunächst jeder Zelle der oberen Lage aus geometrischen überlegungen ein Winkelbereich $\Theta_1$ bis $\Theta_2$ zugeordnet. In \ref{fig:skizze_winkel} sind die Größen skizzenhaft eingezeichnet. Es ergeben sich die Winkelgrenzen einer Zelle, mit $n_1$ der Drahtnummer und $n_2$ der Drahtnummer minus eins, sowie $S_0$ der Position der Mitte des Szintillators und $a$ dem Abstand des Szintillators zu der Drahtebene, als
 
 \begin{align}
 	\Theta_i &= \arctan(d_i / a)\\
 	d_i &= n_i \cdot b - S_0 
 \end{align}
 
-\todo{werte irgendwo hin}
+Der Abstand des Szintillators zur Drahtebene wurde mittels Zollstockmessungen als $d = \SI{10.8(1)}{\centi\meter}$ Bestimmt.
 
-Die Unsicherheiten der Winkel lassen sich über gausße Fehlerfortpflanzung aus den Unsicherheiten der Abstände und Positionen bestimmen, haben allerdings keine weitere relevanz, da Bingrenzen in Histogrammen keine möglichkeit haben Unsicherheiten abzubilden. Im weiteren ist die maßgebliche Unsicherheit also wieder der Poissonverteilte Fehler auf die Anzahl in den Bins. Zur besseren Lesbarkeit, und weil diese keine relevante Aussage tätigen, wurde auf das Auftragen dieser Unsicherheiten verzichtet. \todo{vielleicht doch ausrechnen oder auftagen}
+Die Position des Szintillators wurde zunächst gemessen, im Verlauf kam allerdings jemand an den Szintillator, daher wurde dessen Position aus Abbildung \ref{fig:driftzeitspektrum_draht} als etwa zentral über Draht $22$ entnommen (aufgrund des Maximums der Treffer, zentriert auf diesen Bereich). Dies entspricht bis auf wenige $\unit{\milli\meter}$ der zuvor bestimmten Position (diese war mit einer Messunsicherheit von insgesamt etwa $\SI{1}{\centi\meter}$ genau mittig auf der Driftkammer, also zentriert über Zelle 24). Die Position $S_0$ erhählt allerdings ihre Unsicherheit primär durch die Breite des Szintillators von $\SI{5.0(5)}{\centi\meter} / 2$, da in dieser Betrachtung nicht genau gesagt werden kann, wo durch den Szintillator das Myon geflogen ist. Bei einer Pfadrekonstruktion mittels Driftzeiten läßt sich diese Information allerdings gewinnen.
+
+Die Unsicherheiten der Winkel lassen sich über gaussche Fehlerfortpflanzung aus den Unsicherheiten der Abstände und Positionen bestimmen, haben allerdings keine weitere relevanz, da Bingrenzen in Histogrammen keine möglichkeit haben Unsicherheiten abzubilden. Im weiteren ist die maßgebliche Unsicherheit also wieder der Poissonverteilte Fehler auf die Anzahl in den Bins. Zur besseren Lesbarkeit, und weil diese keine relevante Aussage tätigen, wurde auf das Auftragen dieser Unsicherheiten verzichtet. \todo{vielleicht doch ausrechnen oder auftagen}
 
 \jafps{skizze_winkel}{Skizze der Berechnung der Winkelbereiche zu jeder Zelle}{0.5}
 
