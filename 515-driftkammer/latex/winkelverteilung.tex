@@ -4,14 +4,17 @@ Unter der Annahme, dass diese Ketten stets zu Myonen gehören, die durch den Szi
 
 Es wird zunächst jeder Zelle der oberen Lage aus geometrischen überlegungen ein Winkelbereich $\Theta_1$ bis $\Theta_2$ zugeordnet. In \todo{ref skzize} sind die Größen skizzenhaft eingezeichnet. Es ergeben sich die Winkelgrenzen einer Zelle, mit $n_1$ der Drahtnummer und $n_2$ der Drahtnummer minus eins, sowie $S_0$ der Position der Mitte des Szintillators und $a$ dem Abstand des Szintillators zu der Drahtebene, als
 
-\todo{werte irgendwo hin}
-
-\jafps{skizze_winkel}{Skizze der Berechnung der Winkelbereiche zu jeder Zelle}{0.5}
-
 \begin{align}
 	\Theta_i &= \arctan(d_i / a)\\
 	d_i &= n_i \cdot b - S_0 
 \end{align}
+
+\todo{werte irgendwo hin}
+
+Die Unsicherheiten der Winkel lassen sich über gausße Fehlerfortpflanzung aus den Unsicherheiten der Abstände und Positionen bestimmen, haben allerdings keine weitere relevanz, da Bingrenzen in Histogrammen keine möglichkeit haben Unsicherheiten abzubilden. Im weiteren ist die maßgebliche Unsicherheit also wieder der Poissonverteilte Fehler auf die Anzahl in den Bins. Zur besseren Lesbarkeit, und weil diese keine relevante Aussage tätigen, wurde auf das Auftragen dieser Unsicherheiten verzichtet. \todo{vielleicht doch ausrechnen oder auftagen}
+
+\jafps{skizze_winkel}{Skizze der Berechnung der Winkelbereiche zu jeder Zelle}{0.5}
+
 
 Das so entstandene Histogram der Winkelverteilung ist in Abbildung \ref{fig:winkelverteilung} zu sehen.
 Die erwartete Winkelverteilung ist
@@ -21,7 +24,7 @@ Die erwartete Winkelverteilung ist
 \end{align}
 
 mit $k = 2$ \cite[249]{astroparticles}. Es kann zwar $k$ von zwei leicht abweichen, für die grobe Überprüfung der Messdaten wird dies jedoch nicht betrachtet \cite{muonrays}. Es wird die Funktion $I(\Theta) = I_0 \cdot \cos(\Theta - \Theta_0)^2 + a$ an die gemessene Winkelverteilung angepasst.
-Hierzu wird der \textit{minuit2} minimizer mit der \textit{ROOT} Fit funktionalität genutzt \cite{root}. Es ergeben sich die Anpassungsergebnisse in Tabelle \ref{tab:fitres}, mit einem reduzierten $\chi^2_\text{red} = 4.2$.
+Hierzu wird der \textit{minuit2} minimizer mit der \textit{ROOT} Fit funktionalität genutzt \cite{root}. Es ergeben sich die Anpassungsergebnisse in Tabelle \ref{tab:fitres}, mit einem reduzierten $\chi^2_\text{red} = 4.2$ \cite{chi2}.
 
 \begin{table}[h]
 \centering
