@@ -17,7 +17,7 @@ Daraus leiten sich die Filterbedingungen ab, dass ein Treffer mindestens eine TO
 \section{Drahtkorrelation}
 \label{sec:drahtkorrelation}
 Um eine korrekte Sortierung der Drähte zu gewährleisten wird in einem 2D Histogram aufgetragen, welche Drähte gemeinsam ansprechen. Zu sehen ist die in \ref{fig:drahtkorrelation_raw}. Dort erkennt man, dass die Maxima jeder Spalte abwechselnd nach um zwei Bins links und rechts von der Diagonalen entfernt liegen. Dies Spricht dafür, dass die Nummerierung der beiden Lagen vertauscht werden muss, damit bei steigender Drahtnummer eine gleiche Positionsänderung vorliegt. Verdeutlich haben wir dies - Skizzenhaft - in den Abbildungen \ref{fig:hexagons_pre_final} und \ref{fig:hexagons_correct_final}. Nach der Umnummerierung liegen die Maxima auf den Nebendiagonalen, was bedeutet, dass hauptsächlich aufeinander folgende Drahtnummern gemeinsam ansprechen. Da hauptsächlich nebeneinanderliegende Zellen ansprechen, zeigt dies die korrektheit der neuen Nummerierung.
-
+\todo{autokorrelation nicht drin}
 
 \jafpp{drahtkorrelation_raw}{Drahtkorrelation vor}{drahtkorrelation_sortiert}{nach Umnummerierung der Drähte.}
 \jafpp{hexagons_pre_final}{Drahtnummern, wie sie von der Software angegeben werden}{hexagons_correct_final}{nach der Umnummerierung.}
