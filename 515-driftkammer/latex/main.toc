@@ -18,13 +18,14 @@
 \contentsline {section}{\numberline {5.2}Einstellung der Diskriminatorschwelle}{15}{section.5.2}%
 \contentsline {section}{\numberline {5.3}Einstellung der Verzögerung}{16}{section.5.3}%
 \contentsline {section}{\numberline {5.4}Aufbau der Langzeitmessung}{18}{section.5.4}%
-\contentsline {chapter}{\numberline {6}Datenputzen}{19}{chapter.6}%
+\contentsline {chapter}{\numberline {6}Datenbereinigung}{19}{chapter.6}%
 \contentsline {section}{\numberline {6.1}Verteilung der Ansprecher und Time-over-Threshhold}{19}{section.6.1}%
 \contentsline {section}{\numberline {6.2}Drahtkorrelation}{20}{section.6.2}%
 \contentsline {chapter}{\numberline {7}Orts-Driftzeit-Beziehung}{22}{chapter.7}%
-\contentsline {chapter}{\numberline {8}Winkelverteilung der kosmischen Strahlung}{24}{chapter.8}%
-\contentsline {chapter}{\numberline {9}Abstandssumme gegen Abstandsdifferenz}{26}{chapter.9}%
-\contentsline {chapter}{\numberline {10}Anhang}{28}{chapter.10}%
-\contentsline {section}{\numberline {10.1}Oszilloskopaufnahmen Szintillationsdetektor-Signale}{28}{section.10.1}%
-\contentsline {section}{\numberline {10.2}Strommessung}{28}{section.10.2}%
+\contentsline {chapter}{\numberline {8}Winkelverteilung der kosmischen Strahlung}{25}{chapter.8}%
+\contentsline {chapter}{\numberline {9}Abstandssumme gegen Abstandsdifferenz}{27}{chapter.9}%
+\contentsline {chapter}{\numberline {10}Fazit}{29}{chapter.10}%
+\contentsline {chapter}{\numberline {11}Anhang}{30}{chapter.11}%
+\contentsline {section}{\numberline {11.1}Oszilloskopaufnahmen Szintillationsdetektor-Signale}{30}{section.11.1}%
+\contentsline {section}{\numberline {11.2}Strommessung}{30}{section.11.2}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
