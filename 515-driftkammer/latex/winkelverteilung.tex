@@ -1,0 +1,38 @@
+\chapter{Winkelverteilung der kosmischen Strahlung}
+Es soll die Winkelverteilung der kosmischen Strahlung ermittelt werden. Hierzu werden bei den Ereignissen der Langzeitmessung solche gesucht, bei denen Ketten aus nebeneinanderliegenden Drähten angesprochen haben, also mehrere Drähte mit Um eins oder zwei verschiedenen Drahtnummern\footnote{bei flachen Einfallswinkeln können mehrere Zellen der gleichen Lage ansprechen, was einer Drahtnummerdifferenz von zwei entspricht}.
+Unter der Annahme, dass diese Ketten stets zu Myonen gehören, die durch den Szintillator geflogen sind, sollte aus geometrischen Betrachtungen, die auslösenste Zelle, welche am nächsten zum Szintillator liegt, eine der oberen Lage sein. ist dies nicht der Fall, muss davon ausgegangen werden, dass das detektierte Teilchen nicht durch den Szintillator geflogen ist. Die Teilchen, welche durch den Szintillator geflogen sind, werden in ein Histogram aufgetragen, entsprechend der Drahtzahl des am weitesten innen liegenden Ansprechers.
+
+Es wird zunächst jeder Zelle der oberen Lage aus geometrischen überlegungen ein Winkelbereich $\Theta_1$ bis $\Theta_2$ zugeordnet. In \todo{ref skzize} sind die Größen skizzenhaft eingezeichnet. Es ergeben sich die Winkelgrenzen einer Zelle, mit $n_1$ der Drahtnummer und $n_2$ der Drahtnummer minus eins, sowie $S_0$ der Position der Mitte des Szintillators und $a$ dem Abstand des Szintillators zu der Drahtebene, als
+
+\todo{werte irgendwo hin}
+
+\jafps{skizze_winkel}{Skizze der Berechnung der Winkelbereiche zu jeder Zelle}{0.5}
+
+\begin{align}
+	\Theta_i &= \arctan(d_i / a)\\
+	d_i &= n_i \cdot b - S_0 
+\end{align}
+
+Das so entstandene Histogram der Winkelverteilung ist in Abbildung \ref{fig:winkelverteilung} zu sehen.
+Die erwartete Winkelverteilung ist
+
+\begin{align}
+	I(\Theta) = I(\Theta = 0) \cdot \cos(\Theta)^k \label{eq:fitfunc}
+\end{align}
+
+mit $k = 2$ \cite[249]{astroparticles}. Es kann zwar $k$ von zwei leicht abweichen, für die grobe Überprüfung der Messdaten wird dies jedoch nicht betrachtet \cite{muonrays}. Es wird die Funktion $I(\Theta) = I_0 \cdot \cos(\Theta - \Theta_0)^2 + a$ an die gemessene Winkelverteilung angepasst.
+Hierzu wird der \textit{minuit2} minimizer mit der \textit{ROOT} Fit funktionalität genutzt \cite{root}. Es ergeben sich die Anpassungsergebnisse in Tabelle \ref{tab:fitres}, mit einem reduzierten $\chi^2_\text{red} = 4.2$.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|c|} \hline
+Parameter & $I_0$ & $\Theta_0$ & $a$\\ \hline
+Wert & $\num{ 902(14)}$ & $\SI{0.9(2)}{\degree}$ & $\num{-135(6)}$ \\
+\hline
+\end{tabular}
+\caption{Anpassungsparameter der Winkelverteilung.}
+\label{tab:fitres}
+\end{table}
+
+
+\jafps{winkelverteilung}{Winkelverteilung der kosmischen Strahlung, mit Anpassungsfunktion nach Gl \eqref{eq:fitfunc}, $\Chi^2_\text{red} = 4.2$}{0.75}

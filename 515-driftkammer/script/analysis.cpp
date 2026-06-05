@@ -28,7 +28,7 @@
 #define forr for_range
 #define IS_EVEN % 2 == 0
 #define IS_ODD % 2 == 1
-#define PRINT_FIGS
+// #define PRINT_FIGS
 
 const double TIME_LB  = -1.25;
 const double TIME_UB  = 250 * 2.5 + 2.5 / 2.;
