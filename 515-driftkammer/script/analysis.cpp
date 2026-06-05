@@ -28,6 +28,7 @@
 #define forr for_range
 #define IS_EVEN % 2 == 0
 #define IS_ODD % 2 == 1
+// #define PRINT_FIGS
 
 const double TIME_LB  = -1.25;
 const double TIME_UB  = 250 * 2.5 + 2.5 / 2.;
@@ -614,6 +615,7 @@ void plot(TFitResult& p, TCanvas* C) {
    C->Update();
 }
 
+
 void plot(TH2D& p, TCanvas* C) {
    C->cd();
    p.Draw("Colz");
@@ -715,6 +717,11 @@ void plot_parameter_search() {
       "0x20"
    };
    plot_set(delay_data, delay_canvas, gob, delay_names, 2);
+   #ifdef PRINT_FIGS
+   voltage_canvas->Print("../figs/bp_spannung.pdf");
+   discriminator_canvas->Print("../figs/bp_disc.pdf");
+   delay_canvas->Print("../figs/bp_delay.pdf");
+   #endif
 }
 
 
@@ -729,7 +736,7 @@ int main(int argc, char** argv) {
    char** dargv = &argv[0];
    TRint app = TRint("app", &dargc, dargv);
    std::vector<TCanvas*> canvas_vec = std::vector<TCanvas*>();
-   forr(i, 0, 9) canvas_vec.push_back(new TCanvas(("c" + std::to_string(i)).c_str(), "c", 800, 600));
+   forr(i, 0, 11) canvas_vec.push_back(new TCanvas(("c" + std::to_string(i)).c_str(), "c", 800, 600));
 
 
    //--------------------------------------------------------
@@ -753,8 +760,22 @@ int main(int argc, char** argv) {
    // longterm measurements prep
    dataset* data = new dataset(argv[1]);
    analysis* ana = data->ana;
-   ana->wire_lut = make_wire_lut();
    ana->dt_lut = odb;
+
+   //--------------------------------------------------------
+   // wire correlation after correction   
+   // TODO: before correction
+   auto wire_correlation_raw = ana->wire_correlation();
+   wire_correlation_raw.SetXTitle("Drahtnummer");
+   wire_correlation_raw.SetYTitle("Drahtnummer");
+   wire_correlation_raw.SetName("wire_correlation_raw");
+   plot(wire_correlation_raw, canvas_vec[9]);
+   ana->wire_lut = make_wire_lut();
+
+   auto wire_correlation = ana->wire_correlation();
+   wire_correlation.SetXTitle("Drahtnummer");
+   wire_correlation.SetYTitle("Drahtnummer");
+   plot(wire_correlation, canvas_vec[2]);
 
 
    //--------------------------------------------------------
@@ -764,18 +785,18 @@ int main(int argc, char** argv) {
    dt_wire_plot.SetYTitle("Driftzeit / s");
    plot(dt_wire_plot, canvas_vec[1]);
 
-   //--------------------------------------------------------
-   // wire correlation after correction   
-   // TODO: before correction
-   auto wire_correlation = ana->wire_correlation();
-   wire_correlation.SetXTitle("Drahtnummer");
-   wire_correlation.SetYTitle("Drahtnummer");
-   plot(wire_correlation, canvas_vec[2]);
-
 
    //--------------------------------------------------------
    // dritf time to time over threshhold plot
    // TODO: without filtering
+   ana->filter_enabled = false;
+   auto dt_tot_raw = ana->dt_tot_relation();
+   dt_tot_raw.SetXTitle("Driftzeit / ns");
+   dt_tot_raw.SetYTitle("Time-Over-Threshhold / ns");
+   dt_tot_raw.SetName("dt_tot_raw");
+   plot(dt_tot_raw, canvas_vec[10]);
+   ana->filter_enabled = true;
+
    auto dt_tot = ana->dt_tot_relation();
    dt_tot.SetXTitle("Driftzeit / ns");
    dt_tot.SetYTitle("Time-Over-Threshhold / ns");
@@ -784,25 +805,37 @@ int main(int argc, char** argv) {
    //--------------------------------------------------------
    // for various angles, sum of dists vs diff of dists
    // TODO: add exact angles
-   auto sum_vs_diff_half_central = ana->dist_plot(16, 28);
+   auto sum_vs_diff_half_central = ana->dist_plot(SCINT_CENTERED_OVER - 4, SCINT_CENTERED_OVER + 4);
+   auto angle_from = cell_edges_to_angles(SCINT_CENTERED_OVER - 4, left);
+   auto angle_to = cell_edges_to_angles(SCINT_CENTERED_OVER + 4, right);
+   auto title = "Winkelbereich / Grad:" + std::to_string((int) round(angle_from)) + " bis " + std::to_string((int) round(angle_to));
    sum_vs_diff_half_central.SetName("half_central");
    sum_vs_diff_half_central.SetXTitle("halbe Abstandsdifferenz / mm");
    sum_vs_diff_half_central.SetYTitle("Abstandssumme / mm");
    sum_vs_diff_half_central.SetZTitle("Anzahl / 1");
+   sum_vs_diff_half_central.SetTitle(title.c_str());
    plot(sum_vs_diff_half_central, canvas_vec[8]);
 
    auto sum_vs_diff_total = ana->dist_plot(0, 48);
+   angle_from = cell_edges_to_angles(0, left);
+   angle_to = cell_edges_to_angles(48, right);
+   title = "Winkelbereich / Grad:" + std::to_string((int) round(angle_from)) + " bis " + std::to_string((int) round(angle_to));
    sum_vs_diff_total.SetName("total");
    sum_vs_diff_total.SetXTitle("halbe Abstandsdifferenz / mm");
    sum_vs_diff_total.SetYTitle("Abstandssumme / mm");
    sum_vs_diff_total.SetZTitle("Anzahl / 1");
+   sum_vs_diff_total.SetTitle(title.c_str());
    plot(sum_vs_diff_total, canvas_vec[7]);
 
-   auto sum_vs_diff_central = ana->dist_plot(20, 24);
+   auto sum_vs_diff_central = ana->dist_plot(SCINT_CENTERED_OVER - 2, SCINT_CENTERED_OVER + 2);
+   angle_from = cell_edges_to_angles(SCINT_CENTERED_OVER - 2, left);
+   angle_to = cell_edges_to_angles(SCINT_CENTERED_OVER + 2, right);
+   title = "Winkelbereich / Grad:" + std::to_string((int) round(angle_from)) + " bis " + std::to_string((int) round(angle_to));
    sum_vs_diff_central.SetName("central");
    sum_vs_diff_central.SetXTitle("halbe Abstandsdifferenz / mm");
    sum_vs_diff_central.SetYTitle("Abstandssumme / mm");
    sum_vs_diff_central.SetZTitle("Anzahl / 1");
+   sum_vs_diff_central.SetTitle(title.c_str());
    plot(sum_vs_diff_central, canvas_vec[6]);
 
 
@@ -833,5 +866,20 @@ int main(int argc, char** argv) {
 
    //--------------------------------------------------------
    // ana->print_all_events();
+   #ifdef PRINT_FIGS
+   canvas_vec[9]->Print("../figs/drahtkorrelation_raw.pdf");
+   canvas_vec[0]->Print("../figs/driftzeitspektrum.pdf");
+   canvas_vec[4]->Print("../figs/orts_driftzeit_bzh.pdf");
+   canvas_vec[2]->Print("../figs/drahtkorrelation_sortiert.pdf");
+   canvas_vec[1]->Print("../figs/driftzeitspektrum_langzeit.pdf");
+   canvas_vec[10]->Print("../figs/dt_tot_raw.pdf");
+   canvas_vec[3]->Print("../figs/dt_tot.pdf");
+   canvas_vec[8]->Print("../figs/sum_diff_mid.pdf");
+   canvas_vec[7]->Print("../figs/sum_diff_all.pdf");
+   canvas_vec[6]->Print("../figs/sum_diff_center.pdf");
+   canvas_vec[5]->Print("../figs/winkelverteilung.pdf");
+   #endif
+
+
    app.Run(kTRUE);
 }
