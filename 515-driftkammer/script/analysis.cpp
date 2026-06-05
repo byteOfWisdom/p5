@@ -28,7 +28,7 @@
 #define forr for_range
 #define IS_EVEN % 2 == 0
 #define IS_ODD % 2 == 1
-// #define PRINT_FIGS
+#define PRINT_FIGS
 
 const double TIME_LB  = -1.25;
 const double TIME_UB  = 250 * 2.5 + 2.5 / 2.;
@@ -684,18 +684,18 @@ void plot_parameter_search() {
    TCanvas* discriminator_canvas = new TCanvas("discriminator_sweep", "Verschiedene Diskriminatoreinstellungen");
    std::vector<dataset*> discriminator_data = std::vector<dataset*> ({
       new dataset("../data/B103/run_260513_153904.root"),
-      new dataset("../data/B103/run_260513_160116.root"),
       new dataset("../data/B103/run_260513_155621.root"),
       new dataset("../data/B103/run_260513_155230.root"),
       new dataset("../data/B103/run_260513_154351.root"),
+      new dataset("../data/B103/run_260513_160116.root"),
    });
 
    std::vector<TString> disc_names = {
       "0x20",
-      "0x40",
       "0x68",
       "0x58",
       "0x28",
+      "0x40",
    };
    plot_set(discriminator_data, discriminator_canvas, gob, disc_names, 1);
 
@@ -735,7 +735,7 @@ int main(int argc, char** argv) {
    char** dargv = &argv[0];
    TRint app = TRint("app", &dargc, dargv);
    std::vector<TCanvas*> canvas_vec = std::vector<TCanvas*>();
-   forr(i, 0, 13) canvas_vec.push_back(new TCanvas(("c" + std::to_string(i)).c_str(), "c", 800, 600));
+   forr(i, 0, 14) canvas_vec.push_back(new TCanvas(("c" + std::to_string(i)).c_str(), "c", 800, 600));
 
 
    //--------------------------------------------------------
@@ -817,6 +817,23 @@ int main(int argc, char** argv) {
    dt_tot.SetYTitle("Time-Over-Threshhold / ns");
    plot(dt_tot, canvas_vec[3]);
 
+
+   //--------------------------------------------------------
+   // angle distribution SHOULD follow this functinon
+   // TF1 angle_dist_func = TF1("angle_dist_func", "[0] * cos((x - [2]) * pi / 180)^[1]", -90, 90);
+   TF1 angle_dist_func = TF1("angle_dist_func", "[0] * cos((x - [2]) * pi / 180)^2 + [1]", -90, 90);
+   angle_dist_func.SetParameter(0, 700);
+   // angle_dist_func.SetParameter(1, 2);
+
+   auto basic_angles = ana->basic_angle_distrib();
+   basic_angles.SetXTitle("Winkel / Grad");
+   basic_angles.SetYTitle("Anzahl / 1");
+   TFitResultPtr fit = basic_angles.Fit(&angle_dist_func, "S");
+
+   plot(basic_angles, canvas_vec[5]);
+   plot(*fit, canvas_vec[5]);
+
+
    //--------------------------------------------------------
    // for various angles, sum of dists vs diff of dists
    // TODO: add exact angles
@@ -854,21 +871,16 @@ int main(int argc, char** argv) {
    plot(sum_vs_diff_central, canvas_vec[6]);
 
 
-   //--------------------------------------------------------
-   // angle distribution SHOULD follow this functinon
-   // TF1 angle_dist_func = TF1("angle_dist_func", "[0] * cos((x - [2]) * pi / 180)^[1]", -90, 90);
-   TF1 angle_dist_func = TF1("angle_dist_func", "[0] * cos((x - [2]) * pi / 180)^2 + [1]", -90, 90);
-   angle_dist_func.SetParameter(0, 700);
-   // angle_dist_func.SetParameter(1, 2);
-
-   auto basic_angles = ana->basic_angle_distrib();
-   basic_angles.SetXTitle("Winkel / Grad");
-   basic_angles.SetYTitle("Anzahl / 1");
-   TFitResultPtr fit = basic_angles.Fit(&angle_dist_func, "S");
-
-   plot(basic_angles, canvas_vec[5]);
-   plot(*fit, canvas_vec[5]);
-
+   auto sum_vs_diff_edge = ana->dist_plot(35, 48);
+   angle_from = cell_edges_to_angles(35, left);
+   angle_to = cell_edges_to_angles(48, right);
+   title = "Winkelbereich / Grad:" + std::to_string((int) round(angle_from)) + " bis " + std::to_string((int) round(angle_to));
+   sum_vs_diff_edge.SetName("central");
+   sum_vs_diff_edge.SetXTitle("halbe Abstandsdifferenz / mm");
+   sum_vs_diff_edge.SetYTitle("Abstandssumme / mm");
+   sum_vs_diff_edge.SetZTitle("Anzahl / 1");
+   sum_vs_diff_edge.SetTitle(title.c_str());
+   plot(sum_vs_diff_edge, canvas_vec[13]);
    
    //--------------------------------------------------------
    // auto precise_angles = ana->precise_angle_distribution();
@@ -891,10 +903,11 @@ int main(int argc, char** argv) {
    canvas_vec[11]->Print("../figs/driftzeitspektrum_draht_raw.pdf");
    canvas_vec[10]->Print("../figs/dt_tot_raw.pdf");
    canvas_vec[3]->Print("../figs/dt_tot.pdf");
+   canvas_vec[5]->Print("../figs/winkelverteilung.pdf");
    canvas_vec[8]->Print("../figs/sum_diff_mid.pdf");
    canvas_vec[7]->Print("../figs/sum_diff_all.pdf");
    canvas_vec[6]->Print("../figs/sum_diff_center.pdf");
-   canvas_vec[5]->Print("../figs/winkelverteilung.pdf");
+   canvas_vec[13]->Print("../figs/sum_diff_edge.pdf");
    #endif
 
 
