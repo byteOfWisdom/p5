@@ -1,0 +1,20 @@
+\chapter{Datenputzen}
+\section{Verteilung der Ansprecher und Time-over-Threshhold}
+
+Zunächst werden bei den Daten der Langzeitmessung in Abbildung \ref{fig:driftzeitspektrum_draht_raw} die Driftzeit gegen Drahtnummer als 2D Histogramm aufgetragen und die Driftzeit gegen die Time-over-Threshhold (TOT) in Abbildung \ref{fig:dt_tot_raw} aufgetragen.
+
+In diesen Auftragungen erkennt man jeweils klare Strukturen;
+
+\jafps{driftzeitspektrum_draht_raw}{Driftzeiten pro Draht, ungefiltert}{0.75}
+\jafps{dt_tot_raw}{Driftzeit gegen TOT, ungefiltert}{0.75}
+
+In Abbildung \ref{fig:driftzeitspektrum_draht_raw} ist bis zu Driftzeiten von circa $\SI{250}{\nano\second}$ eine Zusammenhängende Verteilung mit einer Mehrheit der Treffer zu erkennen, darüber hinaus nur noch ein ungleichmäßiger Untergrund. In Abbildung \ref{fig:dt_tot_raw} ist eine Zusammenhängende Struktur mit TOT von $\SI{150}{\nano\second}$ bis $\SI{500}{\nano\second}$ und Driftzeiten von weniger als $\SI{300}{\nano\second}$ zu erkennen.
+Weiterhin findet man bei TOT nahe null eine Häufung sowie kontinuierlich wachsendes Rauschen zu hohen Driftzeiten und kleinen TOT.
+Die Relevante Struktur in Abbildung \ref{fig:dt_tot_raw} ist die zuerst beschriebene zusammenhängende mit Driftzeiten von weniger als $\SI{300}{\nano\second}$ und TOT zwischen $\SI{150}{\nano\second}$ und $\SI{500}{\nano\second}$. Aus der Struktur in Abbildung \ref{fig:driftzeitspektrum_draht_raw} erscheint es Logisch, dass Driftzeiten von sehr viel mehr als $\SI{300}{\nano\second}$ mehrheitlich Rauschen sind.
+Daraus leiten sich die Filterbedingungen ab, dass ein Treffer mindestens eine TOT von $\SI{100}{\nano\second}$ mit gleichzeitig einer maximalen Driftzeit von $\SI{400}{\nano\second}$ haben darf\footnote{Es wurden $\SI{400}{\nano\second}$ gewählt, da die Kante der Struktur nicht ganz scharf ist um nicht unnötig echte Treffer zu ignorieren}. Trägt man beide Abbildungen mit diesen Filtern erneut auf, erhält man die Abbildungen \ref{fig:driftzeitspektrum_draht} und \ref{fig:dt_tot}.
+
+\jafps{driftzeitspektrum_draht}{Driftzeiten pro Draht, gefiltert}{0.75}
+\jafps{dt_tot}{Driftzeit gegen TOT, gefiltert}{0.75}
+
+\section{Drahtkorrelation}
+

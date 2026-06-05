@@ -14,7 +14,9 @@
 \contentsline {chapter}{\numberline {5}Betriebsparameter-Kalibration}{13}{chapter.5}%
 \contentsline {section}{\numberline {5.1}Erklärung der Betriebsparameter}{13}{section.5.1}%
 \contentsline {subsection}{\numberline {5.1.1}Elektronikchain}{13}{subsection.5.1.1}%
-\contentsline {chapter}{\numberline {6}Anhang}{14}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Oszilloskopaufnahmen Szintillationsdetektor-Signale}{14}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Strommessung}{14}{section.6.2}%
+\contentsline {chapter}{\numberline {6}Datenputzen}{14}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Verteilung der Ansprecher und Time-over-Threshhold}{14}{section.6.1}%
+\contentsline {chapter}{\numberline {7}Anhang}{17}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Oszilloskopaufnahmen Szintillationsdetektor-Signale}{17}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Strommessung}{17}{section.7.2}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
