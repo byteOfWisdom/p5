@@ -816,6 +816,17 @@ int main(int argc, char** argv) {
    dt_tot.SetXTitle("Driftzeit / ns");
    dt_tot.SetYTitle("Time-Over-Threshhold / ns");
    plot(dt_tot, canvas_vec[3]);
+   #ifdef PRINT_FIGS
+   canvas_vec[9]->Print("../figs/drahtkorrelation_raw.pdf");
+   canvas_vec[0]->Print("../figs/driftzeitspektrum.pdf");
+   canvas_vec[12]->Print("../figs/driftzeitspektrum_langzeit.pdf");
+   canvas_vec[4]->Print("../figs/orts_driftzeit_bzh.pdf");
+   canvas_vec[2]->Print("../figs/drahtkorrelation_sortiert.pdf");
+   canvas_vec[1]->Print("../figs/driftzeitspektrum_draht.pdf");
+   canvas_vec[11]->Print("../figs/driftzeitspektrum_draht_raw.pdf");
+   canvas_vec[10]->Print("../figs/dt_tot_raw.pdf");
+   canvas_vec[3]->Print("../figs/dt_tot.pdf");
+   #endif
 
 
    //--------------------------------------------------------
@@ -830,9 +841,17 @@ int main(int argc, char** argv) {
    basic_angles.SetYTitle("Anzahl / 1");
    TFitResultPtr fit = basic_angles.Fit(&angle_dist_func, "S");
 
-   plot(basic_angles, canvas_vec[5]);
-   plot(*fit, canvas_vec[5]);
+   canvas_vec[5]->cd();
+   // plot(basic_angles, canvas_vec[5]);
+   // plot(*fit, canvas_vec[5]);
+   basic_angles.SetStats(0);
+   basic_angles.Draw();
+   fit->DrawClone("same");
+   canvas_vec[5]->Update();
 
+   #ifdef PRINT_FIGS
+   canvas_vec[5]->Print("../figs/winkelverteilung.pdf");
+   #endif
 
    //--------------------------------------------------------
    // for various angles, sum of dists vs diff of dists
@@ -882,6 +901,13 @@ int main(int argc, char** argv) {
    sum_vs_diff_edge.SetTitle(title.c_str());
    plot(sum_vs_diff_edge, canvas_vec[13]);
    
+   #ifdef PRINT_FIGS
+   canvas_vec[8]->Print("../figs/sum_diff_mid.pdf");
+   canvas_vec[7]->Print("../figs/sum_diff_all.pdf");
+   canvas_vec[6]->Print("../figs/sum_diff_center.pdf");
+   canvas_vec[13]->Print("../figs/sum_diff_edge.pdf");
+   #endif
+
    //--------------------------------------------------------
    // auto precise_angles = ana->precise_angle_distribution();
 
@@ -893,23 +919,6 @@ int main(int argc, char** argv) {
 
    //--------------------------------------------------------
    // ana->print_all_events();
-   #ifdef PRINT_FIGS
-   canvas_vec[9]->Print("../figs/drahtkorrelation_raw.pdf");
-   canvas_vec[0]->Print("../figs/driftzeitspektrum.pdf");
-   canvas_vec[12]->Print("../figs/driftzeitspektrum_langzeit.pdf");
-   canvas_vec[4]->Print("../figs/orts_driftzeit_bzh.pdf");
-   canvas_vec[2]->Print("../figs/drahtkorrelation_sortiert.pdf");
-   canvas_vec[1]->Print("../figs/driftzeitspektrum_draht.pdf");
-   canvas_vec[11]->Print("../figs/driftzeitspektrum_draht_raw.pdf");
-   canvas_vec[10]->Print("../figs/dt_tot_raw.pdf");
-   canvas_vec[3]->Print("../figs/dt_tot.pdf");
-   canvas_vec[5]->Print("../figs/winkelverteilung.pdf");
-   canvas_vec[8]->Print("../figs/sum_diff_mid.pdf");
-   canvas_vec[7]->Print("../figs/sum_diff_all.pdf");
-   canvas_vec[6]->Print("../figs/sum_diff_center.pdf");
-   canvas_vec[13]->Print("../figs/sum_diff_edge.pdf");
-   #endif
-
 
    app.Run(kTRUE);
 }
