@@ -23,7 +23,7 @@
 \contentsline {chapter}{\numberline {7}Orts-Driftzeit-Beziehung}{21}{chapter.7}%
 \contentsline {chapter}{\numberline {8}Winkelverteilung der kosmischen Strahlung}{23}{chapter.8}%
 \contentsline {chapter}{\numberline {9}Abstandssumme gegen Abstandsdifferenz}{25}{chapter.9}%
-\contentsline {chapter}{\numberline {10}Anhang}{26}{chapter.10}%
-\contentsline {section}{\numberline {10.1}Oszilloskopaufnahmen Szintillationsdetektor-Signale}{26}{section.10.1}%
-\contentsline {section}{\numberline {10.2}Strommessung}{26}{section.10.2}%
+\contentsline {chapter}{\numberline {10}Anhang}{27}{chapter.10}%
+\contentsline {section}{\numberline {10.1}Oszilloskopaufnahmen Szintillationsdetektor-Signale}{27}{section.10.1}%
+\contentsline {section}{\numberline {10.2}Strommessung}{27}{section.10.2}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
