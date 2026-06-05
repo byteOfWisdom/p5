@@ -1,3 +1,19 @@
 \chapter{Orts-Driftzeit-Beziehung}
 
-Für die weitere Auswertung wird die Beziehung zwischen dem Abstand vom Anodendraht, in welchem ein Teilchen eine Zelle durchquert, und der Driftzeit benötigt. Diese Beziehung kann aus dem Driftzeitspektrum gewonnen werden. Wichtig 
+Für die weitere Auswertung wird die Beziehung zwischen dem Abstand vom Anodendraht, in welchem ein Teilchen eine Zelle durchquert, und der Driftzeit benötigt, die sogenannte Orts-Driftzeit-Beziehung (ODB). Diese Beziehung kann aus dem Driftzeitspektrum gewonnen werden. Unter der Annahme, die Zellen sind gleichmäßig ausgeleuchtet und die Teilchen bewegen sich in der Flächennormale des Detektors kann die ODB über Integration des Driftzeitspektrums gewonnen werden, siehe Gl \eqref{eq:odb_kont}, was im diskreten Fall - welcher hier vorliegt - zu Gl \eqref{eq:odb_diskret} \cite[247-249]{kolanoskiwermerdetektoren}.
+
+\begin{align}
+	\frac{\d{r}}{r_{max}} &= \frac{\d{N}}{N_{max}}\\
+	r(t_D) &= \frac{r_{max}}{N_{max}} \int_0^{t_D} \d{t} \diff{N}{t} \label{eq:odb_kont}
+	r_i = \frac{r_{max}}{N_{ges}} \Sigma_{k=1}^i \Delta N_k\label{eq:odb_diskret}
+\end{align}
+
+\todo{ortsunsicherheit}
+
+Hierfür wurde nach dem Einstellen der Betriebsparameter eine etwas längere Messung mit der $\beta$ Quelle durchgeführt. Die Geometrie des Strahlers, sowie dessen Position stellen sicher, dass die oben genannten Annahmen in etwa zutreffen.
+Durch die Summe in Gl \eqref{eq:odb_diskret} erhält man aus dem in Abbildung \ref{fig:driftzeitspektrum} gezeigten Spektrum der Kalibrationsmessung die in Abbildung \ref{fig:orts_driftzeit_bzh} gezeigte ODB, welche im weiteren als \textit{look-up-table} verwendet wird.
+
+Diese ist nicht ideal, da sie nicht den gesamten Zeitbereich nutzt um die möglichen Orte so gleichmäßig wie möglich zu verteilen, entspricht jedoch in ihrer Form den Erwartungen \cite{hammanndiplom}.
+
+\jafps{driftzeitspektrum}{Driftzeitspektrum der Kalibrationsmessung}{0.75}
+\jafps{orts_driftzeit_bzh}{ODB}{0.75}
