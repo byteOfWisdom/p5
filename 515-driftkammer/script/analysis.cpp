@@ -28,7 +28,7 @@
 #define forr for_range
 #define IS_EVEN % 2 == 0
 #define IS_ODD % 2 == 1
-// #define PRINT_FIGS
+#define PRINT_FIGS
 
 const double TIME_LB  = -1.25;
 const double TIME_UB  = 250 * 2.5 + 2.5 / 2.;
@@ -653,7 +653,7 @@ void plot_set(std::vector<dataset*>& files, TCanvas* canv, global_object_store* 
 
       i++;
    }
-   canv->BuildLegend();
+   canv->BuildLegend(0.9,0.7,0.48,0.9);
    canv->Update();
 }
 
@@ -661,21 +661,21 @@ void plot_set(std::vector<dataset*>& files, TCanvas* canv, global_object_store* 
 void plot_parameter_search() {
    TCanvas* voltage_canvas = new TCanvas("voltage_sweep", "Verschiedene Beschleunigungsspannungen");
    std::vector<dataset*> voltage_data = std::vector<dataset*> ({
+      new dataset("../data/B103/run_260513_153904.root"),
       new dataset("../data/B103/run_260513_145435.root"),
       new dataset("../data/B103/run_260513_145148.root"),
       new dataset("../data/B103/run_260513_144851.root"),
-      new dataset("../data/B103/run_260513_150659.root"),
-      new dataset("../data/B103/run_260513_150905.root"),
-      new dataset("../data/B103/run_260513_153904.root")
+      // new dataset("../data/B103/run_260513_150659.root"),
+      // new dataset("../data/B103/run_260513_150905.root"),
    });
 
    std::vector<TString> names = {
+      "2.801kV",
       "2.599kV",
       "2.499kV",
       "2.403kV",
       "2.451kV",
       "2.482kV",
-      "2.801kV"
    };
 
    global_object_store* gob = new global_object_store();
@@ -683,39 +683,36 @@ void plot_parameter_search() {
 
    TCanvas* discriminator_canvas = new TCanvas("discriminator_sweep", "Verschiedene Diskriminatoreinstellungen");
    std::vector<dataset*> discriminator_data = std::vector<dataset*> ({
+      new dataset("../data/B103/run_260513_153904.root"),
       new dataset("../data/B103/run_260513_160116.root"),
       new dataset("../data/B103/run_260513_155621.root"),
       new dataset("../data/B103/run_260513_155230.root"),
       new dataset("../data/B103/run_260513_154351.root"),
-      new dataset("../data/B103/run_260513_153904.root"),
    });
 
    std::vector<TString> disc_names = {
+      "0x20",
       "0x40",
       "0x68",
       "0x58",
       "0x28",
-      "0x20"
    };
    plot_set(discriminator_data, discriminator_canvas, gob, disc_names, 1);
 
 
    TCanvas* delay_canvas = new TCanvas("delay_sweep", "Verschiedene Verzögerungen");
    std::vector<dataset*> delay_data = std::vector<dataset*> ({
-      new dataset("../data/B103/run_260513_160116.root"),
-      new dataset("../data/B103/run_260513_155621.root"),
-      new dataset("../data/B103/run_260513_155230.root"),
-      new dataset("../data/B103/run_260513_154351.root"),
-      new dataset("../data/B103/run_260513_153904.root"),
+      new dataset("../data/B103/run_260513_161632.root"),
+      new dataset("../data/B103/run_260513_160946.root"),
+      new dataset("../data/B103/run_260513_161414.root"),
    });
 
    std::vector<TString> delay_names = {
-      "0x40",
-      "0x68",
-      "0x58",
-      "0x28",
-      "0x20"
+      "0x1E",
+      "0x27",
+      "0x20",
    };
+
    plot_set(delay_data, delay_canvas, gob, delay_names, 2);
    #ifdef PRINT_FIGS
    voltage_canvas->Print("../figs/bp_spannung.pdf");
