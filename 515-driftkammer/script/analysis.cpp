@@ -635,7 +635,7 @@ void plot(Plotable& p, TCanvas* C) {
 
 void plot_set(std::vector<dataset*>& files, TCanvas* canv, global_object_store* gob, std::vector<TString> names, int j = 0) {
    canv->cd();
-   EColor colors[] = {kBlue, kPink, kRed, kOrange, kAzure, kCyan, kMagenta, kTeal};
+   EColor colors[] = {kBlue, kRed, kGreen, kOrange, kMagenta, kTeal};
    int i = 0;
    for (dataset* ds : files) {
       ds->ana->filter_enabled = false;
@@ -703,14 +703,16 @@ void plot_parameter_search() {
    TCanvas* delay_canvas = new TCanvas("delay_sweep", "Verschiedene Verzögerungen");
    std::vector<dataset*> delay_data = std::vector<dataset*> ({
       new dataset("../data/B103/run_260513_161632.root"),
-      new dataset("../data/B103/run_260513_160946.root"),
+      // new dataset("../data/B103/run_260513_160946.root"),
       new dataset("../data/B103/run_260513_161414.root"),
+      new dataset("../data/B103/run_260513_160116.root"),
    });
 
    std::vector<TString> delay_names = {
       "0x1E",
-      "0x27",
+      // "0x27",
       "0x20",
+      "0x23",
    };
 
    plot_set(delay_data, delay_canvas, gob, delay_names, 2);
@@ -733,7 +735,7 @@ int main(int argc, char** argv) {
    char** dargv = &argv[0];
    TRint app = TRint("app", &dargc, dargv);
    std::vector<TCanvas*> canvas_vec = std::vector<TCanvas*>();
-   forr(i, 0, 11) canvas_vec.push_back(new TCanvas(("c" + std::to_string(i)).c_str(), "c", 800, 600));
+   forr(i, 0, 13) canvas_vec.push_back(new TCanvas(("c" + std::to_string(i)).c_str(), "c", 800, 600));
 
 
    //--------------------------------------------------------
@@ -760,6 +762,14 @@ int main(int argc, char** argv) {
    ana->dt_lut = odb;
 
    //--------------------------------------------------------
+   // longterm dt spectrum
+   auto dt_spectrum_lt = ana->dt_hist();
+   dt_spectrum_lt.SetXTitle("Driftzeit / ns");
+   dt_spectrum_lt.SetYTitle("Anzahl / 1");
+   dt_spectrum_lt.SetName("dt_hist_longterm");
+   plot(dt_spectrum_lt, canvas_vec[12]);
+
+   //--------------------------------------------------------
    // wire correlation after correction   
    // TODO: before correction
    auto wire_correlation_raw = ana->wire_correlation();
@@ -777,6 +787,14 @@ int main(int argc, char** argv) {
 
    //--------------------------------------------------------
    // drift time spectrum per wire
+   ana->filter_enabled = false;
+   auto dt_wire_plot_raw = ana->dt_wire_hist();
+   ana->filter_enabled = true;
+   dt_wire_plot_raw.SetXTitle("Drahtnummer");
+   dt_wire_plot_raw.SetYTitle("Driftzeit / s");
+   dt_wire_plot_raw.SetName("dt_wire_raw");
+   plot(dt_wire_plot_raw, canvas_vec[11]);
+
    auto dt_wire_plot = ana->dt_wire_hist();
    dt_wire_plot.SetXTitle("Drahtnummer");
    dt_wire_plot.SetYTitle("Driftzeit / s");
@@ -866,9 +884,11 @@ int main(int argc, char** argv) {
    #ifdef PRINT_FIGS
    canvas_vec[9]->Print("../figs/drahtkorrelation_raw.pdf");
    canvas_vec[0]->Print("../figs/driftzeitspektrum.pdf");
+   canvas_vec[12]->Print("../figs/driftzeitspektrum_langzeit.pdf");
    canvas_vec[4]->Print("../figs/orts_driftzeit_bzh.pdf");
    canvas_vec[2]->Print("../figs/drahtkorrelation_sortiert.pdf");
-   canvas_vec[1]->Print("../figs/driftzeitspektrum_langzeit.pdf");
+   canvas_vec[1]->Print("../figs/driftzeitspektrum_draht.pdf");
+   canvas_vec[11]->Print("../figs/driftzeitspektrum_draht_raw.pdf");
    canvas_vec[10]->Print("../figs/dt_tot_raw.pdf");
    canvas_vec[3]->Print("../figs/dt_tot.pdf");
    canvas_vec[8]->Print("../figs/sum_diff_mid.pdf");
