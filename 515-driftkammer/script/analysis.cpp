@@ -28,7 +28,7 @@
 #define forr for_range
 #define IS_EVEN % 2 == 0
 #define IS_ODD % 2 == 1
-#define PRINT_FIGS
+// #define PRINT_FIGS
 
 const double TIME_LB  = -1.25;
 const double TIME_UB  = 250 * 2.5 + 2.5 / 2.;
@@ -131,7 +131,7 @@ constexpr Double_t cell_edges_to_angles(unsigned int n, position_in_cell_t edge)
    // const auto middle_bin = 20;
    const auto middle_bin = SCINT_CENTERED_OVER;
    const auto height_bottom_row = 12.5e-2;
-   const auto height_top_row = height_bottom_row - 1.7e-2; // TODO: check!!!
+   const auto height_top_row = height_bottom_row - 1.7e-2;
    const auto scint_edge_l = middle_bin * 8.5e-3;
    const auto scint_edge_r = (middle_bin + 1) * 8.5e-3;
    const auto scint_edge_c = (middle_bin + 0.5) * 8.5e-3;
@@ -330,11 +330,12 @@ TH1D analysis::basic_angle_distrib() {
    //    return theta * rad_to_deg;
    // };
 
-   auto ce2a = [](Double_t x) -> Double_t {return cell_edges_to_angles(2 * x, left);};
+   auto ce2a = [](Double_t x) -> Double_t {return cell_edges_to_angles(2 * x, center);};
    Double_t bin_edges[25];
    std::iota(bin_edges, bin_edges + 25, 0);
    std::transform(bin_edges, bin_edges + 25, bin_edges, ce2a);
    // std::transform(bin_edges, bin_edges + 25, bin_edges, local_cell_edges_to_angles);
+   forr (i, 0, 25) printf("%lf\n", bin_edges[i]);
 
    // TH1D angle_distribution = TH1D("basic_angle_distribution", "Winkelverteilung der Kosmischen Strahlung", 24, bin_edges);
    TH1D block_starts = TH1D("block_starts", "Winkelverteilung der Kosmischen Strahlung", WIRE_BINS);

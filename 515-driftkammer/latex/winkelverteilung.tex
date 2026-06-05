@@ -13,7 +13,7 @@ Der Abstand des Szintillators zur Drahtebene wurde mittels Zollstockmessungen al
 
 Die Position des Szintillators wurde zunächst gemessen, im Verlauf kam allerdings jemand an den Szintillator, daher wurde dessen Position aus Abbildung \ref{fig:driftzeitspektrum_draht} als etwa zentral über Draht $22$ entnommen (aufgrund des Maximums der Treffer, zentriert auf diesen Bereich). Dies entspricht bis auf wenige $\unit{\milli\meter}$ der zuvor bestimmten Position (diese war mit einer Messunsicherheit von insgesamt etwa $\SI{1}{\centi\meter}$ genau mittig auf der Driftkammer, also zentriert über Zelle 24). Die Position $S_0$ erhählt allerdings ihre Unsicherheit primär durch die Breite des Szintillators von $\SI{5.0(5)}{\centi\meter} / 2$, da in dieser Betrachtung nicht genau gesagt werden kann, wo durch den Szintillator das Myon geflogen ist. Bei einer Pfadrekonstruktion mittels Driftzeiten läßt sich diese Information allerdings gewinnen.
 
-Die Unsicherheiten der Winkel lassen sich über gaussche Fehlerfortpflanzung aus den Unsicherheiten der Abstände und Positionen bestimmen, haben allerdings keine weitere relevanz, da Bingrenzen in Histogrammen keine möglichkeit haben Unsicherheiten abzubilden. Im weiteren ist die maßgebliche Unsicherheit also wieder der Poissonverteilte Fehler auf die Anzahl in den Bins. Zur besseren Lesbarkeit, und weil diese keine relevante Aussage tätigen, wurde auf das Auftragen dieser Unsicherheiten verzichtet. \todo{vielleicht doch ausrechnen oder auftagen}
+Die Unsicherheiten der Winkel lassen sich über gaussche Fehlerfortpflanzung aus den Unsicherheiten der Abstände und Positionen bestimmen, haben allerdings keine weitere relevanz, da Bingrenzen in Histogrammen keine möglichkeit haben Unsicherheiten abzubilden. Im weiteren ist die maßgebliche Unsicherheit also wieder der Poissonverteilte Fehler auf die Anzahl in den Bins. Zur besseren Lesbarkeit, und weil diese keine relevante Aussage tätigen, wurde auf das Auftragen dieser Unsicherheiten verzichtet. Die Winkel, und somit auch Bin Grenzen in Abbildung \ref{fig:winkelverteilung} sind mit Fehlern (bestimmt über Gaussche Fehlerfortpflanzung) im Anhang in Tabelle \ref{tab:angle_bins} gelistet.
 
 \jafps{skizze_winkel}{Skizze der Berechnung der Winkelbereiche zu jeder Zelle}{0.5}
 
@@ -26,13 +26,13 @@ Die erwartete Winkelverteilung ist
 \end{align}
 
 mit $k = 2$ \cite[249]{astroparticles}. Es kann zwar $k$ von zwei leicht abweichen, für die grobe Überprüfung der Messdaten wird dies jedoch nicht betrachtet \cite{muonrays}. Es wird die Funktion $I(\Theta) = I_0 \cdot \cos(\Theta - \Theta_0)^2 + a$ an die gemessene Winkelverteilung angepasst.
-Hierzu wird der \textit{minuit2} minimizer mit der \textit{ROOT} Fit funktionalität genutzt \cite{root}. Es ergeben sich die Anpassungsergebnisse in Tabelle \ref{tab:fitres}, mit einem reduzierten $\chi^2_\text{red} = 4.2$ \cite{chisquare}.
+Hierzu wird der \textit{minuit2} minimizer mit der \textit{ROOT} Fit funktionalität genutzt \cite{root}. Es ergeben sich die Anpassungsergebnisse in Tabelle \ref{tab:fitres}, mit einem reduzierten $\chi^2_\text{red} = 4.4$ \cite{chisquare}.
 
 \begin{table}[h]
 \centering
 \begin{tabular}{|c|c|c|c|} \hline
 Parameter & $I_0$ & $\Theta_0$ & $a$\\ \hline
-Wert & $\num{ 902(14)}$ & $\SI{0.9(2)}{\degree}$ & $\num{-135(6)}$ \\
+Wert & $\num{ 906(15)}$ & $\SI{0.1(2)}{\degree}$ & $\num{-149(7)}$ \\
 \hline
 \end{tabular}
 \caption{Anpassungsparameter der Winkelverteilung.}
@@ -41,4 +41,4 @@ Wert & $\num{ 902(14)}$ & $\SI{0.9(2)}{\degree}$ & $\num{-135(6)}$ \\
 
 
 
-\jafps{winkelverteilung}{Winkelverteilung der kosmischen Strahlung, mit Anpassungsfunktion nach Gl \eqref{eq:fitfunc}, $\chi^2_\text{red} = 4.2$}{0.75}
+\jafps{winkelverteilung}{Winkelverteilung der kosmischen Strahlung, mit Anpassungsfunktion nach Gl \eqref{eq:fitfunc}, $\chi^2_\text{red} = 4.4$}{0.75}
