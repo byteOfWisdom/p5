@@ -1,0 +1,36 @@
+\include{template}
+\usepackage[headsepline=true,markcase=upper]{scrlayer-scrpage}
+\automark[chapter]{chapter}
+\ohead*{515: Driftkammern} % outer head on even & odd pages
+\setkomafont{pagehead}{\tiny\bfseries}
+
+\title{515: Driftkammern}
+
+\date{13. \& 15.5.2026}
+
+\bibliography{refs5}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\include{einleitung.tex}
+\include{analog.tex}
+\include{strom.tex}
+\include{rates.tex}
+\include{kalibration.tex}
+
+\include{aufbau.tex}
+\include{preprocessing.tex}
+\include{odb.tex}
+\include{winkelverteilung.tex}
+\include{sumdiff.tex}
+
+\include{fazit.tex}
+\include{anhang.tex}
+
+\printbibliography
+
+\end{document}
