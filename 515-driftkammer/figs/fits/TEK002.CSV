@@ -1,0 +1,9 @@
+min volt height:  -0.0696 half volt height:  -0.025604409105532386
+min time:  -1.504e-06 half height time:  3.68e-07
+duration:  1.8720(28)e-06
+fit (c*np.exp(a*(x - d))+b):
+a :  -4.668(61)e+05
+b :  0.00385(45)
+c :  -0.0(3.6)e+04
+t0 :  -0.00(32)
+R^2: 0.993

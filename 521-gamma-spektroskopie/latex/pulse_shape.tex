@@ -1,0 +1,75 @@
+\chapter{Signalform} \label{sec:signalform}
+
+%\todo{Aus Anleitung: "Zusätzlich soll auch beschrieben werden wie das Signal zustanden kommt und wie es weiter verarbeitet wird (Wodurch kommt die asymmetrische Form zu Stande?)"‚}
+
+\subsection{Analyse der Signale des NaI-Detektors} \label{sec:signal_nai}
+
+Zunächst wurde der NaI-Detektor in Betrieb genommen und die $\ce{ ^137Cs }$-Quelle im Abstand von $d_\text{NaI}=\SI{10(0.5)}{\centi\meter}$ mittig vor den Detektor gestellt. Dabei wurde die Versorgungshochspannung auf $U_{HS}=\SI{639(32)}{\V}$ bei $I_{HS}=\SI{457(23)}{\milli\A}$ eingestellt und ca. 30 Minuten abgewartet, damit sich der Detektorbetrieb stabilisierte. Die Fehler hier wurden als$5\%$ des gemessenen Werts angenommen. Anschließend wurde ein Oszilloskop direkt an den Ausgang des Vorverstärkers nach der PMT angeschlossen und das Signal auf dem Bildschirm des Oszilloskops betrachtet. Das verwendete Koaxialkabel musste dabei zur Vermeidung von Signalreflexionen am offenen Kabelende mit einem Widerstand von $R_A=\SI{50}{\ohm}$ (entsprechend dem Wellenwiderstand des Kabels) abgeschlossen werde. Ab ca. $U=\SI{450}{\V}$ konnten bereits Signale beobachtet werden, aber der fianle Wert der Hochspannung $U_{HS}$ wurde nach Anleitung so gewählt, dass die gemessenen Spannungspulse nach dem Vorverstärker bei der $\ce{ ^137Cs }$-Quelle eine Amplitude von etwa $\SI{100}{\milli\V}$ hatten und für die restlichen Messungen mit dem NaI-Detektor konstant gehalten. In Abbildung \ref{fig:oszi_uncorr_files_1-5} sind aufgenommene Oszilloskopbilder von vier der pulsförmigen Signale des Detektors dargestellt.
+
+\jafps{oszi_uncorr_files_1-5}{Oszilloskopaufnahmen von vier einzelnen Signalen am Ausgang des Vorverstärkers des NaI-Detektors.}{0.6}
+
+Es sind auch Pulse nicht maximaler Amplitude zu erkennen, dies ist dadurch zu erklären, dass aufgrund der statistisch zufälligen Emissionsrichtung nicht jedes erzeugte Szintillationsphoton einer $\gamma$-Wechselwirkung die PMT erreicht hat und so zur Signalamplitude beitragen konnte. Zur Signalanalyse interessieren vorwiegend nur die Pulse maximaler Amplitude. Als Fehler wurden hier für die Spannungsmessung $5\%$ des Messwerts angenommen, für die Zeit jeweils $\Delta t = \SI{0.02e-6}{\second}$ als Zeitintervall der Oszilloskopmesspunkte.
+
+Der zeitliche Verlauf des Szintillationslichts eines Szintillationsdetektors bei Einfall eines $\gamma$-Photons wird näherungsweise als einfacher Zerfallsprozess beschrieben, weswegen die Pulsform des Signals auf der Oszilloskopaufnahme als schneller Anstieg und exponentieller Abfall zu erwarten ist \cite[158]{leotechniques}.
+Dies wird an den gemessenen Signalen über eine Anpassung an eine Anpassungsfunktion der Form $U(t)=A\cdot \text{e}^{b(t-t_0)}+c$ überprüft. Hierbei ist $c$ der y-Achsenabschnitt, da das Spannungssignal, welches am Oszilloskop aufgenommen wird, auch bei keinem anliegenden Signal eine Spannung von $c$ anzeigt. Der Zeitversatz $t_0$ ist der Startpunkt der fallenden Flanke des Signals (die steigende Flanke kann als annähernd instantan betrachtet werden). $b$ beschreibt den Kehrwert der Zerfallskonstante $\tau$, bei welcher das Signal auf $1/e$ seiner maximalen Stärke gefallen ist. $b$ ist negativ zu erwarten, da es sich um einen exponentiellen Abfall handelt.
+Für die Signale wurden jeweils an die Pulse der maximal beobachteten Amplitude diese Exponentialfunktion angepasst, als Anpassungsbereich wurde die Kurve ab der maximalen Amplitude bis zum Ort des Amplitudenabfalls auf $1/e$ der Maximalamplitude (die Pulsbreite) betrachtet. Die so erhaltenen Anpassungsfunktionen sind im Anhang in der Abbildung \ref{fig:peak_curve_nai_1} beispielhaft an Aufnahme 1 dargestellt. Aus den Werten des Bestimmtheitsmaßes als Maß der Güte der Anpassung $R^2\lesssim 1$ wird deutlich, dass die Signale die Erwartung des exponentiellen Zerfalls sehr gut erfüllen \footnote{$R^2$ ist ein passendes Maß für die Anpassungsgüte für Anpassungsfunktionen, die nicht einer Distribution oder der Summe solcher entsprechen \cite{rsquared}.}.
+
+Die wie oben beschrieben bestimmten Pulsbreiten sind in Tabelle \ref{tab:pulsedurations_nai} aufgeführt. Im Durchschnitt dauert ein Puls im NaI-Detektor $\SI{6.0025(14)e-05}{\second}$ mit nur geringen Unterschieden zwischen den einzelnen Pulsen.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|} \hline
+    Messungsnr. & Maximalamplitude / V & Pulsdauer T / s\\
+    \hline
+    1 & $\num{0.0818(77)}$ & $\num{6.0500(28)e-05}$ \\
+    2 & $\num{0.0882(80)}$ & $\num{6.0000(28)e-05}$ \\
+    3 & $\num{0.0820(77)}$ & $\num{5.9980(28)e-05}$ \\
+    4 & $\num{0.0840(79)}$ & $\num{5.9620(28)e-05}$ \\ \hline
+    Durchschnitt & $\num{0.0840(39)}$ & $\num{6.0025(14)e-05}$ \\
+    \hline
+    \end{tabular}
+    \caption{Pulsbreiten der gemessenen Oszilloskopsignale vom NaI-Detektor mit $\ce{ ^137Cs }$-Quelle.}
+    \label{tab:pulsedurations_nai}
+\end{table}
+
+
+\subsection{Analyse der Signale des HPGe-Detektors} \label{sec:signal_ge}
+
+Auch für den HPGe-Detektor wurden die Ausgangssignale am Oszilloskop betrachtet. Die verwendete Hochspannung war hierbei bereits fest am Gerät eingestellt \cite[4]{521versuchsanleitung} und wurde nicht weiter verändert. Als Probe wurde auch hier die $\ce{ ^137Cs }$-Quelle betrachtet, die im Abstand von $d_\text{HPGe}=\SI{16.5(0.1)}{\centi\meter}$ zum Detektor platziert wurde.
+Vier Detektorsignale sind in Abbildung \ref{fig:oszi_uncorr_files_6-9} abgebildet. Auch hier ist die zu erwartende Form des schnellen Anstiegs und danach exponentiellen Abfalls zu erkennen.
+
+\jafps{oszi_uncorr_files_6-9}{Oszilloskopaufnahmen von vier einzelnen Signalen am Ausgang des Vorverstärkers des HPGe-Detektors.}{0.6}
+
+Es sind mehrere verschiedene Maximalamplituden zu erkennen, bei den niedrigeren könnte es sich einerseits um Pulse handeln, bei denen nicht die gesamte Energie der Photonen den Detektor erreicht hat, z.B. durch zufällig viel Rekombination der Elektron-Loch-Paare im intrinsischen Bereich der PiN-Diode für das spezifische $\gamma$-Photonereignis.
+ Außerdem könnte es sich um den Unterschied zwischen den beiden möglichen $\gamma$-Zerfällen von $\ce{ ^137Cs }$ (siehe Zerfallsschema in \ref{fig:zerfallsschema_cs}) handeln. Die Signalhöhe korrespondiert wie in \ref{sec:ge_aufbau} erläutert, zur Energie des einfallenden $\gamma$-Photons. Wenn dies der Fall ist, wurde vermutlich in einigen der Aufnahmen
+%Aufnahmen 1 und 3
+der niedrigenergetischere Übergang unter Emission von $E_{\gamma,1} = \SI{283.5(1)}{\kilo\eV}$ gemessen, in
+%Aufnahmen 2 und 4
+anderen Aufnahmen
+der höherenergetische Übergang unter Emission von $E_{\gamma,2} = \SI{661.7}{\kilo\eV}$ und ggf. in anderen Aufnahmen auch der höherenergetische Übergang, wobei aber nicht die gesamten Energie via Strom durch die erzeugten Elektron-Loch-Paare den Ausgang des Detektors erreicht hat. Letzterer Fall (höherenergetischer Übergang mit nicht der ganzen Energie gemessen) ist aufgrund der geringen Wahrscheinlichkeit dieses Zerfalls (geringe \textit{branching ratio}, siehe Abb. \cite{fig:zerfallsschema_cs}) wahrscheinlicher als ersterer.
+
+Wie in Abschnitt \ref{sec:signal_nai} wurde auch hier zur Bestätigung der Form des exponentiellen Abfalls eine abfallende Exponentialfunktion der Form $U(t)=A\cdot \text{e}^{b(t-t_0)}+c$ an die Signale innerhalb ihrer (wie oben bestimmten) Pulsbreite angepasst. Die Anpassungen zeigen, wie beim NaI-Detektor, anhand des Werts von $R^2 \lesssim 1$ eine gute Übereinstimmung der Daten mit der Anpassungsfunktion, die Erwartung an die Signalform ist also bei allen Aufnahmen erfüllt. Beispielhaft ist die Anpassung in Abbildung \ref{fig:peak_curve_HPGe_6} im Anhang dargestellt.
+
+Die bestimmten Maximalamplituden und Pulsdauern sowie die Durchschnittswerte (letzteres getrennt für die zwei Aufnahmen mit deutlich kleineren und die zwei mit deutlich größeren Amplituden) sind in Tabelle \ref{tab:pulsedurations_ge} aufgeführt. Die Fehler der Zeiten und Spannungsmessungen wurden analog zu Abschnitt \ref{sec:signal_nai} angenommen (gleiches Oszilloskop).
+
+Die durchschnittliche Pulsdauer des HPGe-Detektors ist für die kleineren Pulse $T_1=\SI{5.7010(24)e-05}{\second}$ und für die größeren Pulse $T_2=\SI{5.8120(20)e-05}{\second}$, also um weniger als $\SI{2e-6}{\second}$ unterschiedlich zwischen den Pulshöhen und auch nur um weniger als $\SI{1e-5}{\second}$ verschieden von der durchschnittlichen Pulsdauer des NaI-Detektors, kann also innerhalb der Größenordnung von $\SI{10}{\micro \second}$ als identisch genähert werden.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|} \hline
+    Messungsnr. & Maximalamplitude / V & Pulsdauer T / s  \\
+    \hline
+    1 & $\num{0.0306(12)}$ & $\num{5.8780(28)e-05}$ \\
+    2 & $\num{0.01809(65)}$ & $\num{5.6380(28)e-05}$ \\
+    3 & $\num{0.0486(21)}$ & $\num{5.7460(28)e-05}$ \\
+    4 & $\num{0.01819(65)}$ & $\num{5.7640(28)e-05}$ \\ \hline
+    Durchschnitt kleinere Pulse & $\num{0.01814(59)}$ & $\num{5.7010(24)e-05}$ \\
+    \hline
+    Durchschnitt größere Pulse & $\num{0.0396(12)}$ & $\num{5.8120(20)e-05}$ \\ \hline
+    \end{tabular}
+    \caption{Pulsbreiten der gemessenen Oszilloskopsignale vom HPGe-Detektor mit $\ce{ ^137Cs }$-Quelle.}
+    \label{tab:pulsedurations_ge}
+\end{table}
+
+\subsection{MCA-Verstärkungsfaktor} \label{sec:verstaerkung}
+Als Verstärkung des MCA wurde für die gesamte Durchführung der Wert 1,700 gewählt, da so ein Energiebereich von etwa $\SIrange{0}{1550}{\kilo\eV}$ gemessen werden kann. Um dies zu verifizieren, wurde darauf geachtet, dass für beide Detektoren bei Messung der $\ce{ ^152Eu }$-Quelle auch noch ein Peak bei großen Kanalzahlen im Histogramm sichtbar wurde, der somit vermutlich sehr intensiv beobachtbaren $\SI{1408.013(3)}{\kilo\eV}$-Übergang von Eu \cite[8]{521versuchsanleitung} entsprach, wodurch der Zielbereich gut abgebildet werden kann.

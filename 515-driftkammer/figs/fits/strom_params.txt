@@ -1,0 +1,5 @@
+fitfunktion: c*np.exp(a*x)
+a: 
+0.00689(11)
+c: 
+4.7(1.4)e-16

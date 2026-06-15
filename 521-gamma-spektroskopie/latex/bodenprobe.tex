@@ -1,0 +1,53 @@
+\chapter{Analyse der Bodenprobe}\label{sec:bodenprobe}
+
+\section{Durchführung}
+
+Es wurde nun eine mitgebrachte Bodenprobe (ca. $\SI{1}{\kg}$ Material) mit dem HPGe-Detektor untersucht. Dazu wurde die Probe in einem transparenten Plastikbeutel direkt vor den Detektor gestellt und mit einer annähernd kompletten Abschirmung aus Bleiblöcken umgeben, um Hintergrundsignale möglichst zu eliminieren. Als Messdauer wurden $t=\SI{64800(0.5)}{\second}$ über Nacht gewählt. Als Verstärkung des Detektors blieb weiterhin $1,700$ eingestellt. Anschließend dazu wurde die gleiche Messung wiederholt, nur ohne Probe, damit ein Untergrundspektrum aufgenommen werden konnte. Die so erhaltenen Spektren sind (mit Fehlerbalken, die für den weiteren Verlauf um eine sinnvolle Inspektion der Spektrumsform zu ermöglichen, weggelassen werden) in Abbildungen \ref{fig:langzeit_mitprobe_ge_with_eb} und \ref{fig:langzeit_ohneprobe_ge_with_eb} dargestellt. Es wird das Differenzspektrum durch Subtraktion des Untergrundspektrums vom Probenspektrum erzeugt, eine Normierung der Messanzahlen ist aufgrund der gleich gewählten Messdauern nicht notwendig. Das Differenzspektrum ist in Abbildung \ref{fig:bodenprobe} dargestellt.
+
+\section{Identifikation der vorhandenen Radionuklide}
+Es soll nun identifiziert werden, welche Radionuklide in der Probe vorhanden waren, da in der Umgebung ständig eine geringfügige Strahlungsbelastung vorhanden ist. Dabei handelt es sich sowohl um primordiale, sehr langlebige Radionuklide und ihre Zerfallsprodukte als auch um ständig aufgrund von hochenergetischer kosmischer Strahlung produzierte Radionuklide \cite[55-58]{ex_techniques}. Auch zivilisatorisch erzeugte Radionuklide kommen dabei in Frage \cite[7]{521versuchsanleitung}, welche nicht natürlich, sondern nur als künstlich entstandene Zerfallsprodukte bei Kernwaffeneinsätzen oder bei der Erzeugung nuklearer Energie entstehen \cite[73]{leotechniques}.
+
+Um die in der spezifischen Probe vorhandenen Nuklide identifizieren zu können, sollen die Energien der gemessenen $\gamma$-Photonen anhand der erkennbaren Totalenergie-Peaks des gemessenen Spektrum bestimmt werden. Als Detektor wurde der HPGe-Detektor verwendet, daher wird im Folgenden für die Berechnung der korrespondierenden Energien der Kanälnummern, bei denen die Peakschwerpunkte liegen, die oben bestimmte Energiekalibrationsfunktion des HPGe-Detektors (Gl. \ref{eq:cal_ge}) genutzt.
+Es wurden mit dem gleichen Verfahren wie bereits oben verwendet die deutlich sichtbaren Gaußpeaks im Spektrum identifiziert und die Daten jeweils mit den einzelnen Gaußfunktionen angepasst. Das Spektrum mit Anpassungsfunktionen ist in Abbildung \ref{fig:bodenprobe} dargestellt (Daten in blau, Anpassungsfunktionen in grün, die grünen Bereich zeigen die benutzten Datenbereiche für die einzelnen Anpassungsfunktionen). Die Anpassungsparameter sind in Tabelle \ref{tab:bodenprobe_peaks} zu finden.
+
+\jafps{bodenprobe}{Differenzspektrum der Bodenprobe (in blau, aus Lesbarkeitsgründen ohne Fehler) mit eingezeichneten Anpassungsbereichen (hellgrüne Bereiche) und Anpassungsfunktionen an die erkennbaren Gaußpeaks (jeweils in grün) in Ereignisanzahl-Kanal-Darstellung.}{0.8}
+
+% \begin{table}[h]
+% \centering
+% \begin{tabular}{|c|c|c|c|c|} \hline
+% \input{../figs/bodenprobe_linien.table}
+% \end{tabular}
+% \caption{Anpassungsparameter der einzelnen Gaussfunktionen der Bodenprobe.}
+% \label{tab:bodenprobe_peaks}
+% \end{table}
+
+Es wurden mithilfe der Germanium-Energiekalibrationsfunktion die Peakschwerpunkte in Energien umgerechnet und anschließend mit möglichen Energien von $\gamma$-Photonen verglichen. Es kommen nur Energien in Frage, die zu bekannten in der Umwelt vorkommenden Radionukliden gehören, die eine Lebensdauer haben, die in der gleichen Größenordnung wie die Messdauer liegt, wie die Messung und eine relativ hohe relative Intensität (Anteil der Zerfälle, bei denen ein Photon dieser Energie emittiert wird) haben, da sonst die Intensität zu klein wäre. Zur Recherche der möglichen Energien werden \cite{nudat} sowie \cite[Anhang A]{list_bmumwelt} genutzt. Es können nicht alle gefundenen Peaks des aufgenommenen Spektrums sicher zuordnet werden. Dies ist insbesondere bei den niedrigeren Peakenergien dadurch zu erklären, dass wahrscheinlich auch Röntgenstrahlung (bei Zustandsübergängen von Elektronen in der Hülle der Atome, entweder im Detektormaterial oder bei den Molekülen der Probe) im Bereich unter $\SI{100}{\kilo\eV}$ gemessen wurde.
+Auch Rückstreupeaks (Compton-Streuung im Streuwinkelmaximum von $\SI{180}{\degree}$) an der Bleiumschirmung oder am Detektormaterial sowie Escape-Peaks (bei $e^{+}e^{-}$-Annihilation für einige der erzeugten freien Elektronen, bei denen bei Paarbildung von dem Positron mit einem Materialelektron nur eins (oder keins) der dabei erzeugten zwei Photonen mit jeweiliger Energie $\SI{511}{\kilo\eV}$ registriert wird und so zur gemessenen $\gamma$-Photon-Energie betragen kann) könnten zu weiteren Peaks im Spektrum beitragen, die dann keine zuordnenbaren Totalenergiepeaks sein können.
+In Tabelle \ref{tab:bodenprobe_zuordnung} sind die Linien mit den jeweiligen zuordneten Radionukliden aufgelistet, bei denen eine Zuordnung erfolgen konnte.
+
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c||c c|} \hline
+Fläche / (Anzahl$\cdot$Kanal) & $\mu$ / Kanal & $E_\gamma$ / keV & Nuklid & $E_{\gamma,\text{Lit}}$ \\ \hline
+$\num{5.11(23)e+03}$ & $\num{2573.49(21)}$ & $\num{310(11)}$ & $\ce{^214Pb}$ & $\num{295.224(2)}$ \\
+$\num{1.43(19)e+03}$& $\num{3184.20(68)}$ & $\num{383(13)}$ & $\ce{^214Pb}$ & $\num{351.9320(21)}$ \\
+$\num{2.30(15)e+03}$& $\num{3795.37(32)}$ & $\num{457(12)}$ & $\ce{^7Be}$ & $\num{477.6035(20)}$ \\
+$\num{3.0(1.2)e+02}$ & $\num{4992.7(2.6)}$ & $\num{601(12)}$ & $\ce{^214Bi}$ & $\num{609.321(7)}$ \\
+$\num{1.12(21)e+03}$ & $\num{5511.2(1.7)}$ & $\num{663(12)}$ & $\ce{^137Cs}$ & $\num{661.657(3)}$ \\
+$\num{1.86(11)e+03}$ & $\num{6290.62(35)}$ & $\num{757(13)}$ & $\ce{^214Bi}$ & $\num{768.360(7)}$ \\
+$\num{1.90(14)e+03}$& $\num{6572.81(51)}$ & $\num{791(14)}$ & $\ce{^214Pb}$ & $\num{785.96(9)}$ \\
+$\num{380(66)}$ & $\num{7844.56(81)}$ & $\num{944(17)}$ & $\ce{^214Bi}$ & $\num{934.056(8)}$ \\
+$\num{1332(96)}$ & $\num{9828.40(56)}$& $\num{1182(17)}$ & $\ce{^214Bi}$ & $\num{1120.294(6)}$ \\
+$\num{661(87)}$& $\num{10453.83(99)}$& $\num{1258(21)}$ & $\ce{^22Na}$ & $\num{1274.537(7)}$ \\
+$\num{561(92)}$& $\num{12085.5(1.5)}$& $\num{1454(18)}$ & $\ce{^40K}$ & $\num{1460.820(5)}$ \\
+$\num{7.24(19)e+03}$& $\num{15758.86(22)}$& $\num{1896(23)}$ & ? & ? \\
+\hline
+\end{tabular}
+\caption{Zuordnung der Gaußpeaks der Bodenprobe zu Übergängen bekannter Radioniklide. Die Literaturwerte der Energien sind aus \cite{nudat} mithilfe der \textit{Decay Radiation Search} entnommen.}
+\label{tab:bodenprobe_zuordnung}
+\end{table}
+
+\subsection{Diskussion der Zuordnung}
+
+Die den Linien zugeordneten Radionuklide lassen sich in Elemente aus der Uran-Radium-Reihe ($\ce{^214Pb}$ und $\ce{^214Bi}$) \cite[3]{list_bmumwelt}, natürliche Radionuklide ($\ce{^40K}$ \cite[55]{ex_techniques},\cite[13]{list_bmumwelt}), kosmogene Radionuklide $\ce{^22Na}$ und $\ce{^7Be}$ \cite{be7}) und künstliche Radionuklide ($\ce{^137Cs}$). Dies entspricht den Erwartungen, was in einer zufälligen Bodenprobe aus der Umgebung gefunden werden kann. Der gefundene, deutlich trennbare Peak bei $\SI{1896(23)}{\kilo\eV}$ konnte bei der Zuordnung keinem sinnvollem Element zugeordnet werden, d.h. keinem Element, was in einer Bodenprobe vorkommen könnte (nicht nur künstlich für sehr kurze Halbwertszeiten im Labor erzeugt wird) und keinem Übergang, der eine signifikante Intensität (mindestens $1\%$, da der Peak eine große Fläche hat, also der Übergang relativ wahrscheinlich sein muss) hat. Ansonsten hat die Zuordnung gut funktioniert und erscheint plausibel.

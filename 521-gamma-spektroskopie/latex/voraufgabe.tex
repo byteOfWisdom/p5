@@ -1,0 +1,28 @@
+\chapter{Voraufgabe}
+Um die aufgenommenen Impulshöhenspektren der Gammastrahlungsquellen zu untersuchen, werden die aufgenommenen Spektren in Kanal-Ereignisanzahl-Darstellung auf Gaußfunktions-förmige Peaks (die Photopeaks des Spektrums, bei denen die gesamte Energie der $\gamma$-Photonen vom Detektor gemessen werden konnte) analysiert. Zum Testen des Verfahrens wurde vor dem Versuch ein bereitgestelltes Testspektrum analysiert.
+
+
+Als Anpassungsfunktion an die einzelnen Gaußpeaks wird
+\begin{equation}\label{eq:gaußpeak_const}
+f(x,A,\mu,\sigma,C) = \frac{A}{\sqrt{2\pi}\sigma} \text{e}^{-\frac{1}{2}(\frac{x-\mu_i}{\sigma_i})^2}+C
+\end{equation}
+genutzt. Dabei beschreibt die Konstante $C$ den in einer reellen Messung immer vorhandenen Untergrund, der einerseits aus Rauschen und andererseits aus weiteren Prozessen, bei denen nicht die gesamte Energie des $\gamma$-Photons im Detektor gemessen werden konnte (insbesondere Compton-Kontinuum mit Compton-Kante), die nicht zum zugehörigen Totalenergiepeak des Spektrums beitragen. Hierbei wird angenommen, das lokal betrachter, der Untergrund näherungsweise konstant ist. Diese Annahme wird der Einfachheithalber getroffen, da ansonsten der Untergrund, bestehend aus prinzipiell mehreren Compton-Kontinuen, Rauschen des Detektors und Untergrundstrahlung physikalisch modelliert werden müsste und die dadurch zusätzlich gewonnenen Informationen den Aufwand nicht rechtfertigen.
+
+
+Ein Nachteil der getrennten betrachtung der Gaußpeaks ist, dass bei nah beieinander liegenden Peaks die Fläche überschätzt wird (da bei zwei einzelnen Anpassungen im überschneidungsbereich jeweils die einzelnen Gaußkurven betrachtet werden statt ihrer Summe). Da in den reellen Spektren nur wenige Peaks ineinander liegen und die Information über die Fläche nur nachrangig für die Effizienzberechnungen wichtig ist, ist es Sinnvoller einzelne Kurven zu betrachten, da so das Verfahren sehr viel einfacher ist und keine allgemeine Untergrundfunktion hergeleitet und physikalisch begründet werden muss.
+
+
+Für die Anpassung der einzelnen Gaußfunktionen wird jeweils nur Ausschnitte der Daten (markiert durch grüne Unterlegung) genutzt und die \textit{scipy} Funktion \textit{curve\_fit}, als Verfahren der kleinsten Quadrate, genutzt. Da die einzelnen Funktionen jeweils Distributionen sind, kann als Maß der Fitgüte das reduzierte Chi Quadrat genutzt werden \cite{chisquare}.
+
+Dieses Anpassungsverfahren wird auch für alle folgenden Spektren genutzt. Die Ergebnisse für das Beispielspektrum sind in Tabelle \ref{tab:voraufgabe} und Abbildung \ref{fig:voraufgabe} zu finden.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|} \hline
+    \input{../figs/voraufgabe.table}
+    \end{tabular}
+    \caption{Anpassungsparameter der überlagerten Gaussfunktionen.}
+    \label{tab:voraufgabe}
+\end{table}
+
+\jafps{voraufgabe}{Bereitgestellte Daten mit Anpassungsfunktionen in Gelb. Anpassungsparameter und Fitgüten sind in Tabelle \ref{tab:voraufgabe} aufgeführt. }{0.9}

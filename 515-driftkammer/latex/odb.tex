@@ -1,0 +1,29 @@
+\chapter{Orts-Driftzeit-Beziehung}
+
+Für die weitere Auswertung wird die Beziehung zwischen dem Abstand vom Anodendraht, in welchem ein Teilchen eine Zelle durchquert, und der Driftzeit benötigt, die sogenannte Orts-Driftzeit-Beziehung (ODB). Diese Beziehung kann aus dem Driftzeitspektrum gewonnen werden. Unter der Annahme, die Zellen sind gleichmäßig ausgeleuchtet und dass sich die Teilchen in der Flächennormale des Detektors bewegen \cite[36,38]{hammanndiplom}, kann die ODB über Integration des Driftzeitspektrums gewonnen werden, siehe Gl. \eqref{eq:odb_kont}, was im diskreten Fall - welcher hier vorliegt - zu Gl. \eqref{eq:odb_diskret} wird \cite[247-249]{kolanoskiwermerdetektoren}. Hierbei ist $\Delta N_k$ die Anzahl an zusätzlichen Ereignissen im kten Bin, $r_i$ der Ort, welcher dem iten Bin zugeordnet wird, $N_\text{ges}$ die Gesamtzahl an Ereignissen und $r_\text{max}$ die Zellengröße.
+
+\begin{align}
+	\frac{\d{r}}{r_{max}} &= \frac{\d{N}}{N_{max}} \\
+	r(t_D) &= \frac{r_{max}}{N_{max}} \int_0^{t_D} \d{t} \diff{N}{t} \label{eq:odb_kont} \\
+	r_i &= \frac{r_{max}}{N_{ges}} \Sigma_{k=1}^i \Delta N_k\label{eq:odb_diskret}
+\end{align}
+
+Die Ortsauflösung wird durch mehrere Faktoren begrenzt. Einerseits kann es zu Zuordnungsuneindeutigkeiten kommen, wenn mehrere Orte zur gleichen Driftzeit zugeordnet werden (z.B. rechts und links im gleichen Abstand vom Anodendraht) oder untereinander nur kleine Zeitunterschiede haben, sodass sie als gleicher Ort gemessen werden oder leicht zum falschen Ort zugeordnet werden können \cite[18]{hammanndiplom}.
+Außerdem gibt es noch weitere Quellen der Auflösungsbegrenzung. Diese weiteren Faktoren werden im Allgemeinen als statistisch unabhängig voneinander angenommen, sodass sie nach \uppercase{Gauß}'scher Fehlerfortpflanzung (wie sie für alle Fehlerwerte in diesem Protokoll benutzt wurde \cite[8-9]{gerthsen}) als Quadrate addiert werden können \cite[250]{kolanoskiwermerdetektoren}. Die wesentlichen Beiträge zur Unsicherheit der Ortsbestimmung teilen sich auf in driftstreckenabhängige und -unabhängige Effekte.
+
+Driftwegabhängig ist einerseits bei niedrigen Abständen der Orte der Primärionisationscluster eine Unsicherheit $\sigma_\text{Cluster}$ durch die statistisch verteilte endlich Anzahl der tatsächlich ionisierten Gasmoleküle gegeben. Bei nahen Abständen führen kleine Unterschiede der Ionisationsanzahl und damit auch leicht anderen Orten der Ionisation zwischen zwei eigentlich identisch eingefallenen Teilchen zu verschieden zugeordneten Orten \cite[250-252]{kolanoskiwermerdetektoren}. Andererseits weisen die ausgelösten Elektronen eine \uppercase{Maxwell}-Geschwindigkeitsverteilung in ihrer Driftgeschwindigkeit $\nu_D$ auf. Es kommt zur Diffusion entlang (longitudinal) und quer (transversal) zur Driftrichtung zum Draht, wobei nur die longitudinale Diffusion die Zeitmessung und damit die Ortsbestimmung beeinflusst und die Unsicherheit durch die Diffusion $\sigma_\text{Diff}$ mit zunehmender Strecke der Elektronen durch die Driftzelle zunimmt \cite[16-18]{hammanndiplom}.
+
+Die driftwegunabhängigen Effekte sind die Unsicherheit der genauen Position der Anodendrähte innerhalb der einzelnen Zellen $\sigma_\text{Draht}$ und die Unsicherheit der TDC-Elektronik $\sigma_\text{TDC}$ \cite[16-18]{hammanndiplom}. Letztere ergibt sich aus der endlichen Messschritt-Aufteilung von $\Delta t=\SI{2.5}{\nano\s}$ aus statistischen Gründen für die Art der Signalmessung in diskreten Zellen (vgl. \cite[253,843]{kolanoskiwermerdetektoren}) sowie ggf. einem weiteren Beitrag aus Schwankungen der Genauigkeit der Zeitreferenz durch die ebenfalls nur endliche Szintillationsdetektor-Auflösung. Zuletzt kann es auch nicht auf der Teilchenspur liegende Primärionisationen geben, welche fehlerhaft zum Signal beitragen, ihr Beitrag wird $\sigma_\delta$ genannt \cite[18]{hammanndiplom}. Zusätzlich kann elektronisches Rauschen das Signal überlagern und seine Form verzerren \cite[253]{kolanoskiwermerdetektoren}
+
+Insgesamt ergibt sich eine Unsicherheit für die Ortsbestimmung von: \cite[18]{hammanndiplom} \[
+\sigma = \sqrt{\sigma^2_\delta + \sigma^2_\text{Cluster} + \sigma^2_\text{Diff} + \sigma^2_\text{Draht} + \sigma_\text{TDC} + \sigma_\text{Rauschen}}
+\]
+Es ist hier zu beachten, dass diese Unsicherheit gegenüber der Einteilung der Bins in Abschnitt \ref{sec:sumdiff}, wo die ODB genutzt wird, keine relevante Größe hat. Die genaue Unsicherheit kann allerdings hier nicht angegeben werden, sondern müsste durch Kalibrationsmessungen zusätzlich untersucht werden.
+
+Zur Bestimmung der ODB der Driftkammer zu fester $U_D$ wurde nach dem Einstellen der Betriebsparameter eine etwas längere Messung mit der $\ce{^90Sr}$-Quelle durchgeführt. Die Geometrie des Strahlers sowie dessen Position stellen sicher, dass die oben genannten Annahmen zur Bestimmung der ODB in etwa zutreffen.
+Durch die Summe in Gl \eqref{eq:odb_diskret} erhält man aus dem in Abbildung \ref{fig:driftzeitspektrum} gezeigten Spektrum der Kalibrationsmessung die in Abbildung \ref{fig:orts_driftzeit_bzh} gezeigte ODB, welche im weiteren als \textit{look-up-table} verwendet wird, d.h. zu jeder Driftzeit kann eine zugehörige Distanz (Ort) zur Anode herausgesucht werden.
+
+Die so gewonnene ODB ist nicht ideal, da sie nicht den gesamten Zeitbereich nutzt um die möglichen Orte so gleichmäßig wie möglich zu verteilen, entspricht jedoch in ihrer Form den Erwartungen \cite[38]{hammanndiplom}.
+
+\jafps{driftzeitspektrum}{Driftzeitspektrum der Kalibrationsmessung}{0.75}
+\jafps{orts_driftzeit_bzh}{ODB}{0.75}

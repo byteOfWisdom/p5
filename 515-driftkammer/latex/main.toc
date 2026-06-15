@@ -1,0 +1,31 @@
+\babel@toc {german}{}\relax 
+\contentsline {chapter}{\numberline {1}Einleitung}{3}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Versuchsziel}{3}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Aufbau}{3}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}Aufbau der Driftkammer}{3}{subsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.2.2}Szintillationsdetektor}{5}{subsection.1.2.2}%
+\contentsline {chapter}{\numberline {2}Messung der analogen Signale}{6}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Driftkammer-Signal}{6}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Szintillationsdetektor-Signal}{7}{section.2.2}%
+\contentsline {chapter}{\numberline {3}Verlauf des Stroms durch die Driftkammer}{9}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Durchführung der Strommessung}{9}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Auswertung des Stromverlaufs}{9}{section.3.2}%
+\contentsline {chapter}{\numberline {4}Spannung des Szintillationsdetektors}{12}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Myonenrate}{12}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Elektronenrate}{12}{section.4.2}%
+\contentsline {chapter}{\numberline {5}Betriebsparameter-Kalibration}{14}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Einstellung der Hochspannung}{14}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Einstellung der Diskriminatorschwelle}{15}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Einstellung der Verzögerung}{16}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Aufbau der Langzeitmessung}{18}{section.5.4}%
+\contentsline {chapter}{\numberline {6}Datenbereinigung}{19}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Verteilung der Ansprecher und Time-over-Threshhold}{19}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Drahtkorrelation}{20}{section.6.2}%
+\contentsline {chapter}{\numberline {7}Orts-Driftzeit-Beziehung}{22}{chapter.7}%
+\contentsline {chapter}{\numberline {8}Winkelverteilung der kosmischen Strahlung}{25}{chapter.8}%
+\contentsline {chapter}{\numberline {9}Abstandssumme gegen Abstandsdifferenz}{28}{chapter.9}%
+\contentsline {chapter}{\numberline {10}Fazit}{30}{chapter.10}%
+\contentsline {chapter}{\numberline {11}Anhang}{32}{chapter.11}%
+\contentsline {section}{\numberline {11.1}Oszilloskopaufnahmen Szintillationsdetektor-Signale}{32}{section.11.1}%
+\contentsline {section}{\numberline {11.2}Strommessung}{32}{section.11.2}%
+\providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
