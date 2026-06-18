@@ -52,30 +52,48 @@ csv_file = "messung_6.csv"
 
 [emission]
 
-[emission.current]
+[emission.current_1]
 element = "Cu"
 cap_voltage = 300
 acceleration_voltage = 33.0e3
 resistor = 1e8
 csv_file = "messung_7.csv"
 
-[emission.voltage]
+[emission.voltage_1]
 element = "Cu"
 cap_voltage = 300
 heating_current = 1e-3
 resistor = 1e8
 csv_file = "messung_8.csv"
 
-[emission.current]
+[emission.current_2]
 element = "Mo"
 cap_voltage = 300
 acceleration_voltage = 33.0e3
 resistor = 1e9
 csv_file = "messung_9.csv"
 
-[emission.voltage]
+[emission.voltage_2]
 element = "Mo"
 cap_voltage = 300
 heating_current = 1e-3
 resistor = 1e9
 csv_file = "messung_10.csv"
+
+[abstand_sq]
+
+[abstand_sq.device]
+note = "ab hier gerät der anderen gruppe"
+
+[abstand_sq.messung_1]
+element = "Mo"
+acceleration_voltage = 35e3
+heating_current = 0.1e-3
+csv_file = "messung_11.csv"
+
+
+[totzeit]
+accelerating_voltage = 35e3
+element = "Cu"
+angle_degree = 3
+csv_file = "messung_13.csv"
