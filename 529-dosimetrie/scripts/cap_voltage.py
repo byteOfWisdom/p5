@@ -17,10 +17,16 @@ def plot_measurement(measurement):
     std.default.plt_errorbar(cap_voltage, ion_current, label)
 
 
-print(metadata)
+# print(metadata)
+for measurement in metadata.keys():
+    if metadata[measurement]["element"] == "Mo":
+        plot_measurement(measurement)
+
+std.default.plt_finish("Kondensatorspannung $U_C$ / V", "Ionisationsstrom $I_C$ / A")
+
+
 for measurement in metadata.keys():
     if metadata[measurement]["element"] == "Cu":
-        continue
-    plot_measurement(measurement)
+        plot_measurement(measurement)
 
 std.default.plt_finish("Kondensatorspannung $U_C$ / V", "Ionisationsstrom $I_C$ / A")
