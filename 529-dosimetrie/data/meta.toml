@@ -1,0 +1,129 @@
+[dosimetrie]
+
+[roominfo]
+air_temp = 23.2
+air_pressure = 119.5
+air_pressure_unit = "hPa"
+humidity = 55
+humidity_unit = "percent"
+
+[dosimetrie.messung_1]
+element = "Mo"
+heating_current = 1e-3
+acceleration_voltage = 15e3
+resistor = 1e9
+csv_file = "messung_1.csv"
+
+[dosimetrie.messung_2]
+element = "Mo"
+heating_current = 1e-3
+acceleration_voltage = 22.5e3
+resistor = 1e9
+csv_file = "messung_2.csv"
+
+[dosimetrie.messung_3]
+element = "Mo"
+heating_current = 1e-3
+acceleration_voltage = 33.0e3
+resistor = 1e9
+csv_file = "messung_3.csv"
+
+[dosimetrie.messung_4]
+element = "Cu"
+heating_current = 1e-3
+acceleration_voltage = 15e3
+resistor = 1e8
+csv_file = "messung_4.csv"
+
+[dosimetrie.messung_5]
+element = "Cu"
+heating_current = 1e-3
+acceleration_voltage = 22.5e3
+resistor = 1e8
+csv_file = "messung_5.csv"
+
+[dosimetrie.messung_6]
+element = "Cu"
+heating_current = 1e-3
+acceleration_voltage = 33.0e3
+resistor = 1e8
+csv_file = "messung_6.csv"
+
+
+[emission]
+
+[emission.current_1]
+element = "Cu"
+cap_voltage = 300
+acceleration_voltage = 33.0e3
+resistor = 1e8
+csv_file = "messung_7.csv"
+
+[emission.voltage_1]
+element = "Cu"
+cap_voltage = 300
+heating_current = 1e-3
+resistor = 1e8
+csv_file = "messung_8.csv"
+
+[emission.current_2]
+element = "Mo"
+cap_voltage = 300
+acceleration_voltage = 33.0e3
+resistor = 1e9
+csv_file = "messung_9.csv"
+
+[emission.voltage_2]
+element = "Mo"
+cap_voltage = 300
+heating_current = 1e-3
+resistor = 1e9
+csv_file = "messung_10.csv"
+
+[abstand_sq]
+
+[abstand_sq.device]
+note = "ab hier gerät der anderen gruppe"
+
+[abstand_sq.messung_1]
+element = "Mo"
+acceleration_voltage = 35e3
+heating_current = 0.1e-3
+csv_file = "messung_11.csv"
+
+
+[totzeit]
+accelerating_voltage = 35e3
+element = "Cu"
+angle_degree = 3
+csv_file = "messung_13.csv"
+
+
+[shielding]
+[shielding.messung_1]
+element = "Mo"
+acceleration_voltage = 35e3
+sample_set = 1
+filter = false
+csv_file = "messung_14.csv"
+
+[shielding.messung_2]
+element = "Mo"
+acceleration_voltage = 35e3
+sample_set = 1
+filter = true
+csv_file = "messung_15.csv"
+
+[shielding.messung_3]
+element = "Mo"
+acceleration_voltage = 35e3
+sample_set = 2
+filter = false
+csv_file = "messung_16.csv"
+
+[shielding.messung_4]
+element = "Mo"
+acceleration_voltage = 35e3
+sample_set = 2
+filter = true
+csv_file = "messung_17.csv"
