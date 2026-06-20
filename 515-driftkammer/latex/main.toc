@@ -3,7 +3,7 @@
 \contentsline {section}{\numberline {1.1}Versuchsziel}{3}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Aufbau}{3}{section.1.2}%
 \contentsline {subsection}{\numberline {1.2.1}Aufbau der Driftkammer}{3}{subsection.1.2.1}%
-\contentsline {subsection}{\numberline {1.2.2}Szintillationsdetektor}{5}{subsection.1.2.2}%
+\contentsline {subsection}{\numberline {1.2.2}Szintillationsdetektor}{4}{subsection.1.2.2}%
 \contentsline {chapter}{\numberline {2}Messung der analogen Signale}{6}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Driftkammer-Signal}{6}{section.2.1}%
 \contentsline {section}{\numberline {2.2}Szintillationsdetektor-Signal}{7}{section.2.2}%
