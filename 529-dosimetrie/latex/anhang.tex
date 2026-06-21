@@ -1,0 +1,21 @@
+\chapter{Anhang}
+\section{Tabellen}
+
+
+\def\jaft#1#2#3{
+	\begin{table}[h]
+	    \centering
+	    \begin{tabular}{#1} \hline
+		\input{#2}
+	    \end{tabular}
+	    \caption{#3}
+	    \label{tab:#2}
+	\end{table}
+}
+
+\jaft{|c|c|c|}{cap_voltageCu1.table}{asdf}
+\jaft{|c|c|c|}{cap_voltageCu2.table}{asdf}
+\jaft{|c|c|c|}{cap_voltageCu3.table}{asdf}
+\jaft{|c|c|c|}{cap_voltageMo1.table}{asdf}
+\jaft{|c|c|c|}{cap_voltageMo2.table}{asdf}
+\jaft{|c|c|c|}{cap_voltageMo3.table}{asdf}
