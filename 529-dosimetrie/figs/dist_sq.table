@@ -1,4 +1,5 @@
-Abstand / cm & Dauer / s & $D_\text{1}$ / mSv & $D_\text{2}$ / mSv & Dosisleistung / mSv/s \\
+\hline
+Abstand / cm & Dauer / s & $H_\text{1}$ / mSv & $H_\text{2}$ / mSv & h / mSv/s \\
 \hline
 \num{ 11.00(50) } & \num{ 5.00(50) } & \num{ 0.00(10) } & \num{ 0.60(10) } & \num{ 0.120(31) } \\
 \num{ 13.00(50) } & \num{ 5.00(50) } & \num{ 0.50(10) } & \num{ 1.00(10) } & \num{ 0.100(30) } \\
