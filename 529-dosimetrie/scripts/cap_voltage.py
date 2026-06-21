@@ -55,4 +55,4 @@ for key in metadata.keys():
 
     fname_ending = str(a) if metadata[key]["element"] == "Cu" else str(b)
 
-    std.print_tex_table(table, "../data/cap_voltage" + metadata[key]["element"] + fname_ending + ".table")
+    std.print_tex_table(table, "../latex/cap_voltage" + metadata[key]["element"] + fname_ending + ".table")
