@@ -57,6 +57,16 @@
 
 
 
+\def\jaft#1#2#3{
+	\begin{table}[h]
+	    \centering
+	    \begin{tabular}{#1} \hline
+		\input{#2}
+	    \end{tabular}
+	    \caption{#3}
+	    \label{tab:#2}
+	\end{table}
+}
 
 
 \def\jafp#1#2{
