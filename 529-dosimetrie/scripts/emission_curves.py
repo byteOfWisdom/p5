@@ -45,14 +45,41 @@ dose_y = plt.gca().secondary_yaxis("right",functions=(lambda x: 32.4 * x, lambda
 dose_y.set_ylabel("Äquivalentsdosisleistung / $Svs^{-1}$")
 std.default.plt_finish("Heizstrom $I_H$ / A", "mittlere Ionisationsdosisleistung <j> / $Akg^{-1}$")
 
+cu_current_table = {
+    "I_H / mA": heating_current_cu,
+    "I_C / A": ion_current_cu,
+    "<j> / $Akg^{-1}$": ion_dose_rate_cu,
+}
+std.print_tex_table(cu_current_table, "../latex/cu_current.table")
+
+mo_current_table = {
+    "I_H / mA": heating_current_mo,
+    "I_C / A": ion_current_mo,
+    "<j> / $Akg^{-1}$": ion_dose_rate_mo,
+}
+std.print_tex_table(mo_current_table, "../latex/mo_current.table")
+
 # %%
-plot_measurement("voltage_1")
-plot_measurement("voltage_2")
+a, b, c = plot_measurement("voltage_1")
+voltage_table = {
+    "U_H / V": a,
+    "I_C / A": b,
+    "<j> / $Akg^{-1}$": c,
+}
+
+std.print_tex_table(voltage_table, "../latex/cu_voltage.table")
+
+a, b, c = plot_measurement("voltage_2")
+voltage_table = {
+    "U_H / V": a,
+    "I_C / A": b,
+    "<j> / $Akg^{-1}$": c,
+}
+
+std.print_tex_table(voltage_table, "../latex/mo_voltage.table")
 
 
 dose_y = plt.gca().secondary_yaxis("right",functions=(lambda x: 32.4 * x, lambda x: x / 32.4))
 dose_y.set_ylabel("Äquivalentsdosisleistung / $Svs^{-1}$")
 std.default.plt_finish("Beschleunigungsspannung $U_B$ / V",  "mittlere Ionisationsdosisleistung <j> / $Akg^{-1}$")
 
-
-# TODO: tables 
