@@ -2,7 +2,7 @@
 
 [roominfo]
 air_temp = 23.2
-air_pressure = 119.5
+air_pressure = 1019.5
 air_pressure_unit = "hPa"
 humidity = 55
 humidity_unit = "percent"
