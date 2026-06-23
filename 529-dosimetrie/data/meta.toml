@@ -80,6 +80,20 @@ heating_current = 1e-3
 resistor = 1e9
 csv_file = "messung_10.csv"
 
+[emission.current_other_1]
+element = "Cu"
+cap_voltage = 300
+acceleration_voltage = 35.0e3
+resistor = 1e9
+csv_file = "current_other_1.csv"
+
+[emission.current_other_2]
+element = "Mo"
+cap_voltage = 300
+acceleration_voltage = 35.0e3
+resistor = 1e9
+csv_file = "current_other_2.csv"
+
 [abstand_sq]
 
 [abstand_sq.device]
