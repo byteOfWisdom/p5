@@ -1,13 +1,40 @@
 \chapter{Dosimetrie}
 
-\section{Arbeitsbereich Ionisationsdetektor}
-\subsection{Aufbau}
+\section{Aufbau}
+\todo{vielleich gehört der aufbau einmal nach vorne??}
 Zunächst wird der Plattenkondensator, entsprechend \todo{cite LD anleitung} in das Röntgengerät eingebaut. Der Elektrometerverstärker und das Hochspannungsnetzteil werden entsprechend \todo{cite ld again} angeschlossen.
 
-\subsection{Durchführung}
-Zunächst soll der Arbeitsbereich des Plattenkondensator als Ionisationsdetektor gefunden und charakterisiert werden. Hierzu wird bei der Kupfer und Molybdän Röhre, jeweils mit drei verschiedenen Beschleunigungsspannungen $U_B$, die Spannung am Kondensator verändert und die Spannung des Ionisationsstrom $I_C$ über einen Widerstand gemessen und daraus $I_C$ berechnet. Dabei ist \cite[3]{529va}
+\section{Durchführung}
+Zunächst soll der Arbeitsbereich des Plattenkondensator als Ionisationsdetektor gefunden und charakterisiert werden. Hierzu wird bei der Kupfer und Molybdän Röhre, jeweils mit drei verschiedenen Beschleunigungsspannungen $U_B$, die Spannung am Kondensator verändert und die Spannung des Ionisationsstrom $I_C$ über einen Widerstand gemessen und daraus $I_C$ berechnet. Dabei ist $I_C = U_E / R$\cite[3]{529va}.
 
-\subsection{Auswertung}
-In den Abbildungen \ref{fig:cap_voltage_mo} und \ref{fig:cap_voltage_cu} sind die gemessenen Ionisationsströme gegen die am Kondensator anliegenden Spannungen aufgetragen. Man erkennt, dass bei konstanten Betriebsparametern der Röntenröhre, bei höheren Kondensatorspannungen der gemessene Ionisationsstrom etwa konstant wird. Dies ist zu erwarten, da im Operationsbereich eines Ionisationsdetektors näherungsweise alle ionenpaare getrennt und als teil des Strom gemessen werden; kleine Änderungen der Spannung verändern die Menge an Ladungsträgern hier nicht\todo{cite}. Das Eintreten dieses konstanten Bereichs findet für verschiedene Röhrenparameter bei verschiedenen Mindestspannungen statt, wie in den Abbildungen zu erkennen. Die größte nötige Kondensatorspannung um in den konstanten Bereich zu gelangen wurde bei der Kupferkathode bei $U_B = \SI{33}{\kilo\volt}$ gemessen und lag bei etwa $U_C = \SI{200}{\volt}$. Um sicher im Arbeitsbereich zu sein wird im weiteren Verlauf eine Kondensatorspannung von $U_C=\SI{300}{\volt}$ verwendet.
+Mit dem so bestimmten Arbeitsbereich wird anschließend das Emissionsverhalten der Röntgenröhren untersucht. Es wird die Abhängigkeit der Emittierten Dosisleistung zu den Betriebsparametern betrachtet, sowohl als Ionisationsdosisleistung als auch als Äquivalentdosisleistung.
+Die mittlere Ionendosisleistung $[<j>] = \unit{\ampere\per\kilo\gram}$ sowie Äquivalentsdosisleistung $[h] = \unit{\sievert\per\second}$ sind wie folgt zu berechnen \cite[4-5]{529va}
+\begin{align}
+	<j> = I_C / m \label{eq:ion_dose_rate}\\
+	<j> = 32.4 h
+\end{align}
+wobei $m$ die Masse der durchstrahlten Luft bezeichnet, \todo{andere größen erwähnen}.
+
+Für die Dichte der Luft gilt \cite[4]{529va}
+\begin{align}
+	\rho &= \rho_0 \cdot \frac{T_0}{T} \cdot \frac{p}{p_0}
+\end{align}
+
+\begin{align*}
+	\rho_0 &= \SI{1.293}{\kilo\gram\per\cubic\meter} \\
+	T_0 &= \SI{273}{\kelvin} \\
+	p_0 &= \SI{1023}{\hecto\pascal}
+\end{align*}
+
+\todo{durchstrahltes Volumen herleitung}
+Das durchstrahlte Volumen ist dann $V = \SI{125}{\cubic\centi\meter}$ \cite[2]{LDdosimetrie}.
+
+\section{Auswertung}
+\subsection{Arbeitsbereich Ionisationsdetektor}
+In den Abbildungen \ref{fig:cap_voltage_mo} und \ref{fig:cap_voltage_cu} sind die gemessenen Ionisationsströme gegen die am Kondensator anliegenden Spannungen aufgetragen. Man erkennt, dass bei konstanten Betriebsparametern der Röntenröhre, bei höheren Kondensatorspannungen der gemessene Ionisationsstrom etwa konstant wird. Dies ist zu erwarten, da im Operationsbereich eines Ionisationsdetektors näherungsweise alle ionenpaare getrennt und als teil des Strom gemessen werden; kleine Änderungen der Spannung verändern die Menge an Ladungsträgern hier nicht\todo{cite}. Das Eintreten dieses konstanten Bereichs findet für verschiedene Röhrenparameter bei verschiedenen Mindestspannungen statt, wie in den Abbildungen zu erkennen. Die größte nötige Kondensatorspannung um in den konstanten Bereich zu gelangen wurde bei der Kupferkathode bei $U_B = \SI{33}{\kilo\volt}$ gemessen und lag bei etwa $U_C = \SI{200}{\volt}$. Um sicher im Arbeitsbereich zu sein wird im weiteren Verlauf eine Kondensatorspannung von $U_C=\SI{300}{\volt}$ verwendet. Die Messreihen und umrechnungen sind in den Tabellen \ref{tab:cap_voltageCu1.table} bis \ref{tab:cap_voltageMo3.table} angehangen. \todo{warum nicht perfekt konstant?}
 
 \jafpp{cap_voltage_mo}{Ionisationsstrom in Abhängigkeit von der Kondensatorspannung, mit verschiedenen Beschleunigungsspannungen, bei Kupferkathode}{cap_voltage_cu}{Molybdänkathode}
+
+\todo{strahlenschutzkategorie}
+
+\subsection{Emissionskurven}
