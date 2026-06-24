@@ -84,7 +84,7 @@ csv_file = "messung_10.csv"
 element = "Cu"
 cap_voltage = 300
 acceleration_voltage = 35.0e3
-resistor = 1e9
+resistor = 1e8
 csv_file = "current_other_1.csv"
 
 [emission.current_other_2]
