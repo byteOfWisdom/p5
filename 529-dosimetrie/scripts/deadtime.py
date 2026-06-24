@@ -53,13 +53,13 @@ res_np, (err_np, rsq_np) = std.curve_fit(non_paralysing, emission_current, count
 res_p, (err_p, rsq_p) = std.curve_fit(paralysing, emission_current, countrate)
 res_h, (err_h, rsq_h) = std.curve_fit(hybrid, emission_current, countrate, p0=[res_p[0], res_p[-1], res_np[-1]])
 
-print(res_np)
-print(res_p)
-print(res_h)
+print(p.ev(res_np, err_np))
+print(p.ev(res_p, err_p))
+print(p.ev(res_h, err_h))
 
 std.default.plt_errorbar(emission_current, countrate)
-std.default.plt_func(non_paralysing, res_np, label=f"nicht paraylsierend, $R^2 = {rsq_np}$", xrange=(0.01, None))
-std.default.plt_func(paralysing, res_p,label=f"paraylsierend, $R^2 = {rsq_p}$", xrange=(0.01, None))
+std.default.plt_func(non_paralysing, res_np, label=f"nicht paralysierend, $R^2 = {rsq_np}$", xrange=(0.01, None))
+std.default.plt_func(paralysing, res_p,label=f"paralysierend, $R^2 = {rsq_p}$", xrange=(0.01, None))
 std.default.plt_func(hybrid, res_h, label=f"hybrid, $R^2 = {rsq_h}$", xrange=(0.01, None))
 std.default.plt_finish("Heizstrom $I_C$ / mA", "gemessene Zählrate / $s^{-1}$")
 
@@ -74,12 +74,12 @@ res_np, (err_np, rsq_np) = std.curve_fit(non_paralysing, emission_current, count
 res_p, (err_p, rsq_p) = std.curve_fit(paralysing, emission_current, countrate)
 res_h, (err_h, rsq_h) = std.curve_fit(hybrid, emission_current, countrate, p0=[res_p[0], res_p[-1], res_np[-1]])
 
-print(res_np)
-print(res_p)
-print(res_h)
+print(p.ev(res_np, err_np))
+print(p.ev(res_p, err_p))
+print(p.ev(res_h, err_h))
 
 std.default.plt_errorbar(emission_current, countrate)
-std.default.plt_func(non_paralysing, res_np, label=f"nicht paraylsierend, $R^2 = {rsq_np}$", xrange=(0.01, None))
-std.default.plt_func(paralysing, res_p,label=f"paraylsierend, $R^2 = {rsq_p}$", xrange=(0.01, None))
+std.default.plt_func(non_paralysing, res_np, label=f"nicht paralysierend, $R^2 = {rsq_np}$", xrange=(0.01, None))
+std.default.plt_func(paralysing, res_p,label=f"paralysierend, $R^2 = {rsq_p}$", xrange=(0.01, None))
 std.default.plt_func(hybrid, res_h, label=f"hybrid, $R^2 = {rsq_h}$", xrange=(0.01, None))
 std.default.plt_finish("Heizstrom $I_C$ / mA", "gemessene Zählrate / $s^{-1}$")
