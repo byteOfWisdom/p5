@@ -9,20 +9,23 @@ fhandle.close()
 
 thickness_lut = np.array([0, 0.5, 1., 1.5, 2., 2.5, 3.])
 
-def lin_corr(x):
-    a = p.from_string("0.4882(35)")
-    b = p.from_string("0.01080(22)")
-    return (a * x + b) / (a + b)
+# a = p.from_string("0.4882(35)")
+# b = p.from_string("0.01080(22)")
 
 
 def current_corrected_countrate(current, countrate):
-    return countrate * lin_corr(current)
-    # return countrate / current # TODO: is this good enough?
+    a = p.ev(0.4882, 0.0035)
+    b = p.ev(0.01080, 0.00022)
+    i_max = max(current)
+    lin_corr = [(a * i_max + b) / (a * i + b) for i in current]
+    # return countrate * lin_corr
+    current = current / max(current)
+    return countrate / current # TODO: is this good enough?
 
 ccc = current_corrected_countrate
 
-def absorber(x, u, a):
-    return np.exp(- x * u + a)
+def absorber(x, u):
+    return np.exp(- x * u)
 
 
 def process_measurement(params):
@@ -31,9 +34,11 @@ def process_measurement(params):
     angle, current, countrate = data[0], data[1], data[2]
     key = np.argsort(angle)
     current = current[key]
+    current = p.ev(current, 0.01)
     countrate = countrate[key]
     countrate = p.ev(countrate, np.sqrt(countrate))
     actual_rate = ccc(current, countrate)
+    # actual_rate = countrate / current
 
     thickness = thickness_lut
     transmission = actual_rate / actual_rate[0]
@@ -50,5 +55,6 @@ res_a = process_measurement(metadata["messung_1"])
 res_b = process_measurement(metadata["messung_2"])
 print(res_a)
 print(res_b)
+std.default.plt_func(absorber, [0.929], "refrence", (0, 3))
 std.default.plt.yscale("log")
 std.default.plt_finish("Dicke / mm", "Transmissivität / 1")
