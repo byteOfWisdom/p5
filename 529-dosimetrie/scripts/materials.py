@@ -26,8 +26,8 @@ print("with measured mu: ", thickness_measured_a.format(), "mm")
 print("with measured mu: ", thickness_measured_b.format(), "mm")
 print("with true mu: ", thickness_true.format(), "mm")
 
-absorb_coeff_a = - np.log(transmission_a)
-absorb_coeff_b = - np.log(transmission_b)
+absorb_coeff_a = - np.log(transmission_a) / thickness_measured_a
+absorb_coeff_b = - np.log(transmission_b) / thickness_measured_a
 
 std.default.plt_errorbar(material_atomic_nums[1:], absorb_coeff_a[1:], "Ohne Filter")
 std.default.plt_errorbar(material_atomic_nums[1:], absorb_coeff_b[1:], "Mit Filter")
