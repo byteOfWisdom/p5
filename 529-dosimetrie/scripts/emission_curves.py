@@ -49,7 +49,7 @@ std.default.plt_func(std.linear, mo_res, f"$R^2 = {round(mo_rsq, 3)}$")
 
 dose_y = plt.gca().secondary_yaxis("right",functions=(lambda x: 32.4 * x, lambda x: x / 32.4))
 dose_y.set_ylabel("Äquivalentsdosisleistung / $mSvs^{-1}$")
-std.default.plt_finish("Heizstrom $I_H$ / A", "mittlere Ionisationsdosisleistung <j> / $mAkg^{-1}$")
+std.default.plt_finish("Heizstrom $I_H$ / mA", "mittlere Ionisationsdosisleistung <j> / $mAkg^{-1}$")
 
 cu_current_table = {
     "I_H / mA": heating_current_cu,
@@ -103,7 +103,7 @@ std.default.plt_func(std.linear, mo_res, f"$R^2 = {round(mo_rsq, 3)}$")
 
 dose_y = plt.gca().secondary_yaxis("right",functions=(lambda x: 32.4 * x, lambda x: x / 32.4))
 dose_y.set_ylabel("Äquivalentsdosisleistung / $mSvs^{-1}$")
-std.default.plt_finish("Heizstrom $I_H$ / A", "mittlere Ionisationsdosisleistung <j> / $mAkg^{-1}$")
+std.default.plt_finish("Heizstrom $I_H$ / mA", "mittlere Ionisationsdosisleistung <j> / $mAkg^{-1}$")
 
 cu_current_table = {
     "I_H / mA": heating_current_cu,
