@@ -18,43 +18,53 @@ def current_corrected_countrate(current, countrate):
     b = p.ev(0.01080, 0.00022)
     i_max = max(current)
     lin_corr = [(a * i_max + b) / (a * i + b) for i in current]
-    # return countrate * lin_corr
-    current = current / max(current)
+    return countrate * lin_corr
+    # current = current / max(current)
     return countrate / current # TODO: is this good enough?
 
+
 ccc = current_corrected_countrate
+
 
 def absorber(x, u):
     return np.exp(- x * u)
 
 
-def process_measurement(params):
-    print(params)
-    data = std.load_csv("../data/" + params["csv_file"], skiprows=1)
+def load_and_normalize(file):
+    data = std.load_csv("../data/" + file, skiprows=1)
     angle, current, countrate = data[0], data[1], data[2]
     key = np.argsort(angle)
+
     current = current[key]
     current = p.ev(current, 0.01)
+
     countrate = countrate[key]
     countrate = p.ev(countrate, np.sqrt(countrate))
     actual_rate = ccc(current, countrate)
     # actual_rate = countrate / current
 
-    thickness = thickness_lut
     transmission = actual_rate / actual_rate[0]
+    return transmission
+
+
+def process_measurement(params):
+    print(params)
+    transmission = load_and_normalize(params["csv_file"])
+
+    thickness = p.ev(thickness_lut, 0.05)
 
     res, (err, rsq) = std.curve_fit(absorber, thickness[1:], transmission[1:])
     std.default.plt_errorbar(thickness, transmission, "mit Filter" if params["filter"] else "ohne Filter")
-    std.default.plt_func(absorber, res, f"$R^2 = {rsq}$", (0, 3))
+    std.default.plt_func(absorber, res, f"$R^2 = {round(rsq, 3)}$", (0, 3))
 
     return p.ev(res, err)
 
 
-
-res_a = process_measurement(metadata["messung_1"])
-res_b = process_measurement(metadata["messung_2"])
-print(res_a)
-print(res_b)
-std.default.plt_func(absorber, [0.929], "refrence", (0, 3))
-std.default.plt.yscale("log")
-std.default.plt_finish("Dicke / mm", "Transmissivität / 1")
+if __name__ == "__main__":
+    res_a = process_measurement(metadata["messung_1"])
+    res_b = process_measurement(metadata["messung_2"])
+    print(res_a)
+    print(res_b)
+    std.default.plt_func(absorber, [0.929], "refrence", (0, 3))
+    std.default.plt.yscale("log")
+    std.default.plt_finish("Dicke / mm", "Transmissivität / 1")
