@@ -14,10 +14,9 @@ thickness_lut = np.array([0, 0.5, 1., 1.5, 2., 2.5, 3.])
 
 
 def current_corrected_countrate(current, countrate):
-    a = p.ev(0.4882, 0.0035)
-    b = p.ev(0.01080, 0.00022)
-    i_max = max(current)
-    lin_corr = [(a * i_max + b) / (a * i + b) for i in current]
+    # a = p.ev(0.4882, 0.0035)
+    # b = p.ev(0.01080, 0.00022)
+    # lin_corr = [(a * i_max + b) / (a * i + b) for i in current]
     # return countrate * lin_corr
     # current = current / max(current)
     return countrate / current # TODO: is this good enough?
@@ -33,12 +32,13 @@ def absorber(x, u):
 def load_and_normalize(file):
     data = std.load_csv("../data/" + file, skiprows=1)
     angle, current, countrate = data[0], data[1], data[2]
+
+    # sort in ascending order
     key = np.argsort(angle)
-
     current = current[key]
-    current = p.ev(current, 0.01)
-
     countrate = countrate[key]
+
+    current = p.ev(current, 0.01)
     countrate = p.ev(countrate, np.sqrt(countrate))
     actual_rate = ccc(current, countrate)
 
