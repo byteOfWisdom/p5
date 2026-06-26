@@ -18,7 +18,7 @@ def current_corrected_countrate(current, countrate):
     b = p.ev(0.01080, 0.00022)
     i_max = max(current)
     lin_corr = [(a * i_max + b) / (a * i + b) for i in current]
-    return countrate * lin_corr
+    # return countrate * lin_corr
     # current = current / max(current)
     return countrate / current # TODO: is this good enough?
 
@@ -41,7 +41,6 @@ def load_and_normalize(file):
     countrate = countrate[key]
     countrate = p.ev(countrate, np.sqrt(countrate))
     actual_rate = ccc(current, countrate)
-    # actual_rate = countrate / current
 
     transmission = actual_rate / actual_rate[0]
     return transmission
@@ -54,8 +53,9 @@ def process_measurement(params):
     thickness = p.ev(thickness_lut, 0.05)
 
     res, (err, rsq) = std.curve_fit(absorber, thickness[1:], transmission[1:])
-    std.default.plt_errorbar(thickness, transmission, "mit Filter" if params["filter"] else "ohne Filter")
-    std.default.plt_func(absorber, res, f"$R^2 = {round(rsq, 3)}$", (0, 3))
+    filter_str = "mit Filter" if params["filter"] else "ohne Filter"
+    std.default.plt_errorbar(thickness, transmission, filter_str)
+    std.default.plt_func(absorber, res, f"{filter_str} $R^2 = {round(rsq, 3)}$", (0, 3))
 
     return p.ev(res, err)
 
