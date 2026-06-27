@@ -1,0 +1,20 @@
+\chapter{Abstandsquadratgesetz}
+\todo{theorie abstand mit erwartung}
+\todo{Durchführung}
+
+\section{Durchführung}
+
+\section{Auswertung und Diskussion}
+\todo{vergleich mit dosisleistung aus ionisationsstrom}
+
+Aus den abgelesenen Dosen am verwendeten Stabdosimeter vor ($H_1$) und nach ($H_2$) einer Bestrahlungszeit $\Delta t$ mit der Quelle wird die Dosisdifferenz und zusammen mit der Dauer der Messung die Dosisleistung $h=\frac{\Delta H}{\Delta t}$, die in der jeweiligen Messung am sensitiven Bereich des Dosimeters geleistet wurde, bestimmt. Die so bestimmten Werte sind in Tabelle \ref{tab:../figs/dist_sq.table} aufgeführt.
+
+\jaft{|c|c|c|c|c|}{../figs/dist_sq.table}{Messwerte und berechnete Dosisleistungen der Messungen mit dem Stabdosimeter.}
+
+An die bestimmten Werte der Dosisleistung für die verschiedenen Abstände wird eine Anpassungsfunktion der Form $h(r)=\frac{a}{r^2}+b$ \cite[350-351]{dosimetriekrieger} angepasst. Durch den Parameter $b$ wird gegebenfalls vorhandene Untergrundstrahlungsdosis, die nicht primär vom Abstand abhängt, berücksichtigt. Solche Untergrundeffekte sind zu erwarten, da das Abstandsquadratgesetz in der Form $\frac{a}{r^2}$ nur für idealisierte Röntgenquellen und Messaufbauten gilt, bei denen die Bedingungen punktförmige Strahlungsquelle an genau bekanntem Ort, keine Absorption zwischen Quelle und Dosimeter/Messpunkt sowie Abwesenheit von Streuung im Experimentierraum gegeben sind \cite[350]{dosimetriekrieger}. Diese Bedingungen konnten hier nicht garantiert werden, da eine Röntgenröhre einen Brennfleck endlicher Ausdehnung hat, der also nicht ideal punktförmig ist, auch wenn dies durchaus eine gute Näherung ist. Zweitens befand sich im Experimentierraum die Experimentierschiene zur Positionsbestimung des Dosimeters sowie weitere metallische Halterungen, an denen ggf. Intensität der Röntgenstrahlung durch Streuung oder Absorption verändert werden konnte. Der Untergrund wurde konstant geschätzt, da dies ein noch immer einfaches Anpassungsmodell aber eine zufriedenstellende Anpassungsgüte ermöglichte.
+
+Als Parameter der Anpassungsfunktion ergaben sich die Werte:
+\[a = \SI{15.5(1.3)}{\centi\meter^2\milli\sievert\per\second}, b = \SI{0.0051(22)}{\milli\sievert\per\s}\]
+In Abbildung \ref{fig:dist_sq} ist die Dosisleistung gegen den Abstand zur Quelle dargestellt sowie die Anpassungsfunktion mit den bestimmten Parametern eingezeichnet.
+
+\jafps{dist_sq}{Graphische Darstellung der bestimmten Dosisleistung abhängig vom Abstand $r$ zum Brennfleck der Röntgenröhre, welcher als punktförmig angenommen wird, sowie Anpassungsfunktion der Form $h(r)=\frac{a}{r^2}+b$. Das Maß der Anpassungsgüte (hier Bestimmtheitsmaß) ist als $R^2=0,946$ zufriedenstellend.}{0.6}

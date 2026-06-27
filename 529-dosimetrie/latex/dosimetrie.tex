@@ -1,11 +1,24 @@
 \chapter{Dosimetrie}
 
 \section{Aufbau}
-\todo{vielleich gehört der aufbau einmal nach vorne??}
-Zunächst wird der Plattenkondensator, entsprechend \todo{cite LD anleitung} in das Röntgengerät eingebaut. Der Elektrometerverstärker und das Hochspannungsnetzteil werden entsprechend \todo{cite ld again} angeschlossen.
+
+Es werden in diesem Versuchsteil das Vollschutzröntgengerät (mit Cu- bzw. Mo-Röntgenröhre) und der Plattenkondensator verwendet. In der Röntgenröhre werden mithilfe einer Glühkathode, die mit Heizstrom $I_H$ betrieben wird, Elektronen emittiert, welche mit Beschleunigungsspannung $U_B$ auf die Anode der Röntgenröhre beschleunigt werden. Dort ionisieren sie in den Anoden-Molekülen Hüllenelektronen und erzeugen so Löcher in den Energieniveaus der Hülle. Geht ein Hüllenelektron aus einem höheren Energieniveau in das freigewordene Niveau, wird ein Photon der Frequenz $\nu = \frac{\Delta E}{h}$ (wobei $\Delta E$ dem Energieunterschied zwischen den Niveaus entspricht) aus dem Molekül emittiert. Bei den beitrachteten Materialien und möglichen Übergängen handelt es sich dabei um Photonen im Röntgenbereich. Die so emittierte Strahlung wird als charakteristische Röntgenstrahlung bezeichnet, das sie aus Photonen mit diskreten, Materialspezifischen Wellenlängen besteht. Außerdem kann auch Bremsstrahlung (mit einem kontinuierlichem Frequenzspektrum) emittiert werden, wenn die beschleunigten Elektronen durch die Anoden-Moleküle nur abgelenkt oder gebremst werden. Nach \uppercase{Hertz} strahlen die Elektronen durch diese Beschleunigung elektromagnetische Strahlung, also hier Röntgenphotonen, ab \cite[333-339]{HakenWolf2013}.
+
+Der Plattenkondensator wird hier zum Nachweis für die emittierte Röntgenstrahlung genutzt. Er funktioniert nach dem Prinzip von gasgefüllten Detektoren: Fliegt ein Teilchen (hier ein Photon) in das Gasvolumen im Detektor, ionisiert es dort Gasmoleküle und erzeugt dadurch Elektronen-Loch-Paare. Durch das angelegte elektrische Feld zwischen den Kondensatorplatten werden die so entstandenen Ladungen räumlich getrennt, die Elektronen werden zur positiven, die Ionen zur negativen Platte beschleunigt, der Kondensator wird teilweise entladen. Durch Influenz der Ladungen an den Platten wird eine Spannung zwischen den Platten influenziert, deren Stärke beim verwendeten Ionisationsgas von Luft direkt der erzeugten Ladung entspricht \cite[179-180]{kolanoskiwermerdetektoren}. Hier wird noch ergänzend ein Elektrometerverstärker nachgeschaltet, sodass der Ionisationsstrom der erzeugten Ladungen mit dem genutzten Widerstand des Verstärkers berechnet werden kann \cite[3]{529va}:
+\begin{align} \label{eq:ohm}
+I_C = \frac{U_E}{R}
+\end{align}
+Das Funktionsprinzip des Kondensators als Detektor für die emittierte Röntgenstrahlung ist in Abbildung \ref{fig:kondensator_detektor} dargestellt.
+
+\jafps{kondensator_detektor}{Funktionsprinzip des luftgefüllten Plattenkondensators als Teilchendetektor. $U_\text{HV}$ entspricht hier der Versorgungshochspannung des Plattenkondensators $U_C$. Abbildung entnommen aus \cite[180]{kolanoskiwermerdetektoren}.}{0.6}
+
 
 \section{Durchführung}
-Zunächst soll der Arbeitsbereich des Plattenkondensator als Ionisationsdetektor gefunden und charakterisiert werden. Hierzu wird bei der Kupfer und Molybdän Röhre, jeweils mit drei verschiedenen Beschleunigungsspannungen $U_B$, die Spannung am Kondensator verändert und die Spannung des Ionisationsstrom $I_C$ über einen Widerstand gemessen und daraus $I_C$ berechnet. Dabei ist $I_C = U_E / R$\cite[3]{529va}.
+
+Zunächst wird der Plattenkondensator, entsprechend \cite[3]{LDdosimetrie} in das Röntgengerät eingebaut. Der Elektrometerverstärker und das Hochspannungsnetzteil werden entsprechend \cite[2]{LDelektrometer} und \cite[2-3]{529va} angeschlossen. Bei den Messungen mit der Cu-Röhre wurde als Widerstand $R=\SI{100}{\mega\ohm}$ verwendet, für die Messung mit Mo-Röhre $R=\SI{1}{\giga\ohm}$.
+
+
+Als erstes soll der Arbeitsbereich des Plattenkondensator als Ionisationsdetektor gefunden und charakterisiert werden. Hierzu wird bei der Kupfer und Molybdän Röhre, jeweils mit drei verschiedenen Beschleunigungsspannungen $U_B$, die Spannung am Kondensator $U_C$ verändert und die Spannung aufgrund des Ionisationsstroms $U_E$ über einen Widerstand gemessen und daraus $I_C$ nach Gl. (\ref{eq:ohm}) berechnet.
 
 Mit dem so bestimmten Arbeitsbereich wird anschließend das Emissionsverhalten der Röntgenröhren untersucht. Es wird die Abhängigkeit der Emittierten Dosisleistung zu den Betriebsparametern betrachtet, sowohl als Ionisationsdosisleistung als auch als Äquivalentdosisleistung.
 Die mittlere Ionendosisleistung $[<j>] = \unit{\ampere\per\kilo\gram}$ sowie Äquivalentsdosisleistung $[h] = \unit{\sievert\per\second}$ sind wie folgt zu berechnen \cite[4-5]{529va}
@@ -13,27 +26,35 @@ Die mittlere Ionendosisleistung $[<j>] = \unit{\ampere\per\kilo\gram}$ sowie Äq
 	<j> = I_C / m \label{eq:ion_dose_rate}\\
 	<j> = 32.4 h
 \end{align}
-wobei $m$ die Masse der durchstrahlten Luft bezeichnet, \todo{andere größen erwähnen}.
+wobei $m$ die Masse des durchstrahlten Luftvolumens bezeichnet, welches durch die Geometrie des Kondensators im Experimentierraums gegeben ist (dargestellt in Abbildung \ref{fig:kondensator_geometrie}) \todo{andere größen erwähnen}.
 
-Für die Dichte der Luft gilt \cite[4]{529va}
+\jafps{kondensator_geometrie}{Wichtige Größen zur Bestimmung des durchstrahlten Volumens: $s_0$ ist der Abstand vom Brennfleck der Röntgenröhre (annähernd punktförmig) und dem rechteckigen Schlitz zwischen Experimentierraum und Bereich, in dem sich die Röhre befindet. Abbildung entnommen aus \cite[1]{LDdosimetrie}.}{0.6}
+
+Es gelten für die geometrischen Abmessungen: $s_0=\SI{15.5}{\centi\meter}, a_0 = \SI{4.5}{\centi\meter}, b_0=\SI{0.6}{\centi\meter}, d=\SI{2.5}{\centi\meter}, D = \SI{16.0}{\centi\meter}$ \cite[4]{529va}.
+
+Für die Dichte der Luft gilt \cite[4]{529va}:
 \begin{align}
 	\rho &= \rho_0 \cdot \frac{T_0}{T} \cdot \frac{p}{p_0}
 \end{align}
-
+mit jeweils
 \begin{align*}
 	\rho_0 &= \SI{1.293}{\kilo\gram\per\cubic\meter} \\
 	T_0 &= \SI{273}{\kelvin} \\
 	p_0 &= \SI{1023}{\hecto\pascal}
 \end{align*}
 
-\todo{durchstrahltes Volumen herleitung}
+\todo{durchstrahltes Volumen herleitung aus anleitung}
+
 Das durchstrahlte Volumen ist dann $V = \SI{125}{\cubic\centi\meter}$ \cite[2]{LDdosimetrie}.
+
+\todo{masse fehlt noch ausgerechnet, fehler fehlen auch noch}
+
 
 \section{Auswertung}
 \subsection{Arbeitsbereich Ionisationsdetektor}
-In den Abbildungen \ref{fig:cap_voltage_mo} und \ref{fig:cap_voltage_cu} sind die gemessenen Ionisationsströme gegen die am Kondensator anliegenden Spannungen aufgetragen. Man erkennt, dass bei konstanten Betriebsparametern der Röntenröhre, bei höheren Kondensatorspannungen der gemessene Ionisationsstrom etwa konstant wird. Dies ist zu erwarten, da im Operationsbereich eines Ionisationsdetektors näherungsweise alle ionenpaare getrennt und als teil des Strom gemessen werden; kleine Änderungen der Spannung verändern die Menge an Ladungsträgern hier nicht\todo{cite}. Das Eintreten dieses konstanten Bereichs findet für verschiedene Röhrenparameter bei verschiedenen Mindestspannungen statt, wie in den Abbildungen zu erkennen. Die größte nötige Kondensatorspannung um in den konstanten Bereich zu gelangen wurde bei der Kupferkathode bei $U_B = \SI{33}{\kilo\volt}$ gemessen und lag bei etwa $U_C = \SI{200}{\volt}$. Um sicher im Arbeitsbereich zu sein wird im weiteren Verlauf eine Kondensatorspannung von $U_C=\SI{300}{\volt}$ verwendet. Die Messreihen und umrechnungen sind in den Tabellen \ref{tab:cap_voltageCu1.table} bis \ref{tab:cap_voltageMo3.table} angehangen. \todo{warum nicht perfekt konstant?}
+In den Abbildungen \ref{fig:cap_voltage_mo} und \ref{fig:cap_voltage_cu} sind die gemessenen Ionisationsströme gegen die am Kondensator anliegenden Spannungen aufgetragen. Man erkennt, dass bei konstanten Betriebsparametern der Röntenröhre, bei höheren Kondensatorspannungen der gemessene Ionisationsstrom etwa konstant wird. Dies ist zu erwarten, da im Operationsbereich eines Ionisationsdetektors näherungsweise alle ionenpaare getrennt und als teil des Strom gemessen werden; kleine Änderungen der Spannung verändern die Menge an Ladungsträgern hier nicht\todo{cite}. Das Eintreten dieses konstanten Bereichs findet für verschiedene Röhrenparameter bei verschiedenen Mindestspannungen statt, wie in den Abbildungen zu erkennen. Die größte nötige Kondensatorspannung um in den konstanten Bereich zu gelangen wurde bei der Kupferanode bei $U_B = \SI{33}{\kilo\volt}$ gemessen und lag bei etwa $U_C = \SI{200}{\volt}$. Um sicher im Arbeitsbereich zu sein wird im weiteren Verlauf eine Kondensatorspannung von $U_C=\SI{300}{\volt}$ verwendet. Die Messreihen und umrechnungen sind in den Tabellen \ref{tab:cap_voltageCu1.table} bis \ref{tab:cap_voltageMo3.table} angehangen. \todo{warum nicht perfekt konstant?}
 
-\jafpp{cap_voltage_mo}{Ionisationsstrom in Abhängigkeit von der Kondensatorspannung, mit verschiedenen Beschleunigungsspannungen, bei Kupferkathode}{cap_voltage_cu}{Molybdänkathode}
+\jafpp{cap_voltage_mo}{Ionisationsstrom in Abhängigkeit von der Kondensatorspannung, mit verschiedenen Beschleunigungsspannungen, bei der Kupferanode}{cap_voltage_cu}{der Molybdänanode}
 
 \todo{strahlenschutzkategorie}
 

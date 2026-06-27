@@ -11,9 +11,13 @@ fhandle = open("../data/meta.toml", "rb")
 meta = tomllib.load(fhandle)
 fhandle.close()
 
+def convert(x):
+    return x / 32.4
 
-def quadratic(x, a, b, c):
-    denom = (x ** 2) * b
+
+
+def quadratic(x, a, c):
+    denom = (x ** 2)
     return (a / denom) + c
 
 # %%
@@ -27,9 +31,26 @@ time = p.ev(data[0], 0.5)
 
 dose_rate = (dose_after - dose_before) / time
 
-fit, (errs, rsq) = std.curve_fit(quadratic, distance, dose_rate)
+equiv_rate = convert(dose_rate)
 
-plt.errorbar(~distance, ~dose_rate, xerr=p.ve(distance)[1], yerr=p.ve(dose_rate)[1], **std.default.error_bar_def)
-xrange = np.linspace(min(~distance) - 3, max(~distance) + 3)
-plt.plot(xrange, quadratic(xrange, *fit))
-std.default.plt_finish("distance / cm", "dose rate / mSv/s")
+print(r"\hline")
+print(r"Abstand / cm & Dauer / s & $H_\text{1}$ / mSv & $H_\text{2}$ / mSv & h / mSv/s \\")
+print(r"\hline")
+for i in range(len(dose_rate)):
+    print(r"\num{", distance[i].format(), r"} & \num{", time[i].format(), r"} & \num{", dose_before[i].format(), r"} & \num{", dose_after[i].format(), r"} & \num{", dose_rate[i].format(), r"} \\")
+print(r"\hline")
+
+fit, (errs, rsq) = std.curve_fit(quadratic, distance, dose_rate)
+params = p.ev(fit, errs)
+
+#print("parameter a & c:")
+#[print(params[i].format()) for i in range(len(fit))]
+
+#plt.scatter(~distance, ~(1/np.sqrt(dose_rate)))
+plt.errorbar(~distance, ~dose_rate, xerr = p.ve(distance)[1], yerr = p.ve(dose_rate)[1], label = "Messwerte", color = "tab:blue", **std.default.error_bar_def)
+xrange = np.linspace(min(~distance) - 2, max(~distance) + 2)
+plt.plot(xrange, quadratic(xrange, *fit), color = "tab:green", linewidth = 0.9, label = rf"Anpassungsfunktion, $R^2$={round(rsq,3)}")
+plt.legend()
+std.default.plt_pretty("Abstand / cm", "Dosisleistung / mSv/s")
+#plt.savefig("../figs/dist_sq.pdf")
+plt.show()
