@@ -8,3 +8,26 @@ Für die weiteren Messungen, bei denen das Verhalten der Röntgenstrahlung bei A
 
 Im Betriebsbereich (siehe die Betriebsbereiche in Abbildung \ref{fig:ionisationsdet_bereiche}) des Geiger-Müller-Zählrohrs ist die Feldstärke in der Nähe des Drahts sehr groß, wodurch dort für jedes einfallende Röntgenphoton immer eine maximal weit ausgebreitete (über die ganze Ausdehnung des Rohrs) und maximal starke Ladungslawine ausgelöst wird, die als großer Strompuls an der Anode registrierbar ist.
 Jedes einfallende Photon wird so mit einem gleich hohen (maximal hohen) Stromimpuls registriert. Wenn über das ganze Zählrohr Gasmoleküle ionisiert sind, es also große Raumladungen gibt, neutralisieren diese das außen angelegte elektrische Feld und erlauben so die Rekombination von Elektronen-Loch-Paaren im Gas. Damit sinkt das Stromsignal am Anodendraht und das GMZ kann auf das nächste einfallende Röntgenphoton wieder mit neuen Ionisationen reagieren, also das nächste Signal messen. Aufgrund dieses Rekombinationsvorgangs dauert es eine endliche Zeit, bis ein GMZ nach einem Auslösen ein neues, getrenntes Signal registrieren kann, welche als \textit{Totzeit} bezeichnet wird. Bei Geiger-Müller-Zählrohren ist eine Totzeit nach einem einfallenden Teilchen von $\SIrange{50}{100}{\mu\s}$ zu erwarten, die maximale Teilchenrate, bei denen alle Teilchen korrekt registriert werden können, liegt damit bei $\SIrange{1e4}{1e5}{\hertz}$ \cite[194-196]{kolanoskiwermerdetektoren}.
+
+
+\section{Durchführung}
+Es wird mit dem GMZ die Teilchenrate bei verschiedenen Emissionströmen gemessen.
+
+\section{Auswertung}
+Es wird im Allgemeinen zwischen paralysierender und nicht paralysierender Totzeit unterschieden. Für die paralysierende Totzeit $\tau_p$ erwartet man zwischen gemessener Zählrate $m$ und tatsächlicher Zählrate $n$ den Zusammenhang \cite[776]{kolanoskiwermerdetektoren}
+\begin{align}
+	m = \frac{n}{1 - n \tau_p}
+\end{align}
+
+Im Falle einer nicht paralysierenden Totzeit $\tau_n$ erwartet man den Zusammenhang\cite[776]{kolanoskiwermerdetektoren}
+\begin{align}
+	m = n \cdot e^{- n \tau_n}
+\end{align}
+
+Speziell für GMZ kann ein Mischfall betrachtet werden \cite{gm_deadtime}
+\todo{gleichung}
+
+Die Messdaten (in Tabelle \todo{tabelle} zu finden) werden in \fig{deadtime} aufgetragen und 
+\jafps{deadtime}{}{0.8}
+\jafps{deadtime_raw}{}{0.8}
+\jafps{deadtime_sliced}{}{0.8}
