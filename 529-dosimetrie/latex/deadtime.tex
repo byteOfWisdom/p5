@@ -24,10 +24,14 @@ Im Falle einer nicht paralysierenden Totzeit $\tau_n$ erwartet man den Zusammenh
 	m = n \cdot e^{- n \tau_n}
 \end{align}
 
-Speziell für GMZ kann ein Mischfall betrachtet werden \cite{gm_deadtime}
-\todo{gleichung}
+Speziell für GMZ kann ein Mischfall betrachtet werden, bei dem eine paralysierende und eine nicht paralysierende Totzeit einfließen. \cite{gm_deadtime}
+\begin{align}
+	m = \frac{n \cdot e^{- n \tau_p}}{1 + \tau_n n}
+\end{align}
 
-Die Messdaten (in Tabelle \todo{tabelle} zu finden) werden in \fig{deadtime} aufgetragen und 
+
+Die Messdaten (in Tabelle \todo{tabelle} zu finden) werden in \fig{deadtime} aufgetragen und die drei Totzeitmodelle mittels \textit{scipy curve\_fit} \cite{scipy} an die Daten angepasst. Betrachtet man in \fig{deadtime} die Anpassungsgüten, so erkennt man bei dem gemischten Totzeitmodell die beste Anpassungsgüte, bei dem paralysierenden Modell die schlechteste. Dies zeigt, dass die Totzeit des GMZ am besten durch das gemischte Modell beschrieben wird, als einfacheres Modell eine nicht paralysierende Totzeit allerdings auch relativ gut geeignet ist\footnote{zumindest bei den von uns gemessenen Teilchenraten}.
+
 \jafps{deadtime}{}{0.8}
 \jafps{deadtime_raw}{}{0.8}
 \jafps{deadtime_sliced}{}{0.8}

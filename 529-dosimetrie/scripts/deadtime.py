@@ -58,9 +58,9 @@ print(p.ev(res_p, err_p))
 print(p.ev(res_h, err_h))
 
 std.default.plt_errorbar(emission_current, countrate)
-std.default.plt_func(non_paralysing, res_np, label=f"nicht paralysierend, $R^2 = {rsq_np}$", xrange=(0.01, None))
-std.default.plt_func(paralysing, res_p,label=f"paralysierend, $R^2 = {rsq_p}$", xrange=(0.01, None))
-std.default.plt_func(hybrid, res_h, label=f"hybrid, $R^2 = {rsq_h}$", xrange=(0.01, None))
+std.default.plt_func(non_paralysing, res_np, label=f"nicht paralysierend, $R^2 = {round(rsq_np, 3)}$", xrange=(0.01, None))
+std.default.plt_func(paralysing, res_p,label=f"paralysierend, $R^2 = {round(rsq_p, 3)}$", xrange=(0.01, None))
+std.default.plt_func(hybrid, res_h, label=f"hybrid, $R^2 = {round(rsq_h, 3)}$", xrange=(0.01, None))
 std.default.plt_finish("Heizstrom $I_C$ / mA", "gemessene Zählrate / $s^{-1}$")
 
 
@@ -79,7 +79,7 @@ print(p.ev(res_p, err_p))
 print(p.ev(res_h, err_h))
 
 std.default.plt_errorbar(emission_current, countrate)
-std.default.plt_func(non_paralysing, res_np, label=f"nicht paralysierend, $R^2 = {rsq_np}$", xrange=(0.01, None))
-std.default.plt_func(paralysing, res_p,label=f"paralysierend, $R^2 = {rsq_p}$", xrange=(0.01, None))
-std.default.plt_func(hybrid, res_h, label=f"hybrid, $R^2 = {rsq_h}$", xrange=(0.01, None))
+std.default.plt_func(non_paralysing, res_np, label=f"nicht paralysierend, $R^2 = {round(rsq_np, 3)}$", xrange=(0.01, None))
+std.default.plt_func(paralysing, res_p,label=f"paralysierend, $R^2 = {round(rsq_p, 3)}$", xrange=(0.01, None))
+std.default.plt_func(hybrid, res_h, label=f"hybrid, $R^2 = {round(rsq_h, 3)}$", xrange=(0.01, None))
 std.default.plt_finish("Heizstrom $I_C$ / mA", "gemessene Zählrate / $s^{-1}$")
