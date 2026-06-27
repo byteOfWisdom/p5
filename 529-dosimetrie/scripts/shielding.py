@@ -2,6 +2,7 @@ import std
 import propeller as p
 import tomllib
 import numpy as np
+import xraydb
 
 fhandle = open("../data/meta.toml", "rb")
 metadata = tomllib.load(fhandle)["shielding"]
@@ -65,6 +66,8 @@ if __name__ == "__main__":
     res_b = process_measurement(metadata["messung_2"])
     print(res_a)
     print(res_b)
-    std.default.plt_func(absorber, [0.929], "refrence", (0, 3))
+    literature_mu = 0.1 * xraydb.material_mu("Al", 20e3)
+    print(literature_mu)
+    std.default.plt_func(absorber, [literature_mu], "refrence", (0, 3))
     std.default.plt.yscale("log")
     std.default.plt_finish("Dicke / mm", "Transmissivität / 1")
