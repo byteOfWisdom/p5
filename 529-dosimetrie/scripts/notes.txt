@@ -1,3 +1,12 @@
 andere gruppe:
 Kupfer fit: a =  0.4882(56) , b =  0.01080(35)
 Molybdän fit: a =  0.021475(77) , b =  0.007677(28)
+
+
+# shielding.py
+{'element': 'Mo', 'acceleration_voltage': 35000.0, 'sample_set': 1, 'filter': False, 'csv_file': 'messung_14.csv'}
+{'element': 'Mo', 'acceleration_voltage': 35000.0, 'sample_set': 1, 'filter': True, 'csv_file': 'messung_15.csv'}
+[0.850(46)]
+[0.828(24)]
+
+
