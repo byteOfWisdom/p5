@@ -36,38 +36,48 @@ def handle_data(distance, dose_before, dose_after, time, number):
 
     equiv_rate = convert(dose_rate)
 
-    print(r"\hline")
-    print(r"Abstand / cm & Dauer / s & $H_\text{1}$ / mSv & $H_\text{2}$ / mSv & h / mSv/s \\")
-    print(r"\hline")
-    for i in range(len(dose_rate)):
-        print(r"\num{", distance[i].format(), r"} & \num{", time[i].format(), r"} & \num{", dose_before[i].format(), r"} & \num{", dose_after[i].format(), r"} & \num{", dose_rate[i].format(), r"} \\")
-    print(r"\hline")
+    # print(r"\hline")
+    # print(r"Abstand / cm & Dauer / s & $H_\text{1}$ / mSv & $H_\text{2}$ / mSv & h / mSv/s \\")
+    # print(r"\hline")
+    # for i in range(len(dose_rate)):
+    #     print(r"\num{", distance[i].format(), r"} & \num{", time[i].format(), r"} & \num{", dose_before[i].format(), r"} & \num{", dose_after[i].format(), r"} & \num{", dose_rate[i].format(), r"} \\")
+    # print(r"\hline")
 
     fit, (errs, rsq) = std.curve_fit(quadratic, distance, dose_rate)
     params = p.ev(fit, errs)
 
+    # print(number)
+    # print("parameter a & c:")
+    # [print(params[i].format()) for i in range(len(fit))]
 
-    #print("parameter a & c:")
-    #[print(params[i].format()) for i in range(len(fit))]
+    if number == "1":
+        messung = "Mo"
+        color = "deeppink"
+        color_fit = "mediumvioletred"
+    else:
+        messung = "Cu"
+        color = "limegreen"
+        color_fit = "seagreen"
 
-    messung = "Mo" if number == "1" else "Cu"
-
+    print(messung)
+    print("parameter a & c:")
+    [print(params[i].format()) for i in range(len(fit))]
    # print(f"i have {len(dose_rate)} points for {messung}")
-    plt.errorbar(~distance, ~dose_rate, xerr = p.ve(distance)[1], yerr = p.ve(dose_rate)[1], label = f"Messwerte {messung}",  **std.default.error_bar_def)
-    plt.scatter(~distance, ~dose_rate)
+    plt.errorbar(~distance, ~dose_rate, xerr = p.ve(distance)[1], yerr = p.ve(dose_rate)[1], color = color, alpha = 0.7, label = f"Messwerte {messung}", **std.default.error_bar_def)
+    plt.scatter(~distance, ~dose_rate, alpha = 0.6, s = 6, color = color)
     xrange = np.linspace(min(~distance) - 2, max(~distance) + 2)
-    plt.plot(xrange, quadratic(xrange, *fit), linewidth = 0.9, label = rf"Anpassungsfunktion {messung}, $R^2$={round(rsq,3)}")
+    plt.plot(xrange, quadratic(xrange, *fit), color = color_fit, linewidth = 0.9, label = rf"Anpassungsfunktion {messung}, $R^2$={round(rsq,3)}")
     return
 
 def main():
+    data1 = get_data("1")
+    handle_data(*data1)
     data2 = get_data("2")
     handle_data(*data2)
-    #data1 = get_data("1")
-    #handle_data(*data1)
     plt.legend()
     std.default.plt_pretty("Abstand / cm", "Dosisleistung / mSv/s")
     #plt.savefig("../figs/dist_sq.pdf")
-    #plt.show()
+    plt.show()
 
 if __name__ == "__main__":
     main()

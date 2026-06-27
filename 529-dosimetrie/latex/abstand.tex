@@ -14,10 +14,26 @@ Aus den abgelesenen Dosen am verwendeten Stabdosimeter vor ($H_1$) und nach ($H_
 
 An die bestimmten Werte der Dosisleistung für die verschiedenen Abstände wird eine Anpassungsfunktion der Form $h(r)=\frac{a}{r^2}+b$ \cite[350-351]{dosimetriekrieger} angepasst. Durch den Parameter $b$ wird gegebenfalls vorhandene Untergrundstrahlungsdosis, die nicht primär vom Abstand abhängt, berücksichtigt. Solche Untergrundeffekte sind zu erwarten, da das Abstandsquadratgesetz in der Form $\frac{a}{r^2}$ nur für idealisierte Röntgenquellen und Messaufbauten gilt, bei denen die Bedingungen punktförmige Strahlungsquelle an genau bekanntem Ort, keine Absorption zwischen Quelle und Dosimeter/Messpunkt sowie Abwesenheit von Streuung im Experimentierraum gegeben sind \cite[350]{dosimetriekrieger}. Diese Bedingungen konnten hier nicht garantiert werden, da eine Röntgenröhre einen Brennfleck endlicher Ausdehnung hat, der also nicht ideal punktförmig ist, auch wenn dies durchaus eine gute Näherung ist. Zweitens befand sich im Experimentierraum die Experimentierschiene zur Positionsbestimung des Dosimeters sowie weitere metallische Halterungen, an denen ggf. Intensität der Röntgenstrahlung durch Streuung oder Absorption verändert werden konnte. Der Untergrund wurde konstant geschätzt, da dies ein noch immer einfaches Anpassungsmodell aber eine zufriedenstellende Anpassungsgüte ermöglichte.
 
-Als Parameter der Anpassungsfunktion ergaben sich die Werte:
-\[a = \SI{15.5(1.3)}{\centi\meter^2\milli\sievert\per\second}, b = \SI{0.0051(22)}{\milli\sievert\per\s}\]
-In Abbildung \ref{fig:dist_sq} ist die Dosisleistung gegen den Abstand zur Quelle dargestellt sowie die Anpassungsfunktion mit den bestimmten Parametern eingezeichnet. \todo{noch für beide röhren ins diagramm}
+Die Parameter der Anpassungsfunktion sind in Tabelle \ref{tab:dist_sq_werte} aufgeführt.
 
-\jafps{dist_sq}{Graphische Darstellung der bestimmten Dosisleistung abhängig vom Abstand $r$ zum Brennfleck der Röntgenröhre, welcher als punktförmig angenommen wird, sowie Anpassungsfunktion der Form $h(r)=\frac{a}{r^2}+b$. Das Maß der Anpassungsgüte (hier Bestimmtheitsmaß) ist als $R^2=0,946$ zufriedenstellend.}{0.6}
+\begin{table}[h]
+	    \centering
+	    \begin{tabular}{|c|c|c|} \hline
+		Element & a / $\unit{\centi\meter^2\milli\sievert\per\second}$ & b / $\unit{\milli\sievert\per\s}$ \\ \hline
+		Mo & $\num{15.5(1.3)}$ & $\num{0.0051(22)}$ \\
+		Cu & $\num{19.0(2.0)}$ & $\num{0.0085(37)}$ \\ \hline
+	    \end{tabular}
+	    \caption{#3}
+	    \label{tab:dist_sq_werte}
+	\end{table}
+% \begin{align*}
+% &\text{Mo:} &a = \SI{15.5(1.3)}{\centi\meter^2\milli\sievert\per\second}, \quad b = \SI{0.0051(22)}{ç} \\
+% &\text{Cu:} &a = \SI{19.0(2.0)}{\centi\meter^2\milli\sievert\per\second}, \quad b = \SI{0.0085(37)}{\milli\sievert\per\s}
+% \end{align*}
+In Abbildung \ref{fig:dist_sq} ist die Dosisleistung gegen den Abstand zur Quelle dargestellt sowie die Anpassungsfunktion mit den bestimmten Parametern eingezeichnet.
+
+\jafps{dist_sq}{Graphische Darstellung der bestimmten Dosisleistung abhängig vom Abstand $r$ zur jeweiligen Röntgenröhre für Mo und Cu sowie jeweils Anpassungsfunktionen der Form $h(r)=\frac{a}{r^2}+b$. Das Maß der Anpassungsgüte (hier Bestimmtheitsmaß \cite{rsquared}) ist als $R^2=0,946$ (für Mo) und $R^2=0,933$ (für Cu) zufriedenstellend. Die olivfarbenen Datenpunkte in der Darstellung entstammen den sehr stark überlappenden Messwerte aus den beiden Datenreihen für diese Abstände, sie entsprechen also keiner dritten Messreihe sondern zeigen, dass sich die bestimmte Dosisleistungen die beiden Röntgenröhren in diesen Abständen sehr stark ähnelt.}{0.6}
+
+\todo{Kommentar zu übereinanderliegenden Punkten im Diagramm}
 
 \todo{vergleich mit dosisleistung aus ionisationsstrom}
