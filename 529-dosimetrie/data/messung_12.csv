@@ -1,4 +1,4 @@
-delta_time doe_before dose_after distance
+delta_time dose_before dose_after distance
 5 0.1 0.9 0
 5 0.9 1.4 2
 5 1.4 1.8 4
