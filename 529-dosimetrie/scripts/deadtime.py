@@ -40,7 +40,7 @@ data = std.util.load_csv("../data/" + metadata["csv_file"], skiprows=1)
 emission_current = data[0]
 countrate = p.ev(data[1], np.sqrt(data[1]))
 std.default.plt_errorbar(emission_current, countrate, "gemessene Zählraten")
-std.default.plt_finish("Heizstrom $I_C$ / mA", "Ionendosisleistung / $Akg^{-1}$")
+std.default.plt_finish("Heizstrom $I_H$ / mA", "Ionendosisleistung / $Akg^{-1}$")
 
 table = {
     "I_E / mA": emission_current,
@@ -58,10 +58,10 @@ print(p.ev(res_p, err_p))
 print(p.ev(res_h, err_h))
 
 std.default.plt_errorbar(emission_current, countrate)
-std.default.plt_func(non_paralysing, res_np, label=f"nicht paralysierend, $R^2 = {rsq_np}$", xrange=(0.01, None))
-std.default.plt_func(paralysing, res_p,label=f"paralysierend, $R^2 = {rsq_p}$", xrange=(0.01, None))
-std.default.plt_func(hybrid, res_h, label=f"hybrid, $R^2 = {rsq_h}$", xrange=(0.01, None))
-std.default.plt_finish("Heizstrom $I_C$ / mA", "gemessene Zählrate / $s^{-1}$")
+std.default.plt_func(non_paralysing, res_np, label=f"nicht paralysierend, $R^2 = {round(rsq_np, 3)}$", xrange=(0.01, None))
+std.default.plt_func(paralysing, res_p,label=f"paralysierend, $R^2 = {round(abs(rsq_p), 3)}$", xrange=(0.01, None))
+std.default.plt_func(hybrid, res_h, label=f"hybrid, $R^2 = {round(rsq_h, 3)}$", xrange=(0.01, None))
+std.default.plt_finish("Heizstrom $I_H$ / mA", "gemessene Zählrate / $s^{-1}$")
 
 
 countrate = countrate[emission_current <= 0.2]
@@ -79,7 +79,7 @@ print(p.ev(res_p, err_p))
 print(p.ev(res_h, err_h))
 
 std.default.plt_errorbar(emission_current, countrate)
-std.default.plt_func(non_paralysing, res_np, label=f"nicht paralysierend, $R^2 = {rsq_np}$", xrange=(0.01, None))
-std.default.plt_func(paralysing, res_p,label=f"paralysierend, $R^2 = {rsq_p}$", xrange=(0.01, None))
-std.default.plt_func(hybrid, res_h, label=f"hybrid, $R^2 = {rsq_h}$", xrange=(0.01, None))
-std.default.plt_finish("Heizstrom $I_C$ / mA", "gemessene Zählrate / $s^{-1}$")
+std.default.plt_func(non_paralysing, res_np, label=f"nicht paralysierend, $R^2 = {round(rsq_np, 3)}$", xrange=(0.01, None))
+std.default.plt_func(paralysing, res_p,label=f"paralysierend, $R^2 = {round(abs(rsq_p), 3)}$", xrange=(0.01, None))
+std.default.plt_func(hybrid, res_h, label=f"hybrid, $R^2 = {round(rsq_h, 3)}$", xrange=(0.01, None))
+std.default.plt_finish("Heizstrom $I_H$ / mA", "gemessene Zählrate / $s^{-1}$")
