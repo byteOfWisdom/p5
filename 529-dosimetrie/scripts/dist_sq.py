@@ -22,6 +22,7 @@ def quadratic(x, a, c):
 
 # %%
 fname = "../data/" + meta["abstand_sq"]["messung_1"]["csv_file"]
+
 data = std.util.load_csv(fname, skiprows=1)
 
 distance = p.ev(data[3] + 11, 0.5)
