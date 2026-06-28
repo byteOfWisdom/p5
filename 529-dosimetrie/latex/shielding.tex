@@ -2,24 +2,30 @@
 \section{Aufbau}
 
 \todo{Röhre, goniometer, drehdings mit proben}
+\todo{Zr Filter make Mo lines go blub}
 \section{Durchführung}
 
 \todo{draufleuchten}
+\todo{beim leuchten nicht zu viel wegen totzeit}
 \todo{alles kacke weil winkel unzuverlässig}
 
 \section{Referenzwerte}
 \label{sec:ref_mu}
-\todo{Referenzwerte}
+\todo{lena bs check plssssssss}
+Die tatsächlichen Absorptionskoeffizienten $\mu$ sind von der Wellenlänge des eingestrahlten Lichts abhängig. In unserem Fall handelt es sich um nicht monochromatische Röntgenstrahlen, welche in erster Linie ein Bremstrahlungsspektrum sind. Im Falle der Messung ohne Zirkoniumfilter kommen zusätlich noch die charakteristischen Röntgenlinien der Mo Anode hinzu. Da im allgemeinen ab einigen $\unit{\kilo\electron\volt}$ von Röntgenstrahlung gesprochen wird und die maximale Energie durch die Beschleunigungsspannung $< \SI{35}{\kilo\electron\volt}$ sind, wird für die Referenzwerte $\mu(\SI{20}{\kilo\eV})$ als Wert angenommen (da es ungefähr mittig im relevanten Energiebereich liegt) und als Unsicherheit die Mittlere Abweichung zu $\mu(\SI{15}{\kilo\eV})$ und $\mu(\SI{25}{\kilo\eV})$ genutzt (da die Intensitäten zu den grenzen des Energiespektrums hin deutlich Abnehmen und vermutlich ein großer Teil der Strahlung in diesem Energiebereich ist). Dies ist relativ arbiträr, aber soll einen Anhalt geben, wie die Erwartungen sind. Für einen genauen Referenzwert müsste die Intensitätsverteilung im Röntgenspektrum genau betrachtet werden, was hier nicht möglich ist. Die Werte wurden nach diesem Muster aus einer Referenzdatenbank entnommen \cite{xraydb}.
+
 
 \section{Auswertung}
-Es soll zunächst das Lambert-Beersche-Gesetz überprüft werden, welches für den Transmittierten Strahlungsteil $T$, nach Materialdicke $d$, mit einem Absorbtionskoeffizienten $\mu$ den folgenden Zusammenhang aufstellt \todo{cite!!}
+\subsection{Absorbtionskoeffizient von Aluminium}
+Es soll zunächst das Lambert-Beersche-Gesetz überprüft werden, welches für den Transmittierten Strahlungsteil $T$, nach Materialdicke $d$, mit einem Absorbtionskoeffizienten $\mu$ den folgenden Zusammenhang aufstellt \cite[574]{gerthsen}
 \begin{align}
-	T = e^{-\mu d} \label{eq:lambert}
+	I &= I_0 e^{-\mu d} \\
+	T = \frac{I}{I_0} &= e^{-\mu d} \label{eq:lambert} 
 \end{align}
 
 Die gemessenenen Raten werden um den Heizstrom korrigiert und aus der Verhältniss von Rate ohne Abschirmung zu der Rate mit Abschirmung wird als Transmissivität bezeichnet. Hierbei wird auf den Heizstrom wieder ein Fehler von $\SI{0.01}{\milli\ampere}$ angenommen, während die Rate mit Poissonverteilten Unsicherheiten betrachtet wird.
-Die Transmissivitäten für die Verschiedenen Dicken sind in \tab{abschirmung_ohne.table} und \tab{abschirmung_mit.table} zu finden, sowie in \fig{transmission_thickness} aufgetragen. In \fig{transmission_thickness} die gefitteten Funktionen aufgetragen.
-Man findet relativ schlechte Anpassungsgüten, wobei in der halblogarithmischen Darstellung deutlich nichtlinearitäten auffallen, welche eigentlich nicht zu erwarten sind, jedoch die schlechten Fitgüten erklären. \todo{whyyyyyyy?}. Die Fit ergebnisse sind in \todo{adsf} aufgelistet. Dabei fällt auf, dass die bestimmten Abschirmungsparameter mit und ohne Filter innerhalb einer $1\sigma$-Umgebung zueinander liegen. Die Messungen passen also gut zueinander. Der Referenzwert von ca. $\SI{0.929}{\per\milli\meter}$ list dabei eher eine Schäztung, weicht aber deutlich vom gemessenen ab (vgl. Abschnitt \ref{sec:mu_ref}). Dies liegt womöglich daran, dass die Referenzwerte \todo{beschissen sind}
+Die Transmissivitäten für die Verschiedenen Dicken sind in \tab{abschirmung_ohne.table} und \tab{abschirmung_mit.table} zu finden, sowie in \fig{transmission_thickness} halblogarithmisch aufgetragen. In \fig{transmission_thickness} die gefitteten Funktionen aufgetragen.
+Man findet relativ schlechte Anpassungsgüten, wobei in der halblogarithmischen Darstellung deutlich nichtlinearitäten auffallen, welche eigentlich nicht zu erwarten sind, jedoch die schlechten Fitgüten erklären. \todo{whyyyyyyy?}. Die Fit ergebnisse sind in \tab{mu_fit} aufgelistet. Dabei fällt auf, dass die bestimmten Abschirmungsparameter mit und ohne Filter innerhalb einer $1\sigma$-Umgebung zueinander liegen. Die Messungen passen also gut zueinander. Der Referenzwert von ca. $\SI{0.93(83)}{\per\milli\meter}$ ist dabei eher eine Schäztung (vgl. Abschnitt \ref{sec:mu_ref}) mit sehr großer Unsicherheit in abhängigkeit vom tatsächlichen Röntgenspektrum, und sagt wenig aus, außer die Richtigkeit der Größenordnung des bestimmten $\mu_{effektiv}$ zu zeigen. \todo{kann man so sagen??}
 
 
 \jafps{transmission_thickness}{Transmissivität in Abhängigkeit der Al Abschirmungsdicke, mit Anpassungsfunktionen}{0.8}
@@ -33,3 +39,15 @@ Man findet relativ schlechte Anpassungsgüten, wobei in der halblogarithmischen 
 	Ohne Filter & \num{0.828(24)}\\
 	\hline
 }{Fit Parameter für die Messungen mit verschieden dicken Al Abschirmungen.}{mu_fit}
+
+\subsection{Verschiedene Materialien}
+Im weiteren wird das Ergebnis mit Filter benutzt, da mit Filter ein glatteres Spektrum vorliegt und somit
+
+
+\todo{Dicke berechnen}
+\todo{mit dicke dann mu von den anderen materialien}
+\todo{diskussion}
+\todo{vergleich mit/ohne filter}
+
+\jafps{material_mu}{}{0.8}
+\jafps{material_mu_log}{}{0.8}
