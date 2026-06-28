@@ -14,17 +14,17 @@ Jedes einfallende Photon wird so mit einem gleich hohen (maximal hohen) Stromimp
 Es wird mit dem GMZ die Teilchenrate bei verschiedenen Emissionströmen gemessen.
 
 \section{Auswertung}
-Es wird im Allgemeinen zwischen paralysierender und nicht paralysierender Totzeit unterschieden. Bei einer nicht paralysierenden Totzeit können einfallende Teilchen den unsensitiven Zeitraum nicht verlängern bevor dieser abgelaufen ist, die minimale Zeit zwischen zwei detektierten Ereignissen ist eine Konstante. Für die paralysierende Totzeit $\tau_p$ erwartet man zwischen gemessener Zählrate $m$ und tatsächlicher Zählrate $n$ den Zusammenhang \cite[776]{kolanoskiwermerdetektoren}
+Es wird im Allgemeinen zwischen paralysierender und nicht paralysierender Totzeit unterschieden. Bei einer nicht paralysierenden Totzeit können einfallende Teilchen den unsensitiven Zeitraum nicht verlängern bevor dieser abgelaufen ist, die minimale Zeit zwischen zwei detektierten Ereignissen ist eine Konstante. Für die nicht paralysierende Totzeit $\tau_p$ erwartet man zwischen gemessener Zählrate $m$ und tatsächlicher Zählrate $n$ den Zusammenhang \cite[776]{kolanoskiwermerdetektoren}
 \begin{align}
-	m &= \frac{n}{1 + n \tau_p}
+	m &= \frac{n}{1 + n \tau_n}
 \end{align}
 
-Im Falle einer nicht paralysierenden Totzeit $\tau_n$ erwartet man den Zusammenhang\cite[776]{kolanoskiwermerdetektoren}
+Im Falle einer paralysierenden Totzeit kann ein einfallendes Teilchen die Totzeit verlängern, auch wenn der Detektor noch nicht wieder Sensitiv ist. Für die Totzeit $\tau_p$ erwartet man dann den Zusammenhang\cite[776]{kolanoskiwermerdetektoren}
 \begin{align}
-	m = n \cdot e^{- n \tau_n}
+	m = n \cdot e^{- n \tau_p}
 \end{align}
 
-Speziell für GMZ kann ein Mischfall betrachtet werden, bei dem eine paralysierende und eine nicht paralysierende Totzeit einfließen. \cite{gm_deadtime}
+Speziell für GMZ kann ein Mischfall betrachtet werden, bei dem eine paralysierende und eine nicht paralysierende Totzeit einfließen. Hierbei beschreibt die nicht paralysiernde komponente die Rekombinationszeit, bis wieder Verstärkung im GMZ stattfinden kann. Die paralysierende komponente beschreibt das Zeitintervall, in welchem wieder Verstärkung stattfinden kann, das Signal aber noch nicht groß genug ist um elektronisch detektiert zu werden, was zu folgendem Zusammenhang führt\cite{gm_deadtime}
 \begin{align}
 	m = \frac{n \cdot e^{- n \tau_p}}{1 + \tau_n n}
 \end{align}
@@ -35,7 +35,9 @@ Die Messdaten (in \tab{gmt_deadtime.table} zu finden) werden in \fig{deadtime} a
 
 % \todo{fit bei nicht allen daten erläutern}
 
-Die Fitergebnisse sind in \tab{deadtime_params} aufgelistet. Bei allen Modellen sind die Konstante $k$ in der gleichen Größenordnung, was Sinnvoll ist, da alle Modelle die gleiche Messung mit der gleichen Anzahl emittierter Teilchen beschreiben. Bei dem reinen nicht paralysierenden Modell findet man eine Totzeit $\tau_n$, wie sie für GMZ zu erwarten ist (vgl. \ref{sec:gmz_theorie}). Bei dem GMZ spezifsichen Modell findet man als $\tau_n$ eine Totzeit nahe der des einfachen nicht paralysierenden Modells, sowie eine sehr viel kürzere paralysierende Totzeit. Dies erscheint Sinnvoll, da in diesem Fall $\tau_p$ nur den Zeitraum abdeckt, in welchem im GMZ bereits wieder verstärkung möglich ist, das Signal aber nich nicht groß genug ist um von der Elektronik detektierbar zu sein.
+Die Fitergebnisse sind in \tab{deadtime_params} aufgelistet. Bei allen Modellen sind die Konstante $k$ in der gleichen Größenordnung, was Sinnvoll ist, da alle Modelle die gleiche Messung mit der gleichen Anzahl emittierter Teilchen beschreiben. Bei dem reinen nicht paralysierenden Modell findet man eine Totzeit $\tau_n$, wie sie für GMZ zu erwarten ist (vgl. \ref{sec:gmz_theorie}). Bei dem GMZ spezifsichen Modell findet man als $\tau_n$ eine Totzeit nahe der des einfachen nicht paralysierenden Modells, sowie eine sehr viel kürzere paralysierende Totzeit. Dies erscheint Sinnvoll, da in diesem Fall $\tau_p$ nur den Zeitraum abdeckt, in welchem im GMZ bereits wieder verstärkung möglich ist, das Signal aber nich nicht groß genug ist um von der Elektronik detektierbar zu sein, was bei gut gewählten komponenten beinahe nicht der Fall sein sollte.
+
+Insgesamt wird die Totzeit des GMZ am besten durch das GMZ spezifische Modell beschrieben, aber auch in guter Näherung durch eine nicht paralysierende Totzeit, welche in beiden Fällen in der Erwarteten Größe ist.
 
 \jafmt{|c|c|c|c|}{
 	\hline
@@ -46,6 +48,6 @@ Die Fitergebnisse sind in \tab{deadtime_params} aufgelistet. Bei allen Modellen 
 	GMZ spezifisch & \num{3.931(54)e+05} & \num{6.51(34)e-07} & \num{7.601(55)e-05} \\\hline
 }{Fit Parameter der verschiedenen Modelle.}{deadtime_params}
 
-\jafps{deadtime}{Messung der Teilchenraten bei verschiedenen Emissionsströmen, mit Verschiedenen}{0.8}
+\jafps{deadtime}{Messung der Teilchenraten bei verschiedenen Emissionsströmen, mit Verschiedenen Modellen und deren jeweiligen Anpassungsgüten.}{0.8}
 % \jafps{deadtime_raw}{}{0.8}
 % \jafps{deadtime_sliced}{}{0.8}
