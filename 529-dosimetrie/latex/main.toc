@@ -1,0 +1,23 @@
+\babel@toc {german}{}\relax 
+\contentsline {chapter}{\numberline {1}Einleitung}{3}{chapter.1}%
+\contentsline {chapter}{\numberline {2}Dosimetrie}{4}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Aufbau}{4}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Durchführung}{5}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Auswertung}{6}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Arbeitsbereich Ionisationsdetektor}{6}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Emissionskurven}{7}{subsection.2.3.2}%
+\contentsline {chapter}{\numberline {3}Totzeitmessung des GMZ}{8}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Aufbau}{8}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Durchführung}{9}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Auswertung}{9}{section.3.3}%
+\contentsline {chapter}{\numberline {4}Abstandsquadratgesetz}{11}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Durchführung}{11}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Auswertung und Diskussion}{11}{section.4.2}%
+\contentsline {chapter}{\numberline {5}Abschirmung}{13}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Aufbau}{13}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Durchführung}{13}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Referenzwerte}{13}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Auswertung}{13}{section.5.4}%
+\contentsline {chapter}{\numberline {6}Anhang}{15}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Tabellen}{15}{section.6.1}%
+\providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

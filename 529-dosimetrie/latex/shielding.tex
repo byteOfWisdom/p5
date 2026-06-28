@@ -1,0 +1,35 @@
+\chapter{Abschirmung}
+\section{Aufbau}
+
+\todo{Röhre, goniometer, drehdings mit proben}
+\section{Durchführung}
+
+\todo{draufleuchten}
+\todo{alles kacke weil winkel unzuverlässig}
+
+\section{Referenzwerte}
+\label{sec:ref_mu}
+\todo{Referenzwerte}
+
+\section{Auswertung}
+Es soll zunächst das Lambert-Beersche-Gesetz überprüft werden, welches für den Transmittierten Strahlungsteil $T$, nach Materialdicke $d$, mit einem Absorbtionskoeffizienten $\mu$ den folgenden Zusammenhang aufstellt \todo{cite!!}
+\begin{align}
+	T = e^{-\mu d} \label{eq:lambert}
+\end{align}
+
+Die gemessenenen Raten werden um den Heizstrom korrigiert und aus der Verhältniss von Rate ohne Abschirmung zu der Rate mit Abschirmung wird als Transmissivität bezeichnet. Hierbei wird auf den Heizstrom wieder ein Fehler von $\SI{0.01}{\milli\ampere}$ angenommen, während die Rate mit Poissonverteilten Unsicherheiten betrachtet wird.
+Die Transmissivitäten für die Verschiedenen Dicken sind in \tab{abschirmung_ohne.table} und \tab{abschirmung_mit.table} zu finden, sowie in \fig{transmission_thickness} aufgetragen. In \fig{transmission_thickness} die gefitteten Funktionen aufgetragen.
+Man findet relativ schlechte Anpassungsgüten, wobei in der halblogarithmischen Darstellung deutlich nichtlinearitäten auffallen, welche eigentlich nicht zu erwarten sind, jedoch die schlechten Fitgüten erklären. \todo{whyyyyyyy?}. Die Fit ergebnisse sind in \todo{adsf} aufgelistet. Dabei fällt auf, dass die bestimmten Abschirmungsparameter mit und ohne Filter innerhalb einer $1\sigma$-Umgebung zueinander liegen. Die Messungen passen also gut zueinander. Der Referenzwert von ca. $\SI{0.929}{\per\milli\meter}$ list dabei eher eine Schäztung, weicht aber deutlich vom gemessenen ab (vgl. Abschnitt \ref{sec:mu_ref}). Dies liegt womöglich daran, dass die Referenzwerte \todo{beschissen sind}
+
+
+\jafps{transmission_thickness}{Transmissivität in Abhängigkeit der Al Abschirmungsdicke, mit Anpassungsfunktionen}{0.8}
+
+
+\jafmt{|c|c|}{
+	\hline
+	Messung & $\mu_\text{effektiv}$ / $\unit{\per\milli\meter}$ \\
+	\hline
+	Mit Filter & \num{0.850(46)}\\
+	Ohne Filter & \num{0.828(24)}\\
+	\hline
+}{Fit Parameter für die Messungen mit verschieden dicken Al Abschirmungen.}{mu_fit}
