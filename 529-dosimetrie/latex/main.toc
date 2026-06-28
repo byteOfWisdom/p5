@@ -10,9 +10,9 @@
 \contentsline {section}{\numberline {3.1}Aufbau}{8}{section.3.1}%
 \contentsline {section}{\numberline {3.2}Durchführung}{9}{section.3.2}%
 \contentsline {section}{\numberline {3.3}Auswertung}{9}{section.3.3}%
-\contentsline {chapter}{\numberline {4}Abstandsquadratgesetz}{12}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Durchführung}{12}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Auswertung und Diskussion}{12}{section.4.2}%
-\contentsline {chapter}{\numberline {5}Anhang}{14}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Tabellen}{14}{section.5.1}%
+\contentsline {chapter}{\numberline {4}Abstandsquadratgesetz}{11}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Durchführung}{11}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Auswertung und Diskussion}{11}{section.4.2}%
+\contentsline {chapter}{\numberline {5}Anhang}{13}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Tabellen}{13}{section.5.1}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

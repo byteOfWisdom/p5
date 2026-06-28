@@ -9,9 +9,9 @@ fhandle.close()
 
 
 def non_paralysing(x, a, tau):
-    m = tau + (1 / (a * x))
-    return 1 / m
-    # return a * x / (1 - a * tau * x)
+    # m = tau + (1 / (a * x))
+    # return 1 / m
+    return a * x / (1 + a * tau * x)
 
 
 # def non_paralysing(x, a, tau):
@@ -47,7 +47,7 @@ table = {
     "Zählrate / $s^{-1}$": countrate,
 }
 
-# std.print_tex_table(table, "../latex/gmt_deadtime.table")
+std.print_tex_table(table, "../latex/gmt_deadtime.table")
 
 res_np, (err_np, rsq_np) = std.curve_fit(non_paralysing, emission_current, countrate, p0=[6e5, 6e-5])
 res_p, (err_p, rsq_p) = std.curve_fit(paralysing, emission_current, countrate)
