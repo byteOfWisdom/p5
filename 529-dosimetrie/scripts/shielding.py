@@ -30,6 +30,8 @@ def absorber(x, u):
     return np.exp(- x * u)
 
 
+table_file = None
+
 def load_and_normalize(file):
     data = std.load_csv("../data/" + file, skiprows=1)
     angle, current, countrate = data[0], data[1], data[2]
@@ -44,6 +46,14 @@ def load_and_normalize(file):
     actual_rate = ccc(current, countrate)
 
     transmission = actual_rate / actual_rate[0]
+    table = {
+        "I_H / mA": current,
+        "Zählrate / $s^{-1}$": countrate,
+        "korrigierte Zählrate / $s^{-1}$": actual_rate,
+        "Transmissivität": transmission
+    }
+
+    std.print_tex_table(table, table_file)
     return transmission
 
 
@@ -62,9 +72,11 @@ def process_measurement(params):
 
 
 if __name__ == "__main__":
+    table_file = "../latex/abschirmung_ohne.table"
     res_a = process_measurement(metadata["messung_1"])
-    res_b = process_measurement(metadata["messung_2"])
     print(res_a)
+    table_file = "../latex/abschirmung_mit.table"
+    res_b = process_measurement(metadata["messung_2"])
     print(res_b)
     literature_mu = 0.1 * xraydb.material_mu("Al", 20e3)
     print(literature_mu)
