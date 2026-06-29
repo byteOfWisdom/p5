@@ -59,14 +59,21 @@ def handle_data(distance, dose_before, dose_after, time, number):
         color = "limegreen"
         color_fit = "seagreen"
 
-    print(messung)
-    print("parameter a & c:")
-    [print(params[i].format()) for i in range(len(fit))]
-   # print(f"i have {len(dose_rate)} points for {messung}")
-    plt.errorbar(~distance, ~dose_rate, xerr = p.ve(distance)[1], yerr = p.ve(dose_rate)[1], color = color, alpha = 0.7, label = f"Messwerte {messung}", **std.default.error_bar_def)
-    plt.scatter(~distance, ~dose_rate, alpha = 0.6, s = 6, color = color)
-    xrange = np.linspace(min(~distance) - 2, max(~distance) + 2)
-    plt.plot(xrange, quadratic(xrange, *fit), color = color_fit, linewidth = 0.9, label = rf"Anpassungsfunktion {messung}, $R^2$={round(rsq,3)}")
+    print(messung+":")
+    equiv_hour = equiv_rate*60*60
+    print("Maximal:",max(equiv_hour).format())
+    print("Minimal:", min(equiv_hour).format())
+    #[print((equiv_rate[i]*60*60).format(),"mSv/h") for i in range(len(equiv_rate))]
+
+
+   #  print(messung)
+   #  print("parameter a & c:")
+   #  [print(params[i].format()) for i in range(len(fit))]
+   # # print(f"i have {len(dose_rate)} points for {messung}")
+   #  plt.errorbar(~distance, ~dose_rate, xerr = p.ve(distance)[1], yerr = p.ve(dose_rate)[1], color = color, alpha = 0.7, label = f"Messwerte {messung}", **std.default.error_bar_def)
+   #  plt.scatter(~distance, ~dose_rate, alpha = 0.6, s = 6, color = color)
+   #  xrange = np.linspace(min(~distance) - 2, max(~distance) + 2)
+   #  plt.plot(xrange, quadratic(xrange, *fit), color = color_fit, linewidth = 0.9, label = rf"Anpassungsfunktion {messung}, $R^2$={round(rsq,3)}")
     return
 
 def main():
@@ -74,10 +81,10 @@ def main():
     handle_data(*data1)
     data2 = get_data("2")
     handle_data(*data2)
-    plt.legend()
-    std.default.plt_pretty("Abstand / cm", "Dosisleistung / mSv/s")
+    #plt.legend()
+    #std.default.plt_pretty("Abstand / cm", "Dosisleistung / mSv/s")
     #plt.savefig("../figs/dist_sq.pdf")
-    plt.show()
+    #plt.show()
 
 if __name__ == "__main__":
     main()
