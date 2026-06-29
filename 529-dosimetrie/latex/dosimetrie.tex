@@ -56,13 +56,28 @@ In den Abbildungen \ref{fig:cap_voltage_mo} und \ref{fig:cap_voltage_cu} sind di
 
 \jafpp{cap_voltage_mo}{Ionisationsstrom in Abhängigkeit von der Kondensatorspannung, mit verschiedenen Beschleunigungsspannungen, bei der Kupferanode}{cap_voltage_cu}{der Molybdänanode}
 
-\todo{strahlenschutzkategorie}
 
 \subsection{Emissionskurven}
 
 \jafpp{current_emission}{}{voltage_emission}{}
 
-density is:  $1.1994(70)$
-mass is:  $0.00014992(88)$
-Kupfer fit: $a =  0.1995(23)$ , $b =  0.001085(38)$
-Molybdän fit: $a =  0.04145(46)$ ,$ b =  0.0002040(75)$
+Aus den Messdaten zum Emissionsverhalten der beiden Röntgenröhren werden die Ionisationsdosisleistung und die Äquivalenzdosisleistung bererechnet. Beide sind in \fig{current_emission} und \fig{voltage_emission} Aufgetragen, und sind ebenfalls in \tab{cu_current.table} bis \tab{mo_voltage.table} aufgelistet. Um die Proportionalität von Heizstrom und emittierter Dosisleistung zu Überprüfen wurden an diese Datensätze weiterhin Gradengleichungen der Form $f(x) = a \cdot x + b$ angepasst. Zur Bewertung wird die Fitgüte genutzt \cite{rsquared}, da es sich bei einer Graden nicht um eine Distribution handelt und das reduzierte $\Chi^2$ nur für solche sinnvolle Aussagen tätigen würde\cite{chisquare}.
+
+Die Fitgüten sind in bei beiden Röntgenröhren $>0.99$, also sehr gut, die Parameter sind in \tab{emission_fits} zu finden. Dies zeigt, dass der Zusammenhang zwischen emittierter Dosisleistung und Heizstrom sehr gut als linear beschrieben werden kann (vgl. \fig{current_emission}).
+
+Bei dem Zusammenhang zwischen Beschleunigungsspannung und emittierter Dosisleistung, vgl. \fig{voltage_emission}, erkennt man im unteren Spannungsbereich sehr wenig Emission, die ab einer röhrenabhängigen Schwelle schnell steigt. Bei der Kupferanode liegt diese Spannung bei ca. $\SI{7.5}{\kilo\volt}$, bei Molybdän sind es ca. $\SI{15}{\kilo\volt}$. Diese Spannungen Passen in etwa zu den $K_\alpha$ Linien der beiden Elemente, welche Energien von $\SI{8.04811(45)}{\kilo\eV}$ und $\SI{17.47910(55)}{\kilo\eV}$\cite{NISTxray} respektive haben, was jeweils etwas höheren Spannungen als dem Knick im Graphen entspricht. Dieser erklärt sich durch statistische Schwankungen in den Impulsen der vom Heizdraht ausgesandten Elektronen. Fundamental entspricht der starke Anstieg der Beschleunigungsspannung, ab welcher der $K_\alpha$ übergang der Anode, und somit die intensivste charakteristische Röntgenlinie der jeweiligen Anode, angeregt werden kann.
+
+
+\jafmt{|c|c|c|}{
+	\hline
+	Anodenmaterial & a / $\unit{\per\kilo\gram}$ & b / $\unit{\milli\ampere\per\kilo\gram}$ \\
+	\hline
+	Kupfer & $\num{0.1995(23)}$ & $\num{0.001085(38)}$ \\
+	Molybdän & $\num{0.04145(46)}$ & $\num{0.0002040(75)}$ \\
+	\hline
+}{Fitergebnisse für den Zusammenhang zwischen Heizstrom und Ionendosisleistung}{emission_fits}
+
+% density is:  $1.1994(70)$
+% mass is:  $0.00014992(88)$
+
+Im inneren des Plattenkondensators müsste ein Sperrbereich eingerichtet werden, da die Ortsdosisleistung deutlich größer als $\SI{3}{\milli\sievert\per\hour} \approx \SI{8}{\nano\sievert\per\second}$ ist\cite[\S 52, (2)]{strahlenschutzverordnung}. Die beobachtete Äquivalenzdosisleistung ist stets mehrere Größenordnungen höher als dieser Grenzwert.
