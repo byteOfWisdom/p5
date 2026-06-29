@@ -3,6 +3,8 @@
 
 \todo{Röhre, goniometer, drehdings mit proben}
 \todo{Zr Filter make Mo lines go blub}
+
+
 \section{Durchführung}
 
 \todo{draufleuchten}
@@ -41,13 +43,13 @@ Man findet relativ schlechte Anpassungsgüten, wobei in der halblogarithmischen 
 }{Fit Parameter für die Messungen mit verschieden dicken Al Abschirmungen.}{mu_fit}
 
 \subsection{Verschiedene Materialien}
-Im weiteren wird das Ergebnis mit Filter benutzt, da mit Filter ein glatteres Spektrum vorliegt und somit
+Mit dem mit Filter berechneten $\mu_\text{effektiv}$ aus \tab{mu_fit} wird anhand der Aluminium Probe die Dicke der Proben auf dem zweiten Probenhalter mittels \eq{lambert} berechnet. Für die Dicke folgt dann $d = - \ln(T) / \mu_\text{effektiv}$.
+
+Die somit berechnete Dicke der Proben ist dann $d_\text{ohne Filter} = \SI{0.59(28)}{\milli\meter}$ und $d_\text{mit Filter} = \SI{0.60(29)}{\milli\meter}$ für die jeweiligen Messungen. Diese werte passen zumindest sehr gut zueinander. Mit dem Referenzwert erhält man für die Messreihe ohne Filter eine Dicke von $\SI{0.65(16)}{\milli\meter}$, was ebenfalls in einer $1\sigma$-Umgebung zu den anderen Varianten liegt.
+
+Nun wird die mit Filter berechnete Dicke genutzt um die linearen Abschirmkoeffizienten der anderen Materialen, wiederum mit \eq{lambert} zu berechnen. Die Abschirmkoeffizienten sind dann $\mu = - \ln(T) / d$. Die so gefundenen Abschirmkoeffizienten in \fig{material_mu} nach der Ordnungszahl aufgetragen und in \fig{material_mu_log} pro Element zur besseren Sichtbarkeit in halblogarithmischer Auftragung, sowie in \tab{material_mu.table}.
+
+Die mit und ohne Filter berechneten $\mu$ passen stets gut zueinander, was zeigt, dass die charakteristischen Mo linien hier nicht signifikant sind. Die Referenzwerte für die Leichten Elemente (bis einschließlich Al) passen gut zu den berechneten Werten. Für die schweren Elemente muss man die große Wellenlängenabhängigkeit von $\mu$ beachten, welche die Referenzwerte sehr ungenau macht \todo{cite something about how mu works} \todo{mehr diskussion?}.
 
 
-\todo{Dicke berechnen}
-\todo{mit dicke dann mu von den anderen materialien}
-\todo{diskussion}
-\todo{vergleich mit/ohne filter}
-
-\jafps{material_mu}{}{0.8}
-\jafps{material_mu_log}{}{0.8}
+\jafpp{material_mu}{Berechnete Abschirmungskoeffizienten mit Referenzwerten nach Ordnungszahl \ref{sec:ref_mu}}{material_mu_log}{mit Logarithmierter Y-Achse und Auftragung pro Element.}
