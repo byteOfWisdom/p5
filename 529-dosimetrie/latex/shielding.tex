@@ -11,7 +11,7 @@ Bei jedem der Probensätze wird eine Messreihe mit und eine ohne den Zirconumfil
 
 \section{Durchführung}
 
-Bei der Messung wird der zuvor bestimmte Winkel, unter welchem das Strahlenfeld maximal ist also offset verwendet. Hierbei fiel auf, dass das Goniometer eingestellte Winkel nicht reproduzierbar anfahren konnte. Hierbei machte es einen Unterschied ob die Vorherigen Winkel größer oder kleiner waren, aber es konnte keine Methode gefunden, immer den korrekten WInkel zu erreichen. Es wurde nach bestem Augenmaß der Winkel Kompensiert, und nicht die Fahrtrichtung gewechselt. Allerdings ist es sehr gut möglich, dass dies die Messungen verzerrt.
+Bei der Messung wird der zuvor bestimmte Winkel, unter welchem das Strahlenfeld maximal ist also offset verwendet. Anschließend werden in $\SI{10}{\degree}$ Schritten die Zählraten über jeweils $\SI{20}{\second}$ gemittelt. Hierbei fiel auf, dass das Goniometer eingestellte Winkel nicht reproduzierbar anfahren konnte. Hierbei machte es einen Unterschied ob die Vorherigen Winkel größer oder kleiner waren, aber es konnte keine Methode gefunden, immer den korrekten WInkel zu erreichen. Es wurde nach bestem Augenmaß der Winkel Kompensiert, und nicht die Fahrtrichtung gewechselt. Allerdings ist es sehr gut möglich, dass dies die Messungen verzerrt.
 
 \todo{hier fehlt bestimmt noch stuff}
 
@@ -54,7 +54,7 @@ Die somit berechnete Dicke der Proben ist dann $d_\text{ohne Filter} = \SI{0.59(
 
 Nun wird die mit Filter berechnete Dicke genutzt um die linearen Abschirmkoeffizienten der anderen Materialen, wiederum mit \eq{lambert} zu berechnen. Die Abschirmkoeffizienten sind dann $\mu = - \ln(T) / d$. Die so gefundenen Abschirmkoeffizienten in \fig{material_mu} nach der Ordnungszahl aufgetragen und in \fig{material_mu_log} pro Element zur besseren Sichtbarkeit in halblogarithmischer Auftragung, sowie in \tab{material_mu.table}.
 
-Die mit und ohne Filter berechneten $\mu$ passen stets gut zueinander, was zeigt, dass die charakteristischen Mo linien hier nicht signifikant sind. Die Referenzwerte für die Leichten Elemente (bis einschließlich Al) passen gut zu den berechneten Werten. Für die schweren Elemente muss man die große Wellenlängenabhängigkeit von $\mu$ beachten, welche die Referenzwerte sehr ungenau macht \todo{cite something about how mu works} \todo{mehr diskussion?}.
+Die mit und ohne Filter berechneten $\mu$ passen stets gut zueinander, was zeigt, dass die charakteristischen Mo linien hier nicht signifikant sind. Die Referenzwerte für die Leichten Elemente (bis einschließlich Al) passen gut zu den berechneten Werten. Für die schweren Elemente muss man die große Wellenlängenabhängigkeit von $\mu$ beachten, welche die Referenzwerte sehr ungenau macht \todo{cite something about how mu works} \todo{mehr diskussion?}. Insgesamt erscheinen die Werte plausibel.
 
 
 \jafpp{material_mu}{Berechnete Abschirmungskoeffizienten mit Referenzwerten nach Ordnungszahl \ref{sec:ref_mu}}{material_mu_log}{mit Logarithmierter Y-Achse und Auftragung pro Element.}
