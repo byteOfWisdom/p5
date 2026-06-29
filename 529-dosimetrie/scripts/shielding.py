@@ -53,7 +53,8 @@ def load_and_normalize(file):
         "Transmissivität": transmission
     }
 
-    std.print_tex_table(table, table_file)
+    if table_file:
+        std.print_tex_table(table, table_file)
     return transmission
 
 

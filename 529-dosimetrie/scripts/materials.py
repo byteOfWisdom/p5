@@ -20,8 +20,8 @@ material_atomic_nums = [0, 6, 13, 26, 29, 40, 47]
 mu_a = p.ev(0.850, 0.046)
 mu_b = p.ev(0.828, 0.024)
 
-thickness_measured_a = transmission_a[2] / mu_a
-thickness_measured_b = transmission_a[2] / mu_b
+thickness_measured_a = - np.log(transmission_a[2]) / mu_a
+thickness_measured_b = - np.log(transmission_a[2]) / mu_b
 thickness_true = transmission_a[2] / (0.1 * xraydb.material_mu("Al", 20e3))
 
 def ev_mu(elem):
