@@ -27,6 +27,8 @@ thickness_true = transmission_a[2] / (0.1 * xraydb.material_mu("Al", 20e3))
 def ev_mu(elem):
     value = 0.1 * xraydb.material_mu(elem, 20e3)
     edges = 0.1 * np.array([xraydb.material_mu(elem, e) for e in [15e3, 25e3]])
+    # value = 0.1 * xraydb.material_mu(elem, 17.3e3)
+    # edges = 0.1 * np.array([xraydb.material_mu(elem, e) for e in [17.1e3, 17.5e3]])
     diff = np.abs(edges - value)
     return p.ev(value, np.average(diff))
 
