@@ -109,7 +109,7 @@ csv_file = "messung_11.csv"
 element = "Cu"
 acceleration_voltage = 35e3
 heatin_current = 0.1e-3
-csv_file = "messunge_12.csv"
+csv_file = "messung_12.csv"
 
 [totzeit]
 accelerating_voltage = 35e3

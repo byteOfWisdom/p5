@@ -1,20 +1,37 @@
 \chapter{Abstandsquadratgesetz}
-\todo{theorie abstand mit erwartung}
-\todo{Durchführung}
+
+Es wurde nun die Dosisleistung der beiden Röntgenröhren mithilfe eines Stabdosimeters in Abhängigkeit des Abstands von der Röntgenröhre bestimmt. Ein Stabdosimeter ist ein Teilchendetektor für Teilchenenergien im radioaktiven Bereich (wie Röntgenstrahlung hier) zeigt die im Belichtungszeitraum auf seinen sensitiven Bereich durch Röntgenphotonen eingefallene Dosis als Äquivalenzdosis $[H] = \unit{Sv}$ an. Bei Annahme einer isotropen Abstrahlung der Röntgenstrahlung aus dem (als punktförmig angenommenen) Brennfleck der Röntgenröhre folgt die Strahlungsintensität und daraus folgend auch die Ionendosis, die Energiedosis und auch die Äquivalenzdosis $H$ sowie deren zeitlich gemittelten Werten dem sog. Abstandsquadratgesetz (mit $r$ als Abstand des Messpunkts zur Quelle) $I(r) = \frac{a}{r^2}$. $a$ ist hier eine Konstante, die charakteristisch für die spezifische Strahlungsquelle ist \cite[350-351]{dosimetriekrieger}. Die invers quadratische Beziehung folgt daraus, dass, wenn auf dem Aufbreitungsweg keine Energie durch Absorption oder Streuung verloren geht, die Energie pro Flächenelement konstant bleiben muss. Bei einer kugelförmigen Ausbreitung vergrößert sich die Fläche hierbei quadratisch mit dem Weg \cite[351]{dosimetriekrieger}.
 
 \section{Durchführung}
 
+Um das Abstandsquadratgesetz zu überprüfen, wurden zunächst die Mo-Röhre in das Röntgengerät eingebaut und als Betriebsparameter $U_B = \SI{35}{\kilo\volt}$ und $I_E = \SI{0.1(0.01)}{\milli\A}$ eingestellt. Dann wurde eine Messschiene mit Abstandsskala in den Experimentierraum eingebaut und das Dosimeter (für alle Messungen in der gleichen Orientierung und auf gleicher Höhe) bei verschiedenen Abständen auf die Messschiene gestellt. Das Röntgengerät wurde für jeweils eine eingestellte Zeitspanne (als Fehler wurde $\Delta t = \SI{0.5}{\s}$ angenommen) angeschaltet und die Werte der angezeigten Dosis $H$ am Stabdosimeter sowohl vor und nach der Belichtung durch die Röhre abgelesen. Die Messung wurde anschließend für die Cu-Röhre mit den gleichen Betriebsparametern wiederholt. Als Unsicherheit der Abstandsmessung wurde ein konstanter Wert von $\Delta x= \SI{0.5}{\centi\meter}$ (aus dem Ablesefehler an der Skala und der Unsicherheit der Position der Röhre zum Nullpunkt der Skala) angenommen.
+
+Aus den abgelesenen Dosen am verwendeten Stabdosimeter vor ($H_1$) und nach ($H_2$) einer Bestrahlungszeit $\Delta t$ mit der Quelle wurden die Dosisdifferenz und zusammen mit der Dauer der Messung die Dosisleistung $h=\frac{\Delta H}{\Delta t}$, die in der jeweiligen Messung am sensitiven Bereich des Dosimeters geleistet wurde, bestimmt. Die so bestimmten Werte für die beiden Röntgenröhren sind in den Tabellen \ref{tab:../figs/dist_sq_mo.table} und \ref{tab:../figs/dist_sq_cu.table} aufgeführt.
+
+
 \section{Auswertung und Diskussion}
-\todo{vergleich mit dosisleistung aus ionisationsstrom}
 
-Aus den abgelesenen Dosen am verwendeten Stabdosimeter vor ($H_1$) und nach ($H_2$) einer Bestrahlungszeit $\Delta t$ mit der Quelle wird die Dosisdifferenz und zusammen mit der Dauer der Messung die Dosisleistung $h=\frac{\Delta H}{\Delta t}$, die in der jeweiligen Messung am sensitiven Bereich des Dosimeters geleistet wurde, bestimmt. Die so bestimmten Werte sind in Tabelle \ref{tab:../figs/dist_sq.table} aufgeführt.
+An die bestimmten Werte der Dosisleistung für die verschiedenen Abstände wird eine Anpassungsfunktion der Form $h(r)=\frac{a}{r^2}+b$ (also entsprechend der erwarteten Form des Abstandsquadratgesetzes) angepasst. Durch den Parameter $b$ wird gegebenfalls vorhandene Untergrundstrahlungsdosis, die nicht primär vom Abstand abhängt, berücksichtigt. Solche Untergrundeffekte sind zu erwarten, da das Abstandsquadratgesetz in der Form $\frac{a}{r^2}$ nur für idealisierte Röntgenquellen und Messaufbauten gilt, bei denen die Bedingungen punktförmige Strahlungsquelle an genau bekanntem Ort, keine Absorption zwischen Quelle und Dosimeter/Messpunkt sowie Abwesenheit von Streuung im Experimentierraum gegeben sind \cite[350]{dosimetriekrieger}. Diese Bedingungen konnten hier nicht garantiert werden, da eine Röntgenröhre einen Brennfleck endlicher Ausdehnung hat, der also nicht ideal punktförmig ist, auch wenn dies durchaus eine gute Näherung ist. Zweitens befand sich im Experimentierraum die Experimentierschiene zur Positionsbestimung des Dosimeters sowie weitere metallische Halterungen, an denen ggf. Intensität der Röntgenstrahlung durch Streuung oder Absorption verändert werden konnte. Der Untergrund wurde konstant geschätzt, da dies ein noch immer einfaches Anpassungsmodell aber eine zufriedenstellende Anpassungsgüte ermöglichte.
 
-\jaft{|c|c|c|c|c|}{../figs/dist_sq.table}{Messwerte und berechnete Dosisleistungen der Messungen mit dem Stabdosimeter.}
+Die Parameter der Anpassungsfunktion sind in Tabelle \ref{tab:dist_sq_werte} aufgeführt.
 
-An die bestimmten Werte der Dosisleistung für die verschiedenen Abstände wird eine Anpassungsfunktion der Form $h(r)=\frac{a}{r^2}+b$ \cite[350-351]{dosimetriekrieger} angepasst. Durch den Parameter $b$ wird gegebenfalls vorhandene Untergrundstrahlungsdosis, die nicht primär vom Abstand abhängt, berücksichtigt. Solche Untergrundeffekte sind zu erwarten, da das Abstandsquadratgesetz in der Form $\frac{a}{r^2}$ nur für idealisierte Röntgenquellen und Messaufbauten gilt, bei denen die Bedingungen punktförmige Strahlungsquelle an genau bekanntem Ort, keine Absorption zwischen Quelle und Dosimeter/Messpunkt sowie Abwesenheit von Streuung im Experimentierraum gegeben sind \cite[350]{dosimetriekrieger}. Diese Bedingungen konnten hier nicht garantiert werden, da eine Röntgenröhre einen Brennfleck endlicher Ausdehnung hat, der also nicht ideal punktförmig ist, auch wenn dies durchaus eine gute Näherung ist. Zweitens befand sich im Experimentierraum die Experimentierschiene zur Positionsbestimung des Dosimeters sowie weitere metallische Halterungen, an denen ggf. Intensität der Röntgenstrahlung durch Streuung oder Absorption verändert werden konnte. Der Untergrund wurde konstant geschätzt, da dies ein noch immer einfaches Anpassungsmodell aber eine zufriedenstellende Anpassungsgüte ermöglichte.
+\begin{table}[h]
+	    \centering
+	    \begin{tabular}{|c|c|c|} \hline
+		Element & a / $\unit{\centi\meter^2\milli\sievert\per\second}$ & b / $\unit{\milli\sievert\per\s}$ \\ \hline
+		Mo & $\num{15.5(1.3)}$ & $\num{0.0051(22)}$ \\
+		Cu & $\num{19.0(2.0)}$ & $\num{0.0085(37)}$ \\ \hline
+	    \end{tabular}
+	    \caption{Parameter der Anpassungsfunktionen für die beiden Röntgenröhren.}
+	    \label{tab:dist_sq_werte}
+	\end{table}
 
-Als Parameter der Anpassungsfunktion ergaben sich die Werte:
-\[a = \SI{15.5(1.3)}{\centi\meter^2\milli\sievert\per\second}, b = \SI{0.0051(22)}{\milli\sievert\per\s}\]
-In Abbildung \ref{fig:dist_sq} ist die Dosisleistung gegen den Abstand zur Quelle dargestellt sowie die Anpassungsfunktion mit den bestimmten Parametern eingezeichnet.
+In Abbildung \ref{fig:dist_sq} ist die Dosisleistung gegen den Abstand zur Quelle dargestellt sowie die Anpassungsfunktion mit den bestimmten Parametern eingezeichnet. Die beiden guten Werte von $R^2>0,39$ für die beiden Anpassungsfunktionen an die aufgenommenen Daten zeigen, dass die Erwartung der invers quadratischen Abnahme der Dosisleistung mit dem Abstand für die beiden Röntgenröhren gut erfüllt ist.
 
-\jafps{dist_sq}{Graphische Darstellung der bestimmten Dosisleistung abhängig vom Abstand $r$ zum Brennfleck der Röntgenröhre, welcher als punktförmig angenommen wird, sowie Anpassungsfunktion der Form $h(r)=\frac{a}{r^2}+b$. Das Maß der Anpassungsgüte (hier Bestimmtheitsmaß) ist als $R^2=0,946$ zufriedenstellend.}{0.6}
+
+\jafps{dist_sq}{Graphische Darstellung der bestimmten Dosisleistung abhängig vom Abstand $r$ zur jeweiligen Röntgenröhre für Mo und Cu sowie jeweils Anpassungsfunktionen der Form $h(r)=\frac{a}{r^2}+b$. Das Maß der Anpassungsgüte (hier Bestimmtheitsmaß \footnote{wegen der Modellfunktion, die keine Distribution ist}\cite{rsquared}) ist als $R^2=0,946$ (für Mo) und $R^2=0,933$ (für Cu) zufriedenstellend. Die olivfarbenen Datenpunkte in der Darstellung entstammen den sehr stark überlappenden Messwerten der beiden Datenreihen in diesen Abständen; sie zeigen, dass sich die bestimmten Dosisleistungen die beiden Röntgenröhren in diesen Abständen sehr stark ähnelt.}{0.6}
+
+
+\subsection*{Vergleich der Dosisleistung}
+
+Im Vergleich mit den berechneten Äquivalenzdosisleistungen aus Abschnitt \ref{sec:dosimetrie} zeigt sich, dass die hier bestimmten Dosisleistungen pro Stunde bei Mo $\SIrange{2.22(63)}{13.3(3.4)}{\milli\sievert\per\hour}$ und bei Cu $\SIrange{2.78(79)}{17.8(3.6)}{\milli\sievert\per\hour}$ liegen. Diese Werte sind für den genutzten Strom $I_E=\SI{0.1(0.01)}{\milli\ampere}$ niedriger als mit dem Plattenkondensator bestimmt wurde, liegen aber ebenfalls noch im Sperrbereich (können mehr als $\SI{3}{\milli\sievert\per\hour}$ erreichen \cite[§52(2)]{strahlenschutzverordnung}). Ihre geringeren Werte entstehen durch das kleinere sensitive Volumen des Dosimeters vgl. mit dem durchstrahlten Volumen des Plattenkondensators.

@@ -6,51 +6,85 @@ import numpy as np
 import propeller as p
 
 
-# %%
-fhandle = open("../data/meta.toml", "rb")
-meta = tomllib.load(fhandle)
-fhandle.close()
 
 def convert(x):
     return x / 32.4
 
 
-
 def quadratic(x, a, c):
     denom = (x ** 2)
     return (a / denom) + c
-
 # %%
-fname = "../data/" + meta["abstand_sq"]["messung_1"]["csv_file"]
-data = std.util.load_csv(fname, skiprows=1)
+def get_data(number: str):
+    fhandle = open("../data/meta.toml", "rb")
+    meta = tomllib.load(fhandle)
+    fhandle.close()
+    fname = "../data/" + meta["abstand_sq"]["messung_1"]["csv_file"] if number == "1" else "../data/" + meta["abstand_sq"]["messung_2"]["csv_file"]
 
-distance = p.ev(data[3] + 11, 0.5)
-dose_before = p.ev(data[1], 0.1)
-dose_after = p.ev(data[2], 0.1)
-time = p.ev(data[0], 0.5)
+    data = std.util.load_csv(fname, skiprows=1)
 
-dose_rate = (dose_after - dose_before) / time
+    distance = p.ev(data[3] + 11, 0.5)
+    dose_before = p.ev(data[1], 0.1)
+    dose_after = p.ev(data[2], 0.1)
+    time = p.ev(data[0], 0.5)
+    #print(f"i have {len(distance)} points")
+    #print(f"done getting data for {number}")
+    return distance, dose_before, dose_after, time, number
 
-equiv_rate = convert(dose_rate)
+def handle_data(distance, dose_before, dose_after, time, number):
+    dose_rate = (dose_after - dose_before) / time
 
-print(r"\hline")
-print(r"Abstand / cm & Dauer / s & $H_\text{1}$ / mSv & $H_\text{2}$ / mSv & h / mSv/s \\")
-print(r"\hline")
-for i in range(len(dose_rate)):
-    print(r"\num{", distance[i].format(), r"} & \num{", time[i].format(), r"} & \num{", dose_before[i].format(), r"} & \num{", dose_after[i].format(), r"} & \num{", dose_rate[i].format(), r"} \\")
-print(r"\hline")
+    equiv_rate = convert(dose_rate)
 
-fit, (errs, rsq) = std.curve_fit(quadratic, distance, dose_rate)
-params = p.ev(fit, errs)
+    # print(r"\hline")
+    # print(r"Abstand / cm & Dauer / s & $H_\text{1}$ / mSv & $H_\text{2}$ / mSv & h / mSv/s \\")
+    # print(r"\hline")
+    # for i in range(len(dose_rate)):
+    #     print(r"\num{", distance[i].format(), r"} & \num{", time[i].format(), r"} & \num{", dose_before[i].format(), r"} & \num{", dose_after[i].format(), r"} & \num{", dose_rate[i].format(), r"} \\")
+    # print(r"\hline")
 
-#print("parameter a & c:")
-#[print(params[i].format()) for i in range(len(fit))]
+    fit, (errs, rsq) = std.curve_fit(quadratic, distance, dose_rate)
+    params = p.ev(fit, errs)
 
-#plt.scatter(~distance, ~(1/np.sqrt(dose_rate)))
-plt.errorbar(~distance, ~dose_rate, xerr = p.ve(distance)[1], yerr = p.ve(dose_rate)[1], label = "Messwerte", color = "tab:blue", **std.default.error_bar_def)
-xrange = np.linspace(min(~distance) - 2, max(~distance) + 2)
-plt.plot(xrange, quadratic(xrange, *fit), color = "tab:green", linewidth = 0.9, label = rf"Anpassungsfunktion, $R^2$={round(rsq,3)}")
-plt.legend()
-std.default.plt_pretty("Abstand / cm", "Dosisleistung / mSv/s")
-#plt.savefig("../figs/dist_sq.pdf")
-plt.show()
+    # print(number)
+    # print("parameter a & c:")
+    # [print(params[i].format()) for i in range(len(fit))]
+
+    if number == "1":
+        messung = "Mo"
+        color = "deeppink"
+        color_fit = "mediumvioletred"
+    else:
+        messung = "Cu"
+        color = "limegreen"
+        color_fit = "seagreen"
+
+    print(messung+":")
+    equiv_hour = equiv_rate*60*60
+    print("Maximal:",max(equiv_hour).format())
+    print("Minimal:", min(equiv_hour).format())
+    #[print((equiv_rate[i]*60*60).format(),"mSv/h") for i in range(len(equiv_rate))]
+
+
+   #  print(messung)
+   #  print("parameter a & c:")
+   #  [print(params[i].format()) for i in range(len(fit))]
+   # # print(f"i have {len(dose_rate)} points for {messung}")
+   #  plt.errorbar(~distance, ~dose_rate, xerr = p.ve(distance)[1], yerr = p.ve(dose_rate)[1], color = color, alpha = 0.7, label = f"Messwerte {messung}", **std.default.error_bar_def)
+   #  plt.scatter(~distance, ~dose_rate, alpha = 0.6, s = 6, color = color)
+   #  xrange = np.linspace(min(~distance) - 2, max(~distance) + 2)
+   #  plt.plot(xrange, quadratic(xrange, *fit), color = color_fit, linewidth = 0.9, label = rf"Anpassungsfunktion {messung}, $R^2$={round(rsq,3)}")
+    return
+
+def main():
+    data1 = get_data("1")
+    handle_data(*data1)
+    data2 = get_data("2")
+    handle_data(*data2)
+    #plt.legend()
+    #std.default.plt_pretty("Abstand / cm", "Dosisleistung / mSv/s")
+    #plt.savefig("../figs/dist_sq.pdf")
+    #plt.show()
+
+if __name__ == "__main__":
+    main()
