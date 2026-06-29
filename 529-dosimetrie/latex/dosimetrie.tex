@@ -43,11 +43,17 @@ mit jeweils
 	p_0 &= \SI{1023}{\hecto\pascal}
 \end{align*}
 
-\todo{durchstrahltes Volumen herleitung aus anleitung}
+Das Volumen der Luft im Plattenkondensator berechnet sich wie folgt (Herleitung aus \cite[2]{LDdosimetrie} entnommen):
+Die Röntgenstrahlung entsteht näherungsweise an einem punktförmigen Ort in der Röntgenröhre. Von da aus breitet sie sich isotrop kugelförmig in alle Richtungen aus, wobei der Teil, der in den Plattenkondensator gelangt, durch die rechtekige Blende in Abstand $s_0$ mit den Abmessungen $a_0\times b_0$ begrenzt wird. Der Plattenkondensator befindet sich im Abstand $d$ hinter der Blende und hat die Länge $D$. So ergibt sich das durchstrahlte Volumen im Kondensator mit $s_2 = s_0+d+D$ und $s_1=s_0+d$ als
+\begin{align}
+V &= \int^{s_2}_{s_1} \frac{a_0b_0}{s_0^2} s^2 \cdot ds\\
+&= \frac{a_0b_0}{3s_0^2}(s_2^3-s_1^3)
+\end{align}
 
 Das durchstrahlte Volumen ist dann $V = \SI{125}{\cubic\centi\meter}$ \cite[2]{LDdosimetrie}.
 
-\todo{masse fehlt noch ausgerechnet, fehler fehlen auch noch}
+Die Masse der durchstrahlten Luft ergibt sich mit der berechneten Dichte $\rho=\SI{1.1994(70)}{\kilo\gram\per\cubic\meter}$ als $m=\SI{0.00014992(88)}{\kilo\gram}$.
+
 
 
 \section{Auswertung}
