@@ -52,7 +52,14 @@ V &= \int^{s_2}_{s_1} \frac{a_0b_0}{s_0^2} s^2 \cdot ds\\
 
 Das durchstrahlte Volumen ist dann $V = \SI{125}{\cubic\centi\meter}$ \cite[2]{LDdosimetrie}.
 
-Die Masse der durchstrahlten Luft ergibt sich mit der berechneten Dichte $\rho=\SI{1.1994(70)}{\kilo\gram\per\cubic\meter}$ als $m=\SI{0.00014992(88)}{\kilo\gram}$. Die Unsicherheiten der Werte werden, wie im gesamten weiteren Verlauf, mit Gauß'scher Fehlerfortpflanzung berechnet \cite[8-9]{gerthsen}.
+\jafmt{|c|c|}{
+	\hline
+	Luftdruck & Temperatur\\\hline
+	\SI{1019.5(3.0)}{\hecto\pascal} & \SI{23.2(1.5)}{\celsius} \\
+	\hline
+}{Gemessene Lufteigenschaften zur Versuchszeit.}{air}
+
+Die Masse der durchstrahlten Luft ergibt sich aus den Messwerten aus \tab{air} zu der berechneten Dichte $\rho=\SI{1.1994(70)}{\kilo\gram\per\cubic\meter}$ und $m=\SI{0.00014992(88)}{\kilo\gram}$. Die Unsicherheiten der Werte werden, wie im gesamten weiteren Verlauf, mit Gauß'scher Fehlerfortpflanzung berechnet \cite[8-9]{gerthsen}.
 
 
 \section{Auswertung}
@@ -81,6 +88,8 @@ Bei dem Zusammenhang zwischen Beschleunigungsspannung und emittierter Dosisleist
 	Molybdän & $\num{0.04145(46)}$ & $\num{0.0002040(75)}$ \\
 	\hline
 }{Fitergebnisse für den Zusammenhang zwischen Heizstrom und Ionendosisleistung}{emission_fits}
+
+Die Darstellung des Zusammenhangs von Heizstrom und Dosisleistung wurde mit den Daten des Anderen Gerätes, aufgenommen von unserer Partner*innengruppe erneut durchgeführt. Aufgrund der kompletten Irrelevanz sind die Fitparameter nicht aufgelistet. Das Diagramm und die Daten sind einzusehen als \fig{current_other}, \tab{cu_current_other_device.table} und \tab{mo_current_other_device.table}.
 
 % density is:  $1.1994(70)$
 % mass is:  $0.00014992(88)$
