@@ -26,7 +26,7 @@ Die mittlere Ionendosisleistung $[<j>] = \unit{\ampere\per\kilo\gram}$ sowie Äq
 	<j> = I_C / m \label{eq:ion_dose_rate}\\
 	<j> = 32.4 h
 \end{align}
-wobei $m$ die Masse des durchstrahlten Luftvolumens bezeichnet, welches durch die Geometrie des Kondensators im Experimentierraums gegeben ist (dargestellt in Abbildung \ref{fig:kondensator_geometrie}) \todo{andere größen erwähnen}.
+wobei $m$ die Masse des durchstrahlten Luftvolumens bezeichnet, welches durch die Geometrie des Kondensators im Experimentierraums gegeben ist (dargestellt in Abbildung \ref{fig:kondensator_geometrie}).
 
 \jafps{kondensator_geometrie}{Wichtige Größen zur Bestimmung des durchstrahlten Volumens: $s_0$ ist der Abstand vom Brennfleck der Röntgenröhre (annähernd punktförmig) und dem rechteckigen Schlitz zwischen Experimentierraum und Bereich, in dem sich die Röhre befindet. Abbildung entnommen aus \cite[1]{LDdosimetrie}.}{0.6}
 
@@ -52,12 +52,12 @@ V &= \int^{s_2}_{s_1} \frac{a_0b_0}{s_0^2} s^2 \cdot ds\\
 
 Das durchstrahlte Volumen ist dann $V = \SI{125}{\cubic\centi\meter}$ \cite[2]{LDdosimetrie}.
 
-Die Masse der durchstrahlten Luft ergibt sich mit der berechneten Dichte $\rho=\SI{1.1994(70)}{\kilo\gram\per\cubic\meter}$ als $m=\SI{0.00014992(88)}{\kilo\gram}$.
+Die Masse der durchstrahlten Luft ergibt sich mit der berechneten Dichte $\rho=\SI{1.1994(70)}{\kilo\gram\per\cubic\meter}$ als $m=\SI{0.00014992(88)}{\kilo\gram}$. Die Unsicherheiten der Werte werden, wie im gesamten weiteren Verlauf, mit Gauß'scher Fehlerfortpflanzung berechnet \cite[8-9]{gerthsen}.
 
 
 \section{Auswertung}
 \subsection{Arbeitsbereich Ionisationsdetektor}
-In den Abbildungen \ref{fig:cap_voltage_mo} und \ref{fig:cap_voltage_cu} sind die gemessenen Ionisationsströme gegen die am Kondensator anliegenden Spannungen aufgetragen. Man erkennt, dass bei konstanten Betriebsparametern der Röntenröhre, bei höheren Kondensatorspannungen der gemessene Ionisationsstrom etwa konstant wird. Dies ist zu erwarten, da im Operationsbereich eines Ionisationsdetektors näherungsweise alle ionenpaare getrennt und als teil des Strom gemessen werden; kleine Änderungen der Spannung verändern die Menge an Ladungsträgern hier nicht\todo{cite}. Das Eintreten dieses konstanten Bereichs findet für verschiedene Röhrenparameter bei verschiedenen Mindestspannungen statt, wie in den Abbildungen zu erkennen. Die größte nötige Kondensatorspannung um in den konstanten Bereich zu gelangen wurde bei der Kupferanode bei $U_B = \SI{33}{\kilo\volt}$ gemessen und lag bei etwa $U_C = \SI{200}{\volt}$. Um sicher im Arbeitsbereich zu sein wird im weiteren Verlauf eine Kondensatorspannung von $U_C=\SI{300}{\volt}$ verwendet. Die Messreihen und umrechnungen sind in den Tabellen \ref{tab:cap_voltageCu1.table} bis \ref{tab:cap_voltageMo3.table} angehangen. \todo{warum nicht perfekt konstant?}
+In den Abbildungen \ref{fig:cap_voltage_mo} und \ref{fig:cap_voltage_cu} sind die gemessenen Ionisationsströme gegen die am Kondensator anliegenden Spannungen aufgetragen. Man erkennt, dass bei konstanten Betriebsparametern der Röntenröhre, bei höheren Kondensatorspannungen der gemessene Ionisationsstrom etwa konstant wird. Dies ist zu erwarten, da im Operationsbereich eines Ionisationsdetektors näherungsweise alle Ionenpaare getrennt und als Teil des Strom gemessen werden; kleine Änderungen der Spannung verändern die Menge an Ladungsträgern hier nicht \cite[195]{kolanoskiwermerdetektoren}. Das Eintreten dieses konstanten Bereichs findet für verschiedene Röhrenparameter bei verschiedenen Mindestspannungen statt, wie in den Abbildungen zu erkennen. Die größte nötige Kondensatorspannung um in den konstanten Bereich zu gelangen wurde bei der Kupferanode bei $U_B = \SI{33}{\kilo\volt}$ gemessen und lag bei etwa $U_C = \SI{200}{\volt}$. Um sicher im Arbeitsbereich zu sein wird im weiteren Verlauf eine Kondensatorspannung von $U_C=\SI{300}{\volt}$ verwendet. Die Messreihen und Umrechnungen sind in den Tabellen \ref{tab:cap_voltageCu1.table} bis \ref{tab:cap_voltageMo3.table} angehangen.
 
 \jafpp{cap_voltage_mo}{Ionisationsstrom in Abhängigkeit von der Kondensatorspannung, mit verschiedenen Beschleunigungsspannungen, bei der Kupferanode}{cap_voltage_cu}{der Molybdänanode}
 
@@ -85,4 +85,4 @@ Bei dem Zusammenhang zwischen Beschleunigungsspannung und emittierter Dosisleist
 % density is:  $1.1994(70)$
 % mass is:  $0.00014992(88)$
 
-Im inneren des Plattenkondensators müsste ein Sperrbereich eingerichtet werden, da die Ortsdosisleistung deutlich größer als $\SI{3}{\milli\sievert\per\hour} \approx \SI{8}{\nano\sievert\per\second}$ ist\cite[\S 52, (2)]{strahlenschutzverordnung}. Die beobachtete Äquivalenzdosisleistung ist stets mehrere Größenordnungen höher als dieser Grenzwert.
+Im inneren des Plattenkondensators müsste ein Sperrbereich eingerichtet werden, da die Ortsdosisleistung deutlich größer als $\SI{3}{\milli\sievert\per\hour} \approx \SI{8}{\nano\sievert\per\second}$ ist\cite[§52 Abs. 2]{strahlenschutzverordnung}. Die beobachtete Äquivalenzdosisleistung ist stets mehrere Größenordnungen höher als dieser Grenzwert.
