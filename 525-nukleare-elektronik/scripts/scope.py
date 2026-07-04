@@ -22,6 +22,7 @@ def plot_trace(n):
     ax2.plot(t, ch2, color=ch2_color, alpha=trace_alpha)
     # ax1.scatter(t, ch1, color=ch1_color, alpha=trace_alpha, marker=".")
     # ax2.scatter(t, ch2, color=ch2_color, alpha=trace_alpha, marker=".")
+    #print("finished", n)
 
 
 if __name__ == "__main__":
@@ -30,12 +31,15 @@ if __name__ == "__main__":
         if "-" in a:
             lower = int(a.split("-")[0])
             upper = int(a.split("-")[1])
-            ids += list(range(lower, upper))
+            ids += list(range(lower, upper+1))
+            print("plotting ids:", ids)
         else:
             ids += [int(a)]
 
     for id in ids:
         plot_trace(id)
+
+    #print("done plotting all ids")
     ax1.set_xlabel("Zeit / s")
     ax1.set_ylabel("Kanal 1 / V", color=ch1_color)
 
@@ -46,4 +50,3 @@ if __name__ == "__main__":
     ax2.tick_params(axis="y",labelcolor=ch2_color)
     ax1.tick_params(axis="y",labelcolor=ch1_color)
     std.default.plt.show()
-    
