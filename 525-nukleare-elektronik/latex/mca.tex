@@ -1,0 +1,10 @@
+\subsection{Mehrkanalanalysator}
+
+Ein Mehrkanalanalysator (MCA) sortiert einflaufende analoge Spannungspulse in Bins und produziert somit ein Historgramm. Weiterhin verfügen manche MCA über einen Gate Eingang. In diesem Fall muss am Gate ein Logiksignal mit Wert eins anliegen, damit der MCA Signale am Analogeingang beachtet.
+
+Ein MCA ditiglisiert die einlaufenden analogen Signale mittels eines analog zu digital Wandlers. Die Binnummer, zu dem ein Puls zugeordnet wird ist dann proportional zur maximalen Spannung des Pulses \cite[291]{leotechniques}.
+
+
+Es wird ein MCA-3 der Firma \textt{FAST ComTech GmbH} verwendet. Das Gerät ist über ein PCI Interface mit eineme Computer verbunden, über welchen die Datennahme und Speicherung erfolgt\cite{mca}.
+
+Der MCA-3 ist ausgelegt auf analoge Signale im Bereich $\SIrange{0}{10}{\volt}$ und im verwendeten Pulshöhenmodus optimiert für Gaussförmige Pulse mit Dauern von $\SI{250}{\nano\second}$ bis $\SI{25}{\micro\second}$\cite[Abs. 3.2.2]{mca}.
