@@ -26,6 +26,7 @@ def plot_trace(n):
 
 
 if __name__ == "__main__":
+
     ids = []
     for a in argv[1:]:
         if "-" in a:
