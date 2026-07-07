@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!python3
 import numpy as np
 from sys import argv
 import std
@@ -15,17 +15,35 @@ trace_alpha = 0.4
 ax1 = std.default.plt.gca()
 ax2 = ax1.twinx()
 
+unit, factor = None, None
+
+
 def plot_trace(n):
+    global unit, factor
     trace_data = std.load_csv(path(n), delimiter=",", skiprows=1)
     t, ch1, ch2 = tuple(trace_data)
-    ax1.plot(t, ch1, color=ch1_color, alpha=trace_alpha)
-    ax2.plot(t, ch2, color=ch2_color, alpha=trace_alpha)
+    if std.none(factor):
+        unit, factor = find_time_unit(t)
+    ax1.plot(t * factor, ch1, color=ch1_color, alpha=trace_alpha)
+    ax2.plot(t * factor, ch2, color=ch2_color, alpha=trace_alpha)
     # ax1.scatter(t, ch1, color=ch1_color, alpha=trace_alpha, marker=".")
     # ax2.scatter(t, ch2, color=ch2_color, alpha=trace_alpha, marker=".")
     #print("finished", n)
 
 
+def find_time_unit(times):
+    t_scale = times[-1] - times[0]
+    if t_scale <= 1000 * 1e-9:
+        return "$ns$", 1e9
+    if t_scale <= 1000 * 1e-6:
+        return "$\\mu s$", 1e6
+    if t_scale <= 1000 * 1e-3:
+        return "$ms$", 1e3
+    return "$s$", 1
+    
+
 def plot():
+    global unit
     global trace_alpha
     ids = []
     for a in argv[1:]:
@@ -42,7 +60,7 @@ def plot():
         plot_trace(id)
 
     #print("done plotting all ids")
-    ax1.set_xlabel("Zeit / s")
+    ax1.set_xlabel("Zeit / " + unit)
     ax1.set_ylabel("Kanal 1 / V", color=ch1_color)
 
     ax1.grid(which="major")
