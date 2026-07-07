@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!python3
 import numpy as np
 from sys import argv
 import std
