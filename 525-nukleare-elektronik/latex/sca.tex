@@ -1,2 +1,10 @@
 \section{Einkanalanalysator}
-Einkanalanalysatoren dienen zum Unterscheiden von Analogsignalen. 
+Einkanalanalysatoren (SCA) dienen zum Unterscheiden von Analogsignalen. Ein SCA wird genutzt um analoge Pulse aus dem Hauptversterkär auf ihre Pulshöhe zun untersuchen und bei Pulsen eines einstellbaren Pulshöhenbereichs ein Logiksignal zu senden.
+
+Für die Einstellung der Pulshöhe gibt es im wesentlichen drei übliche Modi; zum einen den sogenannten \textit{Integral} Modus, bei welchem eine untergrenze eingestellt wird, über welche die Pulshöhe hinausgehen muss, jedoch keine Obergrenze eingestellt wird. Weiterhin gibt es den \textit{Fenster}-Modus, bei welchem zum einen eine Intervallänge als auch der Begin des Intervals eingestellt werden. Von uns verwendet wird die dritte Option, der sogenannte \textit{Normal}-Modus, bei welchem obere und untere Schwelle seperat eingestellt werden\cite[287-288]{leotechniques}. So ist es möglich die Signale des Szintillators nach spezifischen Pulshöhen und somit Wellenlängen zu Filtern, was für die durchgeführten Korrelationen wichtig sein wird, da diese stets mit zwei Photonen von spezifischen Wellenlängen arbeiten.
+
+Eine weiterführung des SCA ist der \textit{timing} SCA, welcher über zusätzliche Möglichkeiten verfügt, die Verzögerung, mit welcher das Logiksignal erzeugt wird einzustellen \cite[289]{leotechniques}.
+
+Es wird ein \texttt{ORTEC} Modell 551 timing SCA verwendet, sowie ein \texttt{ORTEC} Modell 553 timing SCA \cite{sca551}.
+
+\todo{kenngrößen der verwendeten geräte erwähnen}

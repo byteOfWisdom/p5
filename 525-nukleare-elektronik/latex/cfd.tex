@@ -1,0 +1,9 @@
+\section{Constant Fraction Discriminator}
+
+Ein Constant Fraction Discriminator (CFD) ist ein Diskriminator, welcher anstelle einer Konstanten Spannungsschwelle an einem konstanten Bruchteil der Maximalamplitude eines Signals auslöst. Dies ermöglich signifikant bessere Zeitauflösung, insbesondere bei Pulsen mit verschiedenen Amplituden\cite[Abs. 1]{cfd}.
+
+Ein CFD erzielt dies, indem das Signal aufgeteilt wird und ein Teil des Signals verzögert wird, während der andere Teil invertiert und gedämpft wird. Anschließend wird bei der Summe dieser beiden Teile der erste Nulldurchgang mit positiver Steigung als Zeitpunkt des Auslösens gewählt\cite[Abs. 2]{cfd}.
+
+Es werden zwei CFD des Modells 1326 der Firma \texttt{Canberra Elektronik GmbH} verwendet, mit einem Zeitversatz (time walk) von $< \SI{500}{\pico\second}\cite{cfd}. \todo{check}
+
+Die Verzögerung des nichtinvertierten Signals wird durch ein Verzögerungskabel eingestellt. 
