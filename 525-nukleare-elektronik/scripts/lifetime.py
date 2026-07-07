@@ -3,7 +3,7 @@ import numpy as np
 import propeller as p
 import time_cal
 import scipy.special as sp
-# import iminuit as im
+import iminuit as im
 
 
 def lt_spectrum(t, amplitude, tau, t0,  sigma):
@@ -16,6 +16,18 @@ def lt_spectrum(t, amplitude, tau, t0,  sigma):
     return c * np.exp(((sigma**2) - (2 * tau * dt)) / (2 * tau ** 2))
 
 
+def iminuit_fit(bins, counts, p0):
+    # least_squares = im.cost.LeastSquares(bins, ~counts, p.ve(counts)[1], lt_spectrum)
+    # m = im.Minuit(least_squares, *p0)
+    binned_nll = im.cost.ExtendedBinnedNLL(~counts, np.append(bins, bins[-1] + 1), lt_spectrum)
+    m = im.Minuit(binned_nll, *p0)
+    m.simplex()
+    m.migrad()
+    m.hesse()
+    print(m)
+    return m.values
+
+
 if __name__ == "__main__":
     time_cal_params = time_cal.invert(*time_cal.time_cal())
     time_slope = time_cal_params[0]
@@ -24,6 +36,7 @@ if __name__ == "__main__":
     bins = (data[0])[100:end_of_measurement] # + [data[-1] + 1]
     counts = p.ev(data[1], np.sqrt(data[1]))[100:end_of_measurement]
     p0 = [395000, 12 * 70, 1800, 170]
+    # res = iminuit_fit(bins, counts, p0)
     res, (err, rsq) = std.odr_fit(lt_spectrum, bins, counts, p0)
     print(res)
     print((p.ev(res[1], err[1]) * time_slope).format())
