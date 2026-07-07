@@ -1,0 +1,35 @@
+\begin{figure}[!ht]
+\centering
+\resizebox{1\textwidth}{!}{%
+\begin{circuitikz}
+\tikzstyle{every node}=[font=\fontsize{18.2pt}{23.7pt}\selectfont]
+\draw  (7.75,8.5) rectangle (10.875,7.25);
+\node[anchor=center, align=center, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (9.3125,7.875) {\fontsize{18.2pt}{23.7pt}\selectfont NaI(Tl)};
+\draw  (5.875,8.5) rectangle (7.75,7.25);
+\node[anchor=center, align=center, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (6.8125,7.875) {\fontsize{18.2pt}{23.7pt}\selectfont PM};
+\draw (8.375,8) to[short, -o] (8.375,8) ;
+\draw (7.875,7.75) to[short, -o] (7.875,7.75) ;
+\draw (6.25,7.75) to[short, -o] (6.25,7.75) ;
+\draw (3.375,8.5) to[short, -o] (3.375,8.5) ;
+\draw (4.625,8.875) to[short, -o] (4.625,8.875) ;
+\draw (5.875,8.25) to[short, -o] (4,8.25) ;
+\node [font=\fontsize{8.0pt}{10.4pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (4,8.5) {Hochspannung};
+\draw (5.875,7.5) to[short] (4.5,7.5);
+\draw (4.5,7.5) to[short] (4.5,5.875);
+\node [font=\fontsize{8.0pt}{10.4pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (5.25,7.625) {Dynode};
+\begin{scope}[transparency group, opacity=1]
+\node at (4.5,5.875) [circ, color={rgb,255:red,0; green,0; blue,0}] {};
+\end{scope}
+\draw (5.125,5.875) node[ieeestd buffer port, anchor=in](port){Amp.} (port.out) to[short] (7.25,5.875);
+\draw (port.in) to[short] (4.5,5.875);
+\draw (4.5,5.875) to[short] (4.5,4.625);
+\draw (4.5,4.625) to[short] (7.25,4.625);
+\draw  (7.25,6.375) rectangle (8.75,4.25);
+\node[anchor=center, align=center, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (8,5.3125) {\fontsize{8.0pt}{10.4pt}\selectfont Oszilloskop};
+\node [font=\fontsize{8.0pt}{10.4pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (6.875,6) {CH2};
+\node [font=\fontsize{8.0pt}{10.4pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (6.875,4.75) {CH1};
+\end{circuitikz}
+}%
+\caption{Your Caption}
+\label{fig:my_label}
+\end{figure}

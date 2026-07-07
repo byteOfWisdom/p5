@@ -25,7 +25,8 @@ def plot_trace(n):
     #print("finished", n)
 
 
-if __name__ == "__main__":
+def plot():
+    global trace_alpha
     ids = []
     for a in argv[1:]:
         if "-" in a:
@@ -35,6 +36,7 @@ if __name__ == "__main__":
             print("plotting ids:", ids)
         else:
             ids += [int(a)]
+            trace_alpha = 1.0
 
     for id in ids:
         plot_trace(id)
@@ -50,3 +52,7 @@ if __name__ == "__main__":
     ax2.tick_params(axis="y",labelcolor=ch2_color)
     ax1.tick_params(axis="y",labelcolor=ch1_color)
     std.default.plt.show()
+
+
+if __name__ == "__main__":
+    plot()

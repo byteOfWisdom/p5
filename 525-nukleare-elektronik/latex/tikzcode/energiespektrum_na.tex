@@ -1,0 +1,46 @@
+\begin{figure}[!ht]
+\centering
+\resizebox{1\textwidth}{!}{%
+\begin{circuitikz}
+\tikzstyle{every node}=[font=\fontsize{9.1pt}{11.8pt}\selectfont]
+\draw  (7.75,8.5) rectangle (10.875,7.25);
+\node[anchor=center, align=center, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (9.3125,7.875) {\fontsize{15.9pt}{20.7pt}\selectfont NaI(Tl)};
+\draw  (5.875,8.5) rectangle (7.75,7.25);
+\node[anchor=center, align=center, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (6.8125,7.875) {\fontsize{15.9pt}{20.7pt}\selectfont PM};
+\draw (8.375,8) to[short, -o] (8.375,8) ;
+\draw (7.875,7.75) to[short, -o] (7.875,7.75) ;
+\draw (6.25,7.75) to[short, -o] (6.25,7.75) ;
+\draw (3.375,8.5) to[short, -o] (3.375,8.5) ;
+\draw (4.625,8.875) to[short, -o] (4.625,8.875) ;
+\draw (5.875,8.25) to[short, -o] (4,8.25) ;
+\node [font=\fontsize{8.0pt}{10.4pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (4,8.5) {Hochspannung};
+\draw (5.875,7.5) to[short] (4.5,7.5);
+\node [font=\fontsize{8.0pt}{10.4pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (5.25,7.625) {Dynode};
+\draw (4.875,6.375) node[ieeestd buffer port, anchor=in](port){Amp.} (port.out) to[short] (6.75,6.375);
+\draw (port.in) to[short] (4.5,6.375);
+\draw  (10,4.625) rectangle (11.5,3.75);
+\node[anchor=center, align=center, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (10.75,4.1875) {\fontsize{10.8pt}{14.1pt}\selectfont MCA};
+\node [font=\fontsize{8.0pt}{10.4pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (11.125,4.75) {Gate};
+\node [font=\fontsize{8.0pt}{10.4pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.000cm] at (9.75,4.5) {In};
+\draw  (6.75,6.75) rectangle (8.125,6.125);
+\node[anchor=center, align=center, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (7.4375,6.4375) {\fontsize{8.0pt}{10.4pt}\selectfont Signalteiler};
+\draw (7.5,6.125) to[short] (7.5,4.875);
+\draw  (6.625,4.875) rectangle (8.5,3.875);
+\node[anchor=center, align=center, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (7.5625,4.375) {\fontsize{8.0pt}{10.4pt}\selectfont Delay-Amplifier};
+\draw (8.125,6.375) to[short] (9,6.375);
+\draw  (9,6.75) rectangle (10.25,6);
+\node[anchor=center, align=center, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (9.625,6.375) {\fontsize{9.1pt}{11.8pt}\selectfont SCA};
+\draw  (11.75,7.875) circle (0.5cm) node[ inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] {\fontsize{9.1pt}{11.8pt}\selectfont Quelle} ;
+\draw (4.5,7.5) to[short] (4.5,6.375);
+\draw (8.5,4.375) to[short] (10,4.375);
+\draw (10.75,6.375) to[short] (10.25,6.375);
+\draw (10.75,6.375) to[short] (10.75,6);
+\draw (10.75,4.875) to[short] (10.75,5.25);
+\draw (10.75,6.375) to[short] (10.75,4.625);
+\draw [ fill={rgb,255:red,255; green,255; blue,255}, fill opacity=1] (10.375,5.875) rectangle (11.125,5.25);
+\node[anchor=center, align=center, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (10.75,5.5625) {\fontsize{9.1pt}{11.8pt}\selectfont GDG};
+\end{circuitikz}
+}%
+\caption{Your Caption}
+\label{fig:my_label}
+\end{figure}

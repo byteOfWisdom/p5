@@ -1,0 +1,28 @@
+\begin{figure}[!ht]
+\centering
+\resizebox{1\textwidth}{!}{%
+\begin{circuitikz}
+\tikzstyle{every node}=[font=\fontsize{11.9pt}{15.5pt}\selectfont]
+\draw  (3.875,12) rectangle (6.375,10.375);
+\node[anchor=center, align=center, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (5.125,11.1875) {\fontsize{14.2pt}{18.5pt}\selectfont NaI(Tl)};
+\draw  (3.875,10.375) rectangle (2.25,12);
+\node[anchor=center, align=center, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (3.0625,11.1875) {\fontsize{13.1pt}{17.0pt}\selectfont PM};
+\draw (2.25,11.75) to[short] (1,11.75);
+\node [font=\fontsize{9.1pt}{11.8pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (1.125,12) {Hochspannung};
+\draw (2.25,10.625) to[short] (0.625,10.625);
+\node [font=\fontsize{9.1pt}{11.8pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (1.625,10.75) {Dynode};
+\draw (0.625,10.625) to[short] (0.625,9);
+\draw (0.625,9) to[short] (1.5,9);
+\draw  (1.5,9.375) rectangle (3.5,7.875);
+\node[anchor=center, align=center, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (2.5,8.625) {\fontsize{10.2pt}{13.3pt}\selectfont Oszilloskop};
+\node [font=\fontsize{9.1pt}{11.8pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (1.125,9.125) {CH2};
+\draw (2.25,11.25) to[short] (-0.5,11.25);
+\draw (-0.5,11.25) to[short] (-0.5,8.375);
+\node [font=\fontsize{10.2pt}{13.3pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (1.625,11.375) {Anode};
+\draw (-0.5,8.375) to[short] (1.5,8.375);
+\node [font=\fontsize{9.1pt}{11.8pt}\selectfont, inner xsep=0.080cm, inner ysep=0.085cm, rounded corners=0.020cm] at (1.125,8.125) {CH1};
+\end{circuitikz}
+}%
+\caption{Your Caption}
+\label{fig:my_label}
+\end{figure}
