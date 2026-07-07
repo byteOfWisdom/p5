@@ -1,7 +1,7 @@
 #!python3
 import numpy as np
-from sys import argv
 import std
+import sys
 
 def path(n):
     if n < 10:
@@ -46,7 +46,13 @@ def plot():
     global unit
     global trace_alpha
     ids = []
-    for a in argv[1:]:
+    out_file = None
+    args = list(sys.argv)
+    if "." in args[-1]:
+        out_file = args[-1]
+        args = args[:-1]
+
+    for a in args[1:]:
         if "-" in a:
             lower = int(a.split("-")[0])
             upper = int(a.split("-")[1])
@@ -69,7 +75,11 @@ def plot():
     ax2.set_ylabel("Kanal 2 / V", color=ch2_color)
     ax2.tick_params(axis="y",labelcolor=ch2_color)
     ax1.tick_params(axis="y",labelcolor=ch1_color)
-    std.default.plt.show()
+
+    if out_file:
+        std.default.plt.savefig(out_file)
+    else:
+        std.default.plt.show()
 
 
 if __name__ == "__main__":
