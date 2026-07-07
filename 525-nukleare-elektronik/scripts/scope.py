@@ -75,6 +75,7 @@ def plot():
     ax2.set_ylabel("Kanal 2 / V", color=ch2_color)
     ax2.tick_params(axis="y",labelcolor=ch2_color)
     ax1.tick_params(axis="y",labelcolor=ch1_color)
+    std.default.plt.gcf().set_size_inches(16/1.75, 9/1.75)
 
     if out_file:
         std.default.plt.savefig(out_file)
