@@ -4,37 +4,42 @@ import propeller as p
 import numpy as np
 
 
-def load_data(file):
-    data = std.load_csv(file, "\t", 1)
-    return (data[0], p.ev(data[1], np.sqrt(data[1])))
+files = {
+    "rechts": ["na", "ba"],
+    "links": ["na", "ba"],
+}
+
+energy = {
+    "links": {
+        "na": [511e3],
+        'ba': [32.19e3, np.nan, np.nan, 81e3, np.nan, np.nan, np.nan, 356e3, 383.8e3]
+    },
+    "rechts": {
+        "na": [511e3, 1274.5e3, np.nan],
+        'ba': [32.19e3, np.nan, np.nan, 81e3, np.nan, np.nan, np.nan, 356e3, 383.8e3]
+    }
+}
 
 
-def line_func(x, mu, amp, sigma, a):
-    return std.gaussian(x, amp, mu, sigma) + a
+def load_data(side, element):
+    fname = f"../data/fits/{side}/{element}_ganz.csv"
+    data = std.load_csv(fname, skiprows=1)
+
+    filter = np.array(energy[side][element]) == np.array(energy[side][element])
+    return np.sort(data[1])[filter], np.array(energy[side][element])[filter]
 
 
-def get_peaks(x, y, guesses, plot=False):
-    if plot:
-        std.default.plt_errorbar(x, y)
-
-    params, err, rsq = [], [], []
-    for peak in guesses:
-        p0 = [peak, ~y[peak], 50, 0]
-        std.default.plt_errorbar(x, y)
-        std.default.plt_errorbar(x[peak - 100: peak + 100], y[peak - 100: peak + 100])
-        params_single, (err_single, rsq_single) = std.curve_fit(line_func, x[peak - 100: peak + 100], y[peak - 100: peak + 100], p0)
-        std.default.plt_finish("", "")
-        if plot:
-          std.default.plt_func(line_func, params_single, xrange=(peak - 200, peak + 200))
-        params.append(params_single)
-        err.append(err_single)
-        rsq.append(rsq_single)
-
-    if plot:
-        std.default.plt_finish("Bin", "Anzahl")
-    return p.ev(params, err), rsq
+def run_side(side):
+    na_lines, na_energies = load_data(side, "na")
+    ba_lines, ba_energies = load_data(side, "ba")
+    lines = np.append(na_lines, ba_lines)
+    energies = np.append(na_energies, ba_energies)
+    params, (err, rsq) = std.curve_fit(std.linear, energies, lines)
+    std.default.plt_errorbar(energies, lines)
+    std.default.plt_func(std.linear, params)
+    std.default.plt_finish("Energie / keV", "Bin")
 
 
 if __name__ == "__main__":
-    bin, count = load_data("../data/links/ba_ganz_lang.txt")
-    get_peaks(bin, count, [420, 750, 930, 1190, 1670, 3870, 4230, 4970, 5390], True)
+    run_side("links")
+    run_side("rechts")
