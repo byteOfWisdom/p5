@@ -14,6 +14,6 @@ if __name__ == "__main__":
     times = 16 * np.arange(5) + 8
     res, (err, rsq) = std.curve_fit(std.linear, times, lines)
     std.default.plt_errorbar(times, lines)
-    std.default.plt_func(std.linear, res)
+    std.default.plt_func(std.linear, res, f"$R^2 = {round(rsq, 3)}$")
     std.default.plt_finish("Zeit / ns", "Linie / Bins")
-    print(lines)
+    print(p.ev(res, err))
