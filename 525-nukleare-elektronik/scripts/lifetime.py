@@ -27,6 +27,7 @@ if __name__ == "__main__":
     res, (err, rsq) = std.odr_fit(lt_spectrum, bins, counts, p0)
     print(res)
     print((p.ev(res[1], err[1]) * time_slope).format())
+    print((np.log(2) * p.ev(res[1], err[1]) * time_slope).format())
     # res, (err, rsq) = std.curve_fit(lt_spectrum, bins, counts, res)
     std.default.plt_errorbar(bins, counts, "Messdaten")
     std.default.plt_func(lt_spectrum, res, label=f"$R^2 = {round(rsq, 3)}$")
