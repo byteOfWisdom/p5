@@ -35,6 +35,7 @@ if __name__ == "__main__":
             print("plotting ids:", ids)
         else:
             ids += [int(a)]
+            trace_alpha = 1.0
 
     for id in ids:
         plot_trace(id)
