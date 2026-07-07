@@ -166,7 +166,11 @@ class click_handler:
         elif event.key == "S":
             total_p0 = []
             for line in self.p0s:
-                total_p0 += [line[0], line[1], line[2], line[3], line[4]]
+                if len(line) > 5:
+                    total_p0 += [line[0], line[2], line[4], line[-2], line[-1]]
+                    total_p0 += [line[1], line[3], line[5], line[-2], line[-1]]
+                else:
+                    total_p0 += [line[0], line[1], line[2], line[3], line[4]]
             lines_data ={
                 "Fläche": total_p0[0::5],
                 "$\\mu$": total_p0[1::5],
@@ -190,11 +194,9 @@ def let_user_click_peaks(x_values, y_values, output):
 
 def main():
     data = np.transpose(np.loadtxt(argv[1]))
-    # underground = np.transpose(np.loadtxt(argv[2]))
-    # data[1] = data[1] - underground[1]
     out = False
-    if len(argv) > 3:
-        out = argv[3]
+    if len(argv) > 2:
+        out = argv[2]
     let_user_click_peaks(data[0], data[1], out)
     return None
 
