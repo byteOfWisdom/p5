@@ -11,11 +11,13 @@ files = {
 
 energy = {
     "links": {
+        # "na": [511e3, 1274.5e3],
         "na": [511e3],
         'ba': [32.19e3, np.nan, np.nan, 81e3, np.nan, np.nan, np.nan, 356e3, 383.8e3]
     },
     "rechts": {
-        "na": [511e3, 1274.5e3, np.nan],
+        # "na": [511e3, 1274.5e3, np.nan],
+        "na": [511e3],
         'ba': [32.19e3, np.nan, np.nan, 81e3, np.nan, np.nan, np.nan, 356e3, 383.8e3]
     }
 }
@@ -26,7 +28,7 @@ def load_data(side, element):
     data = std.load_csv(fname, skiprows=1)
 
     filter = np.array(energy[side][element]) == np.array(energy[side][element])
-    return np.sort(data[1])[filter], np.array(energy[side][element])[filter]
+    return (data[1])[filter], np.array(energy[side][element])[filter]
 
 
 def run_side(side):
