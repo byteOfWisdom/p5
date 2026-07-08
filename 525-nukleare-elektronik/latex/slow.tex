@@ -1,8 +1,6 @@
 \chapter{Einstellung der Slow-Kreise}
-\section{Niedervolt Spannungsversorgung}
-\todo{wurde gemessen}
-\todo{werte}
-\todo{bilder von kaputten sachen}
+
+% \input{nims.tex}
 
 \section{Slow Pulse}
 
@@ -59,7 +57,6 @@ Dies wird mit der rechten Seite wiederholt. Qualitativ ist das \na Spektrum ein 
 
 
 
-% \input{energiekalibration.tex}
 
 \section{Einkanalfenster für \na}
 
@@ -68,4 +65,13 @@ Nun werden die SCA Fenster so eingestellt, dass nur die \511kev Linie in diesem 
 
 \todo{schwellen in energie quantifizieren}
 
-Nach dem Einstellen der Schwellen wird erneut das DA Signal mit 
+Nach dem Einstellen der Schwellen wird erneut das DA Signal mit dem Oszilloskop betrachtet, zu sehen in \fig{links/na_fenster_oszi}. Es fällt auf, dass im Gegensatz zu \fig{links/main_amp_post} nur noch eine Amplitude vorkommt. Der Signalteiler darf nicht entfernt werden, da sich an diesem die Amplitude verändert. Würde man ihn entfernen, so müsste man die SCA Fenster neu einstellen und die Energiekalibration wäre nicht mehr zutreffend. Deshalb verbleibt der Signalteiler dauerhaft im Schaltkreis.
+
+\jafps{na_fenster_oszi}{\todo{ersetzen oder erklären warum kaputt}}{0.75}
+
+
+\subsection*{Rechte Seite}
+
+
+
+\input{energiekalibration.tex}

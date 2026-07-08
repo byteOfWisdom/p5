@@ -12,13 +12,13 @@ files = {
 energy = {
     "links": {
         # "na": [511e3, 1274.5e3],
-        "na": [511e3],
-        'ba': [32.19e3, np.nan, np.nan, 81e3, np.nan, np.nan, np.nan, 356e3, 383.8e3]
+        "na": [511],
+        'ba': [32.19, np.nan, np.nan, 81, np.nan, np.nan, np.nan, 356, 383.8]
     },
     "rechts": {
         # "na": [511e3, 1274.5e3, np.nan],
-        "na": [511e3],
-        'ba': [32.19e3, np.nan, np.nan, 81e3, np.nan, np.nan, np.nan, 356e3, 383.8e3]
+        "na": [511],
+        'ba': [32.19, np.nan, np.nan, 81, np.nan, np.nan, np.nan, 356, 383.8]
     }
 }
 
@@ -39,12 +39,13 @@ def run_side(side):
     params, (err, rsq) = std.odr_fit(std.linear, lines, energies)
     std.default.plt_errorbar(lines, energies, marker="x")
     std.default.plt_func(std.linear, params, f"R^2 = {round(rsq, 4)}")
-    std.default.plt_finish("$\\mu$ / Bins", "Energie / eV")
+    std.default.plt_finish("$\\mu$ / Bins", "Energie / keV")
     table = {
         "$\\mu$ / Bins": lines,
         "Energie / keV": energies,
     }
     std.print_tex_table(table, f"../latex/{side}_energy_cal.table")
+    print(p.ev(params, err))
 
 
 if __name__ == "__main__":
