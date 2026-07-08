@@ -1,0 +1,35 @@
+\chapter{Energiekalibration}
+Zur Energiekalibration werden an die Aufgenommenen Energiespektren Gaußkurven mit konstatem Untergrund angepasst. Bei Sich überlagernden Linien werden bis zu zwei Gaußkurven gleichzeitig angepasst.
+
+Die Gaußkurven haben dabei die Form
+
+\begin{align}
+	f(x) = \frac{A}{\sqrt{2 \pi} \sigma} \exp(\frac{- (x - \mu)^2}{2 \sigma^2}) + c
+\end{algin}
+
+\subsection*{Linke Seite}
+\todo{cite k alpha linie source}
+Die Anpassungsparameter der Photopeaks sind in \tab{links_na_ganz} und \tab{links_ba_ganz} zu finden. Diesen Linien wurden nun die Relevanten Linien der jeweiligen Elemente zugeordnet. Dabei wurden relative Lagen und Intensitäten betrachtet. Die Zuordnung ist in \tab{links_energy_cal.table} zu finden. Diese Energien und Positionen der Linien werden nun gegeneinander aufgetragen und daran eine Gradengleichung der Form $\mu(E) = a \cdot E + b$ angepasst. zu sehen ist dies in \fig{links/energy_cal}. Für diese Anpassung wurde \texttt{scipy curve\_fit} genutzt. Die so gefundenen Anpassungsparameter sind $a = 1$ und $b = 2$ \todo{add values}. Als Maß der Qualität dieser Anpassungen wurde die Anpassungsgüte verwendet, da das reduzierte Chi Quadrat nur bei Distributionen anwendbar ist, was eine Gradengleichung nicht erfüllt. \todo{cite this} Die Anpassungsgüten von nahe 1 legen nahe, dass eine gute Linearität in der Energiedomäne vorliegt und die Linien korrekt zugeordnet wurden.
+\jafps{links/na_ganz}{Mit der linken Seite Aufgenommenes \na Spektrum mit angepassten Gaußkurven}{0.75}
+\jafps{links/ba_ganz}{Mit der linken Seite Aufgenommenes \ba Spektrum mit angepassten Gaußkurven}{1}
+\jafps{links/energy_cal}{}{0.75}
+\jaftl{|c|c|c|c|c|}{../data/fits/links/na_ganz.table}{naganz}{links_na_ganz}
+\jaftl{|c|c|c|c|c|}{../data/fits/links/ba_ganz.table}{baganz}{links_ba_ganz}
+\jaft{|c|c|}{links_energy_cal.table}{\todo{caption this}}
+
+\todo{energieauflösung}
+\todo{energie der SCA schwellen}
+\todo{energieintervalle der sca fenster}
+
+
+\subsection*{Rechte Seite}
+Die wurde für die rechte Seite wiederholt. Die Spektren sind in \fig{rechts/na_ganz} und \fig{rechts/ba_ganz}, die Anpassungsparameter der Linien in \tab{rechts_na_ganz} und \tab{rechts_ba_ganz} und die Zuordnungen der Linien zu den Energien sind in \tab{rechts_energy_cal.table}. Die Gradengleichung wird wie links angepasst und ergibt die Anpassungsparameter $a = 1$, $b = 2$. \todo{werte}
+\jafps{rechts/na_ganz}{Mit der rechten Seite Aufgenommenes \na Spektrum mit angepassten Gaußkurven}{0.75}
+\jafps{rechts/ba_ganz}{Mit der rechten Seite Aufgenommenes \ba Spektrum mit angepassten Gaußkurven}{1}
+\jafps{rechts/energy_cal}{}{0.75}
+\jaftl{|c|c|c|c|c|}{../data/fits/rechts/na_ganz.table}{naganz}{rechts_na_ganz}
+\jaftl{|c|c|c|c|c|}{../data/fits/rechts/ba_ganz.table}{baganz}{rechts_ba_ganz}
+\jaft{|c|c|}{rechts_energy_cal.table}{\todo{caption this}}
+
+
+\todo{gradengleichungen invertieren}

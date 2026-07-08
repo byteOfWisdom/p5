@@ -74,10 +74,19 @@
 	\begin{table}[h]
 	    \centering
 	    \begin{tabular}{#1} \hline
-		\input{#2}
-	    \end{tabular}
+		\input{#2}\end{tabular}
 	    \caption{#3}
 	    \label{tab:#2}
+	\end{table}
+}
+
+\def\jaftl#1#2#3#4{
+	\begin{table}[h]
+	    \centering
+	    \begin{tabular}{#1} \hline
+		\input{#2}\end{tabular}
+	    \caption{#3}
+	    \label{tab:#4}
 	\end{table}
 }
 
