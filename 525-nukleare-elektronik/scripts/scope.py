@@ -21,11 +21,17 @@ unit, factor = None, None
 def plot_trace(n):
     global unit, factor
     trace_data = std.load_csv(path(n), delimiter=",", skiprows=1)
-    t, ch1, ch2 = tuple(trace_data)
-    if std.none(factor):
-        unit, factor = find_time_unit(t)
-    ax1.plot(t * factor, ch1, color=ch1_color, alpha=trace_alpha)
-    ax2.plot(t * factor, ch2, color=ch2_color, alpha=trace_alpha)
+    if len(trace_data) == 3:
+        t, ch1, ch2 = tuple(trace_data)
+        if std.none(factor):
+            unit, factor = find_time_unit(t)
+        ax1.plot(t * factor, ch1, color=ch1_color, alpha=trace_alpha)
+        ax2.plot(t * factor, ch2, color=ch2_color, alpha=trace_alpha)
+    else:
+        t, ch1 = tuple(trace_data)
+        if std.none(factor):
+            unit, factor = find_time_unit(t)
+        ax1.plot(t * factor, ch1, color=ch1_color, alpha=trace_alpha)
     # ax1.scatter(t, ch1, color=ch1_color, alpha=trace_alpha, marker=".")
     # ax2.scatter(t, ch2, color=ch2_color, alpha=trace_alpha, marker=".")
     #print("finished", n)

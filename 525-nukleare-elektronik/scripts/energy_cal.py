@@ -36,10 +36,10 @@ def run_side(side):
     ba_lines, ba_energies = load_data(side, "ba")
     lines = np.append(na_lines, ba_lines)
     energies = np.append(na_energies, ba_energies)
-    params, (err, rsq) = std.curve_fit(std.linear, energies, lines)
-    std.default.plt_errorbar(energies, lines)
+    params, (err, rsq) = std.odr_fit(std.linear, lines, energies)
+    std.default.plt_errorbar(lines, energies, marker="x")
     std.default.plt_func(std.linear, params, f"R^2 = {round(rsq, 4)}")
-    std.default.plt_finish("Energie / keV", "$\\mu$ / Bins")
+    std.default.plt_finish("$\\mu$ / Bins", "Energie / eV")
     table = {
         "$\\mu$ / Bins": lines,
         "Energie / keV": energies,
