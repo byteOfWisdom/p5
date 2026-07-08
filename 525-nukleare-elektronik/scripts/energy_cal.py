@@ -38,8 +38,13 @@ def run_side(side):
     energies = np.append(na_energies, ba_energies)
     params, (err, rsq) = std.curve_fit(std.linear, energies, lines)
     std.default.plt_errorbar(energies, lines)
-    std.default.plt_func(std.linear, params)
-    std.default.plt_finish("Energie / keV", "Bin")
+    std.default.plt_func(std.linear, params, f"R^2 = {round(rsq, 4)}")
+    std.default.plt_finish("Energie / keV", "$\\mu$ / Bins")
+    table = {
+        "$\\mu$ / Bins": lines,
+        "Energie / keV": energies,
+    }
+    std.print_tex_table(table, f"../latex/{side}_energy_cal.table")
 
 
 if __name__ == "__main__":
