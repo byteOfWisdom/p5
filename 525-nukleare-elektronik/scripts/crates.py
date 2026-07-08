@@ -40,6 +40,7 @@ def get_upper_files(broken=False):
         plt.savefig("../figs/crates_broken.pdf")
     else:
         plt.savefig("../figs/crates_upper.pdf")
+    return
 
 def get_lower_files():
     upper_files = []
@@ -56,12 +57,15 @@ def get_lower_files():
     plt.legend(fontsize = "small", loc = "best")
     std.default.plt_pretty("Zeit / s", "Spannung / V")
     plt.savefig("../figs/crates_lower.pdf")
-
+    return
 
 def main():
     get_upper_files(broken=True)
+    plt.clf()
     get_upper_files(broken=False)
+    plt.clf()
     get_lower_files()
+    plt.clf()
     print("done")
     return
 

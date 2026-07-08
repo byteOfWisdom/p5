@@ -1,19 +1,13 @@
 \babel@toc {german}{}\relax 
 \contentsline {chapter}{\numberline {1}Einleitung}{3}{chapter.1}%
-<<<<<<< HEAD
 \contentsline {section}{\numberline {1.1}Teilchendetektor}{4}{section.1.1}%
 \contentsline {subsection}{\numberline {1.1.1}Szintillationsdetektor}{4}{subsection.1.1.1}%
 \contentsline {subsection}{\numberline {1.1.2}Photomultiplier-Röhre (PMT)}{4}{subsection.1.1.2}%
-\contentsline {chapter}{\numberline {2}Einstellung der Slow-Kreise}{6}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Niedervolt Spannungsversorgung}{6}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Slow Pulse}{6}{section.2.2}%
-\contentsline {section}{\numberline {2.3}Triggerung mit dem SCA}{7}{section.2.3}%
-=======
-\contentsline {chapter}{\numberline {2}Einstellung der Slow-Kreise}{4}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Niedervolt Spannungsversorgung}{4}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Slow Pulse}{4}{section.2.2}%
-\contentsline {section}{\numberline {2.3}Triggerung mit dem SCA}{5}{section.2.3}%
-\contentsline {section}{\numberline {2.4}Energiespektren}{7}{section.2.4}%
-\contentsline {chapter}{\numberline {3}Energiekalibration}{8}{chapter.3}%
->>>>>>> origin/working_b
+\contentsline {section}{\numberline {1.2}Niedervolt-Versorgungsspannungen kontrollieren}{6}{section.1.2}%
+\contentsline {chapter}{\numberline {2}Einstellung der Slow-Kreise}{8}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Niedervolt Spannungsversorgung}{8}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Slow Pulse}{8}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Triggerung mit dem SCA}{9}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Energiespektren}{11}{section.2.4}%
+\contentsline {chapter}{\numberline {3}Anhang}{14}{chapter.3}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
