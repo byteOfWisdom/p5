@@ -1,0 +1,9 @@
+\babel@toc {german}{}\relax 
+\contentsline {chapter}{\numberline {1}Einleitung}{3}{chapter.1}%
+\contentsline {chapter}{\numberline {2}Einstellung der Slow-Kreise}{4}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Slow Pulse}{4}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Triggerung mit dem SCA}{5}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Energiespektren}{7}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Einkanalfenster für $\ce {^22Na}$}{8}{section.2.4}%
+\contentsline {chapter}{\numberline {3}Energiekalibration}{9}{chapter.3}%
+\providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

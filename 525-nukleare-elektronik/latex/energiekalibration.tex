@@ -18,6 +18,18 @@ Die Anpassungsparameter der Photopeaks sind in \tab{links_na_ganz} und \tab{link
 \jaft{|c|c|}{links_energy_cal.table}{\todo{caption this}}
 
 \todo{energieauflösung}
+
+Die genaue Lage der SCA Schwellen wird aus dem Spektrum mit eingestellten Schwellen entnommen, indem an das Spektrum eine Gaußkurve multipliziert mit zwei Errorfunktionen, eine für die steigende, eine für die fallende Kante, angepasst wird. Die funktion, welche angepasst wird ist dann
+
+\begin{align}
+	f(x, x_0, x_1, a_0, a_1, A, \mu, \sigma) &= k(x, x_0, a_0) \cdot (g(x, A, \mu, \sigma) \cdot h(x, x_1, a_1) + c)\\
+	k(x, x_0, a_0) &= 0.5 \cdot (1 + \erf(a_0 (x - x_0))) \\
+	h(x, x_1, a_1) &= 0.5 \cdot (1 - \erf(a_1 (x - x_1))) \\
+	g(x, A, \mu, \sigma) &= \frac{A}{\sqrt{2 \pi} \sigma} \exp(\frac{- (x - \mu)^2}{2 \sigma^2})
+\end{align}
+
+Hierbei dient die 
+
 \todo{energie der SCA schwellen}
 \todo{energieintervalle der sca fenster}
 
