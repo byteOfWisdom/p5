@@ -23,7 +23,15 @@ Diese Messungen werden für den rechten Szintillator wiederholt, wobei man gleic
 
 
 \section{Triggerung mit dem SCA}
+Nun sollen mit den Slow-Koinzidenzkreisen Energiespektren aufgenommen werden um später die SCA Fenster so einzustellen, dass nur die relevanten Linien Betrachtet werden. Hierzu wird zunächst die Verstärkung der Hauptverstärker und die Verzögerung und Pulsdauer des GDG so angepasst, dass das Ausgangssignal des GDG als Gate Signal am MCA genutzt werden kann und die Verstärkung ein Aufnehmen des gesamten relevanten Energiespektrums erlaubt. Dann werden Energiespektren der beiden Proben aufgenommen.
+\todo{schaltplan hiervon!!}
+Es muss ein Signalteiler verwendet werden um Reflektionen und Lastabhängigkeiten vorzubeugen.
 \subsection*{Linke Seite}
+Zunächst wird das SCA Fenster komplett geöffnet und es wird die $\SI{511}{\kilo\eV}$ Linie Identifiziert, indem mit eingesetzter \na Quelle, am Oszilliskop die am häufigsten auftretende Amplitude gesucht wird. \todo{irgendwo muss stehen, dass die meisten photonen 511kev haben}
+In \fig{links/sca_trigger_pre_adjust} kann man eine deutliche Häufung bei etwa $\SI{6}{\volt}$ erkennen. Dies ist somit die gesuchte Linie. Im Anschluss wird die Verstärkung so angepasst, dass diese Linie eine Amplitude von $\SIrange{3}{4}{\volt}$ hat. In diesem Fall wurde der corse Gain des Hauptverstärkers von $50$ auf $20$ gestellt, was zu die Linie auf etwas unter $\SI{4}{\volt}$ verschoben hat. Dies ist in \fig{links/sca_trigger_gain20} zu erkennen.
+Im Anschluss wurden Verzögerung und Pulsdauer am GDG so eingestellt, dass sich das GDG Signal und die Pulse aus dem DA komplett überlappen. Dazu wurde Kanal 2 des Oszilloskops an den Ausgang des GDG verbunden. Die Pulse zueinander sind in \fig{links/gdg_pre_adjust} vor der Einstellung des GDG und in \fig{links/gdg_post_adjust} nach der Anpassung der GDG Einstellungen zu sehen. Nach dem Anpassen der Einstellungen Überlappt das GDG Signal das Signal aus dem DA komplett.
+\jafpp{links/sca_trigger_pre_adjust}{Oszillogramme einiger Pulse mit dem initial eingestellten corse Gain von 50. Man erkennt eine häufung von Signalen mit einer Amplitude von ca. $\SI{8.5}{\volt}$}{links/sca_trigger_gain20}{mit corse Gain von 20 ist die Anhäufung auf knapp unter ca. $\SI{4}{\volt}$ gefallen.}
+\jafpp{links/gdg_pre_adjust}{DA Signal (Ch1) gegen GDG Ausgang (Ch2), vor Anpassung der GDG Einstellungen}{links/gdg_post_adjust}{nach Anpassung der GDG Einstellungen.}
 
 
 
