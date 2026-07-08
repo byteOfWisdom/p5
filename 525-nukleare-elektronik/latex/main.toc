@@ -4,4 +4,5 @@
 \contentsline {section}{\numberline {2.1}Niedervolt Spannungsversorgung}{4}{section.2.1}%
 \contentsline {section}{\numberline {2.2}Slow Pulse}{4}{section.2.2}%
 \contentsline {section}{\numberline {2.3}Triggerung mit dem SCA}{5}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Energiespektren}{7}{section.2.4}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
