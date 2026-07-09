@@ -37,6 +37,8 @@ def run_side(side):
     lines = np.append(na_lines, ba_lines)
     energies = np.append(na_energies, ba_energies)
     params, (err, rsq) = std.odr_fit(std.linear, lines, energies)
+    res = p.ev(params, err)
+    std.write_file(f"../data/fits/{side}/energy_cal_res.txt", f"{std.si_string("a", res[0], "\\kilo\\eV\\per\\bin")} und {std.si_string("b", res[1], "\\kilo\\eV")}")
     std.default.plt_errorbar(lines, energies, marker="x")
     std.default.plt_func(std.linear, params, f"R^2 = {round(rsq, 4)}")
     std.default.plt_finish("$\\mu$ / Bins", "Energie / keV")
