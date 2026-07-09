@@ -64,7 +64,7 @@ def run_side(side):
     }
     std.print_tex_table(table, f"../latex/{side}_energy_fwhm.table")
 
-    std.default.plt_errorbar(energies, energy_res, "Linienbreiten", marker=".")
+    std.default.plt_errorbar(energies, energy_res, "Linienbreiten", marker="x")
     resolution_fit, (resolution_err, resolution_rsq) = std.odr_fit(std.linear, energies, energy_res)
     # std.default.plt_func(std.linear, resolution_fit, f"$R^2 = {round(resolution_rsq, 4)}$")
     std.default.plt_finish("Energie / keV", "FWHM / keV", f"../figs/{side}/energy_res_plot.pdf")
