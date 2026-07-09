@@ -1,0 +1,24 @@
+\section{Hochspannung der Spektrometer}
+
+\input{detector.tex}
+
+\subsection{Messung der Hochspannung}
+
+Zunächst wurde der Slow-Zweig des Schaltkreises betrachtet. Als erstes wurde der Operationsbereich der beiden PMTs untersucht.
+Dabei wurden an die beiden Szintillationsspektrometer (pro Seite bestehend aus dem Szintillationsdetektor sowie der PMT mit der Basis) Hochspannungen angelegt. Die am HV-Modul (siehe die Anordnung der Module in Abbildung \ref{fig:aufbau_crates}) abgelesenen Betriebsparameter sind in Tabelle \ref{tab:versorgungsspannung} aufgelistet. Unsicherheiten können ohne Kenntnis des Modells nicht quantitativ angegeben werden, die konkreten Werte der Spannung sind aber für die quantitativen Berechnungen im weiteren Verlauf aber auch nicht relevant. Die Unsicherheit der Ströme wurde aus der Schwankung des angezeigten Werts abgeschätzt.
+
+
+Die Höhe der angelegten Spannung befindet sich im Bereich typischer Sättigungsspannungen für PMTs \cite[188]{leotechniques}, sodass sich das Signal am Ende der PMT an der letzten Dynode sicher im Sättigungsbereich befinden sollte, wodurch die Effekte von statistischen Fluktuationen in der Pulsform minimiert werden können (siehe dazu Abschnitt \ref{sec:pmtaufbau}).
+Für beide Detektorenseiten entsprechen die Werte einander bzw. liegen weniger als $1\%$ des Werts auseinander für die Spannung. Das zeigt, dass die Detektoren mit gleicher Nachweiseffizienz und gleicher Verstärkung arbeiten sollten, wenn sie ideal baugleich waren, was in der Realität natürlich nur näherungsweise gegeben ist. Für die weitere Betrachtung kann davon ausgegangen werden, dass sie näherungsweise identisch arbeiten.
+
+\begin{table}[h]
+	    \centering
+	    \begin{tabular}{|c|c|c|} \hline
+		Seite & Spannung / V & Strom / mA \\
+		\hline
+		links & $\num{-604}$ & $\num{-0.107(1)}$ \\
+		rechts & $\num{-605}$ & $\num{-0.107(1)}$ \\ \hline
+		\end{tabular}
+	    \caption{Am HV-Modul abgelesene Spannungen und Ströme, die an den Szintillationsspektrometern anliegen.}
+	    \label{tab:versorgungsspannung}
+	\end{table}

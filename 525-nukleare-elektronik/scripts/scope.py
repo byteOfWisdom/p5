@@ -46,7 +46,7 @@ def find_time_unit(times):
     if t_scale <= 1000 * 1e-3:
         return "$ms$", 1e3
     return "$s$", 1
-    
+
 
 def plot():
     global unit
@@ -72,7 +72,7 @@ def plot():
         plot_trace(id)
 
     #print("done plotting all ids")
-    ax1.set_xlabel("Zeit / " + unit)
+    ax1.set_xlabel(f"Zeit / {unit}")
     ax1.set_ylabel("Kanal 1 / V", color=ch1_color)
 
     ax1.grid(which="major")

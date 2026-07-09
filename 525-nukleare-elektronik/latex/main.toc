@@ -1,12 +1,18 @@
 \babel@toc {german}{}\relax 
 \contentsline {chapter}{\numberline {1}Einleitung}{3}{chapter.1}%
-\contentsline {chapter}{\numberline {2}Einstellung der Slow-Kreise}{4}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Slow Pulse}{4}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Triggerung mit dem SCA}{5}{section.2.2}%
-\contentsline {section}{\numberline {2.3}Energiespektren}{7}{section.2.3}%
-\contentsline {section}{\numberline {2.4}Einkanalfenster für $\ce {^22Na}$}{8}{section.2.4}%
-\contentsline {chapter}{\numberline {3}Energiekalibration}{9}{chapter.3}%
-\contentsline {chapter}{\numberline {4}Lebensdauermessung}{15}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Zeitkalibration}{15}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Lebnsdauer eines Angeregten Cäsiumzustandes}{16}{section.4.2}%
+\contentsline {section}{\numberline {1.1}Hochspannung der Spektrometer}{4}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Funktionsweise der Teilchendetektoren}{4}{subsection.1.1.1}%
+\contentsline {subsubsection}{\nonumberline Szintillationsdetektor}{4}{subsubsection*.3}%
+\contentsline {subsubsection}{\nonumberline Photomultiplier-Röhre (PMT)}{4}{subsubsection*.4}%
+\contentsline {subsection}{\numberline {1.1.2}Messung der Hochspannung}{5}{subsection.1.1.2}%
+\contentsline {chapter}{\numberline {2}Einstellung der Slow-Kreise}{6}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Slow Pulse}{6}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Triggerung mit dem SCA}{7}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Energiespektren}{9}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Einkanalfenster für $\ce {^22 Na}$}{10}{section.2.4}%
+\contentsline {chapter}{\numberline {3}Energiekalibration}{11}{chapter.3}%
+\contentsline {chapter}{\numberline {4}Lebensdauermessung}{17}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Zeitkalibration}{17}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Lebnsdauer eines Angeregten Cäsiumzustandes}{18}{section.4.2}%
+\contentsline {chapter}{\numberline {5}Anhang}{19}{chapter.5}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
