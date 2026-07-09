@@ -13,7 +13,7 @@ def load_data(element, side):
 def get_calibration(side):
     fname = f"../data/fits/{side}/energy_calibration.csv"
     fit_params = std.load_csv(fname, skiprows=1)
-    return lambda x:fit_params[0] * x + fit_params[1]
+    return lambda x:fit_params[0][0] * x + fit_params[1][0]
 
 def rising_edge_func(x, x0, b):
     return 0.5 * (1 + sp.erf(b * (x - x0)))
@@ -49,10 +49,23 @@ def fit_edge(element, side):
     p0 = p0s[element][side]
     res, (err, rsq) = std.odr_fit(window_func, x[lb_a:ub_b], y[lb_a:ub_b], p0)
 
+    param_names = ["$x_0$ / Bin", "$x_1$ / Bin", "$a_0$ / $\\text{Bin}^{-1}$", "$a_1$ / $\\text{Bin}^{-1}$", "c / Bin", "A / Anzahl", "$\\mu$ / Bin", "$\\sigma$ / Bin"]
+
     energy_cal = get_calibration(side)
     print(p.ev(res, err))
-    print(energy_cal(res[0]))
-    print(energy_cal(res[1]))
+    params = p.ev(res, err)
+    table = {
+        "Parameter": param_names,
+        "Wert": params
+    }
+    std.print_tex_table(table, f"../latex/{side}_{element}_sca_window.table")
+    print(energy_cal(params[0]))
+    print(energy_cal(params[1]))
+    lower_edge = energy_cal(params[0])
+    upper_edge = energy_cal(params[1])
+    value_string = f"{std.si_string("x_0", lower_edge, "\\kilo\\eV")} und {std.si_string("x_1", upper_edge, "\\kilo\\eV")}"
+    std.write_file(f"../data/fits/{side}/{element}_sca_edges.txt", value_string)
+    std.write_file(f"../data/fits/{side}/{element}_sca_interval.txt", std.si_string("\\Delta E", upper_edge - lower_edge, "\\kilo\\eV"))
     std.default.plt_errorbar(x[6500:7850], y[6500:7850])
     red_chi2 = std.reduced_chi_2(~y[lb_a:ub_b], window_func(x[lb_a:ub_b], *res), res)
     print(red_chi2)

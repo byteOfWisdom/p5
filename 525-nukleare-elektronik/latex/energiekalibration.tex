@@ -17,21 +17,6 @@ Die Anpassungsparameter der Photopeaks sind in \tab{links_na_ganz} und \tab{link
 \jaftl{|c|c|c|c|c|}{../data/fits/links/ba_ganz.table}{baganz}{links_ba_ganz}
 \jaft{|c|c|}{links_energy_cal.table}{\todo{caption this}}
 
-Die genaue Lage der SCA Schwellen wird aus dem Spektrum mit eingestellten Schwellen entnommen, indem an das Spektrum eine Gaußkurve multipliziert mit zwei Errorfunktionen, eine für die steigende, eine für die fallende Kante, angepasst wird. Die funktion, welche angepasst wird ist dann
-
-\begin{align}
-	f(x, x_0, x_1, a_0, a_1, A, \mu, \sigma) &= k(x, x_0, a_0) \cdot (g(x, A, \mu, \sigma) \cdot h(x, x_1, a_1) + c)\\
-	k(x, x_0, a_0) &= 0.5 \cdot (1 + \erf(a_0 (x - x_0))) \\
-	h(x, x_1, a_1) &= 0.5 \cdot (1 - \erf(a_1 (x - x_1))) \\
-	g(x, A, \mu, \sigma) &= \frac{A}{\sqrt{2 \pi} \sigma} \exp(\frac{- (x - \mu)^2}{2 \sigma^2})
-\end{align}
-
-Hierbei dienen die Errorfunktionen als stetige Stufen, welche das Abschneiden des Spektrums durch die SCA Schwellen gut darstellen. Die Gaußkurve dient der Beschreibung der Linie, welche von den Fenstern eingeschlossen wird. Die Lage der Schwellen ist also durch $x_0$ und $x_1$ beschrieben.
-\todo{fit func erklären und ergebnisse}
-\todo{energie der SCA schwellen}
-\todo{energieintervalle der sca fenster}
-
-
 \subsection*{Rechte Seite}
 Die wurde für die rechte Seite wiederholt. Die Spektren sind in \fig{rechts/na_ganz} und \fig{rechts/ba_ganz}, die Anpassungsparameter der Linien in \tab{rechts_na_ganz} und \tab{rechts_ba_ganz} und die Zuordnungen der Linien zu den Energien sind in \tab{rechts_energy_cal.table}. Die Gradengleichung wird wie links angepasst und ergibt die Anpassungsparameter \input{../data/fits/rechts/energy_cal_res.txt}.
 \jafps{rechts/na_ganz}{Mit der rechten Seite Aufgenommenes \na Spektrum mit angepassten Gaußkurven}{0.75}
@@ -41,6 +26,36 @@ Die wurde für die rechte Seite wiederholt. Die Spektren sind in \fig{rechts/na_
 \jaftl{|c|c|c|c|c|}{../data/fits/rechts/ba_ganz.table}{baganz}{rechts_ba_ganz}
 \jaft{|c|c|}{rechts_energy_cal.table}{\todo{caption this}}
 
+\section{SCA Fenster}
+\subsection*{Linke Seite}
+Die genaue Lage der SCA Schwellen wird aus dem Spektrum mit eingestellten Schwellen entnommen, indem an das Spektrum eine Gaußkurve multipliziert mit zwei Errorfunktionen, eine für die steigende, eine für die fallende Kante, angepasst wird. Die funktion, welche angepasst wird ist dann
+
+\begin{align}
+	f(x, x_0, x_1, a_0, a_1, c, A, \mu, \sigma) &= k(x, x_0, a_0) \cdot (g(x, A, \mu, \sigma) \cdot h(x, x_1, a_1) + c)\\
+	k(x, x_0, a_0) &= 0.5 \cdot (1 + \erf(a_0 (x - x_0))) \\
+	h(x, x_1, a_1) &= 0.5 \cdot (1 - \erf(a_1 (x - x_1))) \\
+	g(x, A, \mu, \sigma) &= \frac{A}{\sqrt{2 \pi} \sigma} \exp(\frac{- (x - \mu)^2}{2 \sigma^2})
+\end{align}
+
+Hierbei dienen die Errorfunktionen als stetige Stufen, welche das Abschneiden des Spektrums durch die SCA Schwellen gut darstellen. Die Gaußkurve dient der Beschreibung der Linie, welche von den Fenstern eingeschlossen wird und die Konstante c dient der Beschreibung des Untergrundes welcher sich über der oberen Schwelle findet. Diese Funktion ist insgesamt weitesgehend heuristisch. Anhand der Fitgüte wird überprüft ob die gewählte Funktion in der Praxis eine gute Beschreibung der gemessenen Daten ist.
+Die Anpassungsparameter sind in \tab{links_na_sca_window.table} angegeben, die Anpassung und ein relevanter Ausschnit des Spektrums in \fig{links/sca_na_window_fit} Aufgetragen.
+Die Lage der Schwellen ist also durch $x_0$ und $x_1$ beschrieben. Diese Schwellen werden mittels der Energiekalibration in Energien umgerechnet, die Unsicherheiten ergeben sich nach \eq{lin_err}. Die Schwellen sind dann \input{../data/fits/links/na_sca_edges.txt}.
+\todo{auf fitgüte eingehen!!}
+
+\todo{fit func erklären und ergebnisse}
+\todo{energie der SCA schwellen}
+\todo{energieintervalle der sca fenster}
+\todo{fehlerfortpflanzung energieintervalle}
+
+\jafps{links/sca_na_window_fit}{}{0.9}
+\jaft{|c|c|}{links_na_sca_window.table}{}
+
+\subsection*{Rechte Seite}
+Die Anpassungsparameter sind in \tab{rechts_na_sca_window.table} angegeben, die Anpassung und ein relevanter Ausschnit des Spektrums in \fig{rechts/sca_na_window_fit} Aufgetragen.
+Die Schwellen sind dann \input{../data/fits/rechts/na_sca_edges.txt}.
+
+\jafps{rechts/sca_na_window_fit}{}{0.9}
+\jaft{|c|c|}{rechts_na_sca_window.table}{}
 
 \section{Energieauflösung}
 \subsection*{Linke Seite}

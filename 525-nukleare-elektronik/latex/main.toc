@@ -12,19 +12,21 @@
 \contentsline {section}{\numberline {2.4}Energiespektren}{11}{section.2.4}%
 \contentsline {section}{\numberline {2.5}Einkanalfenster für $\ce {^22Na}$ }{13}{section.2.5}%
 \contentsline {chapter}{\numberline {3}Energiekalibration}{14}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Energieauflösung}{16}{section.3.1}%
-\contentsline {chapter}{\numberline {4}Fast-Koinzidenzkreis}{21}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Kontrolle der Fast Pulse}{21}{section.4.1}%
-\contentsline {section}{\numberline {4.2}CFD-Schwelle}{21}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Fast Koinzidenz}{21}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Slow-Fast-Koinzidenz}{22}{section.4.4}%
-\contentsline {section}{\numberline {4.5}Promptkurve}{22}{section.4.5}%
-\contentsline {chapter}{\numberline {5}Lebensdauermessung}{23}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Zeitkalibration}{23}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Lebnsdauer eines Angeregten Cäsiumzustandes}{24}{section.5.2}%
-\contentsline {chapter}{\numberline {6}Fazit}{27}{chapter.6}%
-\contentsline {chapter}{\numberline {7}Anhang}{28}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Aufbauskizzen}{28}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Zerfallsschemata}{29}{section.7.2}%
-\contentsline {section}{\numberline {7.3}Fehlerfortpflanzungen}{30}{section.7.3}%
+\contentsline {section}{\numberline {3.1}SCA Fenster}{16}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Energieauflösung}{17}{section.3.2}%
+\contentsline {chapter}{\numberline {4}Fast-Koinzidenzkreis}{23}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Kontrolle der Fast Pulse}{23}{section.4.1}%
+\contentsline {section}{\numberline {4.2}CFD-Schwelle}{23}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Fast Koinzidenz}{23}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Slow-Fast-Koinzidenz}{24}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Promptkurve}{24}{section.4.5}%
+\contentsline {chapter}{\numberline {5}Lebensdauermessung}{25}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Zeitkalibration}{25}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Lebensdauer eines angeregten $\ce {^133Cs}$ Zustands}{26}{section.5.2}%
+\contentsline {chapter}{\numberline {6}Fazit}{29}{chapter.6}%
+\contentsline {chapter}{\numberline {7}Anhang}{30}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Aufbauskizzen}{30}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Zerfallsschemata}{31}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Fehlerfortpflanzungen}{32}{section.7.3}%
+\contentsline {section}{\numberline {7.4}zusätzliche Abbildungen}{32}{section.7.4}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
