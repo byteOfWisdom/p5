@@ -1,0 +1,1 @@
+$a = \SI{0.07059(70)}{\kilo\eV\per\bin}$ und $b = \SI{-2.9(3.3)}{\kilo\eV}$
