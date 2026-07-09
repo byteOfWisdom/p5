@@ -18,6 +18,10 @@ Die Anpassungsparameter der Photopeaks sind in \tab{links_na_ganz} und \tab{link
 \jaft{|c|c|}{links_energy_cal.table}{\todo{caption this}}
 
 \todo{energieauflösung}
+Als Maß für die Energieauflösung wird die Halbwertsbreite (FWHM) der Linien genutzt. Hierzu werden nur die zugeordneten Photopeaks genutzt, da bei diesen davon ausgegangen werden kann, dass die intrinsische Linienbreite hinreichend klein ist um keinen relevanten Einfluss zu habem \todo{maybe cite}. Die Halbwertsbreite ergibt sich als $\text{FWHM} = \sigma \cdot \sqrt{8 \ln{2}}$ \cite[8]{ex_techniques}. Die Umrechnung auf Energien erfolgt durch Multiplikation mit der Steigung der Gradenanpassung der Energiekalibration. Die Unsicherheiten werden mit \eq{lin_err} berechnet. Die FWHM in Bins, sowie Energie sind in \tab{energy_fwhm_links} aufgelistet, und in \fig{links/energy_res_plot} gegen die Energien aufgetragen. Man erkennt klar, dass bei größeren Energien die Linienbreite zunimmt. Dies sorgt dafür, dass das Startsignal bei der späteren Lebensdauermessung deutlich mehr Photonen falscher Energien registriert als das Stopsignal.
+
+\jafps{links/energy_res_plot}{Linienbreiten gegen Energie der linien des Linken Szintillators.}{0.9}
+\jaftl{|c|c|c|c|}{links_energy_fwhm.table}{Halbwertsbreiten des linken Szintillators}{energy_fwhm_links}
 
 Die genaue Lage der SCA Schwellen wird aus dem Spektrum mit eingestellten Schwellen entnommen, indem an das Spektrum eine Gaußkurve multipliziert mit zwei Errorfunktionen, eine für die steigende, eine für die fallende Kante, angepasst wird. Die funktion, welche angepasst wird ist dann
 
@@ -42,3 +46,6 @@ Die wurde für die rechte Seite wiederholt. Die Spektren sind in \fig{rechts/na_
 \jaftl{|c|c|c|c|c|}{../data/fits/rechts/na_ganz.table}{naganz}{rechts_na_ganz}
 \jaftl{|c|c|c|c|c|}{../data/fits/rechts/ba_ganz.table}{baganz}{rechts_ba_ganz}
 \jaft{|c|c|}{rechts_energy_cal.table}{\todo{caption this}}
+Die Halbwertsbreiten der Linien sind wie bei der anderen Seite berechnet und in \tab{energy_fwhm_rechts} und \fig{rechts/energy_res_plot} zu finden. Die Halbwertsbreiten verhalten sich wie auf der linken Seiten, werden also bei steigenden Energien breiter. Die einzelnen Werte unterscheiden sich leicht, allerdings nicht eindeutig.
+\jafps{rechts/energy_res_plot}{Linienbreiten gegen Energie der Linien des rechten Szintillators.}{0.9}
+\jaftl{|c|c|c|c|}{rechts_energy_fwhm.table}{Halbwertsbreiten des rechten Szintillators}{energy_fwhm_rechts}
