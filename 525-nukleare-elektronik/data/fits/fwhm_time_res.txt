@@ -1,0 +1,1 @@
+$\text{FWHM} = \SI{3.203(10)}{\nano\second}$
