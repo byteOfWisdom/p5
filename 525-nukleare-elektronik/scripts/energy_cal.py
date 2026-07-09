@@ -28,26 +28,46 @@ def load_data(side, element):
     data = std.load_csv(fname, skiprows=1)
 
     filter = np.array(energy[side][element]) == np.array(energy[side][element])
-    return (data[1])[filter], np.array(energy[side][element])[filter]
+    return (data[1])[filter], np.array(energy[side][element])[filter], (data[2])[filter]
 
 
 def run_side(side):
-    na_lines, na_energies = load_data(side, "na")
-    ba_lines, ba_energies = load_data(side, "ba")
+    na_lines, na_energies, sigmas_na = load_data(side, "na")
+    ba_lines, ba_energies, sigmas_ba = load_data(side, "ba")
     lines = np.append(na_lines, ba_lines)
     energies = np.append(na_energies, ba_energies)
+    sigmas = np.append(sigmas_na,sigmas_ba)
     params, (err, rsq) = std.odr_fit(std.linear, lines, energies)
     res = p.ev(params, err)
     std.write_file(f"../data/fits/{side}/energy_cal_res.txt", f"{std.si_string("a", res[0], "\\kilo\\eV\\per\\bin")} und {std.si_string("b", res[1], "\\kilo\\eV")}")
     std.default.plt_errorbar(lines, energies, marker="x")
-    std.default.plt_func(std.linear, params, f"R^2 = {round(rsq, 4)}")
-    std.default.plt_finish("$\\mu$ / Bins", "Energie / keV")
+    std.default.plt_func(std.linear, params, f"$R^2 = {round(rsq, 4)}$")
+    std.default.plt_finish("$\\mu$ / Bins", "Energie / keV", f"../figs/{side}/energy_cal.pdf")
     table = {
         "$\\mu$ / Bins": lines,
         "Energie / keV": energies,
     }
     std.print_tex_table(table, f"../latex/{side}_energy_cal.table")
     print(p.ev(params, err))
+
+    fwhm = np.sqrt(8 * np.log(2)) * sigmas
+    energy_res = fwhm * res[0]
+    print(energies)
+    print(sigmas)
+    print(fwhm)
+    print(energy_res)
+    table = {
+        "Energie / keV": energies,
+        "\\sigma / Bin": sigmas,
+        "FWHM / Bin": fwhm,
+        "FWHM / keV": energy_res
+    }
+    std.print_tex_table(table, f"../latex/{side}_energy_fwhm.table")
+
+    std.default.plt_errorbar(energies, energy_res, "Linienbreiten", marker=".")
+    resolution_fit, (resolution_err, resolution_rsq) = std.odr_fit(std.linear, energies, energy_res)
+    # std.default.plt_func(std.linear, resolution_fit, f"$R^2 = {round(resolution_rsq, 4)}$")
+    std.default.plt_finish("Energie / keV", "FWHM / keV", f"../figs/{side}/energy_res_plot.pdf")
 
 
 if __name__ == "__main__":
