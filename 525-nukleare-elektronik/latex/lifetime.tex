@@ -1,0 +1,30 @@
+\chapter{Lebensdauermessung}
+
+\section{Zeitkalibration}
+Um die Zeitkalibration und informationen über die Zeitauflösung gewinnen zu können, werden an die Promptkurven wieder Gaußfunktionen angepasst. Die Ergebnisse dieser Anpassungen sind in \fit{prompt} und \tab{prompt} zu sehen. Die einzelnen Gaußanpassungen weisen hierbei sehr gute Fitgüten auf.
+
+\jafps{prompt}{Promptkurve mit angepassten Gaußfunktionen.}{0.75}
+\jaftl{|c|c|c|c|c|}{../data/fits/prompt.table}{}{prompt}
+
+Die so gewonnenen Positionen werden nun Aufgetragen, gegen die eingestellten Zeiten. Hierbei ist nur der Zeitunterschied von $\SI{16}{\nano\second}$ zwischen den einzelnen Kurven relevant, also Startwert wurden allerdings $\SI{8}{\nano\second}$ gewählt, da so stets die Einstellungen des ns-Delay genau die aufgetragene Zeit sind. An diese Auftragung wird schließlich eine Grade angepasst. Dies ist in \fig{time_cal} abgebildet. Die Parameter der Gradenanpassung sind dann \input{../data/fits/time_cal_fit.txt}. Die Anpassungsgüte ist hierbei sehr hoch, was für eine ausgezeichnete Linearität der Zeitmessung spricht.
+
+Aus den Standardabweichungen der Gaußkurven in \tab{prompt} kann nun die Halbwertsbreite (Full-Width-Half-Maximum (FWHM)) als Maß der Breite der Kurven genutzt werden. Dabei ist $\text{FWHM} = \sigma \cdot \sqrt{8 \ln{2}}$ \cite[8]{ex_techniques}. $\text{FWHM}_\text{ns} = \text{FWHM} \cdot a$, wobei die Fehlerfortpflanzung \todo{adsflkjasdasdfa} ist.
+
+Mittels der soeben bestimmten Gradengleichung kann diese Breite auf eine Zeit umgerechnet werden. Somit erhählt man ein Maß für die Zeitauflösung des Gesamtsystems. Die Berechnungen für die einzelnen Kurven sind in \tab{time_resolution.table} aufgeführt. Im Mittel erhält man dann eine Halbwertsbreite von \input{../data/fits/fwhm_time_res.txt}. Diese kann als Maß für die Zeitauflösung genutzt werden. Diese Zeitauflösung ist nur in der gleichen Größenordnung wie die vermutete Lebensdauer, welche gemessen werden soll. Würde man sich bei der Lebensdauermessung also nur auf die reine Unterscheidbarkeit zweier Linien stützen, so wäre die Messung mitunter nicht durchführbar. Wie im folgenden jedoch erläutert wird bezieht die Finale Messung diese Punktspreizfunktion (PSF) mit ein.
+
+
+\jaft{|c|c|c|}{time_resolution.table}{\todo{caption}}
+
+
+\jafps{time_cal}{Zeitkalibration}{0.9}
+
+
+\section{Lebnsdauer eines Angeregten Cäsiumzustandes}
+
+Um die Lebensdauer des $\frac{5}{2}^+$ \caesium Zustandes zu bestimmen soll an die Lebensdauerkurve eine Zerfallskurve angepasst werden. Da jedoch, eine einzelne Zeit durch die PSF Gaußförmig verschmiert wird, und sich dieser Prozess mathematisch als Faltung beschreiben lässt muss insgesamt die Faltung einer Zerfallskurve und einer Gaußkurve angepasst werden. Die insgesamte Funktion ist dann \cite{525va}
+
+\begin{align}
+	1
+\end{align}
+
+

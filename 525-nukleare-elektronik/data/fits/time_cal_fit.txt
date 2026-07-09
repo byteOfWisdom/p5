@@ -1,0 +1,1 @@
+$a = \SI{0.012873(38)}{\nano\second\per\bin}$ und $b = \SI{-3.57(14)}{\nano\second}$
