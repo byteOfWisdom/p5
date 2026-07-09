@@ -39,9 +39,24 @@ if __name__ == "__main__":
     # res = iminuit_fit(bins, counts, p0)
     res, (err, rsq) = std.odr_fit(lt_spectrum, bins, counts, p0)
     print(res)
-    print((p.ev(res[1], err[1]) * time_slope).format())
-    print((np.log(2) * p.ev(res[1], err[1]) * time_slope).format())
+    tau = p.ev(res[1], err[1]) * time_slope
+    hlt = np.log(2) * tau
+    print(tau.format())
+    print(hlt.format())
+    result_str = f"{std.si_string("\\tau", tau, "\\nano\\second")} und {std.si_string("T_\\frac{1}{2}", hlt, "\\nano\\second")}"
+    std.write_file("../data/fits/lifetime.txt", result_str)
+
+    params = p.ev(res, err)
+    fit_res_tbl = {
+        "$I$ / Anzahl": [params[0]],
+        "$\\tau$ / Bins": [params[1]],
+        "$t_0$ / Bins": [params[2]],
+        "$\\sigma$ / Bins": [params[3]],
+    }
+    std.print_tex_table(fit_res_tbl, "../latex/lifetime_fit.table")
+
+    chi2 = std.reduced_chi_2(~counts, lt_spectrum(bins, *res), res)
     # res, (err, rsq) = std.curve_fit(lt_spectrum, bins, counts, res)
     std.default.plt_errorbar(bins, counts, "Messdaten")
-    std.default.plt_func(lt_spectrum, res, label=f"$R^2 = {round(rsq, 3)}$")
-    std.default.plt_finish("Bin", "Anzahl")
+    std.default.plt_func(lt_spectrum, res, label="$\\chi^2_{red} = " + f"{round(chi2, 3)}$")
+    std.default.plt_finish("Bin", "Anzahl", "../figs/lifetime_plot.pdf")

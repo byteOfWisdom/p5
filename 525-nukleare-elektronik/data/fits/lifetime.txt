@@ -1,0 +1,1 @@
+$\tau = \SI{9.653(37)}{\nano\second}$ und $T_\frac{1}{2} = \SI{6.691(26)}{\nano\second}$

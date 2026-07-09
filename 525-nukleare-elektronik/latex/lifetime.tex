@@ -3,7 +3,7 @@
 \section{Zeitkalibration}
 Um die Zeitkalibration und informationen über die Zeitauflösung gewinnen zu können, werden an die Promptkurven wieder Gaußfunktionen angepasst. Die Ergebnisse dieser Anpassungen sind in \fit{prompt} und \tab{prompt} zu sehen. Die einzelnen Gaußanpassungen weisen hierbei sehr gute Fitgüten auf.
 
-\jafps{prompt}{Promptkurve mit angepassten Gaußfunktionen.}{0.75}
+\jafps{prompt}{Promptkurve mit angepassten Gaußfunktionen.}{0.9}
 \jaftl{|c|c|c|c|c|}{../data/fits/prompt.table}{}{prompt}
 
 Die so gewonnenen Positionen werden nun Aufgetragen, gegen die eingestellten Zeiten. Hierbei ist nur der Zeitunterschied von $\SI{16}{\nano\second}$ zwischen den einzelnen Kurven relevant, also Startwert wurden allerdings $\SI{8}{\nano\second}$ gewählt, da so stets die Einstellungen des ns-Delay genau die aufgetragene Zeit sind. An diese Auftragung wird schließlich eine Grade angepasst. Dies ist in \fig{time_cal} abgebildet. Die Parameter der Gradenanpassung sind dann \input{../data/fits/time_cal_fit.txt}. Die Anpassungsgüte ist hierbei sehr hoch, was für eine ausgezeichnete Linearität der Zeitmessung spricht.
@@ -28,4 +28,14 @@ Um die Lebensdauer des $\frac{5}{2}^+$ \caesium Zustandes zu bestimmen soll an d
 	b(t) &= \frac{1}{\sqrt{2}} \bigg(\frac{t - t_0}{\sigma} - \frac{\sigam}{\tau} \bigg)
 \end{align}
 
+Für exponentielle Zerfälle, wie sie hier vorliegen, gilt \todo{cite this?}
+\begin{align}
+	T_\frac{1}{2} = \ln(2) \cdot \tau
+\end{align}
+
+Die Messdaten der Lebenszeitkurve, sowie das Ergebnis der Anpassung sind in \fig{lifetime_plot} und \tab{lifetime_fit} zu sehen. Rechnet man $\tau$ mittels der Zeitkalibration und die Unsicherheit mittels \eq{lin_err} in Zeiteinheiten und diese dann in die Halbwertszeit um, erhält man \input{../data/fits/lifetime.txt}.
+Die Halbwertszeit des betrachteten \caseium Zustands liegt bei $T_{1/2} = \SI{6.283(14)}{\nano\second}$ \cite{525va}. Man findet eine deutliche Abweichung von Erwartungswert und berechnetem Wert. Bemerkenswert ist, dass die bestimmte Unsicherheit auf dem gemessenen Wert sehr klein ist. Dies rührt daher, dass bei der Abschätzung dieser Unsicherheit nur statistische Effekte betrachtet werden, nicht systematische. Insbesondere muss dabei beachtet werden, dass sich die \ba bei $\SI{356.0}{\kilo\eV}$ und $\SI{383.8}{\kilo\eV}$ \cite[9]{525va} aufweist. Wie man bei der Energieauflösung erkennen kann, können diese nicht perfekt unterschieden werden. Ein $\SI{383.8}{\kilo\eV}$ Photon kann allerdings nur zu einem zu frühen Start des TAC führen, da, träfe es nach einem $\SI{356.0}{\kilo\eV}$ Photon ein, der TAC bereits gestartet wäre und es keinen Effekt hätte. Daher ist davon auszugehe, dass aufgrund der nicht perfekten Energieauflösung fälschlicherweise lange Zeiten gemessen werden. Dies erklärt, warum die gemessene Halbwertszeit länger ist als die aus der Literatur erwartete. Eine einfache Verbesserung wäre, die obere SCA Schwelle für das Start Signal geringer zu setzen. Dies würde die Zählrate reduzieren, da auch $\SI{356.0}{\kilo\eV}$ Photonen dann zunehmend nicht mehr registriert würden, wodurch die Messung länger durchgeführt werden müsste. \note{ist das BS? someone pls check it}
+
+\jafps{lifetime_plot}{Gemessene Lebensdauerkurve mit Anpassungsfunktion.}{0.9}
+\jaftl{|c|c|c|c|}{lifetime_fit.table}{}{lifetime_fit}
 
