@@ -6,10 +6,12 @@
 
 \subsection*{Linke Seite}
 
-\jafps{tikz/slow_pulse_kontrolle}{Schaltplan zum Aufbau zur Kontrolle der Pulse im Slow-Kreis}{0.5}
+\jafps{tikz/slow_pulse_kontrolle}{Schaltplan zum Aufbau zur Kontrolle der Pulse im Slow-Kreis.}{0.5}
 \jafps{links/slow_pulse}{Slow-Pulse vom linken Szintillator, auf Kanal 1 direkt am Szintillator abgegriffen, auf Kanal 2 hinter dem Hauptverstärker.}{0.75}
 
-Nun werden die Pulse aus dem Szintillator mit dem Oszilloskop betrachtet. Der Aufbau entspricht dabei dem in \fig{tikz/slow_pulse_kontrolle} gezeigten.
+Nun werden die Pulse aus dem Szintillator mit dem Oszilloskop betrachtet. Der Aufbau entspricht dabei dem in \fig{tikz/slow_pulse_kontrolle} gezeigten. Alle Schaltpläne (inkl. dieser) wurden mithilfe des Programms \texttt{TikzMaker} \cite{tikzmaker} erstellt.
+
+
 In \fig{links/slow_pulse} sind einige so aufgenommene Pulse zu erkennen.
 
 
@@ -17,48 +19,57 @@ Man erkennt, dass das Signal direkt aus dem Szintillator die Form einer Zerfalls
 
 \subsection*{Rechte Seite}
 Diese Messungen werden für den rechten Szintillator wiederholt, wobei man gleiche Pulsformen und Dauern findet.
-\jafps{rechts/slow_pulse}{Slow-Pulse vom rechten Szintillator, auf Kanal 1 direkt am Szintillator abgegriffen, Kanal 2 Hinter dem Hauptverstärker.}{0.5}
+\jafps{rechts/slow_pulse}{Slow-Pulse vom rechten Szintillator, auf Kanal 1 direkt am Szintillator abgegriffen, Kanal 2 Hinter dem Hauptverstärker.}{0.75}
 
 
 \section{Triggerung mit dem SCA}
-Nun sollen mit den Slow-Koinzidenzkreisen Energiespektren aufgenommen werden um später die SCA Fenster so einzustellen, dass nur die relevanten Linien Betrachtet werden. Hierzu wird zunächst die Verstärkung der Hauptverstärker und die Verzögerung und Pulsdauer des GDG so angepasst, dass das Ausgangssignal des GDG als Gate Signal am MCA genutzt werden kann und die Verstärkung ein Aufnehmen des gesamten relevanten Energiespektrums erlaubt.
+Nun sollen mit den Slow-Koinzidenzkreisen Energiespektren aufgenommen werden um später die SCA Fenster so einzustellen, dass nur die relevanten Linien Betrachtet werden. Hierzu wird zunächst die Verstärkung der Hauptverstärker und die Verzögerung und Pulsdauer des GDG so angepasst, dass das Ausgangssignal des GDG als Gate-Signal am MCA genutzt werden kann und die Verstärkung ein Aufnehmen des gesamten relevanten Energiespektrums erlaubt.
 
-\jafp{tiks/trigger_mit_sca_mitgdg}{\todo{description}}{0.6}
-\todo{schaltplan MIT oder OHNE gdg???}
-
+\jafps{tikz/trigger_mit_sca_mitgdg}{Schaltplan zur Einstellung der Verstärkung des Hauptverstärkers und der GDG-Verzögerung und -Pulsdauer.}{0.6}
+\note{hier ist jetzt nur die Variante MIT gdg, sind da oszi bilder von messungen vor dem?}
 
 Es muss ein Signalteiler \todo{wo?} verwendet werden um Reflektionen und Lastabhängigkeiten vorzubeugen.
 
 \subsection*{Linke Seite}
-Zunächst wird das SCA Fenster komplett geöffnet, sodass für alle Signalamplituden vom SCA ein logisches Signal erzeugt wird und es wird die $\SI{511}{\kilo\eV}$ Linie identifiziert, indem mit eingesetzter \na Quelle, am Oszilloskop die am häufigsten auftretende Amplitude gesucht wird. Bei der \na-Quelle ist das Zerfallsschema wie in Abbildung \ref{fig:zerfallnatrium} abgebildet ist: \na zerfällt fast ausschließlich über einen $\beta^+$-Zerfall in den angeregten \neon $(2+)$-Zustand, der dann bei dem Energieübergang in den Grundzustand $(0+)$ ein $\gamma$-Photon der Energie $E=\SI{1274.5}{\kilo\eV}$ emittiert \cite[9]{525va}. Dies ist das höherenergetische $\gamma$-Photon, was vom Detektor detektiert werden kann. Zusätzlich kann jedoch auch das Positron, was beim $\beta+$-Zerfall entsteht, mit Elektronen des umgebenden Material der Quelle interagieren, wobei es zu einer Positron-Elektron-Annihilation kommt. Dabei werden immer zwei Photonen der Energie $E=\SI{511}{\kilo\eV}$ zum gleichen Zeitpunkt in entgegengesetzte Richtungen emittiert \cite[7]{leotechniques}. Diese Photonen treten pro \na-Zerfall also doppelt so oft auf wie die Photonen mit $\SI{1274.5}{\kilo\eV}$, wodurch die entsprechende Linie im Energiespektrum identifiziert werden kann.
+Zunächst wird das SCA Fenster komplett geöffnet, sodass für alle Signalamplituden vom SCA ein logisches Signal erzeugt wird und es wird die $\SI{511}{\kilo\eV}$ Linie identifiziert, indem mit eingesetzter \na Quelle, am Oszilloskop die am häufigsten auftretende Amplitude gesucht wird. Bei der \na-Quelle ist das Zerfallsschema wie in Abbildung \ref{fig:zerfallnatrium} abgebildet ist: \na zerfällt fast ausschließlich über einen $\beta^+$-Zerfall in den angeregten \neon $(2+)$-Zustand, der dann bei dem Energieübergang in den Grundzustand $(0+)$ ein $\gamma$-Photon der Energie $E=\SI{1274.5}{\kilo\eV}$ emittiert \cite[9]{525va}. Dies ist das höherenergetische $\gamma$-Photon, was vom Detektor detektiert werden kann. Zusätzlich kann jedoch auch das Positron, was beim $\beta^+$-Zerfall entsteht, mit Elektronen des umgebenden Material der Quelle interagieren, wobei es zu einer Positron-Elektron-Annihilation kommt. Dabei werden immer zwei Photonen der Energie $E=\SI{511}{\kilo\eV}$ zum gleichen Zeitpunkt in entgegengesetzte Richtungen emittiert \cite[7]{leotechniques}. Diese Photonen treten pro \na-Zerfall also doppelt so oft auf wie die Photonen mit $\SI{1274.5}{\kilo\eV}$, wodurch die entsprechende Linie im Energiespektrum identifiziert werden kann.
 
-In \fig{links/main_amp_pre} kann man eine deutliche Häufung bei etwa $\SI{6}{\volt}$ erkennen. Dies ist somit die gesuchte Linie. Im Anschluss wird die Verstärkung so angepasst, dass diese Linie eine Amplitude von $\SIrange{3}{4}{\volt}$ hat. In diesem Fall wurde der corse Gain des Hauptverstärkers von $50$ auf $20$ gestellt, was zu die Linie auf etwas unter $\SI{4}{\volt}$ verschoben hat. Dies ist in \fig{links/main_amp_post} zu erkennen.
+Die Fehler der aufgenommenen Intensitäten in den Kanälen entsprechen wie bei allen Zählexperimenten bei einer Anzahl $N$ von Ereignissen in einem Kanal $\Delta N =\sqrt{N}$, da diese Experimente einer Poissonverteilung folgen \cite[788]{kolanoskiwermerdetektoren}. Zur besseren Lesbarkeit der Kurvenform mit tlw. kleinen Häufungen wurden sie in den Spektren nicht aufgetragen, dies ist aber auch nochmal gekennzeichnet. Zur Fehlerfortpflanzung bei der Umrechnung von Werten wurde immer Gauß'sche Fehlerfortpflanzung angewendet \cite[8-9]{gerthsen}.
+
+In \fig{links/main_amp_pre} kann man eine deutliche Häufung bei etwa $\SI{6}{\volt}$ erkennen. Dies ist somit die gesuchte Linie, die am häufigsten auftreten sollte. Im Anschluss wurde die Verstärkung so angepasst, dass diese Linie eine Amplitude von $\SIrange{3}{4}{\volt}$ hatte \cite[4]{525va}. In diesem Fall wurde der coarse Gain des Hauptverstärkers von $50$ auf $20$ gestellt, was zu die Linie auf etwas unter $\SI{4}{\volt}$ verschoben hat. Dies ist in \fig{links/main_amp_post} zu erkennen.
 Im Anschluss wurden Verzögerung und Pulsdauer am GDG so eingestellt, dass sich das GDG Signal und die Pulse aus dem DA komplett überlappen. Dazu wurde Kanal 2 des Oszilloskops an den Ausgang des GDG verbunden. Die Pulse zueinander sind in \fig{links/gdg_pre_adjust} vor der Einstellung des GDG und in \fig{links/gdg_post_adjust} nach der Anpassung der GDG Einstellungen zu sehen. Nach dem Anpassen der Einstellungen Überlappt das GDG Signal das Signal aus dem DA komplett.
-\jafpp{links/main_amp_pre}{Oszillogramme einiger Pulse mit dem initial eingestellten corse Gain von 50. Man erkennt eine häufung von Signalen mit einer Amplitude von ca. $\SI{8.5}{\volt}$}{links/main_amp_post}{mit corse Gain von 20 ist die Anhäufung auf knapp unter ca. $\SI{4}{\volt}$ gefallen.}
-\jafpp{links/gdg_pre_adjust}{DA Signal (Ch1) gegen GDG Ausgang (Ch2), vor Anpassung der GDG Einstellungen}{links/gdg_post_adjust}{nach Anpassung der GDG Einstellungen.}
+
+\jafpp{links/main_amp_pre}{Oszillogramme einiger Pulse mit dem initial eingestellten coarse Gain von 50 für den linken Detektor. Man erkennt eine häufung von Signalen mit einer Amplitude von ca. $\SI{8.5}{\volt}$}{links/main_amp_post}{mit coarse Gain von 20 ist die Anhäufung auf knapp unter ca. $\SI{4}{\volt}$ gefallen.}
+\jafpp{links/gdg_pre_adjust}{DA Signal (Ch1) gegen GDG Ausgang (Ch2) für den linken Detektor, vor Anpassung der GDG Einstellungen}{links/gdg_post_adjust}{nach Anpassung der GDG Einstellungen.}
 
 
 \subsection*{Rechte Seite}
-Dieses Verfahren wird für die rechte Seite wiederholt. Hierbei muss am Hauptverstärker nur ein wenig der fine Gain angepasst werden, zu sehen in \fig{rechts/main_amp_pre} vor der Anpassung und \fig{rechts/main_amp_post} danach. Die GDG Einstellungen müssen nicht angepasst werden. In \fig{rechts/gdg_post_adjust} sieht man Oszillogramme, in denen bereits eine gute Überlappung zu sehen ist.
-\jafpp{rechts/main_amp_pre}{Oszillogramme einiger Pulse mit dem initial eingestellten corse Gain von 20. Man erkennt eine häufung von Signalen mit einer Amplitude von ca. $\SI{4}{\volt}$}{rechts/main_amp_post}{durch leichte Anpassung des fine Gain auf knapp unter ca. $\SI{4}{\volt}$ gefallen.}
-\jafps{rechts/gdg_post_adjust}{DA Signal (Ch1) gegen GDG Ausgang (Ch2), es ist keine Anpassung der GDG Einstellungen nötig.}{0.5}
+Dieses Verfahren wurde für die rechte Seite wiederholt. Hierbei musste am Hauptverstärker gegenüber der Voreinstellungs nur ein wenig der fine Gain angepasst werden, zu sehen in \fig{rechts/main_amp_pre} vor der Anpassung und \fig{rechts/main_amp_post} danach. Die GDG-Einstellungen mussten nicht angepasst werden: In \fig{rechts/gdg_post_adjust} sieht man Oszillogramme, in denen bereits eine gute Überlappung zu sehen ist.
+
+\jafpp{rechts/main_amp_pre}{Oszillogramme einiger Pulse mit dem initial eingestellten corse Gain von 20 für den rechten Detektor. Man erkennt eine Häufung von Signalen mit einer Amplitude von ca. $\SI{4}{\volt}$}{rechts/main_amp_post}{durch leichte Anpassung des fine Gain auf knapp unter ca. $\SI{4}{\volt}$ gefallen.}
+\jafps{rechts/gdg_post_adjust}{DA Signal (Ch1) gegen GDG Ausgang (Ch2) für den rechten Detektor, es ist keine Anpassung der GDG Einstellungen nötig.}{0.5}
 
 
 
 \section{Energiespektren}
 \subsection*{Linke Seite}
-Mit dem Aufbau aus \todo{ref aufbau} wird nun mittels des MCA ein Energiespektrum der \na Probe aufgenommen und dann die Verstärkung so eingestellt, dass die $\SI{511}{\kilo\eV}$ Anhillationslinie und die $\SI{81}{\kilo\eV}$ Linie der \ba Quelle gleichzeitig gut zu erkennen sind.
-Das Spektrum der Linken Seite ist in \fig{links/na_raw} zu sehen. Man erkennt ca bei Kanal 2800 einen Photopeak mit großer Amplitude, welcher der $\SI{511}{\kilo\eV}$ Linie zugeordnet wird. Unterhalb von Kanal 2000 ist ein Compton-Kontinuum zu erkennen, mit einem Rückstreupeak etwa bei Kanal 1000, und einer Compton-Kante bei etwa Kanal 1800. Ein weiter deutlicher Photopeak bei ca. Kanal 7200 kann der $\SI{1274.5}{\kilo\eV}$ Linie von \na zugeordnet werden. Hierbei wurden die Photopeaks sowohl durch ihre relativen Lagen als auch Intensitäten zugeordnet. Von etwa Kanal 4000 bis 5750 kann das zu der $\SI{1274.5}{\kilo\eV}$ Linie gehörende Compton-Kontinuum erkannt werden. Eine Quantitative Auswertung der Energiespektren wird folgen.
+Mit dem Aufbau aus \ref{fig:tikz/energiespektrum_quelle} wurde nun mittels des MCA ein Energiespektrum der \na Probe aufgenommen (als Quelle wurde dabei \na eingesetzt) und dann die Verstärkung so eingestellt, dass die $\SI{511}{\kilo\eV}$ Annihilationslinie und die $\SI{81}{\kilo\eV}$ Linie der \ba Quelle (zur Einstellung dabei die \ba-Quelle eingesetzt) gleichzeitig gut zu erkennen waren.
+
+\jafps{tikz/energiespektrum_quelle}{Aufbau zur Einstellung der Verstärkung zur Aufnahme der Energiespektren für jeweils einen Detektor von \na und \ba als Quellen sowie zur Aufnahme der Energiespektren.}{0.6}
+
+
+Das Spektrum der linken Seite ist in \fig{links/na_raw} zu sehen. Man erkennt ca. bei Kanal 2800 einen Photopeak mit großer Amplitude, welcher der $\SI{511}{\kilo\eV}$ Linie zugeordnet wird. Unterhalb von Kanal 2000 ist ein Compton-Kontinuum zu erkennen, mit einem Rückstreupeak etwa bei Kanal 1000, und einer Compton-Kante bei etwa Kanal 1800. Ein weiter deutlicher Photopeak bei ca. Kanal 7200 kann der $\SI{1274.5}{\kilo\eV}$ Linie von \na zugeordnet werden. Hierbei wurden die Photopeaks sowohl durch ihre relativen Lagen als auch Intensitäten zugeordnet. Von etwa Kanal 4000 bis 5750 kann das zu der $\SI{1274.5}{\kilo\eV}$ Linie gehörende Compton-Kontinuum erkannt werden. Eine quantitative Auswertung der Energiespektren wird folgen.
+
 \jafps{links/na_raw}{Energiespektrum der \na Quelle am linken Slow-Kreis. Zur besseren Lesbarkeit wurde auf Fehlerbalken verzichtet.}{0.75}
 
-Anschließend wird die Verstärkung des Hauptverstärkers so erhöht, dass die $\SI{511}{\kilo\eV}$ Linie am Rechten Rand liegt und die $\SI{81}{\kilo\eV}$ Linie von \ba weiterhin gut erkennbar ist. Nach dieser Justage werden Engergiespektren mit \na und \ba aufgenommen. Die so aufgenommenen Spektren werden für die Energiekalibration genutzt. \todo{refrence} Nach der Justage darf die Verstärkung nicht mehr geändert werden, da aus den hier aufgenommenen Spektren die Energiekalibration gewonnen wird, welche von der Verstärkung abhängt. Würde man die Verstärkung verändern, so wäre die Energiekalibration nicht mehr anwendbar.
+Anschließend wurde die Verstärkung des Hauptverstärkers so erhöht, dass die $\SI{511}{\kilo\eV}$ Linie am Rechten Rand liegt und die $\SI{81}{\kilo\eV}$ Linie von \ba weiterhin gut erkennbar ist. Nach dieser Justage wurden Energiespektren mit \na und dann mit \ba als Quellen aufgenommen. Die so aufgenommenen Spektren werden für die Energiekalibration genutzt \cite[5]{525va}. Nach der Justage durfte die Verstärkung nicht mehr geändert werden, da aus den hier aufgenommenen Spektren die Energiekalibration gewonnen wird, welche von der Verstärkung abhängt. Würde man die Verstärkung verändern, so wäre die Energiekalibration nicht mehr anwendbar.
 
 
 \def\511kev{$\SI{511}{\kilo\eV}$}
 \def\1200kev{$\SI{511}{\kilo\eV}$}
 
 \subsection*{Rechte Seite}
-Dies wird mit der rechten Seite wiederholt. Qualitativ ist das \na Spektrum ein wenig gestaucht. Der \511kev Photopeak liegt nun bei ca. Kanal 2100, die zugehörige Compton-Kante bei ca. Kanal 1500, der \1200kev Photopeak bei etwa Kanal 5500. Es sticht ein weiterer Photopeak bei ca. Kanal 7750 auf, welcher nicht eindeutig zugeordnet werden konnte.
+Dies wird mit der rechten Seite wiederholt. Das Spektrum der rechten Seite ist in \fig{rechts/na_raw} zu sehen. Qualitativ ist das \na Spektrum ein wenig gestaucht. Der \511kev Photopeak liegt nun bei ca. Kanal 2100, die zugehörige Compton-Kante bei ca. Kanal 1500, der \1200kev Photopeak bei etwa Kanal 5500. Es sticht ein weiterer Photopeak bei ca. Kanal 7750 auf, welcher nicht eindeutig zugeordnet werden konnte.
+
 \jafps{rechts/na_raw}{Energiespektrum der \na Quelle am rechten Slow-Kreis. Zur besseren Lesbarkeit wurde auf Fehlerbalken verzichtet.}{0.75}
 
 
