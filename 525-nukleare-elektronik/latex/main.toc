@@ -3,24 +3,27 @@
 \contentsline {section}{\numberline {1.1}Hochspannung der Spektrometer}{4}{section.1.1}%
 \contentsline {subsection}{\numberline {1.1.1}Funktionsweise der Teilchendetektoren}{4}{subsection.1.1.1}%
 \contentsline {subsubsection}{\nonumberline Szintillationsdetektor}{4}{subsubsection*.3}%
-\contentsline {subsubsection}{\nonumberline Photomultiplier-Röhre (PMT)}{4}{subsubsection*.4}%
+\contentsline {subsubsection}{\nonumberline Photomultiplier-Röhre (PMT)}{5}{subsubsection*.4}%
 \contentsline {subsection}{\numberline {1.1.2}Messung der Hochspannung}{5}{subsection.1.1.2}%
 \contentsline {chapter}{\numberline {2}Einstellung der Slow-Kreise}{6}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Slow Pulse}{6}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Triggerung mit dem SCA}{7}{section.2.2}%
-\contentsline {section}{\numberline {2.3}Energiespektren}{9}{section.2.3}%
-\contentsline {section}{\numberline {2.4}Einkanalfenster für $\ce {^22 Na}$}{10}{section.2.4}%
-\contentsline {chapter}{\numberline {3}Energiekalibration}{11}{chapter.3}%
-\contentsline {chapter}{\numberline {4}Fast-Koinzidenzkreis}{17}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Kontrolle der Fast Pulse}{17}{section.4.1}%
-\contentsline {section}{\numberline {4.2}CFD-Schwelle}{17}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Fast Koinzidenz}{17}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Slow-Fast-Koinzidenz}{18}{section.4.4}%
-\contentsline {section}{\numberline {4.5}Promptkurve}{18}{section.4.5}%
-\contentsline {chapter}{\numberline {5}Lebensdauermessung}{19}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Zeitkalibration}{19}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Lebnsdauer eines Angeregten Cäsiumzustandes}{20}{section.5.2}%
-\contentsline {chapter}{\numberline {6}Fazit}{23}{chapter.6}%
-\contentsline {chapter}{\numberline {7}Anhang}{24}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Fehlerfortpflanzungen}{24}{section.7.1}%
+\contentsline {section}{\numberline {2.1}Niedervolt-Versorgungsspannungen kontrollieren}{6}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Slow Pulse}{7}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Triggerung mit dem SCA}{8}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Energiespektren}{11}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Einkanalfenster für $\ce {^22Na}$ }{13}{section.2.5}%
+\contentsline {chapter}{\numberline {3}Energiekalibration}{14}{chapter.3}%
+\contentsline {chapter}{\numberline {4}Fast-Koinzidenzkreis}{20}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Kontrolle der Fast Pulse}{20}{section.4.1}%
+\contentsline {section}{\numberline {4.2}CFD-Schwelle}{20}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Fast Koinzidenz}{20}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Slow-Fast-Koinzidenz}{21}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Promptkurve}{21}{section.4.5}%
+\contentsline {chapter}{\numberline {5}Lebensdauermessung}{22}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Zeitkalibration}{22}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Lebnsdauer eines Angeregten Cäsiumzustandes}{23}{section.5.2}%
+\contentsline {chapter}{\numberline {6}Fazit}{26}{chapter.6}%
+\contentsline {chapter}{\numberline {7}Anhang}{27}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Aufbauskizzen}{27}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Zerfallsschemata}{28}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Fehlerfortpflanzungen}{29}{section.7.3}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
