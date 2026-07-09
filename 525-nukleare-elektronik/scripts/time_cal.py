@@ -11,19 +11,20 @@ def load_data():
 def time_cal(plot=False):
     lines = load_data()
     times = 16 * np.arange(5) + 8
-    res, (err, rsq) = std.curve_fit(std.linear, times, lines)
-    # res, (err, rsq) = std.odr_fit(std.linear, lines,  times)
+    # res, (err, rsq) = std.curve_fit(std.linear, times, lines)
+    res, (err, rsq) = std.odr_fit(std.linear, lines,  times)
     if plot:
-        std.default.plt_errorbar(times, lines)
-        # std.default.plt_errorbar(lines, times)
+        # std.default.plt_errorbar(times, lines)
+        std.default.plt_errorbar(lines, times)
         std.default.plt_func(std.linear, res, f"$R^2 = {round(rsq, 4)}$")
-        std.default.plt_finish("Zeit / ns", "Linie / Bins")
-        # std.default.plt_finish("Linie / Bins", "Zeit / ns")
+        # std.default.plt_finish("Zeit / ns", "Linie / Bins")
+        std.default.plt_finish("Linie / Bins", "Zeit / ns")
     return p.ev(res, err)
 
 
 def invert(a, b):
-    return 1 / a, -b / a
+    return a, b
+    # return 1 / a, -b / a
 
 
 if __name__ == "__main__":
