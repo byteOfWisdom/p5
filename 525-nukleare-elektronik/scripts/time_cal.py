@@ -15,7 +15,7 @@ def time_cal(plot=False):
     res, (err, rsq) = std.odr_fit(std.linear, lines,  times)
     if plot:
         # std.default.plt_errorbar(times, lines)
-        std.default.plt_errorbar(lines, times)
+        std.default.plt_errorbar(lines, times,marker="x")
         std.default.plt_func(std.linear, res, f"$R^2 = {round(rsq, 4)}$")
         # std.default.plt_finish("Zeit / ns", "Linie / Bins")
         std.default.plt_finish("Linie / Bins", "Zeit / ns")
