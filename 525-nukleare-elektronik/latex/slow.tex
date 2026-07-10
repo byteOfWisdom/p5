@@ -92,20 +92,30 @@ Dies wird mit der rechten Seite wiederholt. Das Spektrum der rechten Seite ist i
 \label{sec:sca-fenster}
 
 \subsection*{Linke Seite}
-Nun werden die SCA Fenster so eingestellt, dass nur die \511kev Linie in diesem Liegt. Hierzu wird weiter der Aufbau zur aufnahme der Energiespektren verwendet und die Schwellen auf die Identifizierte Linie eingestellt. Anschließend wird erneut ein Spektrum aufgenommen um die Lage der Schwelle zu identifizieren.
+Nun werden die SCA Fenster so eingestellt, dass nur die \511kev Linie in diesem Liegt. Hierzu wird weiter der Aufbau zur Aufnahme der Energiespektren verwendet und die Schwellen auf die Identifizierte Linie eingestellt. Anschließend wird erneut ein Spektrum aufgenommen um die Lage der Schwelle zu identifizieren.
 
 Nach dem Einstellen der Schwellen wird erneut das DA Signal mit dem Oszilloskop betrachtet, zu sehen in \fig{links/na_fenster_oszi}. Es fällt auf, dass im Gegensatz zu \fig{links/main_amp_post} nur noch eine Amplitude vorkommt. Der Signalteiler darf nicht entfernt werden, da sich an diesem die Amplitude verändert. Würde man ihn entfernen, so müsste man die SCA Fenster neu einstellen und die Energiekalibration wäre nicht mehr zutreffend. Deshalb verbleibt der Signalteiler dauerhaft im Schaltkreis.
 
-\jafps{links/na_fenster_oszi}{\todo{ersetzen oder erklären warum kaputt}}{0.75}
+Hier, und ab hier, wurde versehentlich stets nur ein Kanal des Oszilliskops abgespeichert. Es ist stets der nicht Triggernde. Der Nullpunkt der Zeitachse ist stets der Triggerzeitpunkt. Daher lassen sich trotzdem noch einige Informationen gewinnen.
+
+
+\jafps{links/na_fenster_oszi}{Linksseitige DA Signale, getriggert am linken SCA Ausgang, welcher nicht sichtbar ist.}{0.75}
 
 
 \subsection*{Rechte Seite}
+Auf der rechten Seite wird das gleiche Verfahren angewandt. In \fig{rechts/na_fenster_oszi} kann gesehen werden, dass auch hier nur noch eine enge Häufung von Amplituden vorkommt.
+Die genauen Energien dieser Fenster können erst nach erfolgter Energiekalibration berechnet werden.
 
+\jafps{rechts/na_fenster_oszi}{Rechtsseiteige DA Signale, getriggert am rechten SCA Ausgang, welcher nicht sichtbar ist.}{0.75}
 
 
 \section{Slow-Koinzidenz}
+\jafpsh{tikz/slow_koinzidenz}{Schaltplan zur Einstellung und Überprüfung der Koinzidenz der beiden Slow-Kreise.}{0.75}
+Nun soll die Koinzidenz der beiden SCA Signale überprüft werden. Der Aufbau ist in \fig{tikz/slow_koinzidenz} gezeigt.
+Vor Anpassung der Verzögerung lag das rechte SCA Signal etwas vor dem linken, nachdem die Verzögerung angepasst wurde, lagen sie exakt übereinander. ZU sehen ist dies in \fig{slow_koinzidenz_oszi_pre} und \fig{slow_koinzidenz_oszi_post} anhand der Lage des sichtbaren Kanals zum Trigger. Ein Oszillogram beider Kanäle nach Anpassung wurde zur Verfügung gestellt\cite{oszidata} und ist in \fit{provided/Slow_Koinz_4} zu sehen. Eine vergleichbare Überlagerung wurde während der Durchführung erziehlt.
 
 
-\jafpsh{provided/Slow_Koinz_4}{Uns bereitgestellte Refernzaufnahme\cite{oszidata} der Slow Koinzidenz, mit beiden Kanälen sichtbar.}{0.75}
+\jafpp{slow_koinzidenz_oszi_pre}{Lage des rechten SCA Signals relativ zum linken Trigger, welcher an der steigenden Flanke des rechten SCA lag, vor Anpassung der Verzögerung}{slow_koinzidenz_oszi_post}{nach Anpassung der Verzögerung}
+\jafpsh{provided/Slow_Koinz_4}{Uns bereitgestellte Refernzaufnahme\cite{oszidata} der Slow Koinzidenz, mit beiden Kanälen sichtbar.}{0.5}
 
 \input{energiekalibration.tex}
