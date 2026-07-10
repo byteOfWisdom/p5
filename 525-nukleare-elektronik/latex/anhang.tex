@@ -15,8 +15,9 @@
 \section{Fehlerfortpflanzungen}
 
 \begin{align}
-	f(x, a, b) = ax + b &\imply \Delta f = \label{eq:lin_err} \\
-	f(\{x_i\}) = \frac{1}{N} \Sigma_{i=1}^N x_i \imply \Delta f = \label{eq:avg_err}
+	f(x, a, b) &= ax + b &\imply \Delta f = \sqrt{(a\Delta x)^2+(x\Delta a)^2 + (\Delta b)^2} \label{eq:lin_err} \\
+	f(\{x_i\}) &= \frac{1}{N} \Sigma_{i=1}^N x_i \imply \Delta f = \sqrt{\sum_{i=1}^N \left(\frac{\Delta x_i}{N}\right)^2} \label{eq:avg_err} \\
+	f(a, b) &= a - b \imply \Delta f = \sqrt{(\Delta a)^2 + (\Delta b)^2} \label{eq:diff_err}
 \end{align}
 
 
@@ -25,4 +26,3 @@
 \jafpsh{photo_fast_slow}{Foto des Aufbaus, auf welchem zufällig der Oszilloskopbildschirm beim einstellen der Slow-Fast-Koinzidenz sichtbar ist.}{0.75}
 \jafps{links/na_cfd_spectrum}{\na Spektrum mit CFD als Gate, linke Seite, ohne Fehler dargestellt, da diese keinerleir relevanz haben.}{0.75}
 \jafps{rechts/na_cfd_spectrum}{\na Spektrum mit CFD als Gate, rechte Seite, ohne Fehler dargestellt, da diese keinerleir relevanz haben.}{0.75}
-
