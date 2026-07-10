@@ -24,7 +24,7 @@
 \contentsline {section}{\numberline {4.2}Zeit-Pulshöhen-Konverter}{24}{section.4.2}%
 \contentsline {section}{\numberline {4.3}Kontrolle der Fast Pulse}{24}{section.4.3}%
 \contentsline {section}{\numberline {4.4}CFD-Schwelle}{25}{section.4.4}%
-\contentsline {section}{\numberline {4.5}Fast Koinzidenz}{27}{section.4.5}%
+\contentsline {section}{\numberline {4.5}Fast Koinzidenz}{28}{section.4.5}%
 \contentsline {section}{\numberline {4.6}Slow-Fast-Koinzidenz}{28}{section.4.6}%
 \contentsline {section}{\numberline {4.7}Promptkurve}{28}{section.4.7}%
 \contentsline {chapter}{\numberline {5}Messung der Lebensdauerkurve}{32}{chapter.5}%
