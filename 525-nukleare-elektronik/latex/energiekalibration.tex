@@ -8,31 +8,34 @@ Die Gaußkurven haben dabei die Form \cite[86-87]{leotechniques}:
 \end{align}
 
 \subsection*{Linke Seite}
-Die Energie der \ba $K_\alpha$ Linie liegt bei $\SI{32.194}{\kilo\eV}$\cite{nudatba133}.
-Die Anpassungsparameter der Photopeaks sind in \tab{links_na_ganz} und \tab{links_ba_ganz} zu finden. Diesen Linien wurden nun die relevanten Linien der jeweiligen Elemente zugeordnet. Dabei wurden relative Lagen und Intensitäten betrachtet. Die Zuordnung ist in \tab{links_energy_cal.table} zu finden. Diese Energien und Positionen der Linien werden nun gegeneinander aufgetragen und daran eine Gradengleichung der Form $E(\mu) = a \cdot \mu + b$ angepasst. Zu sehen ist dies in \fig{links/energy_cal}. Für diese Anpassung wurde \texttt{scipy curve\_fit} genutzt. Die so gefundenen Anpassungsparameter sind \input{../data/fits/links/energy_cal_res.txt}. Als Maß der Qualität dieser Anpassungen wurde als Anpassungsgüte das Bestimmtheitsmaß $R^2$ verwendet, da das reduzierte Chi-Quadrat $\chi^2_\text{red}$ \cite[88,106]{leotechniques} nur bei Distributionen anwendbar ist, was eine Gradengleichung nicht erfüllt \cite{rsquared}. Die Anpassungsgüten von $\lesssim 1$ legen nahe, dass eine gute Linearität in der Energiedomäne vorliegt und die Linien korrekt zugeordnet wurden.
+Die Anpassungsparameter der Photopeaks für die linke Seite sind in \tab{links_na_ganz} und \tab{links_ba_ganz} zu finden.
+Die Energie der \ba $K_\alpha$ Röntgenlinie, welche die intensive, niedrigenergetische Linie im \ba-Spektrum ganz links ist, liegt bei $\SI{32.194}{\kilo\eV}$\cite{nudatba133} und kann diesem Photopeak zugeordnet werden.
+ Den restlichen gut erkennbaren Linien wurden nun die relevanten $\gamma$-Linien der jeweiligen Elemente zugeordnet auf Basis des Zerfallsspektrums in Abbildung \ref{fig:zerfallbarium}. Dabei wurden relative Lagen und Intensitäten betrachtet. Die Zuordnung ist in \tab{links_energy_cal.table} zu finden.
+ Es gibt im Spektrum von \ba zwischen der $K\alpha$-Linie und der ersten zugeordneten $\gamma$-Linie bei $\SI{81.0}{\kilo\ev}$ noch zwei weitere kleinere Peaks, die nicht eindeutig einer Linie des Zerfallsschemas von \ba zugeordnet wurden. Hierbei könnte es sich um Röntgenlinien (der Energiebereich ist zwischen $\SIrange{32.194}{81.0}{\kilo\eV}$, was Röntgenstrahlung entspricht) der Materialien der Abschirmung oder vom \caesium, was beim \ba-Zerfall entsteht, handeln. Auch Ereignisse bei denen Photonen mit Molekülen der Abschirmungen stoßen und dadurch nicht mehr ihre ganze Energie im Detektor deponieren können, können zu verringerten Peakenergien führen. Weiter sind als Ursache auch Rückstreupeaks denkbar, die zu Comptonstreuung von höherenergetischen $\gamma$-Photonen im maximalen Streuwinkel gehören, was zu entsprechend verringerten Energien in den Photopeaks führt, was sich als zu niedrigeren Energien verschobener Photopeak mit deutlich geringerer Energie zeigt. Am wahrscheinlichsten sind aber Röntgenphotopeaks der Abschirmungsmaterialien.
 
-\todo{linien die nicht zugeordnet werden konnten erklären}
+ Die zugeordneten Energien und Positionen der Linien werden nun gegeneinander aufgetragen und daran eine Gradengleichung der Form $E(\mu) = a \cdot \mu + b$ angepasst. Zu sehen ist dies in \fig{links/energy_cal}. Für diese Anpassung wurde \texttt{scipy curve\_fit} genutzt. Die so gefundenen Anpassungsparameter sind \input{../data/fits/links/energy_cal_res.txt}. Als Maß der Qualität dieser Anpassungen wurde als Anpassungsgüte das Bestimmtheitsmaß $R^2$ verwendet, da das reduzierte Chi-Quadrat $\chi^2_\text{red}$ \cite[88,106]{leotechniques} nur bei Distributionen anwendbar ist, was eine Gradengleichung nicht erfüllt \cite{rsquared}. Die Anpassungsgüten von $\lesssim 1$ legen nahe, dass eine gute Linearität in der Energiedomäne vorliegt und die Linien korrekt zugeordnet wurden.
+
 
 \jafps{links/na_ganz}{Mit der linken Seite aufgenommenes \na Spektrum mit angepassten Gaußkurven}{0.75}
 \jafps{links/ba_ganz}{Mit der linken Seite aufgenommenes \ba Spektrum mit angepassten Gaußkurven}{1}
-\jafps{links/energy_cal}{\todo{caption}}{0.75}
-\jaftl{|c|c|c|c|c|}{../data/fits/links/na_ganz.table}{naganz}{links_na_ganz}
-\jaftl{|c|c|c|c|c|}{../data/fits/links/ba_ganz.table}{baganz}{links_ba_ganz}
-\jaft{|c|c|}{links_energy_cal.table}{\todo{caption this}}
+\jafps{links/energy_cal}{Auftragung der Schwerpunkte der Peaks mit zugeordneten Linienenergien für den linken Detektor.}{0.75}
+\jaftl{|c|c|c|c|c|}{../data/fits/links/na_ganz.table}{Anpassungsparameter der Gaußfunktionen für die Peaks im Spektrum von \na für die linke Seite.}{links_na_ganz}
+\jaftl{|c|c|c|c|c|}{../data/fits/links/ba_ganz.table}{Anpassungsparameter der Gaußfunktionen für die Peaks im Spektrum von \ba für die linke Seite.}{links_ba_ganz}
+\jaft{|c|c|}{links_energy_cal.table}{Auflistung der Zuordnung der Peakschwerpunkte zu Linienenergien für \ba und \na für den linken Detektor.}
 
 \subsection*{Rechte Seite}
-Die wurde für die rechte Seite wiederholt. Die Spektren sind in \fig{rechts/na_ganz} und \fig{rechts/ba_ganz}, die Anpassungsparameter der Linien in \tab{rechts_na_ganz} und \tab{rechts_ba_ganz} und die Zuordnungen der Linien zu den Energien sind in \tab{rechts_energy_cal.table}. Die Gradengleichung wird wie links angepasst und ergibt die Anpassungsparameter \input{../data/fits/rechts/energy_cal_res.txt}.
+Die wurde für die rechte Seite wiederholt. Die Spektren sind in \fig{rechts/na_ganz} und \fig{rechts/ba_ganz}, die Anpassungsparameter der Linien in \tab{rechts_na_ganz} und \tab{rechts_ba_ganz} und die Zuordnungen der Linien zu den Energien sind in \tab{rechts_energy_cal.table}. Die Gradengleichung wird wie links angepasst, was in \fig{rechts/energy_cal} als Schwerpunkte gegen die zugeordneten Energien der Linien dargestellt ist, und ergibt die Anpassungsparameter \input{../data/fits/rechts/energy_cal_res.txt}.
 \jafps{rechts/na_ganz}{Mit der rechten Seite Aufgenommenes \na Spektrum mit angepassten Gaußkurven}{0.75}
 \jafps{rechts/ba_ganz}{Mit der rechten Seite Aufgenommenes \ba Spektrum mit angepassten Gaußkurven}{1}
-\jafps{rechts/energy_cal}{}{0.75}
-\jaftl{|c|c|c|c|c|}{../data/fits/rechts/na_ganz.table}{naganz}{rechts_na_ganz}
-\jaftl{|c|c|c|c|c|}{../data/fits/rechts/ba_ganz.table}{baganz}{rechts_ba_ganz}
-\jaft{|c|c|}{rechts_energy_cal.table}{\todo{caption this}}
+\jafps{rechts/energy_cal}{Auftragung der Schwerpunkte der Peaks mit zugeordneten Linienenergien für den rechten Detektor.}{0.75}
+\jaftl{|c|c|c|c|c|}{../data/fits/rechts/na_ganz.table}{Anpassungsparameter der Gaußfunktionen für die Peaks im Spektrum von \na für die rechte Seite.}{rechts_na_ganz}
+\jaftl{|c|c|c|c|c|}{../data/fits/rechts/ba_ganz.table}{Anpassungsparameter der Gaußfunktionen für die Peaks im Spektrum von \ba für die rechte Seite.}{rechts_ba_ganz}
+\jaft{|c|c|}{rechts_energy_cal.table}{Auflistung der Zuordnung der Peakschwerpunkte zu Linienenergien für \ba und \na für den rechten Detektor.}
 
 
 \section{Energieauflösung}
 \subsection*{Linke Seite}
-Als Maß für die Energieauflösung wird die Halbwertsbreite (FWHM) der Linien genutzt. Hierzu werden nur die zugeordneten Photopeaks genutzt, da bei diesen davon ausgegangen werden kann, dass die intrinsische Linienbreite hinreichend klein ist um keinen relevanten Einfluss zu habem \todo{maybe cite}. Die Halbwertsbreite ergibt sich als $\text{FWHM} = \sigma \cdot \sqrt{8 \ln{2}}$ \cite[8]{ex_techniques}. Die Umrechnung auf Energien erfolgt durch Multiplikation mit der Steigung der Gradenanpassung der Energiekalibration. Die Unsicherheiten werden mit \eq{lin_err} berechnet. Die FWHM in Bins, sowie Energie sind in \tab{energy_fwhm_links} aufgelistet, und in \fig{links/energy_res_plot} gegen die Energien aufgetragen. Man erkennt klar, dass bei größeren Energien die Linienbreite zunimmt. Dies sorgt dafür, dass das Startsignal bei der späteren Lebensdauermessung deutlich mehr Photonen falscher Energien registriert als das Stopsignal.
+Als Maß für die Energieauflösung wird die Halbwertsbreite (FWHM) der Linien genutzt. Hierzu werden nur die zugeordneten Photopeaks genutzt, da bei diesen davon ausgegangen werden kann, dass die intrinsische Linienbreite hinreichend klein ist um keinen relevanten Einfluss zu haben. Die Halbwertsbreite ergibt sich als $\text{FWHM} = \sigma \cdot \sqrt{8 \ln{2}}$ \cite[8]{ex_techniques}. Die Umrechnung auf Energien erfolgt durch Multiplikation mit der Steigung der Gradenanpassung der Energiekalibration. Die Unsicherheiten werden mit \eq{lin_err} berechnet. Die FWHM in Bins, sowie Energie sind in \tab{energy_fwhm_links} aufgelistet, und in \fig{links/energy_res_plot} gegen die Energien aufgetragen. Man erkennt klar, dass bei größeren Energien die Linienbreite zunimmt. Dies sorgt dafür, dass das Startsignal bei der späteren Lebensdauermessung deutlich mehr Photonen falscher Energien registriert als das Stopsignal.
 
 \jafps{links/energy_res_plot}{Linienbreiten gegen Energie der linien des Linken Szintillators.}{0.9}
 \jaftl{|c|c|c|c|}{links_energy_fwhm.table}{Halbwertsbreiten des linken Szintillators}{energy_fwhm_links}
@@ -61,13 +64,12 @@ Die Lage der Schwellen ist also durch $x_0$ und $x_1$ beschrieben. Diese Schwell
 \todo{fit func erklären und ergebnisse}
 \todo{fehlerfortpflanzung energieintervalle}
 
-\jafps{links/sca_na_window_fit}{}{0.9}
-\jaft{|c|c|}{links_na_sca_window.table}{}
+\jafps{links/sca_na_window_fit}{Darstellung der Anpassungsfunktion für das SCA-Fenster der linken Seite.}{0.9}
+\jaft{|c|c|}{links_na_sca_window.table}{Anpassungsparameter der Anpassungsfunktion für das SCA-Fenster der linken Seite.}
 
 \subsection*{Rechte Seite}
 Die Anpassungsparameter sind in \tab{rechts_na_sca_window.table} angegeben, die Anpassung und ein relevanter Ausschnit des Spektrums in \fig{rechts/sca_na_window_fit} Aufgetragen.
 Die Schwellen sind dann \input{../data/fits/rechts/na_sca_edges.txt}. Das Fenster hat dann eine Breite von \input{../data/fits/rechts/na_sca_interval.txt}. Die Überlegungen bezüglich der Linienbreite wie links, gelten hier ebenfalls.
 
-\jafps{rechts/sca_na_window_fit}{}{0.9}
-\jaft{|c|c|}{rechts_na_sca_window.table}{}
-
+\jafps{rechts/sca_na_window_fit}{Darstellung der Anpassungsfunktion für das SCA-Fenster der rechten Seite.}{0.9}
+\jaft{|c|c|}{rechts_na_sca_window.table}{Anpassungsparameter der Anpassungsfunktion für das SCA-Fenster der rechten Seite.}
