@@ -1,5 +1,5 @@
 \chapter{Energiekalibration}
-Zur Energiekalibration werden an die aufgenommenen Energiespektren Gaußkurven mit konstantem Untergrund angepasst. Bei sich überlagernden Linien werden bis zu zwei Gaußkurven gleichzeitig angepasst.
+Zur Energiekalibration werden an die aufgenommenen Energiespektren Gaußkurven mit konstantem Untergrund angepasst. Bei sich überlagernden Linien werden bis zu zwei Gaußkurven gleichzeitig angepasst. Für alle Anpassungen wurde \texttt{scipy} verwendet\cite{scipy}.
 
 Die Gaußkurven haben dabei die Form \cite[86-87]{leotechniques}:
 
@@ -58,19 +58,17 @@ Die genaue Lage der SCA Schwellen wird aus dem Spektrum mit eingestellten Schwel
 	g(x, A, \mu, \sigma) &= \frac{A}{\sqrt{2 \pi} \sigma} \exp(\frac{- (x - \mu)^2}{2 \sigma^2})
 \end{align}
 
-Hierbei dienen die Errorfunktionen als stetige Stufen, welche das Abschneiden des Spektrums durch die SCA Schwellen gut darstellen. Die Gaußkurve dient der Beschreibung der Linie, welche von den Fenstern eingeschlossen wird und die Konstante c dient der Beschreibung des Untergrundes welcher sich über der oberen Schwelle findet. Diese Funktion ist insgesamt weitesgehend heuristisch. Anhand der Fitgüte wird überprüft ob die gewählte Funktion in der Praxis eine gute Beschreibung der gemessenen Daten ist.
-Die Anpassungsparameter sind in \tab{links_na_sca_window.table} angegeben, die Anpassung und ein relevanter Ausschnit des Spektrums in \fig{links/sca_na_window_fit} Aufgetragen.
+Hierbei dienen die Fehlerfunktionen\cite[11]{525va} als stetige Stufen, welche das Abschneiden des Spektrums durch die SCA Schwellen gut darstellen. Die Gaußkurve dient der Beschreibung der Linie, welche von den Fenstern eingeschlossen wird und die Konstante c dient der Beschreibung des Untergrundes welcher sich über der oberen Schwelle findet. Diese Funktion ist insgesamt weitesgehend heuristisch. Anhand der Fitgüte wird überprüft ob die gewählte Funktion in der Praxis eine gute Beschreibung der gemessenen Daten ist.
+Die Anpassungsparameter sind in \tab{links_na_sca_window.table} angegeben, die Anpassung und ein relevanter Ausschnit des Spektrums in \fig{links/sca_na_window_fit} Aufgetragen. Dabei zeigt die gute Anpassungsgüte, dass das gewählte Modell den vorliegenden Fall gut beschreibt.
 Die Lage der Schwellen ist also durch $x_0$ und $x_1$ beschrieben. Diese Schwellen werden mittels der Energiekalibration in Energien umgerechnet, die Unsicherheiten ergeben sich nach \eq{lin_err}. Die Schwellen sind dann \input{../data/fits/links/na_sca_edges.txt}. Das Fenster hat dann eine Breite von \input{../data/fits/links/na_sca_interval.txt}. Diese Fensterbreite ist deutlich größer als die FWHM der Energie bei \511kev, was hierbei unkritisch ist, da es keine nahegelegenen Linien gibt, welche fälschlicherweise in das Fenster fallen könnten.
-\todo{auf fitgüte eingehen!!}
 
-\todo{fit func erklären und ergebnisse}
 Die Fensterbreite ist durch $\Delta E = x_1 - x_0$ gegeben, die zugehörige Fehlerfortpflanzung durch \eq{diff_err}.
 
 \jafps{links/sca_na_window_fit}{Darstellung der Anpassungsfunktion für das SCA-Fenster der linken Seite.}{0.9}
 \jaft{|c|c|}{links_na_sca_window.table}{Anpassungsparameter der Anpassungsfunktion für das SCA-Fenster der linken Seite.}
 
 \subsection*{Rechte Seite}
-Die Anpassungsparameter sind in \tab{rechts_na_sca_window.table} angegeben, die Anpassung und ein relevanter Ausschnit des Spektrums in \fig{rechts/sca_na_window_fit} Aufgetragen.
+Die Anpassungsparameter sind in \tab{rechts_na_sca_window.table} angegeben, die Anpassung und ein relevanter Ausschnit des Spektrums in \fig{rechts/sca_na_window_fit} Aufgetragen. Auch hier ist die Anpassungsgüte zufriedenstellend.
 Die Schwellen sind dann \input{../data/fits/rechts/na_sca_edges.txt}. Das Fenster hat dann eine Breite von \input{../data/fits/rechts/na_sca_interval.txt}. Die Überlegungen bezüglich der Linienbreite wie links, gelten hier ebenfalls.
 
 \jafps{rechts/sca_na_window_fit}{Darstellung der Anpassungsfunktion für das SCA-Fenster der rechten Seite.}{0.9}
