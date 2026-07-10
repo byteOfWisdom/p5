@@ -1,5 +1,8 @@
 \chapter{Fast-Koinzidenzkreis}
 
+\input{cfd.tex}
+\input{tac.tex}
+
 \section{Kontrolle der Fast Pulse}
 Der Aufbau zur Kontrolle der Fast-Pulse ist in \fig{tikz/fast_pulse_kontrolle} dargestellt.
 
@@ -7,11 +10,12 @@ Der Aufbau zur Kontrolle der Fast-Pulse ist in \fig{tikz/fast_pulse_kontrolle} d
 
 \subsection*{Linke Seite}
 \jafps{links/fast_pulse}{}{0.9}
-\todo{fast pulse vom scint kontrollieren}
-\todo{polaritäten diskutieren}
-\todo{anstiegszeit diskutieren}
+
+Es werden die Pulse direkt hinter dem Fast-Ausgang des Detektors Oszilloskopiert. Zu sehen ist ein solcher Puls in \fig{links/fast_pulse}. Es fällt zunächst auf, dass dieser Puls negative Polarität hat, im Gegenteil zu den Slow-Pulsen, welche positive Polariät hatten. Des weiteren ist die Anstiegszeit\footnote{Hier ist das übliche 90/10 Kriterium gemeint, bei welchem der Zeitabstand zwischen $10\%$ und $90\%$ der maximalen Amplitude abgelesen wird} hier nun bei etwa $\SI{10(10)}{\nano\second}$\footnote{die geringe Genauigkeit liegt hierbei daran, dass nur eine Oszilloskopaufnahme mit relativ grober Zeitauflösung nicht fehlerhaft war.}.
+Die Amplitude des oszilloskopierten Fast-Signals liegt bei $\SI{-41(5)}{\milli\volt}$. Sie war representativ für andere Fast-Pulse, welche beobachtet wurden. Die Pulsdauer liegt bei $\SI{0.550(75)}{\micro\second}$. Verglichen mit den Slow-Pulsen (selbst hinter dem Pulsformenden Verstärker) sind diese Pulse eine Größenordnung kürzer und haben eine etwa $5$ mal kürzere Anstiegszeit. Abgesehen von der gegenteiligen Polarität ist außerdem die Amplitude deutlich kleiner als bei den Slow-Kreis Pulsen. Dies lässt sich nur schwer quantifizieren, da die Amplituden des Slow-Kreises stark schwanken (in Abhängigkeit der Energie), insgesamt ist der Betrag der Amplitude der Fast-Pulse aber deutlich kleiner. All diese Unterschiede sind zu erwarten, da nah weniger Verstärkerstufen im PMT abgegriffen wird, mit dem spezifischen zweck einer besseren Zeitauflösung.
 
 \subsection*{Rechte Seite}
+Für die rechte Seite liegt keine seperate Oszilloskopaufnahme vor, bei der durchführung wurden jedoch keine Unterschiede zur linken Seite bemerkt. Die Pulsformen und Amplituden beider Seiten waren, zumindest bei rein visueller Betrachtung, im Rahmen der Schwankungen zwischen Pulsen, gleich.
 
 
 \section{CFD-Schwelle}
@@ -19,15 +23,29 @@ Der Aufbau, welcher zum Einstellen der CFD Schwellen genutzt wurde ist in \fig{t
 
 \jafpp{tikz/cfd_schwelle_oszi}{}{tikz/cfd_schwelle_mca}{}
 \subsection*{Linke Seite}
-\todo{cfd schwelle}
-\todo{erläutern was sich ändert wenn an cfd schwelle gedreht wird}
+Die CFD Schwelle wird zunächst ganz runter gedreht. Hierbei fällt auf, dass das Potentiometer der linken CFD Schwelle defekt ist, weshalb eine genaue Einstellung nicht möglich ist. Insbesondere scheint die absolute Position des Potentiometers nicht relevant für das Verhalten des CFD zu sein sondern nur die Richtung und Menge der jeweils letzten Rotation.
+
+Zunächst wurde die CFD Schwelle weitest möglich nach unten gedreht. Anschließend wird, mit der Schaltung aus \fig{tikz/cfd_schwelle_oszi}, die Signale des DA gegen die CFD Signale dargestellt. Hierbei wird mit dem Ausgang des CFD getriggert. In \fig{links/scope_cfd_down} sind die so gemessenen DA Signale zu sehen. Man erkennt eine mit \fig{links/main_amp_pre} vergleichbare Verteilung der Amplituden der DA Signale, bei denen der CFD ausgelöst hat. Die bedeutet, dass der CFD Energieunabhängig auslöst. Beim späteren Aufzeichnen eines Spektrums wird die überprüft.
+Bei verstellen der CFD Schwelle fallen sofort Signale mit kleiner Amplitude weg, wobei die Empfindlichkeit auf kleinste Veränderungen der Einstellung groß ist.
+
 \jafps{links/scope_cfd_down}{Getriggert auf dem nicht gezeigten Kanal. Hier zu sehen die Signale, am DA, bei welchen der CFD getriggert hat.}{0.9}
+Mit dem CFD als Gate werden nun Energiespektren der beiden Proben aufgenommen. Anhand der \na Messung kann die Lage der CFD Schwelle gut quantifiziert werden, in dem eine Errorfunktion an den Anfang angepasst wird. Bei der \ba Probbe wird überprüft ob die $K_\alpha$ Linie gut aufgelöst werden kann. 
+
+\todo{anpassungsfunktion}
+
+Die Anpassungsparameter sind dann \input{../data/fits/links/cfd_edge_fit.txt}.
+
+\jafps{links/cfd_edge}{Anpssung zur Bestimmung der linken CFD Schwelle, an die ersten $1500$ Kanäle.}{0.9}
+
+\todo{cfd schwelle}
 \todo{ba spektrum mit cfd trigger}
 \todo{cfd schwelle daraus?}
 \todo{ist es sinnvoll ins spektrum zu schneiden}
 
 \subsection*{Rechte Seite}
 
+Die Anpassungsparameter sind dann \input{../data/fits/rechts/cfd_edge_fit.txt}.
+\jafps{rechts/cfd_edge}{Anpssung zur Bestimmung der linken CFD Schwelle, an die ersten $1500$ Kanäle.}{0.9}
 
 \section{Fast Koinzidenz}
 Der Aufbau um die Fast-Kreis Koinzidenz zu einzustellen und zu überprüfen ist in \fig{tikz/fast_koinzidenz} abgebildet.

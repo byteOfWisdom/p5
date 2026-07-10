@@ -20,9 +20,13 @@ def fit_edge(side):
     p0 = [500, 250, 0.01]
     res, (err, rsq) = std.odr_fit(edge_func, x, y, p0)
     print(p.ev(res, err))
+    params = p.ev(res, err)
+    fit_param_string = f"{std.si_string("x_0", params[0], "\\bin")}, {std.si_string("a", params[1], "\\count")} und {std.si_string("b", params[2], "\\unity")}"
+    std.write_file(f"../data/fits/{side}/cfd_edge_fit.txt", fit_param_string)
     std.default.plt_errorbar(x, y)
     std.default.plt_func(edge_func, res, f"$R^2 = {round(rsq, 3)}$")
-    std.default.plt_finish("", "")
+    std.default.plt_finish("Bin", "Anzahl", f"../figs/{side}/cfd_edge.pdf")
+
 
 if __name__ == "__main__":
     fit_edge("links")
