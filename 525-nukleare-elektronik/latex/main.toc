@@ -12,32 +12,33 @@
 \contentsline {section}{\numberline {3.4}Einkanalanalysator}{8}{section.3.4}%
 \contentsline {section}{\numberline {3.5}Mehrkanalanalysator}{9}{section.3.5}%
 \contentsline {section}{\numberline {3.6}Gate-Delay-Generator}{9}{section.3.6}%
-\contentsline {section}{\numberline {3.7}Slow Pulse}{9}{section.3.7}%
-\contentsline {section}{\numberline {3.8}Triggerung mit dem SCA}{10}{section.3.8}%
-\contentsline {section}{\numberline {3.9}Energiespektren}{13}{section.3.9}%
-\contentsline {section}{\numberline {3.10}Einkanalfenster für $\ce {^22Na}$ }{15}{section.3.10}%
-\contentsline {section}{\numberline {3.11}Slow-Koinzidenz}{17}{section.3.11}%
+\contentsline {section}{\numberline {3.7}Koinzidenzeinheit}{9}{section.3.7}%
+\contentsline {section}{\numberline {3.8}Slow Pulse}{9}{section.3.8}%
+\contentsline {section}{\numberline {3.9}Triggerung mit dem SCA}{10}{section.3.9}%
+\contentsline {section}{\numberline {3.10}Energiespektren}{14}{section.3.10}%
+\contentsline {section}{\numberline {3.11}Einkanalfenster für $\ce {^22Na}$ }{15}{section.3.11}%
+\contentsline {section}{\numberline {3.12}Slow-Koinzidenz}{16}{section.3.12}%
 \contentsline {chapter}{\numberline {4}Energiekalibration}{18}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Energieauflösung}{20}{section.4.1}%
 \contentsline {section}{\numberline {4.2}SCA Fenster}{20}{section.4.2}%
-\contentsline {chapter}{\numberline {5}Fast-Koinzidenzkreis}{28}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Constant Fraction Discriminator}{28}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Zeit-Pulshöhen-Konverter}{28}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Kontrolle der Fast Pulse}{28}{section.5.3}%
-\contentsline {section}{\numberline {5.4}CFD-Schwelle}{29}{section.5.4}%
-\contentsline {section}{\numberline {5.5}Fast Koinzidenz}{34}{section.5.5}%
-\contentsline {section}{\numberline {5.6}Slow-Fast-Koinzidenz}{36}{section.5.6}%
-\contentsline {section}{\numberline {5.7}Promptkurve}{38}{section.5.7}%
-\contentsline {chapter}{\numberline {6}Messung der Lebensdauerkurve}{40}{chapter.6}%
-\contentsline {section}{\numberline {6.1}SCA Fenster für $\ce {^133Ba}$ }{40}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Koinzidenzen kontrollieren}{40}{section.6.2}%
-\contentsline {chapter}{\numberline {7}Lebensdauermessung}{42}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Zeitkalibration}{42}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Lebensdauer eines angeregten $\ce {^133Cs}$ Zustands}{44}{section.7.2}%
-\contentsline {chapter}{\numberline {8}Fazit}{46}{chapter.8}%
-\contentsline {chapter}{\numberline {9}Anhang}{47}{chapter.9}%
-\contentsline {section}{\numberline {9.1}Aufbauskizzen}{47}{section.9.1}%
-\contentsline {section}{\numberline {9.2}Zerfallsschemata}{48}{section.9.2}%
-\contentsline {section}{\numberline {9.3}Fehlerfortpflanzungen}{49}{section.9.3}%
-\contentsline {section}{\numberline {9.4}zusätzliche Abbildungen}{49}{section.9.4}%
+\contentsline {chapter}{\numberline {5}Fast-Koinzidenzkreis}{29}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Constant Fraction Discriminator}{29}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Zeit-Pulshöhen-Konverter}{29}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Kontrolle der Fast Pulse}{29}{section.5.3}%
+\contentsline {section}{\numberline {5.4}CFD-Schwelle}{30}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Fast Koinzidenz}{35}{section.5.5}%
+\contentsline {section}{\numberline {5.6}Slow-Fast-Koinzidenz}{37}{section.5.6}%
+\contentsline {section}{\numberline {5.7}Promptkurve}{39}{section.5.7}%
+\contentsline {chapter}{\numberline {6}Messung der Lebensdauerkurve}{41}{chapter.6}%
+\contentsline {section}{\numberline {6.1}SCA Fenster für $\ce {^133Ba}$ }{41}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Koinzidenzen kontrollieren}{41}{section.6.2}%
+\contentsline {chapter}{\numberline {7}Lebensdauermessung}{43}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Zeitkalibration}{43}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Lebensdauer eines angeregten $\ce {^133Cs}$ Zustands}{45}{section.7.2}%
+\contentsline {chapter}{\numberline {8}Fazit}{47}{chapter.8}%
+\contentsline {chapter}{\numberline {9}Anhang}{48}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Aufbauskizzen}{48}{section.9.1}%
+\contentsline {section}{\numberline {9.2}Zerfallsschemata}{49}{section.9.2}%
+\contentsline {section}{\numberline {9.3}Fehlerfortpflanzungen}{50}{section.9.3}%
+\contentsline {section}{\numberline {9.4}zusätzliche Abbildungen}{50}{section.9.4}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

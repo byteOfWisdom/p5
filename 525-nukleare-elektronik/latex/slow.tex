@@ -5,10 +5,9 @@
 \input{shaping_amp.tex}
 \input{splitter.tex}
 \input{sca.tex}
-% \input{delay_amp.tex}
-\todo{delay amp erklären}
 \input{mca.tex}
 \input{gdg.tex}
+\input{coincidence_unit.tex}
 
 \section{Slow Pulse}
 
@@ -113,7 +112,7 @@ Die genauen Energien dieser Fenster können erst nach erfolgter Energiekalibrati
 \jafpsh{tikz/slow_koinzidenz}{Schaltplan zur Einstellung und Überprüfung der Koinzidenz der beiden Slow-Kreise.}{0.75}
 Nun soll die Koinzidenz der beiden SCA Signale überprüft werden. Der Aufbau ist in \fig{tikz/slow_koinzidenz} gezeigt.
 Vor Anpassung der Verzögerung lag das rechte SCA Signal etwas vor dem linken, nachdem die Verzögerung angepasst wurde, lagen sie exakt übereinander. ZU sehen ist dies in \fig{slow_koinzidenz_oszi_pre} und \fig{slow_koinzidenz_oszi_post} anhand der Lage des sichtbaren Kanals zum Trigger. Ein Oszillogram beider Kanäle nach Anpassung wurde zur Verfügung gestellt\cite{oszidata} und ist in \fit{provided/Slow_Koinz_4} zu sehen. Eine vergleichbare Überlagerung wurde während der Durchführung erziehlt.
-
+Die Pulse aus den SCA sind Logiksignale mit einer Amplitude von $\SI{5.9(1)}{\volt}$ und einer Pulsdauer von $\SI{0.6(2)}{\micro\seconds}$. Beide Werte liegen etwas über den den Bauteilangaben\cite{sca}, was allerdings keinerlei Einfluss auf den Versuch hat, da die Pulsdauer und genaue Amplitude der Logiksignale nicht relevant ist, so lange alle Gate Eingänge sie gut registrieren können.
 
 \jafpp{slow_koinzidenz_oszi_pre}{Lage des rechten SCA Signals relativ zum linken Trigger, welcher an der steigenden Flanke des rechten SCA lag, vor Anpassung der Verzögerung}{slow_koinzidenz_oszi_post}{nach Anpassung der Verzögerung}
 \jafpsh{provided/Slow_Koinz_4}{Uns bereitgestellte Refernzaufnahme\cite{oszidata} der Slow Koinzidenz, mit beiden Kanälen sichtbar.}{0.5}
