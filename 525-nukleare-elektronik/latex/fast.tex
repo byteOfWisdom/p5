@@ -29,7 +29,9 @@ Der Aufbau, welcher zum Einstellen der CFD Schwellen genutzt wurde ist in \fig{t
 \subsection*{Linke Seite}
 Die CFD Schwelle wird zunächst ganz runter gedreht. Hierbei fällt auf, dass das Potentiometer der linken CFD Schwelle defekt ist, weshalb eine genaue Einstellung nicht möglich ist. Insbesondere scheint die absolute Position des Potentiometers nicht relevant für das Verhalten des CFD zu sein sondern nur die Richtung und Menge der jeweils letzten Rotation.
 
-Zunächst wurde die CFD Schwelle weitest möglich nach unten gedreht. Anschließend wird, mit der Schaltung aus \fig{tikz/cfd_schwelle_oszi}, die Signale des DA gegen die CFD Signale dargestellt. Hierbei wird mit dem Ausgang des CFD getriggert. In \fig{links/scope_cfd_down} sind die so gemessenen DA Signale zu sehen. Man erkennt eine mit \fig{links/main_amp_pre} vergleichbare Verteilung der Amplituden der DA Signale, bei denen der CFD ausgelöst hat. Die bedeutet, dass der CFD Energieunabhängig auslöst. Beim späteren Aufzeichnen eines Spektrums wird die überprüft.
+Der GDG wurde mittels Oszilloskop so eingestellt, dass die DA Pulse und GDG Pulse sich komplett überlappen.
+
+Zunächst wurde die CFD Schwelle weitest möglich nach unten gedreht. Anschließend wird, mit der Schaltung aus \fig{tikz/cfd_schwelle_oszi}, die Signale des DA gegen die CFD Signale dargestellt. Hierbei wird mit dem Ausgang des CFD getriggert. In \fig{links/scope_cfd_down} sind die so gemessenen DA Signale zu sehen. Man erkennt eine mit \fig{links/main_amp_pre} vergleichbare Verteilung der Amplituden der DA Signale, bei denen der CFD ausgelöst hat. Die bedeutet, dass der CFD Energieunabhängig auslöst. Beim späteren Aufzeichnen eines Spektrums wird dies überprüft. Dabei ist die Gate Bedingung des MCA das Signal des GDG, welchees durch Auslösen des CFD initiiert wird.
 Bei verstellen der CFD Schwelle fallen sofort Signale mit kleiner Amplitude weg, wobei die Empfindlichkeit auf kleinste Veränderungen der Einstellung groß ist.
 
 \jafps{links/scope_cfd_down}{Getriggert auf dem nicht gezeigten Kanal. Hier zu sehen die Signale, am DA, bei welchen der CFD getriggert hat.}{0.9}
@@ -51,7 +53,7 @@ In \fig{../data/fits/links/cfd_ba_spectrum} erkennt man daher, dass die $K_\alph
 \jaftl{|c|c|c|c|c|}{../data/fits/links/cfd_ba_spectrum.table}{Anpassungsparameter zu \fig{../data/fits/links/cfd_ba_spectrum}}{cfd_ba_fits_links}
 
 \subsection*{Rechte Seite}
-
+Die Beobachtungen und Einstellungen auf der rechten Seite waren weitesgehend gleich zu denen der Linken Seite. Der relevanteste Unterschied war das Funktionierende Potentiometer des rechten CFD, welches eine Einstellung ermöglichte. Die Oszilloskopierung\footnote{Bei der Speicherung wurden lediglich die ausgangssignale des GDG aufgezeichnet, die Beobachtung war aber vergleichbar mit der linken Seite.} der rechten Seite zeigte das gleiche Verhalten wie bei der linken Seite.
 Die Anpassungsparameter sind dann \input{../data/fits/rechts/cfd_edge_fit.txt}. Das gesamte \na Spektrum ist in \fig{rechts/na_cfd_spectrum} angehangen.
 Auch hier ekennt man in \fig{../data/fits/rechts/cfd_ba_spectrum} dass die $K_\alpha$ Linie eine geringe relative Intensität aufweist, verglichen mit dem mit SCA aufgenommenen Energiespektrum.
 \jafps{rechts/cfd_edge}{Anpssung zur Bestimmung der rechten CFD Schwelle, an die ersten $1500$ Kanäle.}{0.9}
@@ -62,8 +64,10 @@ Die rechte CFD Schwelle liegt deutlich niedriger, daher wird im weiteren der rec
 
 
 \section{Fast Koinzidenz}
+Nun wird die Koinzidenz der beiden Fast-Signale zueinander eingestellt und überprüft.
 Der Aufbau um die Fast-Kreis Koinzidenz zu einzustellen und zu überprüfen ist in \fig{tikz/fast_koinzidenz} abgebildet.
-\jafps{tikz/fast_koinzidenz}{}{0.75}
+Wie im letzten Abschnitt erwähnt wurde entschieden, den rechten Detektor für das Stop-Signal zu nutzen, daher wurde dieser über den $\unit{\nano\second}$ Delay geleitet. 
+\jafps{tikz/fast_koinzidenz}{Schaltplan zur Überprüfung und Einstellung der Koinzidenz der Fast-Signale zueinander.}{0.75}
 \todo{fast koinzidenz}
 \todo{AULFÖSUNGSZEIT vom TAC!!!}
 \todo{welche quelle wird benutzt}
