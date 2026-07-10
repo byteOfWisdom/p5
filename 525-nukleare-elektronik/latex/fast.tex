@@ -18,6 +18,10 @@ Die Amplitude des oszilloskopierten Fast-Signals liegt bei $\SI{-41(5)}{\milli\v
 Für die rechte Seite liegt keine seperate Oszilloskopaufnahme vor, bei der durchführung wurden jedoch keine Unterschiede zur linken Seite bemerkt. Die Pulsformen und Amplituden beider Seiten waren, zumindest bei rein visueller Betrachtung, im Rahmen der Schwankungen zwischen Pulsen, gleich.
 
 
+\def\startLine{$\SI{356.0}{\kilo\eV}$}
+\def\380kev{$\SI{383.8}{\kilo\eV}$}
+\def\81kev{$\SI{81.0}{\kilo\eV}$}
+
 \section{CFD-Schwelle}
 Der Aufbau, welcher zum Einstellen der CFD Schwellen genutzt wurde ist in \fig{tikz/cfd_schwelle_oszi} und der Aufbau zur Aufnahme eines Energiespektrums mit CFD als Gate in \fig{tikz/cfd_schwelle_mca} dargestellt.
 
@@ -31,21 +35,31 @@ Bei verstellen der CFD Schwelle fallen sofort Signale mit kleiner Amplitude weg,
 \jafps{links/scope_cfd_down}{Getriggert auf dem nicht gezeigten Kanal. Hier zu sehen die Signale, am DA, bei welchen der CFD getriggert hat.}{0.9}
 Mit dem CFD als Gate werden nun Energiespektren der beiden Proben aufgenommen. Anhand der \na Messung kann die Lage der CFD Schwelle gut quantifiziert werden, in dem eine Errorfunktion an den Anfang angepasst wird. Bei der \ba Probbe wird überprüft ob die $K_\alpha$ Linie gut aufgelöst werden kann. 
 
-\todo{anpassungsfunktion}
+Als Anpassungsfunktion wir hier, mit $\erf()$ der Fehlerfunktion \cite[11]{525va}
+\begin{align}
+	f(x, x0, a, b) = \frac{a}{2} \cdot (1 + \erf(b (x - x_)))
+\end{align}
+genutzt. Dies dient lediglich als eine Stetige Stufe, mit veränderbarer Steigung und ist abgesehen davon heuristisch begründet. Die guten Anpassungsgüten, wie auch die geringe Anzahl an Parametern zeigen aber, dass es sich um eine gute Beschreibung des vorliegenden Prozesses handelt.
 
-Die Anpassungsparameter sind dann \input{../data/fits/links/cfd_edge_fit.txt}.
+
+Die Anpassungsparameter sind dann \input{../data/fits/links/cfd_edge_fit.txt}. Da die Schwelle nicht ganz scharf ist, äußert sich diese als rapide fallende Detektionseffizienz, im Bereich der Schwelle. Das gesamte \na Spektrum ist in \fig{links/na_cfd_spectrum} angehangen.
+In \fig{../data/fits/links/cfd_ba_spectrum} erkennt man daher, dass die $K_\alpha$ Linie eine sehr geringe Intensität aufweist.
 
 \jafps{links/cfd_edge}{Anpssung zur Bestimmung der linken CFD Schwelle, an die ersten $1500$ Kanäle.}{0.9}
+\jafps{../data/fits/links/cfd_ba_spectrum}{\ba Spektrum, aufgenommen mit der linken Seite mit CFD als Gate. Die Parameter der eingezeichneten Anpassungen sind in \todo{refrence} gelistet. Die angepassten Linien sind nur zu illustrationszwecken vldr. die $K_\alpha$, \81kev, \startLine und die \380kev Line. Dies kann anhand durch Vergleich mit \tab{links_energy_cal.table} gesehen werden.}{0.9}
 
-\todo{cfd schwelle}
-\todo{ba spektrum mit cfd trigger}
-\todo{cfd schwelle daraus?}
-\todo{ist es sinnvoll ins spektrum zu schneiden}
+\jaftl{|c|c|c|c|c|}{../data/fits/links/cfd_ba_spectrum.table}{Anpassungsparameter zu \fig{../data/fits/links/cfd_ba_spectrum}}{cfd_ba_fits_links}
 
 \subsection*{Rechte Seite}
 
-Die Anpassungsparameter sind dann \input{../data/fits/rechts/cfd_edge_fit.txt}.
-\jafps{rechts/cfd_edge}{Anpssung zur Bestimmung der linken CFD Schwelle, an die ersten $1500$ Kanäle.}{0.9}
+Die Anpassungsparameter sind dann \input{../data/fits/rechts/cfd_edge_fit.txt}. Das gesamte \na Spektrum ist in \fig{rechts/na_cfd_spectrum} angehangen.
+Auch hier ekennt man in \fig{../data/fits/rechts/cfd_ba_spectrum} dass die $K_\alpha$ Linie eine geringe relative Intensität aufweist, verglichen mit dem mit SCA aufgenommenen Energiespektrum.
+\jafps{rechts/cfd_edge}{Anpssung zur Bestimmung der rechten CFD Schwelle, an die ersten $1500$ Kanäle.}{0.9}
+\jafps{../data/fits/rechts/cfd_ba_spectrum}{\ba Spektrum, aufgenommen mit der rechten Seite mit CFD als Gate. Die Parameter der eingezeichneten Anpassungen sind in \tab{cfd_ba_fits_rechts} gelistet. Die angepassten Linien sind nur zu illustrationszwecken vldr. die $K_\alpha$, \81kev, \startLine und die \380kev Line. Dies kann anhand durch Vergleich mit \tab{rechts_energy_cal.table} gesehen werden.}{0.9}
+Die rechte CFD Schwelle liegt deutlich niedriger, daher wird im weiteren der rechte Kreis als Stopsignal genutzt, um die bessere Detektionseffizienz bei kleineren Energien auszunutzen. Es macht keinen Sinn in das Spekrum zu schneiden, da dies lediglich die Detektionseffizienz der relevanten Linien reduzieren würde. Die Filterung der Energien wird durch den Slow-Kreis übernommen.
+
+\jaftl{|c|c|c|c|c|}{../data/fits/rechts/cfd_ba_spectrum.table}{Anpassungsparameter zu \fig{../data/fits/rechts/cfd_ba_spectrum}}{cfd_ba_fits_rechts}
+
 
 \section{Fast Koinzidenz}
 Der Aufbau um die Fast-Kreis Koinzidenz zu einzustellen und zu überprüfen ist in \fig{tikz/fast_koinzidenz} abgebildet.
