@@ -24,19 +24,19 @@
 \contentsline {section}{\numberline {5.2}Zeit-Pulshöhen-Konverter}{25}{section.5.2}%
 \contentsline {section}{\numberline {5.3}Kontrolle der Fast Pulse}{25}{section.5.3}%
 \contentsline {section}{\numberline {5.4}CFD-Schwelle}{26}{section.5.4}%
-\contentsline {section}{\numberline {5.5}Fast Koinzidenz}{29}{section.5.5}%
-\contentsline {section}{\numberline {5.6}Slow-Fast-Koinzidenz}{29}{section.5.6}%
-\contentsline {section}{\numberline {5.7}Promptkurve}{29}{section.5.7}%
-\contentsline {chapter}{\numberline {6}Messung der Lebensdauerkurve}{33}{chapter.6}%
-\contentsline {section}{\numberline {6.1}SCA Fenster für $\ce {^133Ba}$ }{33}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Koinzidenzen kontrollieren}{33}{section.6.2}%
-\contentsline {chapter}{\numberline {7}Lebensdauermessung}{34}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Zeitkalibration}{34}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Lebensdauer eines angeregten $\ce {^133Cs}$ Zustands}{36}{section.7.2}%
-\contentsline {chapter}{\numberline {8}Fazit}{38}{chapter.8}%
-\contentsline {chapter}{\numberline {9}Anhang}{39}{chapter.9}%
-\contentsline {section}{\numberline {9.1}Aufbauskizzen}{39}{section.9.1}%
-\contentsline {section}{\numberline {9.2}Zerfallsschemata}{40}{section.9.2}%
-\contentsline {section}{\numberline {9.3}Fehlerfortpflanzungen}{41}{section.9.3}%
-\contentsline {section}{\numberline {9.4}zusätzliche Abbildungen}{41}{section.9.4}%
+\contentsline {section}{\numberline {5.5}Fast Koinzidenz}{31}{section.5.5}%
+\contentsline {section}{\numberline {5.6}Slow-Fast-Koinzidenz}{32}{section.5.6}%
+\contentsline {section}{\numberline {5.7}Promptkurve}{32}{section.5.7}%
+\contentsline {chapter}{\numberline {6}Messung der Lebensdauerkurve}{34}{chapter.6}%
+\contentsline {section}{\numberline {6.1}SCA Fenster für $\ce {^133Ba}$ }{34}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Koinzidenzen kontrollieren}{34}{section.6.2}%
+\contentsline {chapter}{\numberline {7}Lebensdauermessung}{35}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Zeitkalibration}{35}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Lebensdauer eines angeregten $\ce {^133Cs}$ Zustands}{37}{section.7.2}%
+\contentsline {chapter}{\numberline {8}Fazit}{39}{chapter.8}%
+\contentsline {chapter}{\numberline {9}Anhang}{40}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Aufbauskizzen}{40}{section.9.1}%
+\contentsline {section}{\numberline {9.2}Zerfallsschemata}{41}{section.9.2}%
+\contentsline {section}{\numberline {9.3}Fehlerfortpflanzungen}{42}{section.9.3}%
+\contentsline {section}{\numberline {9.4}zusätzliche Abbildungen}{42}{section.9.4}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
