@@ -1,3 +1,11 @@
 \chapter{Fazit}
 
 \todo{müsste man mal schreiben.}
+
+Es wurde anhand einer Fast-Slow-Koinzidenzmessung mit Nuclear Instument Modulen (NIMs) die Lebensdauer des $(\frac{5}{2}^+)$-Zustands von \caesium untersucht. Dazu wurden mithilfe von \na- und \ba-Quellen die einzelnen Teile des Schaltkreises für die Messung (siehe Abbildung \ref{fig:tikz/fast_slow_koinzidenz}) für beide Seiten des Aufbaus (mit jeweils einem der beiden NaI(Tl)-Szintillationsdetektoren) justiert und auf die Start- und Stopp-Photonen für die Koinzidenz mit den Energien $E_\text{Start}=\SI{356.0}{\kilo\eV}$ und $E_\text{Stopp}=\SI{81.0}{\kilo\eV}$ eingestellt.
+
+Als erstes wurden die Hoch- und Niedervolt-Versorgungsspannungen des Aufbaus kontrolliert. Hierbei fiel auf, dass die $\SI{-6}{\V}$ und $\SI{6}{\V}$ Anschlüsse der oberen Reihe nicht wie erwartet funktionierten, sondern vermutlich einen defekten Gleichrichter aufwiesen. Da diese für die verwendeten Module aber nicht gebraucht wurden, hatte dies keine Konsequenzen auf die weiteren Messungen.
+Anschließend wurden die Verstärkungen und Verzögerungen im Slow-Kreis angepasst, sowie die Fenster der SCAs auf die \na $\SI{}$
+
+
+Durch die Messung der Zeitdifferenzen der Signale der Start- und Stopp-Photonen konnte dann die Lebensdauerkurve (Abbildung \ref{fig:lifetime_plot}) des zu untersuchenden \caesium Zustands aufgenommen werden. Aus der Form der Kurve wurden dann die mittlere Lebensdauer und die Halbwertszeit als \input{../data/fits/lifetime.txt} bestimmt. Diese Halbwertszeit weicht vom Literaturwert um etwa eine halbe ns ab, ist damit aber in der korrekten Größenordnng. Bei Beachtung der systematischen Unsicherheiten des Systems wird aufgrund der endlichen Energieauflösung des Aufbaus klar, dass diese die Energie des Start-Photons nicht gut genug auflösen kann, um eine Unterscheidung zum ebenfalls als Zerfallskanal auftretenden Photon mit $E_\text{alt}=\SI{383.8}{\kilo\eV}$ zu ermöglichen. Dies erklärt die Überschätzung der mittleren Halbwertszeit und damit der Lebensdauer. Mit einer niedrigeren oberen SCA-Schwelle für das Startphoton könnte dieses Problem verbessert werden, dafür müsste die Messdauer erhöht werden.
