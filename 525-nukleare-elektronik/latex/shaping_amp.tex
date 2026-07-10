@@ -4,7 +4,8 @@ Der Hauptverstärker dient dazu, das Signal des Vorverstärkers (PMT) auf eine P
 
 Zur Pulsformung wird üblicherweise ein so genanntes \textit{CR-RC Netzwerk} genutzt. Dabei wird das Signal durch einen Tiefpass und einen Hochpassfilter gefiltert \cite[281]{leotechniques}.
 
-Es wird ein \texttt{ORTEC 572A Amplifier} genutzt, welcher diese Funktionen erfüllt \cite{shaping_amp}.
+Es wird ein \texttt{ORTEC 572A Amplifier} genutzt, welcher diese Funktionen erfüllt und dabei einen kontinuierlich variablen Verstärkungsfaktor von 0 bis 1500 des Eingangssignals liefert \cite{shaping_amp}.
 
+\section{Delay-Amplifier}
 
-\todo{kenngrößen der verwendeten geräte erwähnen}
+Es wird im Aufbau zusätzlich noch ein Delay-Amplifier verwendet, dabei handelt es sich um einen Verstärker nach dem Prinzip des Hauptverstärkers aber der einen Verstärkungsfaktor von 1 hat und zusätzlich das Signal zeitlich verzögert. Als Modell wird der \texttt{ORTEC 427A Delay-Amplifier} genutzt, der eine minimale Verzögerung von $\SI{60}{\nano\s}$ hat und bis zu $\SI{4.75}{\micro\s}$ verzögern kann \cite{delay_amp}.

@@ -8,19 +8,20 @@
 \contentsline {chapter}{\numberline {3}Einstellung der Slow-Kreise}{7}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Niedervolt-Versorgungsspannungen kontrollieren}{7}{section.3.1}%
 \contentsline {section}{\numberline {3.2}Hauptverstärker}{8}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Signalverteiler}{8}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Einkanalanalysator}{8}{section.3.4}%
-\contentsline {section}{\numberline {3.5}Mehrkanalanalysator}{9}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Gate-Delay-Generator}{9}{section.3.6}%
-\contentsline {section}{\numberline {3.7}Koinzidenzeinheit}{9}{section.3.7}%
-\contentsline {section}{\numberline {3.8}Slow Pulse}{9}{section.3.8}%
-\contentsline {section}{\numberline {3.9}Triggerung mit dem SCA}{10}{section.3.9}%
-\contentsline {section}{\numberline {3.10}Energiespektren}{14}{section.3.10}%
-\contentsline {section}{\numberline {3.11}Einkanalfenster für $\ce {^22Na}$ }{15}{section.3.11}%
-\contentsline {section}{\numberline {3.12}Slow-Koinzidenz}{16}{section.3.12}%
-\contentsline {chapter}{\numberline {4}Energiekalibration}{18}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Energieauflösung}{20}{section.4.1}%
-\contentsline {section}{\numberline {4.2}SCA Fenster}{20}{section.4.2}%
+\contentsline {section}{\numberline {3.3}Delay-Amplifier}{8}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Signalverteiler}{8}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Einkanalanalysator}{8}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Mehrkanalanalysator}{9}{section.3.6}%
+\contentsline {section}{\numberline {3.7}Gate-Delay-Generator}{9}{section.3.7}%
+\contentsline {section}{\numberline {3.8}Koinzidenzeinheit}{9}{section.3.8}%
+\contentsline {section}{\numberline {3.9}Slow Pulse}{9}{section.3.9}%
+\contentsline {section}{\numberline {3.10}Triggerung mit dem SCA}{10}{section.3.10}%
+\contentsline {section}{\numberline {3.11}Energiespektren}{14}{section.3.11}%
+\contentsline {section}{\numberline {3.12}Einkanalfenster für $\ce {^22Na}$ }{16}{section.3.12}%
+\contentsline {section}{\numberline {3.13}Slow-Koinzidenz}{18}{section.3.13}%
+\contentsline {chapter}{\numberline {4}Energiekalibration}{19}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Energieauflösung}{21}{section.4.1}%
+\contentsline {section}{\numberline {4.2}SCA Fenster}{21}{section.4.2}%
 \contentsline {chapter}{\numberline {5}Fast-Koinzidenzkreis}{29}{chapter.5}%
 \contentsline {section}{\numberline {5.1}Constant Fraction Discriminator}{29}{section.5.1}%
 \contentsline {section}{\numberline {5.2}Zeit-Pulshöhen-Konverter}{29}{section.5.2}%
@@ -36,9 +37,9 @@
 \contentsline {section}{\numberline {7.1}Zeitkalibration}{43}{section.7.1}%
 \contentsline {section}{\numberline {7.2}Lebensdauer eines angeregten $\ce {^133Cs}$ Zustands}{45}{section.7.2}%
 \contentsline {chapter}{\numberline {8}Fazit}{47}{chapter.8}%
-\contentsline {chapter}{\numberline {9}Anhang}{48}{chapter.9}%
-\contentsline {section}{\numberline {9.1}Aufbauskizzen}{48}{section.9.1}%
-\contentsline {section}{\numberline {9.2}Zerfallsschemata}{49}{section.9.2}%
-\contentsline {section}{\numberline {9.3}Fehlerfortpflanzungen}{50}{section.9.3}%
-\contentsline {section}{\numberline {9.4}zusätzliche Abbildungen}{50}{section.9.4}%
+\contentsline {chapter}{\numberline {9}Anhang}{49}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Aufbauskizzen}{49}{section.9.1}%
+\contentsline {section}{\numberline {9.2}Zerfallsschemata}{50}{section.9.2}%
+\contentsline {section}{\numberline {9.3}Fehlerfortpflanzungen}{51}{section.9.3}%
+\contentsline {section}{\numberline {9.4}zusätzliche Abbildungen}{51}{section.9.4}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
