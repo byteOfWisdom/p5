@@ -1,0 +1,40 @@
+\babel@toc {german}{}\relax 
+\contentsline {chapter}{\numberline {1}Einleitung}{3}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Hochspannung der Spektrometer}{4}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Funktionsweise der Teilchendetektoren}{4}{subsection.1.1.1}%
+\contentsline {subsubsection}{\nonumberline Szintillationsdetektor}{4}{subsubsection*.3}%
+\contentsline {subsubsection}{\nonumberline Photomultiplier-Röhre (PMT)}{5}{subsubsection*.4}%
+\contentsline {subsection}{\numberline {1.1.2}Messung der Hochspannung}{5}{subsection.1.1.2}%
+\contentsline {chapter}{\numberline {2}Einstellung der Slow-Kreise}{6}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Niedervolt-Versorgungsspannungen kontrollieren}{6}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Hauptverstärker}{7}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Signalverteiler}{7}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Einkanalanalysator}{7}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Mehrkanalanalysator}{8}{section.2.5}%
+\contentsline {section}{\numberline {2.6}Gate-Delay-Generator}{8}{section.2.6}%
+\contentsline {section}{\numberline {2.7}Slow Pulse}{8}{section.2.7}%
+\contentsline {section}{\numberline {2.8}Triggerung mit dem SCA}{9}{section.2.8}%
+\contentsline {section}{\numberline {2.9}Energiespektren}{12}{section.2.9}%
+\contentsline {section}{\numberline {2.10}Einkanalfenster für $\ce {^22Na}$ }{14}{section.2.10}%
+\contentsline {chapter}{\numberline {3}Energiekalibration}{15}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Energieauflösung}{16}{section.3.1}%
+\contentsline {section}{\numberline {3.2}SCA Fenster}{17}{section.3.2}%
+\contentsline {chapter}{\numberline {4}Fast-Koinzidenzkreis}{24}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Kontrolle der Fast Pulse}{24}{section.4.1}%
+\contentsline {section}{\numberline {4.2}CFD-Schwelle}{24}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Fast Koinzidenz}{25}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Slow-Fast-Koinzidenz}{26}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Promptkurve}{26}{section.4.5}%
+\contentsline {chapter}{\numberline {5}Messung der Lebensdauerkurve}{28}{chapter.5}%
+\contentsline {section}{\numberline {5.1}SCA Fenster für $\ce {^133Ba}$ }{28}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Koinzidenzen kontrollieren}{28}{section.5.2}%
+\contentsline {chapter}{\numberline {6}Lebensdauermessung}{29}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Zeitkalibration}{29}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Lebensdauer eines angeregten $\ce {^133Cs}$ Zustands}{30}{section.6.2}%
+\contentsline {chapter}{\numberline {7}Fazit}{33}{chapter.7}%
+\contentsline {chapter}{\numberline {8}Anhang}{34}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Aufbauskizzen}{34}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Zerfallsschemata}{35}{section.8.2}%
+\contentsline {section}{\numberline {8.3}Fehlerfortpflanzungen}{36}{section.8.3}%
+\contentsline {section}{\numberline {8.4}zusätzliche Abbildungen}{36}{section.8.4}%
+\providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
