@@ -1,6 +1,22 @@
 \chapter{Messung der Lebensdauerkurve}
 \section{SCA Fenster für \ba}
+Um die Lebensdauermessung des $\frac{5}{2}^+$ \caesium Zustandes durchführen zu müssen die SCA-Einkanalfenster angepasst werden, so dass der SCA der linken Seite (welche zum Starten genutzt wurde) die \startLine  Linie registriert und der rechte SCA die \81kev Linie registriert. Die Einstellung erfolgt wie bereits in \sec{sca-fenster} beschrieben. Auch die Bestimmung der Lage der Schwellen erfolgt auf die gleiche Weise. Die Schwellen für den linken SCA sind dann \input{../data/fits/links/ba_sca_edges.txt} mit einer Breite von \input{../data/fits/links/ba_sca_interval.txt}. Dies ist in \fig{links/sca_ba_window_fit} dargestellt, wobei die zugehörigen Anpassungsparameter in \tab{links_ba_sca_window.table} gelistet sind.
 
+Die Schwellen für den rechten SCA sind dann \input{../data/fits/rechts/ba_sca_edges.txt} mit einer Breite von \input{../data/fits/rechts/ba_sca_interval.txt}. Dies ist in \fig{rechts/sca_ba_window_fit} dargestellt, wobei die zugehörigen Anpassungsparameter in \tab{rechts_ba_sca_window.table} gelistet sind. Für beide Seiten sind die Anpassungsgüten sehr gut, was weiterhin zeigt, dass das gewählte Modell eine gute Beschreibung liefert.
+
+Die SCA Schwellen umschließen die gesuchten Linien jeweils relativ eng (vgl. Linienbreite, siehe Energiekalibration \sec{linienbreite}). Insbesondere beim linken SCA mit der \startLine Linie ist es wichtig, die \380kev Linie möglichst zu eliminieren, selbst wenn die Zählrate darunter leidet weil auch einige \startLine Photonen nicht im Fenster liegen. Dies kann aufgrund der Linienbreiten nie ganz erzielt werden. Die eingestellte Obergrenze ist allerdings sehr nah an der \380kev Linie, was während der Durchführung nicht exakt quantifizierbar war, allerdings die Qualität der Ablschließenden Ergebnisse vermutlich negativ beeinflusst.
+
+
+\jafpp{links/sca_ba_window_fit}{Ausschnitt des Spektrums und Anpassungsfunktion für den linken SCA für die \startLine \ba Linie}{rechts/sca_ba_window_fit}{Ausschnitt des Spektrums und Anpassungsfunktion für den rechten SCA für die \startLine \ba Linie.}
+
+\jaft{|c|c|}{links_ba_sca_window.table}{Anpassungsparameter des linken SCA für die \startLine \ba Linie.}
+\jaft{|c|c|}{rechts_ba_sca_window.table}{Anpassungsparameter des rechten SCA für die \startLine \ba Linie.}
 
 \section{Koinzidenzen kontrollieren}
+Nun werden die Koinzidenzen der beiden SCA kontrolliert und ggf. die Verzögerung an den SCA so angepasst, dass die Signale möglichst komplett zeitgleich liegen. Dies Wurde verifiziert. Es war keine Anpassung der Verzögerungen nötig. Zu sehen ist eine Aufnahme in \fig{sca_ba_coincidence}, wobei hier wieder nur der nicht triggernde Kanal aufgezeichnet wurde. Da auf eine steigende Flanke getriggert wurde, kann über den Zeitnullpunkt der Überlapp der Signale gezeigt werden.
 
+\jafpsh{sca_ba_coincidence}{Oszillogramm des Überlapps der beiden SCA Signale. Leider ist wieder nur der nicht triggernde Kanal aufgezeichnet. Durch den Zeitnullpunkt wird der Überlapp ersichtlich.}{0.75}
+
+Im Anschluss wird der Überlapp des GDG und TAC Signal verifiziert. Auch dieser ist gegeben. Die GDG Pulsdauer ist weiterhin größer als die des TAC und über den Zeitnullpunkt kann wiederum der Anfang des GDG Pulses bestimmt werden. Zu sehen in \fig{scope_tac_gdg_final}.
+
+Dann konnte die Lebensdauerkurve aufgenommen werden.

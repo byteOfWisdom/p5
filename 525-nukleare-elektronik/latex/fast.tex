@@ -6,10 +6,10 @@
 \section{Kontrolle der Fast Pulse}
 Der Aufbau zur Kontrolle der Fast-Pulse ist in \fig{tikz/fast_pulse_kontrolle} dargestellt.
 
-\jafpsh{tikz/fast_pulse_kontrolle}{Schaltplan zur Kontrolle der Fast Pulse}{0.75}
+\jafpsh{tikz/fast_pulse_kontrolle}{Schaltplan zur Kontrolle der Fast Pulse}{0.5}
 
 \subsection*{Linke Seite}
-\jafpsh{links/fast_pulse}{}{0.9}
+\jafpsh{links/fast_pulse}{}{0.75}
 
 Es werden die Pulse direkt hinter dem Fast-Ausgang des Detektors Oszilloskopiert. Zu sehen ist ein solcher Puls in \fig{links/fast_pulse}. Es fällt zunächst auf, dass dieser Puls negative Polarität hat, im Gegenteil zu den Slow-Pulsen, welche positive Polariät hatten. Des weiteren ist die Anstiegszeit\footnote{Hier ist das übliche 90/10 Kriterium gemeint, bei welchem der Zeitabstand zwischen $10\%$ und $90\%$ der maximalen Amplitude abgelesen wird} hier nun bei etwa $\SI{10(10)}{\nano\second}$\footnote{die geringe Genauigkeit liegt hierbei daran, dass nur eine Oszilloskopaufnahme mit relativ grober Zeitauflösung nicht fehlerhaft war.}.
 Die Amplitude des oszilloskopierten Fast-Signals liegt bei $\SI{-41(5)}{\milli\volt}$. Sie war representativ für andere Fast-Pulse, welche beobachtet wurden. Die Pulsdauer liegt bei $\SI{0.550(75)}{\micro\second}$. Verglichen mit den Slow-Pulsen (selbst hinter dem Pulsformenden Verstärker) sind diese Pulse eine Größenordnung kürzer und haben eine etwa $5$ mal kürzere Anstiegszeit. Abgesehen von der gegenteiligen Polarität ist außerdem die Amplitude deutlich kleiner als bei den Slow-Kreis Pulsen. Dies lässt sich nur schwer quantifizieren, da die Amplituden des Slow-Kreises stark schwanken (in Abhängigkeit der Energie), insgesamt ist der Betrag der Amplitude der Fast-Pulse aber deutlich kleiner. All diese Unterschiede sind zu erwarten, da nah weniger Verstärkerstufen im PMT abgegriffen wird, mit dem spezifischen zweck einer besseren Zeitauflösung.
@@ -47,8 +47,8 @@ genutzt. Dies dient lediglich als eine Stetige Stufe, mit veränderbarer Steigun
 Die Anpassungsparameter sind dann \input{../data/fits/links/cfd_edge_fit.txt}. Da die Schwelle nicht ganz scharf ist, äußert sich diese als rapide fallende Detektionseffizienz, im Bereich der Schwelle. Das gesamte \na Spektrum ist in \fig{links/na_cfd_spectrum} angehangen.
 In \fig{../data/fits/links/cfd_ba_spectrum} erkennt man daher, dass die $K_\alpha$ Linie eine sehr geringe Intensität aufweist.
 
-\jafpsh{links/cfd_edge}{Anpssung zur Bestimmung der linken CFD Schwelle, an die ersten $1500$ Kanäle.}{0.9}
-\jafpsh{../data/fits/links/cfd_ba_spectrum}{\ba Spektrum, aufgenommen mit der linken Seite mit CFD als Gate. Die Parameter der eingezeichneten Anpassungen sind in \todo{refrence} gelistet. Die angepassten Linien sind nur zu illustrationszwecken vldr. die $K_\alpha$, \81kev, \startLine und die \380kev Line. Dies kann anhand durch Vergleich mit \tab{links_energy_cal.table} gesehen werden.}{0.9}
+\jafpsh{links/cfd_edge}{Anpssung zur Bestimmung der linken CFD Schwelle, an die ersten $1500$ Kanäle.}{0.75}
+\jafpsh{../data/fits/links/cfd_ba_spectrum}{\ba Spektrum, aufgenommen mit der linken Seite mit CFD als Gate. Die Parameter der eingezeichneten Anpassungen sind in \todo{refrence} gelistet. Die angepassten Linien sind nur zu illustrationszwecken vldr. die $K_\alpha$, \81kev, \startLine und die \380kev Line. Dies kann anhand durch Vergleich mit \tab{links_energy_cal.table} gesehen werden.}{0.75}
 
 \jaftl{|c|c|c|c|c|}{../data/fits/links/cfd_ba_spectrum.table}{Anpassungsparameter zu \fig{../data/fits/links/cfd_ba_spectrum}}{cfd_ba_fits_links}
 
@@ -56,8 +56,8 @@ In \fig{../data/fits/links/cfd_ba_spectrum} erkennt man daher, dass die $K_\alph
 Die Beobachtungen und Einstellungen auf der rechten Seite waren weitesgehend gleich zu denen der Linken Seite. Der relevanteste Unterschied war das Funktionierende Potentiometer des rechten CFD, welches eine Einstellung ermöglichte. Die Oszilloskopierung\footnote{Bei der Speicherung wurden lediglich die ausgangssignale des GDG aufgezeichnet, die Beobachtung war aber vergleichbar mit der linken Seite.} der rechten Seite zeigte das gleiche Verhalten wie bei der linken Seite.
 Die Anpassungsparameter sind dann \input{../data/fits/rechts/cfd_edge_fit.txt}. Das gesamte \na Spektrum ist in \fig{rechts/na_cfd_spectrum} angehangen.
 Auch hier ekennt man in \fig{../data/fits/rechts/cfd_ba_spectrum} dass die $K_\alpha$ Linie eine geringe relative Intensität aufweist, verglichen mit dem mit SCA aufgenommenen Energiespektrum.
-\jafpsh{rechts/cfd_edge}{Anpssung zur Bestimmung der rechten CFD Schwelle, an die ersten $1500$ Kanäle.}{0.9}
-\jafpsh{../data/fits/rechts/cfd_ba_spectrum}{\ba Spektrum, aufgenommen mit der rechten Seite mit CFD als Gate. Die Parameter der eingezeichneten Anpassungen sind in \tab{cfd_ba_fits_rechts} gelistet. Die angepassten Linien sind nur zu illustrationszwecken vldr. die $K_\alpha$, \81kev, \startLine und die \380kev Line. Dies kann anhand durch Vergleich mit \tab{rechts_energy_cal.table} gesehen werden.}{0.9}
+\jafpsh{rechts/cfd_edge}{Anpssung zur Bestimmung der rechten CFD Schwelle, an die ersten $1500$ Kanäle.}{0.75}
+\jafpsh{../data/fits/rechts/cfd_ba_spectrum}{\ba Spektrum, aufgenommen mit der rechten Seite mit CFD als Gate. Die Parameter der eingezeichneten Anpassungen sind in \tab{cfd_ba_fits_rechts} gelistet. Die angepassten Linien sind nur zu illustrationszwecken vldr. die $K_\alpha$, \81kev, \startLine und die \380kev Line. Dies kann anhand durch Vergleich mit \tab{rechts_energy_cal.table} gesehen werden.}{0.75}
 Die rechte CFD Schwelle liegt deutlich niedriger, daher wird im weiteren der rechte Kreis als Stopsignal genutzt, um die bessere Detektionseffizienz bei kleineren Energien auszunutzen. Es macht keinen Sinn in das Spekrum zu schneiden, da dies lediglich die Detektionseffizienz der relevanten Linien reduzieren würde. Die Filterung der Energien wird durch den Slow-Kreis übernommen.
 
 \jaftl{|c|c|c|c|c|}{../data/fits/rechts/cfd_ba_spectrum.table}{Anpassungsparameter zu \fig{../data/fits/rechts/cfd_ba_spectrum}}{cfd_ba_fits_rechts}
@@ -68,23 +68,29 @@ Nun wird die Koinzidenz der beiden Fast-Signale zueinander eingestellt und über
 Der Aufbau um die Fast-Kreis Koinzidenz zu einzustellen und zu überprüfen ist in \fig{tikz/fast_koinzidenz} abgebildet.
 Wie im letzten Abschnitt erwähnt wurde entschieden, den rechten Detektor für das Stop-Signal zu nutzen, daher wurde dieser über den $\unit{\nano\second}$ Delay geleitet. Die Auflösungszeit des TAC ist auf $\SI{100}{\nano\second}$ eingestellt und stellt somit die obere Grenze für den sinnvollen zeitlichen Abstand da. Damit später viel Spielraum zur Verfügung steht sollte der Versatz zunächst möglichst klein eingestellt werden. Dabei muss allerdings sichergestellt sein, dass das Stop-Signal immer nach dem Start-Signal eintrifft. Hierzu wurden die Signale Oszilloskopiert.
 
-Bei einer eingestellten Verzögerung von $\SI{0}{\nano\second}$, zu sehen in \fig{fast_koinzidenz_pre}, trafen die Stopsignale zwischen $\SIrange{-0.5(1)}{11(1)}{\nano\second}$ nach den Startsignalen ein. Somit war allerdings nicht zuverlässig nach dem Startsignal. Daher wurden $\SI{8}{\nano\second}$ als zusätzliche Verzögerung hinzugeschaltet. Dies ist in \fig{fast_koinzidenz_post} dargestellt. Mit dieser Einstellung trafen die Stopsignale $\SIrange{6(1)}{18(1)}{\nano\second}$ nach den Startsignalen ein. Im Rahmen der Ablesegenauigkeit wurde das Signal also um $\SI{8}{\nano\second}$ verzögert. Diese Einstellung wurde im weiteren als Standard verwendet. Ein Oszillogramm, auf dem beide Kanäle zu sehen sind wurde uns zur verfügung gestellt \todo{CITE THIS OMG CITE THIS PLS DO NOT FUCKIGN FORGET THAT} und ist in \fig{provided/Fast_Koinz} zu sehen.
+Bei einer eingestellten Verzögerung von $\SI{0}{\nano\second}$, zu sehen in \fig{fast_koinzidenz_pre}, trafen die Stopsignale zwischen $\SIrange{-0.5(1)}{11(1)}{\nano\second}$ nach den Startsignalen ein. Somit war allerdings nicht zuverlässig nach dem Startsignal. Daher wurden $\SI{8}{\nano\second}$ als zusätzliche Verzögerung hinzugeschaltet. Dies ist in \fig{fast_koinzidenz_post} dargestellt. Mit dieser Einstellung trafen die Stopsignale $\SIrange{6(1)}{18(1)}{\nano\second}$ nach den Startsignalen ein. Im Rahmen der Ablesegenauigkeit wurde das Signal also um $\SI{8}{\nano\second}$ verzögert. Diese Einstellung wurde im weiteren als Standard verwendet. Ein Oszillogramm, auf dem beide Kanäle zu sehen sind wurde uns zur verfügung gestellt\cite{oszidata} und ist in \fig{provided/Fast_Koinz} zu sehen.
 Die Signale aus den CFD haben eine Amplitude von $\SI{-0.8(1)}{\volt}$ und eine Breite von $\SI{12(3)}{\nano\second}$.
 
 \jafps{tikz/fast_koinzidenz}{Schaltplan zur Überprüfung und Einstellung der Koinzidenz der Fast-Signale zueinander.}{0.75}
 
 \jafpp{fast_koinzidenz_pre}{Oszillogramme der Fast-Koinzidenz. Hierbei wurde nur der nicht Triggernde Kanal gespeichert. In der Form hatten sich die Kanäle nicht unterschieden. Am Nullpunkt der Zeit ist die Steigende Flanke von Kanal 2 zu erkennen, an welcher getriggert wurde. Die Oszillogramme sind mit einer ns-Delay einstellung von $\SI{0}{\nano\second}$}{fast_koinzidenz_post}{nach Einstellung des Delay auf $\SI{8}{\nano\second}$ aufgenommen.}
 
-\jafps{provided/Fast_Koinz}{Bereitgestellte Aufnahme \todo{CITE THIS}, mit beiden Kanälen sichtbar}{0.75}
+\jafps{provided/Fast_Koinz}{Bereitgestellte Aufnahme\cite{oszidata} der Fast-Koinzidenz eines anderen Aufbaus, mit beiden Kanälen sichtbar}{0.75}
 
 
 \section{Slow-Fast-Koinzidenz}
+\jafpsh{tikz/fast_slow_koinzidenz}{}{0.75}
 Der Aufbau um die Koinzidenz von Slow und Fast Kreis zu überprüfen und ggf. zu Korrigieren ist in \fig{tikz/fast_slow_koinzidenz} abgebildet.
-\jafps{tikz/fast_slow_koinzidenz}{}{0.75}
-\todo{fast-slow koinzidenz}
-\todo{signale beschreiben}
+Hierbei wird der GDG so eingestellt, dass das TAC Signal ganz mit dem TAC Signal überlappt. Ein Oszillogramm nach erfolgter einstellung des GDG, mit auch hier nur dem nicht triggernden Kanal, ist in \fig{fast_slow} zu sehen. Hierbei wird an der Steigenden Flanke des GDG Signals getriggert. Dieses Markiert also den Nullpunkt der Zeitachse. Weiterhin kann man in \fig{fast_slow_photo} diese Messung auf dem Oszilloskop erkennen. Hier ist die Überlagerung der Signale relativ gut\footnote{Für ein zufälliges Foto des Aufbaus} zu erkennen. Ein Refernzoszillogramm, eines anderen Aufbaus, mit beiden Kanälen wurde uns zur Verfügung gestellt und ist in \fig{provided/Fast-Slow-Koinz_2_mit_Delay} zu sehen. Die Signale aus dem TAC sind leicht verzerrte Rechteckpulse mit Variablen Amplituden, wobei sich das Signal beim Anstieg und Abfall, jeweils bei Annäherung an das zu erreichende niveau, Flacher wird. Die Pulsdauer dese TAC liegt bei $\SI{1.0(2)}{\micro\second}$, was der minimal einstellbaren Pulsdauer des TAC entspricht\cite{tac}. Die Amplituden der Aufgezeichneten Signale liegt bei $\SIrange{0.8}{1.4}{\volt}$, was im unteren Teil der möglichen TAC Amplituden von $\SIrange{0}{10}{\volt}$ liegt. Da die Aufzeichnung mit der \na Quelle durchgeführt wurde erscheint dies Sinnvoll, da die Signale eine Zeitdifferenz von nahe Null haben sollten.
+
+Der GDG emittiert weiterhin ein Rechtecksignal mit ca. $\SI{5}{\volt}$ und einer Dauer, von mehr als der des TAC Pulses. In der Durchführung wurde der GDG Puls auf eine Dauer eingestellt, welche etwas größer als die in \fig{provided/Fast-Slow-Koinz_2_mit_Delay} zu erkennende ist. Dies kann in \fig{fast_slow_photo} anekdotisch erkannt werden.
+
+\jafpsh{fast_slow}{Oszillogram nach Einstellung de GDG. Getrigget an der steigenden Flanke des GDG Signals auf Kanal 2, dieses Fehlt in der Aufnahme, definiert aber den Zeitnullpunkt.}{0.75}
+\jafpsh{provided/Fast-Slow-Koinz_2_mit_Delay}{Zur Verfügung gestellte Referenzaufnahme der Fast-Slow-Koinzidenzeinstellung eines anderen Aufbaus\cite{oszidata}}{0.75}
+
 
 \section{Promptkurve}
-\todo{wie entsteht promptkurve}
-\todo{warum natrium?}
+\jafpsh{tikz/promptkurve}{Aufbau zur Messung der Promptkurve}{0.75}
+
+Nun wird mit der \na Quelle und dem in \fig{tikz/promptkurve} gezeigten Aufbau eine Promptkurve aufgenommen, welche später zu Zeitkalibration genutzt wird. Es muss die \na Quelle verwendet werden, damit Ereignisse, die Zeitgleich in beiden Detektoren ankommen zur Verfügung stehen\footnote{Und weil die SCA-Einkanalfenster auf die \511kev Linie der \na Quelle eingestellt sind}. Die Promptkurve entsteht aus statistischen Schwankungen im Messaufbau, welche die eigentlich Punktförmige Zeitdifferenz Gaußförmig aufweiten. Es werden in der gleichen Messung mehrere Einstellungen des ns-Delay mit jeweils $\SI{16}{\nano\second}$ Abstand aufgezeichnet.
 

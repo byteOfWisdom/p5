@@ -34,6 +34,7 @@ Die wurde für die rechte Seite wiederholt. Die Spektren sind in \fig{rechts/na_
 
 
 \section{Energieauflösung}
+\label{sec:linienbreite}
 \subsection*{Linke Seite}
 Als Maß für die Energieauflösung wird die Halbwertsbreite (FWHM) der Linien genutzt. Hierzu werden nur die zugeordneten Photopeaks genutzt, da bei diesen davon ausgegangen werden kann, dass die intrinsische Linienbreite hinreichend klein ist um keinen relevanten Einfluss zu haben. Die Halbwertsbreite ergibt sich als $\text{FWHM} = \sigma \cdot \sqrt{8 \ln{2}}$ \cite[8]{ex_techniques}. Die Umrechnung auf Energien erfolgt durch Multiplikation mit der Steigung der Gradenanpassung der Energiekalibration. Die Unsicherheiten werden mit \eq{lin_err} berechnet. Die FWHM in Bins, sowie Energie sind in \tab{energy_fwhm_links} aufgelistet, und in \fig{links/energy_res_plot} gegen die Energien aufgetragen. Man erkennt klar, dass bei größeren Energien die Linienbreite zunimmt. Dies sorgt dafür, dass das Startsignal bei der späteren Lebensdauermessung deutlich mehr Photonen falscher Energien registriert als das Stopsignal.
 
@@ -46,6 +47,7 @@ Die Halbwertsbreiten der Linien sind wie bei der anderen Seite berechnet und in 
 \jaftl{|c|c|c|c|}{rechts_energy_fwhm.table}{Halbwertsbreiten des rechten Szintillators}{energy_fwhm_rechts}
 
 \section{SCA Fenster}
+\label{sec:sca-fenster}
 \subsection*{Linke Seite}
 Die genaue Lage der SCA Schwellen wird aus dem Spektrum mit eingestellten Schwellen entnommen, indem an das Spektrum eine Gaußkurve multipliziert mit zwei Errorfunktionen, eine für die steigende, eine für die fallende Kante, angepasst wird. Die funktion, welche angepasst wird ist dann
 
